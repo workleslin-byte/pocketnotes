@@ -1,0 +1,16 @@
+# Brand source documents — keep private
+copy/
+PRODUCT.md
+
+# Internal scratch
+.extract/
+
+# Backups
+*.bak
+
+# macOS
+.DS_Store
+
+# Editor metadata
+.vscode/
+.idea/

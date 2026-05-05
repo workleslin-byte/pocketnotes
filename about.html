@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About — Pocket Notes</title>
+<meta name="description" content="The story behind Pocket Notes. Small grid notebooks made in India for people who write because they need to — and eight things we won't compromise on."/>
+<link rel="canonical" href="https://pocketnotes.in/about"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='8' y='4' width='18' height='24' rx='2' fill='%23FAF3E3' stroke='%231A1612' stroke-width='2.5'/%3E%3Crect x='6' y='4' width='4' height='24' fill='%23F5C13D' stroke='%231A1612' stroke-width='2.5'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "About Pocket Notes",
+  "description": "The story behind Pocket Notes — small grid notebooks made in India.",
+  "url": "https://pocketnotes.in/about",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pocket Notes",
+    "url": "https://pocketnotes.in"
+  }
+}
+</script>
+
+<style>
+  :root {
+    --cream:    #FAF3E3;
+    --bone:     #F1E7CE;
+    --paper:    #ECE0BE;
+    --ink:      #1A1612;
+    --ink-soft: #3D342A;
+    --mustard:  #F5C13D;
+    --coral:    #FF6B47;
+    --sage:     #8FB89C;
+    --sky:      #5BA8C9;
+    --plum:     #6E3582;
+    --pink:     #F26A8D;
+    --olive:    #2C2A20;
+    --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+    --spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+    --gut:      5vw;
+    --max:      1280px;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  html, body { overflow-x: hidden; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    cursor: none;
+  }
+
+  ::selection { background: var(--mustard); color: var(--ink); }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ─── CURSOR (original dot + ring) ─── */
+  .cursor-dot, .cursor-ring {
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-dot {
+    width: 8px; height: 8px;
+    background: var(--ink);
+    transition: width .2s var(--ease), height .2s var(--ease), background .2s var(--ease);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--ink);
+    transition: width .3s var(--ease), height .3s var(--ease), border-color .25s, background .25s;
+  }
+  .cursor-ring.hover {
+    width: 80px; height: 80px;
+    background: var(--mustard);
+    border-color: var(--mustard);
+    mix-blend-mode: multiply;
+  }
+  @media (max-width: 900px) {
+    body { cursor: default; }
+    .cursor-dot, .cursor-ring { display: none; }
+  }
+
+  /* ─── NAV ─────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    z-index: 200;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 1.5rem;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 999px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: inherit;
+  }
+  .nav-logo-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--mustard);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+  }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+  .nav-links a {
+    color: var(--bone);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color .25s var(--ease);
+    cursor: none;
+  }
+  .nav-links a:hover { color: var(--mustard); }
+  .nav-links a.active { color: var(--mustard); }
+  .nav-links a.active::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: var(--mustard);
+    margin-top: 2px;
+  }
+  .nav-cta {
+    background: var(--mustard);
+    color: var(--ink);
+    padding: 0.5rem 1.2rem;
+    border-radius: 999px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: background .25s var(--ease);
+    cursor: none;
+  }
+  .nav-cta:hover { background: var(--coral); color: var(--cream); }
+
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 0.4rem;
+    cursor: pointer;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--cream);
+    border-radius: 2px;
+    transition: transform .35s var(--ease), opacity .25s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-mobile-menu {
+    position: fixed;
+    inset: 0;
+    background: var(--ink);
+    z-index: 190;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .35s var(--ease);
+  }
+  .nav-mobile-menu.open { opacity: 1; pointer-events: all; }
+  .nav-mobile-menu a {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    font-weight: 900;
+    color: var(--cream);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    transition: color .2s;
+  }
+  .nav-mobile-menu a:hover { color: var(--mustard); }
+
+  /* ─── HERO ─────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    padding: 8rem var(--gut) 4rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--ink-soft);
+  }
+  .hero-eyebrow::before { content: ''; width: 40px; height: 1px; background: var(--ink); }
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(4rem, 13vw, 14rem);
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    margin-bottom: 2rem;
+  }
+  .hero-title .word {
+    display: inline-block;
+    transition: transform .4s var(--ease), color .3s;
+  }
+  .hero-title .word:hover { transform: rotate(-3deg) scale(1.05); color: var(--coral); }
+  .hero-title em { font-style: italic; font-weight: 400; color: var(--coral); }
+  .hero-meta {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: end;
+    margin-top: 2rem;
+  }
+  .hero-blurb {
+    max-width: 460px;
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .hero-blurb strong { background: var(--mustard); padding: 0 0.3em; font-weight: 500; }
+  .hero-stamp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .hero-stamp svg { width: 80px; height: 80px; animation: spin 18s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .float {
+    position: absolute;
+    pointer-events: none;
+    animation: bob 6s ease-in-out infinite;
+  }
+  .float:nth-child(1) { animation-delay: 0s; }
+  .float:nth-child(2) { animation-delay: -2s; }
+  .float:nth-child(3) { animation-delay: -4s; }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+    50%      { transform: translateY(-18px) rotate(calc(var(--rot, 0deg) + 5deg)); }
+  }
+  .float-1 { top: 12%; right: 8%; --rot: -8deg; }
+  .float-2 { top: 55%; right: 22%; --rot: 12deg; }
+  .float-3 { bottom: 8%; right: 6%; --rot: -3deg; }
+
+  /* ─── MARQUEE ─────────────────────────────── */
+  .marquee {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 1.4rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+  .marquee-track {
+    display: inline-flex;
+    gap: 3rem;
+    align-items: center;
+    animation: marquee 28s linear infinite;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 2rem;
+    font-weight: 400;
+  }
+  .marquee-track .star { color: var(--mustard); font-style: normal; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ─── FOUNDER NOTE ─────────────────────────────── */
+  .founder {
+    padding: 8rem var(--gut);
+    background: var(--bone);
+    position: relative;
+    overflow: hidden;
+  }
+  .founder-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .founder-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    color: var(--coral);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .founder-eyebrow::before { content: ''; width: 30px; height: 1px; background: var(--coral); }
+  .founder-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 3rem;
+  }
+  .founder-title em { font-style: italic; font-weight: 400; color: var(--plum); }
+  .founder-body {
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .founder-body p { margin-bottom: 1.4rem; }
+  .founder-body p.lede {
+    font-size: 1.45rem;
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+  .founder-signature {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(26,22,18,0.15);
+  }
+  .founder-signature .name {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    display: block;
+    color: var(--plum);
+    margin-bottom: 0.3rem;
+  }
+  .founder-signature .role {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    opacity: 0.7;
+  }
+  .founder-deco {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.15;
+    z-index: 1;
+  }
+  .founder-deco-1 { top: 8%; right: 5%; transform: rotate(8deg); }
+  .founder-deco-2 { bottom: 6%; left: 4%; transform: rotate(-12deg); }
+
+  /* ─── PHILOSOPHY ─────────────────────────────── */
+  .philosophy {
+    background: var(--plum);
+    color: var(--cream);
+    padding: 8rem var(--gut);
+    position: relative;
+    overflow: hidden;
+  }
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    margin-bottom: 5rem;
+    gap: 2rem;
+  }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .section-label::before { content: ''; width: 28px; height: 1px; background: currentColor; opacity: 0.5; }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+  .section-title em { font-style: italic; font-weight: 400; color: var(--plum); }
+  .section-aside { font-size: 1.05rem; max-width: 360px; line-height: 1.55; }
+  .philosophy .section-label, .philosophy .section-aside { color: var(--bone); }
+  .philosophy .section-title em { color: var(--mustard); }
+
+  .philo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem 3rem;
+    margin-top: 4rem;
+    position: relative;
+    z-index: 2;
+  }
+  .philo-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .philo-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 4rem;
+    line-height: 0.9;
+    color: var(--mustard);
+  }
+  .philo-content h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    line-height: 1.15;
+  }
+  .philo-content p { color: var(--bone); line-height: 1.6; opacity: 0.9; }
+  .philo-deco { position: absolute; pointer-events: none; opacity: 0.18; }
+  .philo-deco-1 { top: 10%; right: -3%; transform: rotate(15deg); }
+  .philo-deco-2 { bottom: 8%; left: -2%; transform: rotate(-10deg); }
+
+  /* ─── MANIFESTO ─────────────────────────────── */
+  .manifesto {
+    padding: 8rem var(--gut);
+    background: var(--cream);
+  }
+  .manifesto-inner { max-width: var(--max); margin: 0 auto; }
+  .manifesto-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    margin-bottom: 5rem;
+    gap: 2rem;
+  }
+  .manifesto-head .section-title em { color: var(--coral); }
+  .manifesto-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem 4rem;
+  }
+  .manifesto-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.2rem;
+    align-items: start;
+  }
+  .manifesto-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--coral);
+    padding-top: 0.4rem;
+  }
+  .manifesto-content h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .manifesto-content h3 a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color .2s var(--ease), color .2s var(--ease);
+    cursor: none;
+  }
+  .manifesto-content h3 a:hover { color: var(--coral); border-bottom-color: var(--coral); }
+  .manifesto-content h3 em { font-style: italic; font-weight: 400; color: var(--plum); }
+  .manifesto-content p { color: var(--ink-soft); line-height: 1.55; opacity: 0.85; }
+  .manifesto-content .essay-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--coral);
+    text-decoration: none;
+    cursor: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.6rem;
+    transition: color .2s;
+  }
+  .manifesto-content .essay-link:hover { color: var(--ink); }
+
+  /* ─── CTA STRIP ─────────────────────────────── */
+  .strip {
+    background: var(--mustard);
+    padding: 6rem var(--gut);
+    position: relative;
+    overflow: hidden;
+  }
+  .strip-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+  .strip-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 0.95; letter-spacing: -0.03em; }
+  .strip-title em { font-style: italic; font-weight: 400; color: var(--plum); }
+  .strip-action { display: flex; flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+  .strip-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--ink);
+    color: var(--cream);
+    text-decoration: none;
+    padding: 1.3rem 2.2rem;
+    border-radius: 999px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: none;
+    transition: transform .25s var(--ease), background .25s var(--ease);
+  }
+  .strip-button:hover { transform: translateX(8px); background: var(--coral); }
+  .strip-button .arrow { transition: transform .25s var(--ease); }
+  .strip-button:hover .arrow { transform: translateX(4px) rotate(-45deg); }
+  .strip-deco { position: absolute; right: -50px; bottom: -50px; opacity: 0.2; pointer-events: none; }
+
+  /* ─── FOOTER ─────────────────────────────── */
+  footer { background: var(--ink); color: var(--cream); padding: 5rem var(--gut) 2rem; }
+  .footer-inner { max-width: var(--max); margin: 0 auto; }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+  }
+  .footer-brand-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(2rem, 3.6vw, 2.8rem); line-height: 1; letter-spacing: -0.04em; margin-bottom: 1rem; }
+  .footer-brand-title em { font-style: italic; font-weight: 400; color: var(--mustard); }
+  .footer-brand p { color: var(--bone); opacity: 0.7; max-width: 32ch; font-size: 0.95rem; }
+  .footer-col h4 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mustard); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col a { color: var(--bone); text-decoration: none; font-size: 0.92rem; transition: color .2s; cursor: none; opacity: 0.8; }
+  .footer-col a:hover { color: var(--mustard); opacity: 1; }
+  .footer-bottom {
+    border-top: 1px solid rgba(241,231,206,0.15);
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.55;
+  }
+
+  /* ─── RESPONSIVE ─────────────────────────────── */
+  @media (max-width: 900px) {
+    nav { padding: 0.7rem 1rem; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .nav-cta { display: none; }
+    .hero { padding: 7rem 6vw 3rem; }
+    .hero-meta { grid-template-columns: 1fr; gap: 2rem; }
+    .float { display: none; }
+    .section-head, .manifesto-head { grid-template-columns: 1fr; }
+    .philo-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .manifesto-list { grid-template-columns: 1fr; gap: 2.5rem; }
+    .founder { padding: 6rem 6vw; }
+    .founder-body { font-size: 1.1rem; }
+    .founder-body p.lede { font-size: 1.2rem; }
+    .strip-content { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 0.8rem; }
+    .marquee-track { font-size: 1.4rem; gap: 2rem; }
+  }
+
+  /* ─── REVEAL ─────────────────────────────── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ─── REDUCED MOTION ─────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div class="nav-mobile-menu" id="navMobileMenu" role="dialog" aria-label="Navigation menu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="shop.html">Shop</a>
+  <a href="blog.html">Essays</a>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-dot"></span>
+    <span>Pocket Notes</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="blog.html">From the notebook</a></li>
+  </ul>
+  <a href="shop.html" class="nav-cta">Carry the method ↗</a>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ─── HERO ────────────────────────────────────── -->
+<section class="hero">
+
+  <div class="float float-1" aria-hidden="true">
+    <svg width="196" height="252" viewBox="0 0 140 180" xmlns="http://www.w3.org/2000/svg">
+      <rect x="40" y="40" width="60" height="110" fill="#F5C13D" stroke="#1A1612" stroke-width="3"/>
+      <polygon points="40,150 100,150 70,180" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
+      <polygon points="55,165 85,165 70,180" fill="#1A1612"/>
+      <rect x="40" y="20" width="60" height="20" fill="#FF6B47" stroke="#1A1612" stroke-width="3"/>
+      <rect x="40" y="32" width="60" height="8" fill="#1A1612"/>
+      <line x1="55" y1="78" x2="85" y2="78" stroke="#1A1612" stroke-width="2" opacity="0.5"/>
+      <line x1="55" y1="92" x2="85" y2="92" stroke="#1A1612" stroke-width="2" opacity="0.5"/>
+      <line x1="55" y1="106" x2="75" y2="106" stroke="#1A1612" stroke-width="2" opacity="0.5"/>
+    </svg>
+  </div>
+
+  <div class="float float-2" aria-hidden="true">
+    <svg width="126" height="126" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+      <path d="M45 5 L52 35 L82 38 L58 55 L66 84 L45 67 L24 84 L32 55 L8 38 L38 35 Z"
+            fill="#F26A8D" stroke="#1A1612" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="45" cy="48" r="6" fill="#1A1612"/>
+    </svg>
+  </div>
+
+  <div class="float float-3" aria-hidden="true">
+    <svg width="182" height="168" viewBox="0 0 130 120" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 95 Q65 105 115 95 L115 105 Q65 115 15 105 Z" fill="#1A1612" opacity="0.15"/>
+      <path d="M10 25 Q30 20 65 30 L65 95 Q30 90 10 95 Z" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
+      <path d="M120 25 Q100 20 65 30 L65 95 Q100 90 120 95 Z" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
+      <line x1="20" y1="45" x2="55" y2="48" stroke="#5BA8C9" stroke-width="2"/>
+      <line x1="20" y1="55" x2="55" y2="58" stroke="#5BA8C9" stroke-width="2"/>
+      <line x1="20" y1="65" x2="50" y2="68" stroke="#5BA8C9" stroke-width="2"/>
+      <line x1="75" y1="48" x2="110" y2="45" stroke="#5BA8C9" stroke-width="2"/>
+      <line x1="75" y1="58" x2="110" y2="55" stroke="#5BA8C9" stroke-width="2"/>
+      <path d="M78 70 Q85 65 90 72 T100 70" stroke="#FF6B47" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <p class="hero-eyebrow">About · The story · The method</p>
+  <h1 class="hero-title">
+    <span class="word">Built to</span>
+    <span class="word">think.</span><br>
+    <span class="word"><em>Made for</em></span>
+    <span class="word"><em>thinkers.</em></span>
+  </h1>
+  <div class="hero-meta">
+    <p class="hero-blurb">
+      A decade of writing, stacks of notebooks, and one persistent question: why is the right notebook so hard to find? <strong>So we made it.</strong>
+    </p>
+    <div class="hero-stamp" aria-hidden="true">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <path id="circle" d="M 50, 50 m -38, 0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"/>
+        </defs>
+        <text font-family="DM Mono, monospace" font-size="9" letter-spacing="2" fill="#1A1612">
+          <textPath href="#circle">SCROLL · TO · BEGIN · SCROLL · TO · BEGIN · </textPath>
+        </text>
+        <circle cx="50" cy="50" r="10" fill="#F5C13D" stroke="#1A1612" stroke-width="2"/>
+        <text x="50" y="54" text-anchor="middle" font-size="14" fill="#1A1612">↓</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MARQUEE ─────────────────────────────────── -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Catch the spark</span><span class="star">✦</span>
+    <span>Carry the method</span><span class="star">✦</span>
+    <span>Ideas don't wait</span><span class="star">✦</span>
+    <span>Two lines · every day</span><span class="star">✦</span>
+    <span>Made in India</span><span class="star">✦</span>
+    <span>Small Books, Big Ideas</span><span class="star">✦</span>
+    <span>Catch the spark</span><span class="star">✦</span>
+    <span>Carry the method</span><span class="star">✦</span>
+    <span>Ideas don't wait</span><span class="star">✦</span>
+    <span>Two lines · every day</span><span class="star">✦</span>
+    <span>Made in India</span><span class="star">✦</span>
+    <span>Small Books, Big Ideas</span><span class="star">✦</span>
+  </div>
+</div>
+
+<!-- ─── FOUNDER'S NOTE ────────────────────────────────── -->
+<section class="founder" id="founder">
+  <div class="founder-deco founder-deco-1" aria-hidden="true">
+    <svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 90 Q60 30 100 90 T170 90" stroke="#1A1612" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M20 110 Q60 50 100 110 T170 110" stroke="#1A1612" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M20 130 Q60 70 100 130 T170 130" stroke="#1A1612" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="founder-deco founder-deco-2" aria-hidden="true">
+    <svg width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="80" cy="80" r="70" fill="none" stroke="#1A1612" stroke-width="2" stroke-dasharray="4 8"/>
+      <line x1="80" y1="20" x2="80" y2="140" stroke="#1A1612" stroke-width="2"/>
+      <line x1="20" y1="80" x2="140" y2="80" stroke="#1A1612" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <div class="founder-inner reveal">
+    <p class="founder-eyebrow">Founder's note</p>
+    <h2 class="founder-title">I built the notebook<br>I <em>couldn't find.</em></h2>
+
+    <div class="founder-body">
+      <p class="lede">Somewhere around 19, bored in an engineering lecture on Gaussian noise, I started writing in the margins.</p>
+
+      <p>Not notes — poems. The kind that arrive sideways, unexpected, while someone at the front of the room is explaining stochastic processes to students who are mostly trying to stay awake. I had a notebook — spiral-bound, graph paper, the kind the college bookshop sold in bulk — and I wrote in the margins, around the equations, filling the white space with lines I would never show anyone.</p>
+
+      <p>I kept doing that. Long after the engineering was over, long after the career that followed it was over too. Notebooks accumulated. A journal for the days. A reading log for the books. A commonplace book for lines worth keeping. A memo pad for the immediate and forgettable.</p>
+
+      <p>And then one notebook I called the Corebook — not because I planned it, but because it became the place where I wrote the things I actually believed. The things I came back to when I'd lost the thread. A compass disguised as a notebook. Any time I feel lost, I go there. Paper has a way of making the fog visible, which is the first step toward clearing it.</p>
+
+      <p>The blogging came later. Confidence came slowly, then all at once, in the way things sometimes do when you've been quietly practising for years without realising it. Writing became the work. The notebooks were always the backstage.</p>
+
+      <p>I made Pocketnotes because I kept not finding what I needed. Small enough to carry without thinking about it. A grid that doesn't dictate, just orients. Paper that doesn't bleed through or buckle. Nothing precious about it — precious notebooks don't get used, they get displayed.</p>
+
+      <p>These aren't for people who want to look like writers. They're for people who write because they can't quite stop, even when it's inconvenient, even when no one's watching, even when they're just scribbling in the margins of something else entirely.</p>
+    </div>
+
+    <div class="founder-signature">
+      <span class="name">Leslin K. Seemon</span>
+      <span class="role">Founder · Pocket Notes</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PHILOSOPHY (Catch·Clarify·Compound) ──────────────────────────────── -->
+<section class="philosophy" id="method">
+  <div class="philo-deco philo-deco-1" aria-hidden="true">
+    <svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="110" cy="110" r="100" fill="none" stroke="#FAF3E3" stroke-width="3" stroke-dasharray="4 8"/>
+      <circle cx="110" cy="110" r="60" fill="#F5C13D"/>
+      <line x1="110" y1="60" x2="110" y2="160" stroke="#1A1612" stroke-width="3" opacity="0.7"/>
+      <line x1="60" y1="110" x2="160" y2="110" stroke="#1A1612" stroke-width="3" opacity="0.7"/>
+      <circle cx="110" cy="110" r="6" fill="#1A1612"/>
+    </svg>
+  </div>
+  <div class="philo-deco philo-deco-2" aria-hidden="true">
+    <svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+      <path d="M90 10 L100 70 L160 80 L110 110 L130 170 L90 140 L50 170 L70 110 L20 80 L80 70 Z"
+            fill="#FF6B47" stroke="#FAF3E3" stroke-width="3"/>
+    </svg>
+  </div>
+
+  <div class="section-head reveal">
+    <div>
+      <p class="section-label" style="color:var(--bone);">The method</p>
+      <h2 class="section-title">Three moves.<br><em style="color:var(--mustard)">One discipline.</em></h2>
+    </div>
+    <p class="section-aside" style="color:var(--bone);opacity:0.85;">Pocket Notes isn't a brand. It's a method. Three moves, repeated daily, that turn raw thought into work that ships.</p>
+  </div>
+
+  <div class="philo-grid">
+    <div class="philo-item reveal">
+      <div class="philo-num">01</div>
+      <div class="philo-content">
+        <h3>Catch</h3>
+        <p>Jot it before it vanishes. The first thought is the rawest and the rarest. Don't edit. Don't curate. Just catch.</p>
+      </div>
+    </div>
+    <div class="philo-item reveal">
+      <div class="philo-num">02</div>
+      <div class="philo-content">
+        <h3>Clarify</h3>
+        <p>Reframe the fragment. Reread tomorrow. Look for the line that wants to stay. The page makes the muddle visible — and visible muddle is solvable.</p>
+      </div>
+    </div>
+    <div class="philo-item reveal">
+      <div class="philo-num">03</div>
+      <div class="philo-content">
+        <h3>Compound</h3>
+        <p>Return. Revise. Refine. Threads connect across pages. Sparks become systems. Your notebook turns into a map of how you think.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MANIFESTO ─────────────────────────────────── -->
+<section class="manifesto" id="manifesto">
+  <div class="manifesto-inner">
+    <div class="manifesto-head reveal">
+      <div>
+        <p class="section-label">What we believe</p>
+        <h2 class="section-title">Eight things<br><em>we won't compromise on.</em></h2>
+      </div>
+      <p class="section-aside" style="color:var(--ink-soft);">Not a brand. A method. These are the principles behind it — each with an essay if you want to go further.</p>
+    </div>
+
+    <div class="manifesto-list">
+
+      <div class="manifesto-item reveal">
+        <div class="manifesto-num">01 / 08</div>
+        <div class="manifesto-content">
+          <h3><a href="essays/the-page-is-a-tool.html">The page is <em>a tool.</em></a></h3>
+          <p>Treat it like one. Notes aren't memory — they're how thinking gets done.</p>
+          <a href="essays/the-page-is-a-tool.html" class="essay-link">Read essay →</a>
+        </div>
+      </div>
+
+      <div class="manifesto-item reveal">
+        <div class="manifesto-num">02 / 08</div>
+        <div class="manifesto-content">
+          <h3><a href="essays/constraint-sharpens.html">Constraint <em>sharpens.</em></a></h3>
+          <p>A small page forces choice. Every word earns its space. Brevity is the practice — not the limitation.</p>
+          <a href="essays/constraint-sharpens.html" class="essay-link">Read essay →</a>
+        </div>
+      </div>
+
+      <div class="manifesto-item reveal">
+        <div class="manifesto-num">03 / 08</div>
+        <div class="manifesto-content">
+          <h3><a href="essays/catch-first-edit-later.html">Catch first. <em>Edit later.</em></a></h3>
+          <p>The first line is rarely the right one. It only matters that it's caught. Editing without a draft is editing nothing.</p>
+          <a href="essays/catch-first-edit-later.html" class="essay-link">Read essay →</a>
+        </div>
+      </div>
+
+      <div class="manifesto-item reveal">
+        <div class="manifesto-num">04 / 08</div>
+        <div class="manifesto-content">
+          <h3><a href="essays/the-method-beats-the-mood.html">The method beats <em>the mood.</em></a></h3>
+          <p>Two lines, every day. The smallest reliable habit beats the loudest one. Show up before you feel like it.</p>
+          <a href="essays/the-method-beats-the-mood.html" class="essay-link">Read essay →</a>
+        </div>
+      </div>
+
+      <div class="manifesto-item reveal">
+        <div class="manifesto-num">05 / 08</div>
+        <div class="manifesto-content">
+          <h3><a href="essays/notes-as-identity.html">Notes as <em>identity.</em></a></h3>
+          <p>Your Corebook. Your compass. Where the idea was, and who you were when it arrived.</p>
+          <a href="essays/notes-as-identity.html" class="essay-link">Read essay →</a>
+        </div>
+      </div>
+
+      <div class="manifesto-item reveal">
+        <div class="manifesto-num">06 / 08</div>
+        <div class="manifesto-content">
+          <h3><a href="essays/attention-is-physical.html">Attention is <em>physical.</em></a></h3>
+          <p>No app. No battery. No exit. Paper doesn't update mid-thought. Paper doesn't ask for your password.</p>
+          <a href="essays/attention-is-physical.html" class="essay-link">Read essay →</a>
+        </div>
+      </div>
+
+      <div class="manifesto-item reveal">
+        <div class="manifesto-num">07 / 08</div>
+        <div class="manifesto-content">
+          <h3><a href="essays/born-of-necessity.html">Born of <em>necessity.</em></a></h3>
+          <p>Not aesthetics. Pocket Notes was made to disappear into a pocket and meet ideas mid-sentence — not to look good on a shelf.</p>
+          <a href="essays/born-of-necessity.html" class="essay-link">Read essay →</a>
+        </div>
+      </div>
+
+      <div class="manifesto-item reveal">
+        <div class="manifesto-num">08 / 08</div>
+        <div class="manifesto-content">
+          <h3><a href="essays/we-dont-compete-with-notebooks.html">We don't compete with <em>notebooks.</em></a></h3>
+          <p>We compete with the notes app, sticky notes, memory, and chaos. Our only job is to be there when the idea arrives.</p>
+          <a href="essays/we-dont-compete-with-notebooks.html" class="essay-link">Read essay →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA STRIP ──────────────────────────────── -->
+<section class="strip" id="shop-cta">
+  <div class="strip-deco" aria-hidden="true">
+    <svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="200" cy="200" r="180" fill="none" stroke="#1A1612" stroke-width="2" stroke-dasharray="6 10"/>
+      <circle cx="200" cy="200" r="120" fill="none" stroke="#1A1612" stroke-width="2"/>
+      <circle cx="200" cy="200" r="60" fill="#FF6B47" stroke="#1A1612" stroke-width="2"/>
+    </svg>
+  </div>
+  <div class="strip-content">
+    <h2 class="strip-title">Begin your<br><em>Corebook.</em></h2>
+    <div class="strip-action">
+      <a href="shop.html" class="strip-button">
+        Visit the shop
+        <span class="arrow">↗</span>
+      </a>
+      <p style="font-family:'DM Mono',monospace; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft);">
+        Two series · one method · ships in India
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3 class="footer-brand-title">Pocket<br><em>Notes</em></h3>
+        <p>A capture device for fast thinkers. Small grid notebooks, made in India, for people who already write.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="shop.html">Founder's 500</a></li>
+          <li><a href="shop.html">Flow Series</a></li>
+          <li><a href="about.html">About us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Say hello</h4>
+        <ul>
+          <li><a href="mailto:hello@pocketnotes.in">hello@pocketnotes.in</a></li>
+          <li><a href="blog.html">From the notebook</a></li>
+          <li><a href="#">Instagram ↗</a></li>
+          <li><a href="#">Newsletter ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Pocket Notes</span>
+      <span>Small Books, Big Ideas · Made in India</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ─── Cursor ───
+  const dot  = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+  });
+  (function loop() {
+    rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+  });
+
+  // ─── Hamburger ───
+  const hamburger  = document.getElementById('navHamburger');
+  const mobileMenu = document.getElementById('navMobileMenu');
+  hamburger.addEventListener('click', () => {
+    const open = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }));
+
+  // ─── Reveal ───
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

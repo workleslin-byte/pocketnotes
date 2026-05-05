@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pocket Notes — Small Books, Big Ideas</title>
+<meta name="description" content="Small grid notebooks for fast thinkers. A6, 64 pages, staple-bound, made in India. Open it, write what arrives."/>
+<link rel="canonical" href="https://pocketnotes.in/"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='8' y='4' width='18' height='24' rx='2' fill='%23FAF3E3' stroke='%231A1612' stroke-width='2.5'/%3E%3Crect x='6' y='4' width='4' height='24' fill='%23F5C13D' stroke='%231A1612' stroke-width='2.5'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Pocket Notes",
+  "url": "https://pocketnotes.in",
+  "description": "Small grid notebooks for people who think in sparks. A6, 64 pages, staple-bound, made in India.",
+  "logo": "https://pocketnotes.in/assets/images/Pocketnotes Logo.jpg",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "hello@pocketnotes.in",
+    "contactType": "customer support"
+  },
+  "sameAs": []
+}
+</script>
+
+<style>
+  :root {
+    --cream:    #FAF3E3;
+    --bone:     #F1E7CE;
+    --paper:    #ECE0BE;
+    --ink:      #1A1612;
+    --ink-soft: #3D342A;
+    --mustard:  #F5C13D;
+    --coral:    #FF6B47;
+    --sage:     #8FB89C;
+    --sky:      #5BA8C9;
+    --plum:     #6E3582;
+    --pink:     #F26A8D;
+    --olive:    #2C2A20;
+    --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+    --spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+    --gut:      5vw;
+    --max:      1280px;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  html, body { overflow-x: hidden; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    cursor: none;
+  }
+
+  ::selection { background: var(--mustard); color: var(--ink); }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ─── CURSOR (original dot + ring version) ─── */
+  .cursor-dot, .cursor-ring {
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-dot {
+    width: 8px; height: 8px;
+    background: var(--ink);
+    transition: width .2s var(--ease), height .2s var(--ease), background .2s var(--ease);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--ink);
+    transition: width .3s var(--ease), height .3s var(--ease), border-color .25s, background .25s;
+  }
+  .cursor-ring.hover {
+    width: 80px; height: 80px;
+    background: var(--mustard);
+    border-color: var(--mustard);
+    mix-blend-mode: multiply;
+  }
+  @media (max-width: 900px) {
+    body { cursor: default; }
+    .cursor-dot, .cursor-ring { display: none; }
+  }
+
+  /* ─── NAV ─────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    z-index: 200;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 1.5rem;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 999px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .nav-logo-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--mustard);
+    animation: pulse 2.4s var(--ease) infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.6); opacity: .6; }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.8rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--bone);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color .25s var(--ease);
+    cursor: none;
+  }
+  .nav-links a:hover { color: var(--mustard); }
+  .nav-links a.active { color: var(--mustard); }
+  .nav-links a.active::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: var(--mustard);
+    margin-top: 2px;
+  }
+
+  .nav-cta {
+    background: var(--mustard);
+    color: var(--ink);
+    padding: 0.5rem 1.2rem;
+    border-radius: 999px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: background .25s var(--ease);
+    cursor: none;
+  }
+  .nav-cta:hover { background: var(--coral); color: var(--cream); }
+
+  /* Hamburger (mobile only) */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 0.4rem;
+    cursor: pointer;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--cream);
+    border-radius: 2px;
+    transition: transform .35s var(--ease), opacity .25s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Mobile fullscreen menu */
+  .nav-mobile-menu {
+    position: fixed;
+    inset: 0;
+    background: var(--ink);
+    z-index: 190;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .35s var(--ease);
+  }
+  .nav-mobile-menu.open { opacity: 1; pointer-events: all; }
+  .nav-mobile-menu a {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    font-weight: 900;
+    color: var(--cream);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    transition: color .2s;
+  }
+  .nav-mobile-menu a:hover { color: var(--mustard); }
+
+  /* ─── HERO ─────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    padding: 8rem var(--gut) 4rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 100%;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 35px;
+    height: 1px;
+    background: var(--ink-soft);
+    opacity: 0.5;
+  }
+
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(3.8rem, 12vw, 13rem);
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  .hero-title .word {
+    display: inline-block;
+    transition: transform .4s var(--ease), color .3s var(--ease);
+  }
+  .hero-title .word:hover {
+    transform: rotate(-3deg) scale(1.05);
+    color: var(--coral);
+  }
+  .hero-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--coral);
+  }
+
+  .hero-meta {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: end;
+    margin-top: 2rem;
+  }
+
+  .hero-blurb {
+    max-width: 460px;
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .hero-blurb strong {
+    background: var(--mustard);
+    padding: 0 0.3em;
+    font-weight: 500;
+  }
+
+  .hero-stamp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .hero-stamp svg {
+    width: 80px;
+    height: 80px;
+    animation: spin 18s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Floating illustrations */
+  .float {
+    position: absolute;
+    pointer-events: none;
+    animation: bob 6s var(--ease) infinite;
+  }
+  .float:nth-child(1) { animation-delay: 0s; }
+  .float:nth-child(2) { animation-delay: -2s; }
+  .float:nth-child(3) { animation-delay: -4s; }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+    50%      { transform: translateY(-18px) rotate(calc(var(--rot, 0deg) + 5deg)); }
+  }
+  .float-1 { top: 12%; right: 8%; --rot: -8deg; }
+  .float-2 { top: 55%; right: 22%; --rot: 12deg; }
+  .float-3 { bottom: 8%; right: 6%; --rot: -3deg; }
+
+  /* ─── MARQUEE ─────────────────────────────── */
+  .marquee {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 1.4rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+  .marquee-track {
+    display: inline-flex;
+    gap: 3rem;
+    align-items: center;
+    animation: marquee 32s linear infinite;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 2rem;
+    font-weight: 400;
+  }
+  .marquee-track .star {
+    color: var(--mustard);
+    font-style: normal;
+    display: inline-block;
+    font-size: 1rem;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ─── PRODUCTS ─────────────────────────────── */
+  .products {
+    padding: 8rem var(--gut);
+    position: relative;
+    max-width: 100%;
+  }
+  .section-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    margin-bottom: 5rem;
+    gap: 2rem;
+  }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .section-label::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.5;
+  }
+  .section-label b { color: var(--coral); font-weight: 500; }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+  .section-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--coral);
+  }
+  .section-aside {
+    font-size: 1.05rem;
+    max-width: 360px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  .product-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+  }
+  .product {
+    cursor: none;
+    transition: transform .45s var(--spring);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .product:hover { transform: translateY(-14px); }
+  .product-frame {
+    aspect-ratio: 4/5;
+    border-radius: 32px;
+    border: 1.5px solid var(--ink);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-radius .4s var(--ease);
+  }
+  .product:hover .product-frame { border-radius: 12px; }
+  .product-frame.f1 { background: var(--mustard); }
+  .product-frame.f2 { background: var(--coral); }
+  .product-tag {
+    position: absolute;
+    top: 1.2rem;
+    left: 1.2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+  }
+  .product-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0 0.5rem;
+  }
+  .product-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+  .product-name em { font-style: italic; font-weight: 400; }
+  .product-price {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.95rem;
+  }
+  .product-desc {
+    margin-top: 0.5rem;
+    padding: 0 0.5rem;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    font-style: italic;
+    line-height: 1.45;
+  }
+
+  /* ─── PHILOSOPHY ─────────────────────────────── */
+  .philosophy {
+    background: var(--plum);
+    color: var(--cream);
+    padding: 8rem var(--gut);
+    position: relative;
+    overflow: hidden;
+  }
+  .philosophy .section-label { color: var(--bone); }
+  .philosophy .section-label b { color: var(--mustard); }
+  .philosophy .section-title em { color: var(--mustard); }
+  .philosophy .section-aside { color: var(--bone); opacity: 0.85; }
+
+  .philo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5rem 4rem;
+    margin-top: 4rem;
+    position: relative;
+    z-index: 2;
+  }
+  .philo-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    transition: padding-left .35s var(--ease);
+  }
+  .philo-item:hover { padding-left: 0.5rem; }
+  .philo-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 4rem;
+    line-height: 0.9;
+    color: var(--mustard);
+  }
+  .philo-content h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    line-height: 1.15;
+  }
+  .philo-content p {
+    color: var(--bone);
+    line-height: 1.6;
+    opacity: 0.88;
+    font-size: 1rem;
+  }
+  .philo-deco {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.15;
+  }
+  .philo-deco-1 { top: 10%; right: -3%; transform: rotate(15deg); }
+  .philo-deco-2 { bottom: 8%; left: -2%; transform: rotate(-10deg); }
+
+  /* ─── WRITING ─────────────────────────────── */
+  .writing {
+    padding: 8rem var(--gut);
+    background: var(--bone);
+  }
+  .writing-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+  .post {
+    cursor: none;
+    transition: transform .45s var(--spring);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .post:hover { transform: translateY(-10px); }
+  .post-img {
+    aspect-ratio: 4/3;
+    border-radius: 20px;
+    border: 1.5px solid var(--ink);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: border-radius .4s var(--ease);
+    position: relative;
+  }
+  .post:hover .post-img { border-radius: 8px; }
+  .post-img.bg-mustard { background: var(--mustard); }
+  .post-img.bg-coral   { background: var(--coral); }
+  .post-img.bg-sage    { background: var(--sage); }
+  .post-img.bg-sky     { background: var(--sky); }
+  .post-img.bg-pink    { background: var(--pink); }
+  .post-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    color: var(--ink-soft);
+  }
+  .post-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .post.large  { grid-column: span 7; }
+  .post.large .post-img { aspect-ratio: 16/10; }
+  .post.large .post-title { font-size: 2.4rem; }
+  .post.medium { grid-column: span 5; }
+  .post.medium .post-title { font-size: 1.8rem; }
+  .post.small  { grid-column: span 4; }
+
+  /* ─── CTA STRIP ─────────────────────────────── */
+  .strip {
+    background: var(--mustard);
+    padding: 6rem var(--gut);
+    position: relative;
+    overflow: hidden;
+  }
+  .strip-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+  .strip-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+  .strip-title em { font-style: italic; font-weight: 400; color: var(--plum); }
+  .strip-action {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+  .strip-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--ink);
+    color: var(--cream);
+    text-decoration: none;
+    padding: 1.3rem 2.2rem;
+    border-radius: 999px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: none;
+    transition: transform .35s var(--ease), background .25s var(--ease);
+  }
+  .strip-button:hover { transform: translateX(10px); background: var(--coral); }
+  .strip-button .arrow { transition: transform .35s var(--ease); }
+  .strip-button:hover .arrow { transform: translateX(4px) rotate(-45deg); }
+  .strip-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+  }
+  .strip-deco {
+    position: absolute;
+    right: -50px;
+    bottom: -50px;
+    opacity: 0.18;
+    pointer-events: none;
+  }
+
+  /* ─── FOOTER ─────────────────────────────── */
+  footer {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 5rem var(--gut) 2rem;
+  }
+  .footer-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+  }
+  .footer-brand-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-bottom: 1rem;
+  }
+  .footer-brand-title em { font-style: italic; font-weight: 400; color: var(--mustard); }
+  .footer-brand p { color: var(--bone); opacity: 0.7; max-width: 32ch; font-size: 0.95rem; }
+  .footer-col h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mustard);
+    margin-bottom: 1.2rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col a {
+    color: var(--bone);
+    text-decoration: none;
+    font-size: 0.92rem;
+    transition: color .2s var(--ease);
+    cursor: none;
+    opacity: 0.8;
+  }
+  .footer-col a:hover { color: var(--mustard); opacity: 1; }
+  .footer-bottom {
+    border-top: 1px solid rgba(241,231,206,0.15);
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.55;
+  }
+
+  /* ─── RESPONSIVE ─────────────────────────────── */
+  @media (max-width: 900px) {
+    nav { padding: 0.7rem 1rem; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .nav-cta { display: none; }
+    .hero { padding: 7rem 6vw 3rem; }
+    .hero-meta { grid-template-columns: 1fr; gap: 2rem; }
+    .float { display: none; }
+    .section-head { grid-template-columns: 1fr; }
+    .product-row { grid-template-columns: 1fr; gap: 2rem; }
+    .philo-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .writing-grid { grid-template-columns: 1fr; }
+    .post.large, .post.medium, .post.small { grid-column: span 1; }
+    .post.large .post-title { font-size: 1.8rem; }
+    .strip-content { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 0.8rem; }
+    .marquee-track { font-size: 1.4rem; gap: 2rem; }
+  }
+
+  /* ─── REVEAL ANIMATION ─────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .8s var(--ease), transform .8s var(--ease);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ─── REDUCED MOTION ─────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important;
+    }
+    .marquee-track { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Cursor: dot + ring (original version) -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Mobile fullscreen menu -->
+<div class="nav-mobile-menu" id="navMobileMenu" role="dialog" aria-label="Navigation menu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="shop.html">Shop</a>
+  <a href="blog.html">Essays</a>
+</div>
+
+<!-- Nav -->
+<nav aria-label="Main navigation">
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-dot" aria-hidden="true"></span>
+    <span>Pocket Notes</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="blog.html">From the notebook</a></li>
+  </ul>
+  <a href="shop.html" class="nav-cta">Carry the method ↗</a>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ─── HERO ────────────────────────────────────── -->
+<section class="hero">
+
+  <!-- Floating SVG illustrations (scaled +40%) -->
+  <div class="float float-1" aria-hidden="true">
+    <svg width="196" height="252" viewBox="0 0 140 180" xmlns="http://www.w3.org/2000/svg">
+      <rect x="30" y="20" width="80" height="140" rx="4" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
+      <rect x="30" y="20" width="18" height="140" fill="#FF6B47" stroke="#1A1612" stroke-width="3"/>
+      <g stroke="#1A1612" stroke-width="0.8" opacity="0.2">
+        <line x1="58" y1="48" x2="100" y2="48"/>
+        <line x1="58" y1="64" x2="100" y2="64"/>
+        <line x1="58" y1="80" x2="100" y2="80"/>
+        <line x1="58" y1="96" x2="100" y2="96"/>
+        <line x1="70" y1="40" x2="70" y2="112"/>
+        <line x1="85" y1="40" x2="85" y2="112"/>
+      </g>
+      <circle cx="62" cy="126" r="5" fill="#1A1612"/>
+      <circle cx="88" cy="126" r="5" fill="#1A1612"/>
+      <circle cx="63" cy="124" r="1.5" fill="#FAF3E3"/>
+      <circle cx="89" cy="124" r="1.5" fill="#FAF3E3"/>
+      <path d="M58 138 Q75 150 92 138" stroke="#1A1612" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="52" cy="132" r="4" fill="#FF6B47" opacity="0.55"/>
+      <circle cx="98" cy="132" r="4" fill="#FF6B47" opacity="0.55"/>
+    </svg>
+  </div>
+
+  <div class="float float-2" aria-hidden="true">
+    <svg width="112" height="112" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+      <path d="M45 5 L52 35 L82 38 L58 55 L66 84 L45 67 L24 84 L32 55 L8 38 L38 35 Z"
+            fill="#F26A8D" stroke="#1A1612" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="45" cy="48" r="6" fill="#1A1612"/>
+    </svg>
+  </div>
+
+  <div class="float float-3" aria-hidden="true">
+    <svg width="182" height="168" viewBox="0 0 130 120" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 95 Q65 105 115 95 L115 105 Q65 115 15 105 Z" fill="#1A1612" opacity="0.12"/>
+      <path d="M10 25 Q30 20 65 30 L65 95 Q30 90 10 95 Z" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
+      <path d="M120 25 Q100 20 65 30 L65 95 Q100 90 120 95 Z" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
+      <line x1="20" y1="45" x2="55" y2="48" stroke="#5BA8C9" stroke-width="2"/>
+      <line x1="20" y1="55" x2="55" y2="58" stroke="#5BA8C9" stroke-width="2"/>
+      <line x1="20" y1="65" x2="50" y2="68" stroke="#5BA8C9" stroke-width="2"/>
+      <line x1="75" y1="48" x2="110" y2="45" stroke="#5BA8C9" stroke-width="2"/>
+      <line x1="75" y1="58" x2="110" y2="55" stroke="#5BA8C9" stroke-width="2"/>
+      <path d="M78 70 Q85 65 90 72 T100 70" stroke="#FF6B47" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <p class="hero-eyebrow">A capture device for fast thinkers · Vol. I</p>
+
+  <h1 class="hero-title">
+    <span class="word">Small Books,</span><br>
+    <span class="word"><em>Big Ideas.</em></span>
+  </h1>
+
+  <div class="hero-meta">
+    <p class="hero-blurb">
+      Open it, write what arrives. A blank page that demands a perfect first line is the wrong tool. <strong>Pocket Notes doesn't demand anything.</strong> Only that you start.
+    </p>
+
+    <div class="hero-stamp" aria-hidden="true">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <path id="circle" d="M 50, 50 m -38, 0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"/>
+        </defs>
+        <text font-family="DM Mono, monospace" font-size="9" letter-spacing="2" fill="#1A1612">
+          <textPath href="#circle">SCROLL · TO · BEGIN · SCROLL · TO · BEGIN · </textPath>
+        </text>
+        <circle cx="50" cy="50" r="10" fill="#F5C13D" stroke="#1A1612" stroke-width="2"/>
+        <path d="M46 47 L50 54 L54 47" stroke="#1A1612" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MARQUEE ─────────────────────────────────── -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Write by hand</span><span class="star">★</span>
+    <span>Think with ink</span><span class="star">★</span>
+    <span>Catch the line before it leaves</span><span class="star">★</span>
+    <span>Grid pages forever</span><span class="star">★</span>
+    <span>Made in India</span><span class="star">★</span>
+    <span>The first address of an idea</span><span class="star">★</span>
+    <span>Two lines a day</span><span class="star">★</span>
+    <span>Small Books, Big Ideas</span><span class="star">★</span>
+    <span>Write by hand</span><span class="star">★</span>
+    <span>Think with ink</span><span class="star">★</span>
+    <span>Catch the line before it leaves</span><span class="star">★</span>
+    <span>Grid pages forever</span><span class="star">★</span>
+    <span>Made in India</span><span class="star">★</span>
+    <span>The first address of an idea</span><span class="star">★</span>
+    <span>Two lines a day</span><span class="star">★</span>
+    <span>Small Books, Big Ideas</span><span class="star">★</span>
+  </div>
+</div>
+
+<!-- ─── PRODUCTS ────────────────────────────────── -->
+<section class="products" id="shop">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <div>
+        <p class="section-label"><b>The artifacts</b></p>
+        <h2 class="section-title">Two series.<br><em>One method.</em></h2>
+      </div>
+      <p class="section-aside">A6, 64 pages, staple-bound, faint grid on cream paper. Not a planner. Not a journal. A tool for people who already write.</p>
+    </div>
+
+    <div class="product-row">
+
+      <!-- 500 Series -->
+      <a href="shop.html" class="product reveal">
+        <div class="product-frame f1">
+          <span class="product-tag">Bestseller</span>
+          <svg width="216" height="264" viewBox="0 0 180 220" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="20" width="120" height="180" rx="5" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
+            <rect x="30" y="20" width="22" height="180" fill="#FF6B47" stroke="#1A1612" stroke-width="3"/>
+            <g stroke="#1A1612" stroke-width="0.8" opacity="0.2">
+              <line x1="62" y1="50"  x2="140" y2="50"/>
+              <line x1="62" y1="68"  x2="140" y2="68"/>
+              <line x1="62" y1="86"  x2="140" y2="86"/>
+              <line x1="62" y1="104" x2="140" y2="104"/>
+              <line x1="80"  y1="40" x2="80"  y2="120"/>
+              <line x1="100" y1="40" x2="100" y2="120"/>
+              <line x1="120" y1="40" x2="120" y2="120"/>
+            </g>
+            <circle cx="72" cy="148" r="6" fill="#1A1612"/>
+            <circle cx="108" cy="148" r="6" fill="#1A1612"/>
+            <circle cx="73" cy="146" r="2" fill="#FAF3E3"/>
+            <circle cx="109" cy="146" r="2" fill="#FAF3E3"/>
+            <path d="M66 162 Q90 176 114 162" stroke="#1A1612" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle cx="58" cy="155" r="5" fill="#FF6B47" opacity="0.5"/>
+            <circle cx="122" cy="155" r="5" fill="#FF6B47" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="product-info">
+          <span class="product-name">Founder's <em>500</em></span>
+          <span class="product-price">₹249</span>
+        </div>
+        <p class="product-desc">A6, 64 pages, faint grid, staple-bound. For drafts, lists, half-formed lines. The notebook you reach for without thinking.</p>
+      </a>
+
+      <!-- Flow Series -->
+      <a href="shop.html" class="product reveal">
+        <div class="product-frame f2">
+          <span class="product-tag">New</span>
+          <svg width="192" height="264" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+            <rect x="40" y="20" width="80" height="180" rx="4" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
+            <line x1="52" y1="20" x2="52" y2="200" stroke="#1A1612" stroke-width="1" opacity="0.3"/>
+            <line x1="40" y1="120" x2="120" y2="120" stroke="#1A1612" stroke-width="3"/>
+            <ellipse cx="40" cy="120" rx="3" ry="6" fill="#1A1612"/>
+            <ellipse cx="120" cy="120" rx="3" ry="6" fill="#1A1612"/>
+            <rect x="62" y="50" width="36" height="3" fill="#1A1612"/>
+            <rect x="67" y="60" width="26" height="2" fill="#1A1612" opacity="0.5"/>
+            <path d="M55 143 Q70 138 85 146 T115 143" stroke="#1A1612" stroke-width="1.5" fill="none" opacity="0.4"/>
+            <path d="M55 158 Q70 153 85 161 T115 158" stroke="#1A1612" stroke-width="1.5" fill="none" opacity="0.4"/>
+            <path d="M55 173 Q70 168 85 176 T100 173" stroke="#1A1612" stroke-width="1.5" fill="none" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="product-info">
+          <span class="product-name">Flow <em>Series</em></span>
+          <span class="product-price">₹199</span>
+        </div>
+        <p class="product-desc">A6, 64 pages, faint grid, staple-bound. Train rides. Cafés. The five minutes between calls. Treat it as a draftbook, not a keepsake.</p>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── PHILOSOPHY ──────────────────────────────── -->
+<section class="philosophy" id="about">
+  <div class="philo-deco philo-deco-1" aria-hidden="true">
+    <svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="110" cy="110" r="100" fill="none" stroke="#FAF3E3" stroke-width="3" stroke-dasharray="4 8"/>
+      <circle cx="110" cy="110" r="60" fill="#F5C13D"/>
+      <line x1="110" y1="60" x2="110" y2="160" stroke="#1A1612" stroke-width="3" opacity="0.7"/>
+      <line x1="60"  y1="110" x2="160" y2="110" stroke="#1A1612" stroke-width="3" opacity="0.7"/>
+      <circle cx="110" cy="110" r="6" fill="#1A1612"/>
+    </svg>
+  </div>
+  <div class="philo-deco philo-deco-2" aria-hidden="true">
+    <svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+      <path d="M90 10 L100 70 L160 80 L110 110 L130 170 L90 140 L50 170 L70 110 L20 80 L80 70 Z"
+            fill="#FF6B47" stroke="#FAF3E3" stroke-width="3"/>
+    </svg>
+  </div>
+
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <div>
+        <p class="section-label"><b>The method</b></p>
+        <h2 class="section-title">Catch. Clarify.<br><em>Compound.</em></h2>
+      </div>
+      <p class="section-aside">Note-taking isn't memory. It's how ideas take shape. The page does the work that the notes app can't.</p>
+    </div>
+
+    <div class="philo-grid">
+      <div class="philo-item reveal">
+        <div class="philo-num">01</div>
+        <div class="philo-content">
+          <h3>The pocket constraint is a gift</h3>
+          <p>A small page forces choice. Every word earns its space. Brevity becomes a writing practice — not a limitation. We never widen the page.</p>
+        </div>
+      </div>
+      <div class="philo-item reveal">
+        <div class="philo-num">02</div>
+        <div class="philo-content">
+          <h3>Grid pages free the mind</h3>
+          <p>Not lined. Not blank. Grid. It holds structure loosely — for words, sketches, lists that turn into poems, flows that turn into product.</p>
+        </div>
+      </div>
+      <div class="philo-item reveal">
+        <div class="philo-num">03</div>
+        <div class="philo-content">
+          <h3>Ancient notebooks were the internet</h3>
+          <p>Roman wax tablets. Persian poetry diaries. Indian <em style="color:var(--mustard)">kavyagrantha</em>. Knowledge lived in physical books carried on the body. Our category is older than typing.</p>
+        </div>
+      </div>
+      <div class="philo-item reveal">
+        <div class="philo-num">04</div>
+        <div class="philo-content">
+          <h3>Complexity is the enemy of writing</h3>
+          <p>No subscription. No battery. No syncing. The best system is the one you actually use. Anywhere a feature creeps in — we cut it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WRITING ─────────────────────────────────── -->
+<section class="writing" id="writing">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <div>
+        <p class="section-label"><b>Field notes</b></p>
+        <h2 class="section-title">Methods, rituals,<br><em>quiet philosophy.</em></h2>
+      </div>
+      <p class="section-aside">Essays on the practice of catching ideas, clarifying them, and compounding them over time. New writing whenever there's something worth saying.</p>
+    </div>
+
+    <div class="writing-grid">
+
+      <a href="essays/the-people-who-write-in-the-margins.html" class="post large reveal">
+        <div class="post-img bg-coral">
+          <svg width="80%" height="80%" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+            <rect x="80" y="40" width="240" height="170" rx="6" fill="#FAF3E3" stroke="#1A1612" stroke-width="4"/>
+            <rect x="80" y="40" width="35" height="170" fill="#F5C13D" stroke="#1A1612" stroke-width="4"/>
+            <text x="220" y="75" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="20" fill="#1A1612">INDEX</text>
+            <line x1="140" y1="90" x2="290" y2="90" stroke="#1A1612" stroke-width="1.5"/>
+            <g stroke="#1A1612" stroke-width="1.5" opacity="0.6">
+              <line x1="140" y1="110" x2="280" y2="110"/>
+              <line x1="140" y1="125" x2="270" y2="125"/>
+              <line x1="140" y1="140" x2="290" y2="140"/>
+              <line x1="140" y1="155" x2="260" y2="155"/>
+              <line x1="140" y1="170" x2="285" y2="170"/>
+              <line x1="140" y1="185" x2="275" y2="185"/>
+            </g>
+            <circle cx="135" cy="110" r="3" fill="#1A1612"/>
+            <circle cx="135" cy="125" r="3" fill="#1A1612"/>
+            <circle cx="135" cy="140" r="3" fill="#1A1612"/>
+            <circle cx="135" cy="155" r="3" fill="#1A1612"/>
+            <circle cx="135" cy="170" r="3" fill="#1A1612"/>
+          </svg>
+        </div>
+        <p class="post-meta">History · 11 min read</p>
+        <h3 class="post-title">The people who write in the margins</h3>
+      </a>
+
+      <a href="essays/the-index-method.html" class="post medium reveal">
+        <div class="post-img bg-sage">
+          <svg width="70%" height="70%" viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="150" cy="60" r="28" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
+            <path d="M122 88 L122 160 Q122 180 150 180 Q178 180 178 160 L178 88 Z" fill="#6E3582" stroke="#1A1612" stroke-width="3"/>
+            <ellipse cx="150" cy="68" rx="6" ry="9" fill="#1A1612"/>
+            <g fill="#F5C13D" stroke="#1A1612" stroke-width="2.5">
+              <circle cx="60" cy="50" r="8"/>
+              <line x1="68" y1="50" x2="68" y2="20" stroke-width="2.5"/>
+              <circle cx="240" cy="80" r="8"/>
+              <line x1="248" y1="80" x2="248" y2="50"/>
+              <circle cx="65" cy="120" r="8"/>
+              <line x1="73" y1="120" x2="73" y2="90"/>
+            </g>
+          </svg>
+        </div>
+        <p class="post-meta">Technique · 5 min read</p>
+        <h3 class="post-title">The Index Method: how to never lose a thought again</h3>
+      </a>
+
+      <a href="essays/notebooks-of-ancient-singers.html" class="post small reveal">
+        <div class="post-img bg-mustard">
+          <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 60 Q80 30 150 80 T180 60" stroke="#1A1612" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M30 100 Q70 70 130 110 T180 100" stroke="#FF6B47" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M30 140 Q90 110 140 150 T180 140" stroke="#1A1612" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle cx="50" cy="170" r="6" fill="#FF6B47" stroke="#1A1612" stroke-width="2"/>
+            <circle cx="100" cy="40" r="4" fill="#1A1612"/>
+            <path d="M150 30 L160 20 L170 30 L160 40 Z" fill="#5BA8C9" stroke="#1A1612" stroke-width="2"/>
+          </svg>
+        </div>
+        <p class="post-meta">History · 8 min read</p>
+        <h3 class="post-title">Notebooks of ancient singers</h3>
+      </a>
+
+      <a href="essays/the-grid-page-and-the-wandering-thought.html" class="post small reveal">
+        <div class="post-img bg-sky">
+          <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="#FAF3E3" stroke-width="1.5" opacity="0.6">
+              <line x1="20" y1="40" x2="180" y2="40"/>
+              <line x1="20" y1="80" x2="180" y2="80"/>
+              <line x1="20" y1="120" x2="180" y2="120"/>
+              <line x1="20" y1="160" x2="180" y2="160"/>
+              <line x1="40" y1="20" x2="40" y2="180"/>
+              <line x1="80" y1="20" x2="80" y2="180"/>
+              <line x1="120" y1="20" x2="120" y2="180"/>
+              <line x1="160" y1="20" x2="160" y2="180"/>
+            </g>
+            <circle cx="100" cy="100" r="50" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
+            <polygon points="100,60 110,100 100,90 90,100" fill="#FF6B47" stroke="#1A1612" stroke-width="2"/>
+            <polygon points="100,140 110,100 100,110 90,100" fill="#1A1612"/>
+            <circle cx="100" cy="100" r="4" fill="#1A1612"/>
+          </svg>
+        </div>
+        <p class="post-meta">Technique · 4 min</p>
+        <h3 class="post-title">The grid page and the wandering thought</h3>
+      </a>
+
+      <a href="essays/the-roman-wax-tablet.html" class="post small reveal">
+        <div class="post-img bg-pink">
+          <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="50" width="140" height="100" rx="4" fill="#6E3582" stroke="#1A1612" stroke-width="3"/>
+            <rect x="40" y="60" width="120" height="80" fill="#F5C13D" stroke="#1A1612" stroke-width="2"/>
+            <g stroke="#1A1612" stroke-width="1.8" opacity="0.7">
+              <line x1="50" y1="80" x2="80" y2="80"/>
+              <line x1="85" y1="80" x2="100" y2="80"/>
+              <line x1="105" y1="80" x2="140" y2="80"/>
+              <line x1="50" y1="95" x2="95" y2="95"/>
+              <line x1="100" y1="95" x2="150" y2="95"/>
+              <line x1="50" y1="110" x2="120" y2="110"/>
+              <line x1="50" y1="125" x2="90" y2="125"/>
+            </g>
+            <line x1="155" y1="40" x2="190" y2="20" stroke="#1A1612" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="190" cy="20" r="4" fill="#FF6B47" stroke="#1A1612" stroke-width="2"/>
+          </svg>
+        </div>
+        <p class="post-meta">History · 10 min</p>
+        <h3 class="post-title">The Roman wax tablet, ancestor to all of this</h3>
+      </a>
+
+    </div>
+
+    <div style="text-align:center; margin-top:3.5rem;">
+      <a href="blog.html" class="strip-button" style="display:inline-flex; align-items:center; gap:0.7rem; background:var(--ink); color:var(--cream); text-decoration:none; padding:1.1rem 2rem; border-radius:999px; font-family:'DM Mono',monospace; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.08em; cursor:none; transition:background .25s var(--ease);">
+        All essays <span>↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA STRIP ──────────────────────────────── -->
+<section class="strip" id="contact">
+  <div class="strip-deco" aria-hidden="true">
+    <svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="200" cy="200" r="180" fill="none" stroke="#1A1612" stroke-width="2" stroke-dasharray="6 10"/>
+      <circle cx="200" cy="200" r="120" fill="none" stroke="#1A1612" stroke-width="2"/>
+      <circle cx="200" cy="200" r="60" fill="#FF6B47" stroke="#1A1612" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <div class="strip-content">
+    <h2 class="strip-title">Begin a<br><em>notebook.</em></h2>
+    <div class="strip-action">
+      <a href="shop.html" class="strip-button">
+        Begin this week
+        <span class="arrow">↗</span>
+      </a>
+      <p class="strip-note">Ships across India · within 48 hours</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3 class="footer-brand-title">Pocket<br><em>Notes</em></h3>
+        <p>A capture device for fast thinkers. Small grid notebooks, made in India, for people who already write.</p>
+      </div>
+      <div class="footer-col">
+        <h4>The notebooks</h4>
+        <ul>
+          <li><a href="shop.html">Founder's 500</a></li>
+          <li><a href="shop.html">Flow Series</a></li>
+          <li><a href="about.html">About us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Say hello</h4>
+        <ul>
+          <li><a href="mailto:hello@pocketnotes.in">hello@pocketnotes.in</a></li>
+          <li><a href="blog.html">From the notebook</a></li>
+          <li><a href="#">Instagram ↗</a></li>
+          <li><a href="#">Newsletter ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Pocket Notes</span>
+      <span>Small Books, Big Ideas · Made in India</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ─── Cursor: dot + ring ───
+  const dot  = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+  });
+
+  (function loop() {
+    rx += (mx - rx) * 0.15;
+    ry += (my - ry) * 0.15;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(loop);
+  })();
+
+  document.querySelectorAll('a, button, .product, .post').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+  });
+
+  // ─── Mobile hamburger ───
+  const hamburger   = document.getElementById('navHamburger');
+  const mobileMenu  = document.getElementById('navMobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // ─── Reveal on scroll ───
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

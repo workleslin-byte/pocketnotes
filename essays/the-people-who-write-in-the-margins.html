@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The People Who Write in the Margins — Pocket Notes</title>
+<meta name="description" content="A gossipy tour of history's most brazen readers — Coleridge, Fermat, a medieval monk with opinions, and a duck named Queck. What their scribbles teach us about thinking."/>
+<link rel="canonical" href="https://pocketnotes.in/essays/the-people-who-write-in-the-margins"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The People Who Write in the Margins",
+  "description": "A gossipy tour of history's most brazen readers — Coleridge, Fermat, a medieval monk with opinions, and a duck named Queck.",
+  "datePublished": "2026-04-01",
+  "author": { "@type": "Organization", "name": "Pocket Notes" },
+  "publisher": { "@type": "Organization", "name": "Pocket Notes", "url": "https://pocketnotes.in" },
+  "mainEntityOfPage": "https://pocketnotes.in/essays/the-people-who-write-in-the-margins"
+}
+</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='8' y='4' width='18' height='24' rx='2' fill='%23FAF3E3' stroke='%231A1612' stroke-width='2.5'/%3E%3Crect x='6' y='4' width='4' height='24' fill='%23F5C13D' stroke='%231A1612' stroke-width='2.5'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,700&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:    #FAF3E3;
+    --bone:     #F1E7CE;
+    --paper:    #ECE0BE;
+    --ink:      #1A1612;
+    --ink-soft: #3D342A;
+    --mustard:  #F5C13D;
+    --coral:    #FF6B47;
+    --sage:     #8FB89C;
+    --sky:      #5BA8C9;
+    --plum:     #6E3582;
+    --pink:     #F26A8D;
+    --olive:    #2C2A20;
+    --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+    --gut:      5vw;
+    --max:      720px;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  html, body { overflow-x: hidden; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    cursor: none;
+  }
+
+  ::selection { background: var(--mustard); color: var(--ink); }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.045;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ─── CURSOR (original dot + ring) ─────────────────────────────── */
+  .cursor-dot, .cursor-ring {
+    position: fixed; pointer-events: none; z-index: 10000;
+    border-radius: 50%; transform: translate(-50%, -50%);
+  }
+  .cursor-dot { width: 8px; height: 8px; background: var(--ink); transition: background .2s var(--ease); }
+  .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--ink); transition: width .3s var(--ease), height .3s var(--ease), border-color .25s, background .25s; }
+  .cursor-ring.hover { width: 80px; height: 80px; background: var(--mustard); border-color: var(--mustard); mix-blend-mode: multiply; }
+  @media (max-width: 900px) { body { cursor: default; } .cursor-dot, .cursor-ring { display: none; } }
+
+  /* Hamburger */
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 0.4rem; cursor: pointer; }
+  .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--cream); border-radius: 2px; transition: transform .35s var(--ease), opacity .25s; }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .nav-mobile-menu { position: fixed; inset: 0; background: var(--ink); z-index: 190; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: opacity .35s var(--ease); }
+  .nav-mobile-menu.open { opacity: 1; pointer-events: all; }
+  .nav-mobile-menu a { font-family: 'Fraunces', serif; font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 900; color: var(--cream); text-decoration: none; text-transform: uppercase; letter-spacing: -0.03em; transition: color .2s; }
+  .nav-mobile-menu a:hover { color: var(--mustard); }
+  @media (max-width: 900px) { nav { padding: 0.7rem 1rem; } .nav-links { display: none; } .nav-hamburger { display: flex; } }
+
+  /* ─── EMAIL SUBSCRIBE ─────────────────────────────── */
+  .subscribe-section {
+    background: var(--plum);
+    color: var(--cream);
+    padding: 5rem var(--gut);
+    margin-top: 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .subscribe-inner { max-width: 600px; margin: 0 auto; text-align: center; }
+  .subscribe-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mustard); margin-bottom: 1.2rem; }
+  .subscribe-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1; letter-spacing: -0.03em; margin-bottom: 1rem; }
+  .subscribe-title em { font-style: italic; font-weight: 400; color: var(--mustard); }
+  .subscribe-blurb { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.15rem; color: var(--bone); margin-bottom: 2.5rem; opacity: 0.9; line-height: 1.5; }
+  .subscribe-form { display: flex; gap: 0.7rem; max-width: 460px; margin: 0 auto; flex-wrap: wrap; }
+  .subscribe-input { flex: 1; min-width: 200px; padding: 0.95rem 1.3rem; border-radius: 999px; border: none; background: var(--cream); color: var(--ink); font-family: 'Fraunces', serif; font-size: 1rem; outline: none; }
+  .subscribe-input::placeholder { color: var(--ink); opacity: 0.45; font-style: italic; }
+  .subscribe-input:focus { box-shadow: 0 0 0 3px var(--mustard); }
+  .subscribe-btn { padding: 0.95rem 1.5rem; border-radius: 999px; border: none; background: var(--mustard); color: var(--ink); font-family: 'DM Mono', monospace; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: none; transition: background .25s var(--ease); font-weight: 500; }
+  .subscribe-btn:hover { background: var(--coral); color: var(--cream); }
+  .subscribe-note { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 1.4rem; opacity: 0.5; }
+  .subscribe-confirm { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.1rem; color: var(--mustard); }
+  @media (max-width: 600px) { .subscribe-form { flex-direction: column; } .subscribe-input, .subscribe-btn { width: 100%; } }
+
+  /* ─── READ NEXT ─────────────────────────────── */
+  .read-next { padding: 5rem var(--gut); background: var(--bone); }
+  .read-next-inner { max-width: 900px; margin: 0 auto; }
+  .read-next-label { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 2.5rem; display: flex; align-items: center; gap: 0.6rem; }
+  .read-next-label::before { content: ''; width: 28px; height: 1px; background: var(--ink-soft); opacity: 0.5; }
+  .read-next-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .read-next-card { text-decoration: none; color: var(--ink); display: block; cursor: none; transition: transform .35s var(--ease); }
+  .read-next-card:hover { transform: translateY(-8px); }
+  .read-next-img { aspect-ratio: 4/3; border-radius: 16px; border: 1.5px solid var(--ink); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: border-radius .35s var(--ease); }
+  .read-next-card:hover .read-next-img { border-radius: 6px; }
+  .read-next-meta { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.5rem; }
+  .read-next-title { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 700; line-height: 1.25; }
+  @media (max-width: 700px) { .read-next-grid { grid-template-columns: 1fr; } }
+
+  /* ─── NAV ─────────────────────────────── */
+  nav {
+    position: fixed; top: 1.5rem; left: 1.5rem; right: 1.5rem; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.85rem 1.5rem;
+    background: var(--ink); color: var(--cream); border-radius: 999px;
+    font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 0.6rem; font-weight: 500; text-transform: uppercase; text-decoration: none; color: inherit; }
+  .nav-logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mustard); animation: pulse 2.4s var(--ease) infinite; }
+  @keyframes pulse { 0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.6} }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+  .nav-links a { color: var(--bone); text-decoration: none; text-transform: uppercase; transition: color .25s var(--ease); cursor: none; }
+  .nav-links a:hover { color: var(--mustard); }
+  .nav-links a.active { color: var(--mustard); }
+  .nav-cta { background: var(--mustard); color: var(--ink); padding: 0.5rem 1.2rem; border-radius: 999px; text-decoration: none; text-transform: uppercase; font-weight: 500; transition: background .25s var(--ease); cursor: none; }
+  .nav-cta:hover { background: var(--coral); color: var(--cream); }
+  @media (max-width: 900px) { nav { padding: 0.7rem 1rem; } .nav-links { display: none; } }
+
+  /* ─── ARTICLE WRAPPER ─────────────────────────────── */
+  .article-wrap {
+    padding-top: 9rem;
+    padding-bottom: 6rem;
+  }
+
+  .article-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--gut);
+  }
+
+  /* ─── ARTICLE HEADER ─────────────────────────────── */
+  .article-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .article-eyebrow .tag {
+    background: var(--mustard);
+    color: var(--ink);
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 500;
+  }
+  .article-eyebrow .sep { opacity: 0.35; }
+
+  .article-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(2.6rem, 7vw, 4.8rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.4rem;
+  }
+  .article-title em { font-style: italic; font-weight: 400; color: var(--coral); }
+
+  .article-subtitle {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--ink-soft);
+    line-height: 1.45;
+    margin-bottom: 2.5rem;
+    border-left: 3px solid var(--mustard);
+    padding-left: 1.2rem;
+  }
+
+  .article-rule {
+    border: none;
+    border-top: 1.5px solid var(--ink);
+    margin: 2.5rem 0;
+    opacity: 0.15;
+  }
+
+  /* ─── ARTICLE BODY ─────────────────────────────── */
+  .article-body {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--ink);
+  }
+
+  .article-body p {
+    margin-bottom: 1.6rem;
+  }
+
+  .article-body p + p { }
+
+  /* Drop cap on opening paragraph */
+  .article-body .opening::first-letter {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 5.2rem;
+    line-height: 0.82;
+    float: left;
+    margin-right: 0.1em;
+    margin-top: 0.05em;
+    color: var(--coral);
+  }
+
+  .article-body h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin: 3.5rem 0 1rem;
+  }
+  .article-body h2 em { font-style: italic; font-weight: 400; color: var(--coral); }
+
+  .article-body h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin: 2.5rem 0 0.8rem;
+    letter-spacing: -0.01em;
+  }
+
+  /* Pull quote */
+  .pull-quote {
+    margin: 3rem 0;
+    padding: 1.8rem 2rem;
+    border-left: 4px solid var(--mustard);
+    background: var(--bone);
+    border-radius: 0 12px 12px 0;
+  }
+  .pull-quote p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    line-height: 1.45;
+    color: var(--ink);
+    margin-bottom: 0 !important;
+  }
+  .pull-quote .attr {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 0.9rem;
+    display: block;
+    font-style: normal;
+  }
+
+  /* Section break ornament */
+  .section-break {
+    text-align: center;
+    margin: 3.5rem 0;
+    color: var(--mustard);
+    font-size: 1.2rem;
+    letter-spacing: 0.4em;
+    opacity: 0.8;
+  }
+
+  /* Inline image */
+  .article-img {
+    margin: 3rem -2vw;
+    position: relative;
+  }
+  @media (max-width: 760px) { .article-img { margin: 2.5rem 0; } }
+
+  .article-img img {
+    width: 100%;
+    border-radius: 12px;
+    border: 1.5px solid var(--ink);
+    display: block;
+  }
+  .article-img figcaption {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 0.8rem;
+    text-align: center;
+    opacity: 0.7;
+  }
+
+  /* Two-up image grid */
+  .img-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin: 3rem -2vw;
+  }
+  @media (max-width: 640px) { .img-pair { grid-template-columns: 1fr; margin: 2.5rem 0; } }
+  .img-pair figure { display: flex; flex-direction: column; }
+  .img-pair img { width: 100%; border-radius: 10px; border: 1.5px solid var(--ink); display: block; flex: 1; object-fit: cover; }
+  .img-pair figcaption { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin-top: 0.6rem; text-align: center; opacity: 0.7; }
+
+  /* Inline callout */
+  .callout {
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    border-radius: 12px;
+    padding: 1.4rem 1.8rem;
+    margin: 2.5rem 0;
+  }
+  .callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .callout p {
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin-bottom: 0 !important;
+  }
+
+  /* Symbol list */
+  .symbol-list {
+    list-style: none;
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .symbol-list li {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid rgba(26,22,18,0.1);
+    font-size: 0.98rem;
+  }
+  .symbol-list li:last-child { border-bottom: none; }
+  .symbol-list .sym {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    color: var(--coral);
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  /* ─── ARTICLE FOOTER ─────────────────────────────── */
+  .article-end {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1.5px solid var(--ink);
+    border-color: rgba(26,22,18,0.15);
+  }
+
+  .article-tags {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .article-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    cursor: none;
+    transition: background .2s var(--ease), color .2s var(--ease);
+  }
+  .article-tag:hover { background: var(--ink); color: var(--cream); }
+
+  .article-sources {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    opacity: 0.65;
+    line-height: 1.7;
+    border-top: 1px dashed rgba(26,22,18,0.2);
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .article-sources p { margin-bottom: 0.4rem; }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    cursor: none;
+    transition: color .2s var(--ease);
+    margin-bottom: 3rem;
+    display: block;
+  }
+  .back-link:hover { color: var(--coral); }
+
+  /* ─── CTA STRIP ─────────────────────────────── */
+  .strip {
+    background: var(--mustard);
+    padding: 5rem var(--gut);
+    position: relative;
+    overflow: hidden;
+    margin-top: 6rem;
+  }
+  .strip-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (max-width: 700px) { .strip-inner { grid-template-columns: 1fr; gap: 2rem; } }
+  .strip-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(2.2rem, 5vw, 4rem); line-height: 0.95; letter-spacing: -0.03em; }
+  .strip-title em { font-style: italic; font-weight: 400; color: var(--plum); }
+  .strip-action { display: flex; flex-direction: column; gap: 1.2rem; align-items: flex-start; }
+  .strip-button { display: inline-flex; align-items: center; gap: 0.7rem; background: var(--ink); color: var(--cream); text-decoration: none; padding: 1.1rem 2rem; border-radius: 999px; font-family: 'DM Mono', monospace; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: none; transition: transform .35s var(--ease), background .25s var(--ease); }
+  .strip-button:hover { transform: translateX(8px); background: var(--coral); }
+  .strip-note { font-family: 'DM Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink); opacity: 0.55; }
+
+  /* ─── FOOTER ─────────────────────────────── */
+  footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2rem; }
+  .footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  @media (max-width: 700px) { .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+  .footer-brand-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.2rem; line-height: 1; letter-spacing: -0.04em; margin-bottom: 0.8rem; }
+  .footer-brand-title em { font-style: italic; font-weight: 400; color: var(--mustard); }
+  .footer-brand p { color: var(--bone); opacity: 0.7; font-size: 0.92rem; max-width: 30ch; }
+  .footer-col h4 { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mustard); margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col a { color: var(--bone); text-decoration: none; font-size: 0.9rem; opacity: 0.75; transition: color .2s, opacity .2s; cursor: none; }
+  .footer-col a:hover { color: var(--mustard); opacity: 1; }
+  .footer-bottom { border-top: 1px solid rgba(241,231,206,0.15); padding-top: 1.4rem; display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone); opacity: 0.5; flex-wrap: wrap; gap: 0.5rem; }
+
+  /* ─── REDUCED MOTION ─────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div class="nav-mobile-menu" id="navMobileMenu" role="dialog" aria-label="Navigation menu">
+  <a href="../index.html">Home</a>
+  <a href="../about.html">About</a>
+  <a href="../shop.html">Shop</a>
+  <a href="../blog.html">Essays</a>
+</div>
+
+<nav aria-label="Main navigation">
+  <a href="../index.html" class="nav-logo"><span class="nav-logo-dot" aria-hidden="true"></span><span>Pocket Notes</span></a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../shop.html">Shop</a></li>
+    <li><a href="../blog.html" class="active">From the notebook</a></li>
+  </ul>
+  <a href="../shop.html" class="nav-cta">Carry the method ↗</a>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ─── ARTICLE ────────────────────────────────────── -->
+<main class="article-wrap">
+  <div class="article-inner">
+
+    <a href="../blog.html" class="back-link">← All essays</a>
+
+    <header>
+      <p class="article-eyebrow">
+        <span class="tag">History</span>
+        <span class="sep">·</span>
+        <span>11 min read</span>
+        <span class="sep">·</span>
+        <span>April 2026</span>
+      </p>
+
+      <h1 class="article-title">The People Who Write<br><em>in the Margins</em></h1>
+
+      <p class="article-subtitle">A gossipy tour of history's most brazen readers — Coleridge, Fermat, a medieval monk with strong opinions, and a very confident duck. What their scribbles teach us about thinking.</p>
+    </header>
+
+    <hr class="article-rule">
+
+    <article class="article-body">
+
+      <p class="opening">In the autumn of 1815, Samuel Taylor Coleridge — poet, opium addict, and husband of one Sara — sat down to annotate a book for another woman entirely. Her name was Sara Hutchinson, and she was, inconveniently for everyone involved, his best friend's sister-in-law. Coleridge had been in love with her for years. His chosen method of courtship was, to put it charitably, indirect: he wrote notes in the margins of books and passed the books to her. He was forty-three. He had written "The Rime of the Ancient Mariner" fifteen years earlier and appeared to be coasting. His marriage was, by all accounts, a well-documented catastrophe. But in the margins of his books, Coleridge remained the most rigorous mind in any room — and the margins were, apparently, also where he kept his heart.</p>
+
+      <p>What he left behind was not just romance. Coleridge devised an entire private annotation system — a secret language for the white space beside other people's sentences. He sketched it out by hand in a flyleaf, where it has sat, undisturbed, for two centuries:</p>
+
+      <ul class="symbol-list">
+        <li><span class="sym">◎</span> points out a profound, or at least solid and judicious, observation</li>
+        <li><span class="sym">=</span> the sentence or passage contains majesty of conception or style</li>
+        <li><span class="sym">||</span> signifies sublimity</li>
+        <li><span class="sym">✕</span> brilliance or ingenuity</li>
+        <li><span class="sym">Q</span> characteristic quaintness</li>
+        <li><span class="sym">F</span> that it contains an error in fact or philosophy</li>
+      </ul>
+
+      <p>Six symbols. An entire critical vocabulary. A complete private code for responding to literature — invented, annotated, and deployed inside books belonging to a woman who was not his wife.</p>
+
+      <div class="callout">
+        <span class="callout-label">The record</span>
+        <p>Coleridge left over 8,000 marginal notes across approximately 700 volumes. His annotated copies are held at the New York Public Library's Berg Collection, where his symbol key — written in his own hand — is open to inspection.</p>
+      </div>
+
+      <figure class="article-img">
+        <img src="../assets/images/marginalia/img-005.png" alt="Coleridge's handwritten symbol key for his annotation system, in his own cursive, in a flyleaf at the Berg Library NYPL"/>
+        <figcaption>Coleridge's handwritten annotation key. Berg Library, NYPL. The symbols he used to respond to literature — and, apparently, to conduct an affair.</figcaption>
+      </figure>
+
+      <figure class="article-img">
+        <img src="../assets/images/marginalia/img-006.png" alt="A printed page of a book showing Coleridge's actual marginal symbols including equals signs and double lines in the margins"/>
+        <figcaption>Coleridge's symbols in action. The = and || marks visible in the left margin. Berg Library, NYPL.</figcaption>
+      </figure>
+
+      <div class="section-break">✦ ✦ ✦</div>
+
+      <h2>The Medieval Critics</h2>
+
+      <p>The idea that margins are wasted space is, historically speaking, a minority opinion held mostly by people who have never read a truly maddening book.</p>
+
+      <p>For as long as people have carried texts, they have felt the need to respond to them in the only space available. Medieval monks were particularly enthusiastic about this. Their marginalia runs a remarkable emotional range. There was the scholar who, having ploughed through what must have been a torturously poor Latin translation of the Gospels, could not let the matter pass in silence. He reached for his pen. What he wrote — in the gutter of the page, beside the offending text, in a 14th-century hand — has survived seven hundred years with its contempt completely intact:</p>
+
+      <div class="pull-quote">
+        <p>"Whoever translated these Gospels, did a very poor job."</p>
+        <span class="attr">Anonymous, Vienna, ÖNB, S.n. 12.857, fol. 95v — c. 1300</span>
+      </div>
+
+      <p>No name. No context. Just the verdict, offered with the flat certainty of someone who has been made to read bad Latin for six hours and is not going to pretend otherwise.</p>
+
+      <p>Not all medieval readers were critics. A different reader, in a different manuscript, finished something that moved him and simply wrote the opposite — three words in Middle English, carved in gothic lettering at the bottom of the page, with a finality that suggests he saw no need to elaborate:</p>
+
+      <div class="pull-quote">
+        <p>"Thys ys a Good Boke amen."</p>
+        <span class="attr">Anonymous, HRC 143 — "The Cardigan Chaucer," Harry Ransom Center, University of Texas</span>
+      </div>
+
+      <p>Critics have been more elaborate since. Few have been more correct.</p>
+
+      <div class="img-pair">
+        <figure>
+          <img src="../assets/images/marginalia/img-009.png" alt="A medieval manuscript page showing gothic script with a critique written below in a different hand"/>
+          <figcaption>The critique. Vienna, ÖNB, S.n. 12.857, fol. 95v, 1300s.</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/images/marginalia/img-010.png" alt="A manuscript close-up showing the Middle English words Thys ys a Good Boke amen in gothic lettering"/>
+          <figcaption>"Thys ys a Good Boke amen." HRC 143, Harry Ransom Center.</figcaption>
+        </figure>
+      </div>
+
+      <p>Between these two poles — the furious critic and the satisfied reader — medieval marginalia covers most of what any reader has ever felt. There are annotations that chase arguments down into sub-footnotes. There are personal asides that appear to have nothing to do with the text. There are doodles of animals doing inexplicable things: a rabbit on horseback, a dog reading a scroll, a knight in armour conducting a siege against a snail. Medieval scholars have theories about these. None of the theories are fully satisfying. Some things, apparently, were simply drawn.</p>
+
+      <p>And then there is the matter of the pointing hand.</p>
+
+      <p>The <em>manicule</em> — from the Latin for "little hand" — was the medieval reader's device for drawing attention to a passage worth noting. A small hand, drawn in the margin, its finger pointing at the line that mattered. In a 14th-century manuscript held at Berkeley's Bancroft Library, a reader used a manicule to flag a passage. The passage was long. One hand was not sufficient. So the reader drew another. And then, apparently deciding that something more was called for, employed the tentacles of an octopus to bracket the remainder. We have no record of who did this, or what the passage said. We know only that it was, apparently, very important.</p>
+
+      <figure class="article-img">
+        <img src="../assets/images/marginalia/img-022.png" alt="A medieval Latin manuscript with a hand-drawn manicule — a pointing hand with a decorated sleeve — in the left margin, used to flag important text"/>
+        <figcaption>A manicule in its natural habitat. Berkeley, Bancroft Library, MS 85 (14th century). When one pointing hand wasn't enough, readers enrolled further anatomy.</figcaption>
+      </figure>
+
+      <div class="section-break">✦ ✦ ✦</div>
+
+      <h2>Bill Gates, Arguing</h2>
+
+      <p>Bill Gates reads with a pen in his hand. This is not a secret. He has discussed it publicly, and the photographs exist.</p>
+
+      <p>"Taking notes," he has explained, "helps make sure that I am really thinking hard about what is in there." This is the mild, reasonable version — the one for interviews. The private version, which he has also confirmed, is somewhat less composed.</p>
+
+      <div class="pull-quote">
+        <p>"It's actually kind of frustrating... Oh please say something I agree with so I can get through to the end."</p>
+        <span class="attr">Bill Gates, on reading books he disagrees with</span>
+      </div>
+
+      <p>Gates argues with books in the margins. He has described the experience of sustained disagreement with an author as something close to physical discomfort, resolved only by continuous note-taking. A reader arguing with a dead author, alone in a room, at midnight, pen moving faster as the frustration rises. This is, by most definitions, not normal behaviour. It is also, apparently, how one of the most consequential readers of the last century chose to spend his evenings.</p>
+
+      <p>The medieval critics who called out bad Gospel translations would have recognised him completely.</p>
+
+      <div class="section-break">✦ ✦ ✦</div>
+
+      <h2>The Inherited Book</h2>
+
+      <p>The most affecting marginalia often passes between people across time, without either party intending it.</p>
+
+      <p>A woman named Taylor Hazan inherited a copy of <em>Moby Dick</em> when her great-uncle died. He had loved the book. This was apparent from the physical evidence: his annotations ran throughout, in red — underlines, brackets, the occasional word written in the gutter beside a passage that had mattered to him in some way he'd wanted to remember.</p>
+
+      <p>When Taylor read the book, she added her own notes alongside his. Blue, so you could tell whose thoughts belonged to whom. Two generations of reading, running in parallel down the same pages, decades apart.</p>
+
+      <div class="pull-quote">
+        <p>"I especially love the moments when our underlines and checks and hearts overlap: that our breath is taken by the words, even if those breaths happened decades apart and years after his last breath."</p>
+        <span class="attr">Taylor Hazan, on annotating her great-uncle's copy of Moby Dick</span>
+      </div>
+
+      <p>A margin, it turns out, is also a form of time travel.</p>
+
+      <figure class="article-img">
+        <img src="../assets/images/marginalia/img-013.png" alt="A page from Moby Dick showing two sets of annotations — one in red ink from the great-uncle, one in blue from Taylor — running alongside each other in the margins"/>
+        <figcaption>Taylor's notes in blue; her great-uncle's in red. Two readers, one book, decades between them. The margins as a space where they could finally meet.</figcaption>
+      </figure>
+
+      <div class="section-break">✦ ✦ ✦</div>
+
+      <h2>The Most Audacious Note Ever Written</h2>
+
+      <p>Pierre de Fermat was a 17th-century French magistrate and mathematician — a man of private habits and, it turns out, considerable nerve. In the 1630s, while working through a copy of Diophantus' <em>Arithmetica</em>, he encountered a problem about whole-number solutions to equations. He considered the problem. He modified it slightly — changing the power from 2 to 3, the kind of move that is either trivial or catastrophic depending entirely on whether you can prove the result. Then he picked up his pen, turned to the margin, and wrote:</p>
+
+      <div class="pull-quote">
+        <p>"I have a truly marvellous demonstration of this proposition, which this margin is too narrow to contain."</p>
+        <span class="attr">Pierre de Fermat, annotating his copy of Diophantus' Arithmetica, c. 1637</span>
+      </div>
+
+      <p>He wrote nothing else. No proof. No follow-up. Just the claim, hanging in the margin, unsigned.</p>
+
+      <p>Whether Fermat actually had the proof — whether he was telling the truth, bluffing brilliantly, or had genuinely convinced himself of something he'd never quite worked out — became one of the most notorious unsolved problems in mathematics. It stayed unsolved for 358 years. A British mathematician named Andrew Wiles finally proved it in 1995, after seven years of secret work and a proof that ran to over 100 pages. The margin, it turned out, was indeed too narrow. It was just, in a sense, too narrow for anyone, including Fermat.</p>
+
+      <p>No annotation has ever done more with less space.</p>
+
+      <div class="section-break">✦ ✦ ✦</div>
+
+      <h2>The Duck</h2>
+
+      <p>History is full of marginal notes that changed the course of mathematics, or philosophy, or the course of someone's heart. And then there is the Gorleston Psalter.</p>
+
+      <p>The Gorleston Psalter is a magnificently illuminated medieval psalter created around 1300 in Norfolk, England. It is held now at the British Library. Its borders are full of the intricate, expensive craftsmanship that a wealthy church commission could produce in the early 14th century.</p>
+
+      <p>And in one margin, added by a hand that history has not thought to record, is a drawing of a dog. Its mouth is open wide. Above the dog, written in small, careful letters, is a single word:</p>
+
+      <div class="pull-quote">
+        <p><em>queck.</em></p>
+        <span class="attr">Anonymous, The Gorleston Psalter, c. 1300 — British Library</span>
+      </div>
+
+      <p>The dog says queck. It has said queck for 725 years. Someone in medieval Norfolk decided that this was worth writing down — not a theological gloss, not a scholarly correction, not a symbol system for rating sublimity. Just a dog, saying queck. The fact that it was almost certainly meant to be a duck only makes it better.</p>
+
+      <figure class="article-img">
+        <img src="../assets/images/marginalia/img-027.png" alt="A medieval manuscript illustration showing a dog or heron-like creature with the word queck written above it, from the Gorleston Psalter"/>
+        <figcaption>"Queck." The Gorleston Psalter, c. 1300, The British Library. Marginalia at its most essential: a thought so small it had nowhere else to go.</figcaption>
+      </figure>
+
+      <div class="section-break">✦ ✦ ✦</div>
+
+      <h2>The Margin and the Pocket</h2>
+
+      <p>None of this is, strictly speaking, about notebooks. And yet it is, entirely, about notebooks.</p>
+
+      <p>Coleridge devising symbols to name what moved him. The monk who could not let a bad translation pass without comment. Taylor adding blue beside her great-uncle's red. Fermat claiming he had a proof but that the space was insufficient. The person in Norfolk who simply needed, for reasons we will never know, to write down what the dog said.</p>
+
+      <p>They were all doing the same thing: catching a thought before it dissolved. Parking it somewhere — the two inches beside the text, the blank page of a small grid notebook, the back of an envelope on a train — before the moment passed and the thought passed with it.</p>
+
+      <p>The margin and the pocket notebook are the same impulse. The same refusal to let the thought evaporate. The same insistence that it was worth something, even before it was polished, even before it was finished, even before you knew exactly why.</p>
+
+      <p>A thought noted is different from a thought that passes through. The act of putting ink on a small surface — a margin, a grid page, a napkin, an inside cover — is the act of making something real. A draft. A bracket. A checkmark that says: <em>this one mattered.</em></p>
+
+      <p>The margin says: I was here. I noticed.</p>
+
+      <p>Write something in the margins this week. It doesn't have to be brilliant. It only has to be yours.</p>
+
+    </article>
+
+    <div class="article-end">
+      <div class="article-tags">
+        <a href="../blog.html" class="article-tag">History</a>
+        <a href="../blog.html" class="article-tag">Method</a>
+        <a href="../blog.html" class="article-tag">Philosophy</a>
+        <a href="../blog.html" class="article-tag">Reading</a>
+      </div>
+
+      <div class="article-sources">
+        <p>Sources: Coleridge's annotation system — <em>The Collected Works of Samuel Taylor Coleridge: Marginalia I</em>, edited by George Whalley, Princeton University Press, 2001. Fermat's Last Theorem account — Simon Singh, <em>Fermat's Enigma: The Epic Quest to Solve the World's Greatest Mathematical Problem</em>, Anchor, 1998, pp. 61–62. Bill Gates quotations — Quartz, "How Bill Gates Reads Books," 2017. Medieval manuscript examples — Berg Library NYPL; Vienna, ÖNB, S.n. 12.857; Harry Ransom Center, University of Texas; Berkeley, Bancroft Library, MS 85; The Gorleston Psalter, British Library. Thematic context — Jillian Hess, "Marginalia: 5 Ways to Write in Your Books," <em>Noted</em> (Substack), March 2023. Andrew Wiles's proof of Fermat's Last Theorem — <em>Annals of Mathematics</em>, 1995.</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ─── EMAIL SUBSCRIBE ──────────────────────────────── -->
+<section class="subscribe-section">
+  <div class="subscribe-inner">
+    <p class="subscribe-eyebrow">The newsletter</p>
+    <h2 class="subscribe-title">Two lines,<br>every <em>two weeks.</em></h2>
+    <p class="subscribe-blurb">New essays, quiet philosophy. Only when there's something worth saying.</p>
+    <form class="subscribe-form" id="subscribeForm">
+      <input type="email" class="subscribe-input" placeholder="your@email.com" required aria-label="Email address">
+      <button type="submit" class="subscribe-btn">Subscribe ↗</button>
+    </form>
+    <p class="subscribe-note" id="subscribeNote">No tracking · No spam · Unsubscribe anytime</p>
+  </div>
+</section>
+
+<!-- ─── READ NEXT ──────────────────────────────── -->
+<section class="read-next">
+  <div class="read-next-inner">
+    <p class="read-next-label">Read next</p>
+    <div class="read-next-grid">
+      <a href="notebooks-of-ancient-singers.html" class="read-next-card">
+        <div class="read-next-img" style="background:#F5C13D;">
+          <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 60 Q80 30 150 80 T180 60" stroke="#1A1612" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M30 100 Q70 70 130 110 T180 100" stroke="#FF6B47" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle cx="50" cy="170" r="6" fill="#FF6B47" stroke="#1A1612" stroke-width="2"/>
+          </svg>
+        </div>
+        <p class="read-next-meta">History · 8 min</p>
+        <p class="read-next-title">Notebooks of ancient singers</p>
+      </a>
+      <a href="margins-where-great-ideas-live.html" class="read-next-card">
+        <div class="read-next-img" style="background:#5BA8C9;">
+          <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="40" y="30" width="120" height="140" rx="4" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
+            <line x1="62" y1="30" x2="62" y2="170" stroke="#1A1612" stroke-width="1" opacity="0.4"/>
+            <path d="M48 65 Q52 75 50 90 Q47 100 52 115" stroke="#FF6B47" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="read-next-meta">History · 6 min</p>
+        <p class="read-next-title">Margins: where great ideas actually live</p>
+      </a>
+      <a href="the-roman-wax-tablet.html" class="read-next-card">
+        <div class="read-next-img" style="background:#F26A8D;">
+          <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="50" width="140" height="100" rx="4" fill="#6E3582" stroke="#1A1612" stroke-width="3"/>
+            <rect x="40" y="60" width="120" height="80" fill="#F5C13D" stroke="#1A1612" stroke-width="2"/>
+            <line x1="155" y1="40" x2="190" y2="20" stroke="#1A1612" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="190" cy="20" r="4" fill="#FF6B47" stroke="#1A1612" stroke-width="2"/>
+          </svg>
+        </div>
+        <p class="read-next-meta">History · 10 min</p>
+        <p class="read-next-title">The Roman wax tablet, ancestor to all of this</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA STRIP ──────────────────────────────── -->
+<section class="strip">
+  <div class="strip-inner">
+    <h2 class="strip-title">The margin is two<br><em>inches wide.</em></h2>
+    <div class="strip-action">
+      <a href="../shop.html" class="strip-button">Begin a notebook this week ↗</a>
+      <p class="strip-note">A6 · 64 pages · Grid · Made in India</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3 class="footer-brand-title">Pocket<br><em>Notes</em></h3>
+      <p>A capture device for fast thinkers. Small grid notebooks, made in India, for people who already write.</p>
+    </div>
+    <div class="footer-col">
+      <h4>The notebooks</h4>
+      <ul>
+        <li><a href="../shop.html">Founder's 500</a></li>
+        <li><a href="../shop.html">Flow Series</a></li>
+        <li><a href="../about.html">About us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Say hello</h4>
+      <ul>
+        <li><a href="mailto:hello@pocketnotes.in">hello@pocketnotes.in</a></li>
+        <li><a href="../blog.html">From the notebook</a></li>
+        <li><a href="#">Instagram ↗</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Pocket Notes</span>
+    <span>Small Books, Big Ideas · Made in India</span>
+  </div>
+</footer>
+
+<script>
+  // Cursor: dot + ring
+  const dot  = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+  });
+  (function loop() {
+    rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+  });
+
+  // Hamburger
+  const hamburger  = document.getElementById('navHamburger');
+  const mobileMenu = document.getElementById('navMobileMenu');
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      const open = hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }));
+  }
+
+  // Subscribe form
+  const subForm = document.getElementById('subscribeForm');
+  const subNote = document.getElementById('subscribeNote');
+  if (subForm) {
+    subForm.addEventListener('submit', e => {
+      e.preventDefault();
+      subForm.style.display = 'none';
+      subNote.textContent = 'Noted. The newsletter will arrive in your inbox.';
+      subNote.style.opacity = '1';
+      subNote.style.fontFamily = "'Fraunces', serif";
+      subNote.style.fontStyle = 'italic';
+      subNote.style.color = 'var(--mustard)';
+      subNote.style.fontSize = '1.1rem';
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,333 @@
+
+
+
+POCKET NOTES — FIGMA DESIGN BRIEF
+
+Theme: A system for thinkers. A philosophy you can carry.
+ Type: Philosophical school × Cult design × Interactive system
+ Goal: Build a homepage that positions Pocket Notes as a discipline, not a product; as a method, not a brand.
+
+
+
+
+
+🎨 DESIGN PRINCIPLES
+
+Metaphor First — Every visual should feel like it stands in for a cognitive or philosophical idea.
+
+
+Texture of Thought — Use matte gradients, subtle noise, neuro‑symbolic imagery (MRI scans, scribbles, paths, flow diagrams).
+
+
+Spatial Design — Give every idea room to breathe; treat whitespace like silence in thought.
+
+
+Aesthetic Tension — Combine structure (grids, system diagrams) with rawness (ink, chaos, fast scribbles).
+
+
+Interaction as Initiation — Visitors must feel like they’re entering a school of thought, not browsing a store.
+
+
+
+
+
+
+🧭 NAVIGATION + SITE IDENTITY
+
+Top Nav:
+
+Philosophy → (What is Pocket Thinking?)
+
+
+Rituals → (Daily Thinking Practices)
+
+
+Artifacts → (Notebooks & Tools)
+
+
+Field Notes → (Thinker Stories)
+
+
+Join → (CTA to sign up or buy)
+
+
+Logo Usage:
+ Treat “POCKET NOTES®” as a doctrine, not a label.
+ On scroll, it condenses into a sigil or glyph (dot or slash, like a cult marker).
+
+
+
+
+
+🪩 HERO SECTION — Enter the School of Fast Thought
+
+Visual: Oblique beam of light on MRI-style notebook. Dark ritual vibe.
+
+
+Headline:
+ This isn’t a notebook.
+ This is where ideas begin.
+
+
+Subhead:
+ Make thinking actionable.
+ Make writing consequential.
+
+
+CTA: Enter the Discipline
+
+
+Background Design:
+ A slow-shifting pointillist gradient that mimics the brain mapping itself
+
+
+
+
+
+
+🧊 THE PHILOSOPHY SECTION — Why We Exist
+
+Most ideas disappear not because they’re bad,
+ but because no one caught them in time.
+
+Minimal editorial layout
+
+
+Typography hierarchy feels like reading an academic abstract
+
+
+One diagram: The Idea Lifecycle (chaos → catch → clarify → create → ship)
+
+
+Callout quote in serif:
+ “Thought becomes real when it enters the page.”
+
+
+
+
+
+
+🕳 THE VOID SECTION — What Happens Without It
+
+Full screen dark scroll experience
+
+
+Floating statements fade in/out:
+
+
+“You had the idea yesterday. Where is it now?”
+
+
+“How many great beginnings did you never record?”
+
+
+“What if clarity was five lines away?”
+
+
+MRI data visual flickers in background like a dissolving thought
+
+
+Scroll transition leads to…
+
+
+
+
+
+
+🎛 THE SYSTEM SECTION — The Discipline of Pocket Thinking
+
+Split into three visual modules:
+
+Name
+
+Description
+
+Visual
+
+Catch
+
+Jot it before it vanishes.
+
+Scribble overlay with blinking cursor
+
+Clarify
+
+Make sense of fragments.
+
+Grid of notes connecting via nodes
+
+Compound
+
+Return, revise, refine.
+
+Notebook with arrows looping through time
+
+At bottom:
+ Pocket Notes is not a brand.
+ It’s a method.
+
+
+
+
+
+📚 ARTIFACTS — Tools of the Discipline
+
+Horizontal scroll, but each product = a relic, not a SKU
+
+
+Use side-angle lighting to make notebooks feel sacred, cinematic
+
+
+On hover: show rituals, not specs
+
+
+Examples:
+
+
+Flow Series → “Use it in motion.”
+
+
+Founders Series → “Map the long game.”
+
+
+Graeco-Roman → “Think in forms.”
+
+
+CTA: Carry One. Begin the Work.
+
+
+
+
+
+
+🪶 FIELD NOTES — Voices from the Cult
+
+Stories from real thinkers (anonymous / first-name-only)
+
+
+Layout like annotated journal entries
+
+
+Audio snippets + image stills of scribbles
+
+
+Quotes:
+
+
+“This changed how I process decisions.”
+
+
+“I stopped waiting for clarity and started catching it.”
+
+
+
+
+
+
+🔁 RITUALS SECTION — How the Discipline Lives
+
+Grid of behaviours, not features
+
+
+Examples:
+
+
+“Write before the idea gets shy.”
+
+
+“Two lines. Every day. No matter what.”
+
+
+“Diagram the thing you’re avoiding.”
+
+
+Hover = grainy photo of a notebook in use (bedside, streetlight, bus stop)
+
+
+
+
+
+
+✍️ FOUNDER’S NOTE — The First Thought
+
+It came in a café. I had no place to put it.
+ That became Pocket Notes.
+
+Single paragraph only
+
+
+Signature, not explanation
+
+
+CTA: Read the Origin Story
+
+
+
+
+
+
+🧠 FAQ — Designed for People Who Think
+
+Use the tone of a Stoic teacher.
+ Only answer what matters.
+
+Why paper?
+ → Because attention is physical.
+
+
+Why small?
+ → Constraint sharpens thought.
+
+
+Why carry it?
+ → Because ideas don’t repeat themselves.
+
+
+
+
+
+
+🧲 FINAL CTA STRIP — Ideas Choose the Ones Who Are Ready
+
+Beam of light over notebook
+
+
+Zero distractions
+
+
+Black background, serif text in center:
+ “Carry the method.”
+
+
+Button: Begin Now
+
+
+
+
+
+
+✏️ GLOBAL INTERACTIONS + DESIGN NOTES
+
+Cursors pulse near words like “clarity”, “discipline”, “chaos”
+
+
+MRI-style idle animation between scrolls
+
+
+Scroll progress indicator shaped like a looping diagram
+
+
+Texture overlays: grain, paper, fingerprint smudge (very subtle)
+
+
+Moodboard references:
+
+
+The School of Life, Bruno Munari, Jodorowsky’s notebooks, Swiss design manuals
+
+
+
+
+
+
+

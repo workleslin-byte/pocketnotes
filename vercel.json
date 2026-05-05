@@ -1,0 +1,31 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/home", "destination": "/", "permanent": false },
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/about.html", "destination": "/about", "permanent": true },
+    { "source": "/blog.html", "destination": "/blog", "permanent": true },
+    { "source": "/shop.html", "destination": "/shop", "permanent": true },
+    { "source": "/essays/the-people-who-write-in-the-margins.html", "destination": "/essays/the-people-who-write-in-the-margins", "permanent": true },
+    { "source": "/essays/the-page-is-a-tool.html", "destination": "/essays/the-page-is-a-tool", "permanent": true },
+    { "source": "/essays/constraint-sharpens.html", "destination": "/essays/constraint-sharpens", "permanent": true },
+    { "source": "/essays/catch-first-edit-later.html", "destination": "/essays/catch-first-edit-later", "permanent": true },
+    { "source": "/essays/the-method-beats-the-mood.html", "destination": "/essays/the-method-beats-the-mood", "permanent": true },
+    { "source": "/essays/notes-as-identity.html", "destination": "/essays/notes-as-identity", "permanent": true },
+    { "source": "/essays/attention-is-physical.html", "destination": "/essays/attention-is-physical", "permanent": true },
+    { "source": "/essays/born-of-necessity.html", "destination": "/essays/born-of-necessity", "permanent": true },
+    { "source": "/essays/we-dont-compete-with-notebooks.html", "destination": "/essays/we-dont-compete-with-notebooks", "permanent": true },
+    { "source": "/essays/the-index-method.html", "destination": "/essays/the-index-method", "permanent": true },
+    { "source": "/essays/notebooks-of-ancient-singers.html", "destination": "/essays/notebooks-of-ancient-singers", "permanent": true },
+    { "source": "/essays/why-your-notebook-should-never-be-organised.html", "destination": "/essays/why-your-notebook-should-never-be-organised", "permanent": true },
+    { "source": "/essays/the-grid-page-and-the-wandering-thought.html", "destination": "/essays/the-grid-page-and-the-wandering-thought", "permanent": true },
+    { "source": "/essays/the-roman-wax-tablet.html", "destination": "/essays/the-roman-wax-tablet", "permanent": true },
+    { "source": "/essays/two-lines-every-day.html", "destination": "/essays/two-lines-every-day", "permanent": true },
+    { "source": "/essays/the-first-page-rule.html", "destination": "/essays/the-first-page-rule", "permanent": true },
+    { "source": "/essays/constraint-as-creative-practice.html", "destination": "/essays/constraint-as-creative-practice", "permanent": true },
+    { "source": "/essays/notes-as-identity-the-corebook.html", "destination": "/essays/notes-as-identity-the-corebook", "permanent": true },
+    { "source": "/essays/margins-where-great-ideas-live.html", "destination": "/essays/margins-where-great-ideas-live", "permanent": true },
+    { "source": "/essays/idea-parking.html", "destination": "/essays/idea-parking", "permanent": true }
+  ]
+}
