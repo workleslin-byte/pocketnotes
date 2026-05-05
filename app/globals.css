@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #fbf8f3;
+  --color-ink: #1a1816;
+  --color-ink-muted: #57524d;
+  --color-rule: #e7e1d6;
+
+  --font-serif: "Cormorant Garamond", "Georgia", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+/* Editorial body column for essays — Aeon / Atlantic style */
+.prose-essay {
+  max-width: 42rem; /* ~720px including padding */
+  margin-inline: auto;
+  font-family: var(--font-serif);
+  font-size: 1.1875rem; /* 19px */
+  line-height: 1.7;
+  color: var(--color-ink);
+}
+
+.prose-essay p + p {
+  margin-top: 1.25em;
+}
+
+.prose-essay em {
+  font-style: italic;
+}
+
+.prose-essay a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--color-rule);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.15s ease;
+}
+
+.prose-essay a:hover {
+  text-decoration-color: var(--color-ink);
+}
