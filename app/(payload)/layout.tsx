@@ -1,12 +1,11 @@
 /* THIS FILE IS REQUIRED BY PAYLOAD — provides the admin panel's root layout.
    Do not delete or rename. */
-import { RootLayout } from "@payloadcms/next/layouts";
+import { RootLayout, handleServerFunctions } from "@payloadcms/next/layouts";
 import config from "@/payload.config";
 import "@payloadcms/next/css";
 import "./custom.scss";
 
 import type { ServerFunctionClient } from "payload";
-import { handleServerFunctions } from "@payloadcms/next/utilities";
 import { importMap } from "./admin/importMap.js";
 
 type Args = { children: React.ReactNode };

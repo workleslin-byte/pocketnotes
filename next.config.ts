@@ -9,9 +9,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "www.pocketnotes.in" },
     ],
   },
-  experimental: {
-    reactCompiler: false,
-  },
+  reactCompiler: false,
 };
 
 export default withPayload(nextConfig, { devBundleServerPackages: false });
