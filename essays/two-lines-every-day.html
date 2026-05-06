@@ -3,225 +3,190 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Two Lines, Every Day: The Smallest Reliable Habit — Pocket Notes</title>
-<meta name="description" content="A retired schoolteacher in Coorg has written two lines every morning for eleven years. On the only writing habit small enough to actually keep."/>
+<title>Two Lines Every Day — Pocket Notes</title>
+<meta name="description" content="B.J. Fogg's research on tiny habits shows that the minimum viable action beats the grand intention every time. On writing two lines daily — and why small is not a consolation prize."/>
 <link rel="canonical" href="https://pocketnotes.in/essays/two-lines-every-day"/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='8' y='4' width='18' height='24' rx='2' fill='%23FAF3E3' stroke='%231A1612' stroke-width='2.5'/%3E%3Crect x='6' y='4' width='4' height='24' fill='%23F5C13D' stroke='%231A1612' stroke-width='2.5'/%3E%3C/svg%3E"/>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,700&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=Space+Grotesk:wght@300;400;500&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Two Lines, Every Day: The Smallest Reliable Habit",
-  "description": "A retired schoolteacher in Coorg has written two lines every morning for eleven years. On the only writing habit small enough to actually keep.",
-  "datePublished": "2026-04-01",
-  "author": {
-    "@type": "Organization",
-    "name": "Pocket Notes"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Pocket Notes",
-    "url": "https://pocketnotes.in"
-  },
-  "mainEntityOfPage": "https://pocketnotes.in/essays/two-lines-every-day"
-}
+{"@context":"https://schema.org","@type":"Article","headline":"Two Lines Every Day","description":"B.J. Fogg's research on tiny habits shows that the minimum viable action beats the grand intention every time. On writing two lines daily.","datePublished":"2026-05-01","author":{"@type":"Organization","name":"Pocket Notes"},"publisher":{"@type":"Organization","name":"Pocket Notes","url":"https://pocketnotes.in"},"mainEntityOfPage":"https://pocketnotes.in/essays/two-lines-every-day"}
 </script>
 <style>
-  :root {
-    --cream: #FAF3E3; --bone: #F1E7CE; --paper: #ECE0BE;
-    --ink: #1A1612; --ink-soft: #3D342A;
-    --mustard: #F5C13D; --coral: #FF6B47; --sage: #8FB89C;
-    --sky: #5BA8C9; --plum: #6E3582; --pink: #F26A8D;
-    --ease: cubic-bezier(0.16, 1, 0.3, 1);
-    --gut: 5vw; --max: 720px;
-  }
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
-  html, body { overflow-x: hidden; }
-  body { background: var(--cream); color: var(--ink); font-family: 'Space Grotesk', sans-serif; font-size: 18px; line-height: 1.7; -webkit-font-smoothing: antialiased; cursor: none; }
-  ::selection { background: var(--mustard); color: var(--ink); }
-  body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.045; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-
-  /* Cursor */
-  .cursor-dot, .cursor-ring { position: fixed; pointer-events: none; z-index: 10000; border-radius: 50%; transform: translate(-50%, -50%); }
-  .cursor-dot { width: 8px; height: 8px; background: var(--ink); transition: background .2s; }
-  .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--ink); transition: width .3s, height .3s, border-color .25s, background .25s; }
-  .cursor-ring.hover { width: 80px; height: 80px; background: var(--mustard); border-color: var(--mustard); mix-blend-mode: multiply; }
-  @media (max-width: 900px) { body { cursor: default; } .cursor-dot, .cursor-ring { display: none; } }
-
-  /* Hamburger */
-  .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 0.4rem; cursor: pointer; }
-  .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--cream); border-radius: 2px; transition: transform .35s, opacity .25s; }
-  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
-  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  .nav-mobile-menu { position: fixed; inset: 0; background: var(--ink); z-index: 190; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: opacity .35s; }
-  .nav-mobile-menu.open { opacity: 1; pointer-events: all; }
-  .nav-mobile-menu a { font-family: 'Fraunces', serif; font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 900; color: var(--cream); text-decoration: none; text-transform: uppercase; letter-spacing: -0.03em; transition: color .2s; }
-  .nav-mobile-menu a:hover { color: var(--mustard); }
-  @media (max-width: 900px) { nav { padding: 0.7rem 1rem; } .nav-links { display: none; } .nav-hamburger { display: flex; } }
-
-  /* Nav */
-  nav { position: fixed; top: 1.5rem; left: 1.5rem; right: 1.5rem; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 1.5rem; background: var(--ink); color: var(--cream); border-radius: 999px; font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em; }
-  .nav-logo { display: flex; align-items: center; gap: 0.6rem; font-weight: 500; text-transform: uppercase; text-decoration: none; color: inherit; }
-  .nav-logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mustard); animation: pulse 2.4s infinite; }
-  @keyframes pulse { 0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.6} }
-  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
-  .nav-links a { color: var(--bone); text-decoration: none; text-transform: uppercase; transition: color .25s; cursor: none; }
-  .nav-links a:hover, .nav-links a.active { color: var(--mustard); }
-  .nav-cta { background: var(--mustard); color: var(--ink); padding: 0.5rem 1.2rem; border-radius: 999px; text-decoration: none; text-transform: uppercase; font-weight: 500; transition: background .25s; cursor: none; }
-  .nav-cta:hover { background: var(--coral); color: var(--cream); }
-
-  /* Article */
-  .article-wrap { padding-top: 9rem; padding-bottom: 6rem; }
-  .article-inner { max-width: var(--max); margin: 0 auto; padding: 0 var(--gut); }
-  .article-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.8rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-  .article-eyebrow .tag { background: var(--mustard); color: var(--ink); padding: 0.2rem 0.7rem; border-radius: 999px; font-size: 0.68rem; font-weight: 500; }
-  .article-eyebrow .sep { opacity: 0.35; }
-  .article-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(2.6rem, 7vw, 4.8rem); line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 1.4rem; }
-  .article-title em { font-style: italic; font-weight: 400; color: var(--coral); }
-  .article-subtitle { font-family: 'Fraunces', serif; font-size: clamp(1.15rem, 2.2vw, 1.5rem); font-style: italic; font-weight: 300; color: var(--ink-soft); line-height: 1.45; margin-bottom: 2.5rem; border-left: 3px solid var(--mustard); padding-left: 1.2rem; }
-  .article-rule { border: none; border-top: 1.5px solid var(--ink); margin: 2.5rem 0; opacity: 0.15; }
-  .article-body { font-size: 1.05rem; line-height: 1.8; color: var(--ink); }
-  .article-body p { margin-bottom: 1.6rem; }
-  .article-body .opening::first-letter { font-family: 'Fraunces', serif; font-weight: 900; font-size: 5.2rem; line-height: 0.82; float: left; margin-right: 0.1em; margin-top: 0.05em; color: var(--coral); }
-  .article-body h2 { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(1.6rem, 3.5vw, 2.2rem); line-height: 1.05; letter-spacing: -0.025em; margin: 3.5rem 0 1rem; }
-  .pull-quote { margin: 3rem 0; padding: 1.8rem 2rem; border-left: 4px solid var(--mustard); background: var(--bone); border-radius: 0 12px 12px 0; }
-  .pull-quote p { font-family: 'Fraunces', serif; font-style: italic; font-size: clamp(1.2rem, 2.5vw, 1.6rem); line-height: 1.45; color: var(--ink); margin-bottom: 0 !important; }
-  .pull-quote .attr { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-top: 0.9rem; display: block; font-style: normal; }
-  .section-break { text-align: center; margin: 3.5rem 0; color: var(--mustard); font-size: 1.2rem; letter-spacing: 0.4em; opacity: 0.8; }
-  .article-end { margin-top: 4rem; padding-top: 2rem; border-top: 1.5px solid rgba(26,22,18,0.15); }
-  .article-tags { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem; }
-  .article-tag { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem; border: 1.5px solid var(--ink); border-radius: 999px; color: var(--ink-soft); text-decoration: none; cursor: none; transition: background .2s, color .2s; }
-  .article-tag:hover { background: var(--ink); color: var(--cream); }
-  .back-link { display: block; font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; cursor: none; transition: color .2s; margin-bottom: 3rem; }
-  .back-link:hover { color: var(--coral); }
-
-  /* Subscribe */
-  .subscribe-section { background: var(--plum); color: var(--cream); padding: 5rem var(--gut); margin-top: 6rem; }
-  .subscribe-inner { max-width: 600px; margin: 0 auto; text-align: center; }
-  .subscribe-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mustard); margin-bottom: 1.2rem; }
-  .subscribe-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1; letter-spacing: -0.03em; margin-bottom: 1rem; }
-  .subscribe-title em { font-style: italic; font-weight: 400; color: var(--mustard); }
-  .subscribe-blurb { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.15rem; color: var(--bone); margin-bottom: 2.5rem; opacity: 0.9; line-height: 1.5; }
-  .subscribe-form { display: flex; gap: 0.7rem; max-width: 460px; margin: 0 auto; flex-wrap: wrap; }
-  .subscribe-input { flex: 1; min-width: 200px; padding: 0.95rem 1.3rem; border-radius: 999px; border: none; background: var(--cream); color: var(--ink); font-family: 'Fraunces', serif; font-size: 1rem; outline: none; }
-  .subscribe-input::placeholder { color: var(--ink); opacity: 0.45; font-style: italic; }
-  .subscribe-input:focus { box-shadow: 0 0 0 3px var(--mustard); }
-  .subscribe-btn { padding: 0.95rem 1.5rem; border-radius: 999px; border: none; background: var(--mustard); color: var(--ink); font-family: 'DM Mono', monospace; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: none; transition: background .25s; font-weight: 500; }
-  .subscribe-btn:hover { background: var(--coral); color: var(--cream); }
-  .subscribe-note { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 1.4rem; opacity: 0.5; }
-  @media (max-width: 600px) { .subscribe-form { flex-direction: column; } .subscribe-input, .subscribe-btn { width: 100%; } }
-
-  /* Read Next */
-  .read-next { padding: 5rem var(--gut); background: var(--bone); }
-  .read-next-inner { max-width: 900px; margin: 0 auto; }
-  .read-next-label { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 2.5rem; display: flex; align-items: center; gap: 0.6rem; }
-  .read-next-label::before { content: ''; width: 28px; height: 1px; background: var(--ink-soft); opacity: 0.5; }
-  .read-next-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-  .read-next-card { text-decoration: none; color: var(--ink); display: block; cursor: none; transition: transform .35s; }
-  .read-next-card:hover { transform: translateY(-8px); }
-  .read-next-img { aspect-ratio: 4/3; border-radius: 16px; border: 1.5px solid var(--ink); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: border-radius .35s; }
-  .read-next-card:hover .read-next-img { border-radius: 6px; }
-  .read-next-meta { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.5rem; }
-  .read-next-title { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 700; line-height: 1.25; }
-  @media (max-width: 700px) { .read-next-grid { grid-template-columns: 1fr; } }
-
-  /* CTA Strip */
-  .strip { background: var(--mustard); padding: 5rem var(--gut); position: relative; overflow: hidden; }
-  .strip-inner { max-width: 860px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-  @media (max-width: 700px) { .strip-inner { grid-template-columns: 1fr; gap: 2rem; } }
-  .strip-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(2.2rem, 5vw, 4rem); line-height: 0.95; letter-spacing: -0.03em; }
-  .strip-title em { font-style: italic; font-weight: 400; color: var(--plum); }
-  .strip-action { display: flex; flex-direction: column; gap: 1.2rem; align-items: flex-start; }
-  .strip-button { display: inline-flex; align-items: center; gap: 0.7rem; background: var(--ink); color: var(--cream); text-decoration: none; padding: 1.1rem 2rem; border-radius: 999px; font-family: 'DM Mono', monospace; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: none; transition: transform .35s, background .25s; }
-  .strip-button:hover { transform: translateX(8px); background: var(--coral); }
-  .strip-note { font-family: 'DM Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink); opacity: 0.55; }
-
-  /* Footer */
-  footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2rem; }
-  .footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-  @media (max-width: 700px) { .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; } }
-  .footer-brand-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.2rem; line-height: 1; letter-spacing: -0.04em; margin-bottom: 0.8rem; }
-  .footer-brand-title em { font-style: italic; font-weight: 400; color: var(--mustard); }
-  .footer-brand p { color: var(--bone); opacity: 0.7; font-size: 0.92rem; max-width: 30ch; }
-  .footer-col h4 { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mustard); margin-bottom: 1rem; }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-  .footer-col a { color: var(--bone); text-decoration: none; font-size: 0.9rem; opacity: 0.75; transition: color .2s, opacity .2s; cursor: none; }
-  .footer-col a:hover { color: var(--mustard); opacity: 1; }
-  .footer-bottom { border-top: 1px solid rgba(241,231,206,0.15); padding-top: 1.4rem; display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone); opacity: 0.5; flex-wrap: wrap; gap: 0.5rem; }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+:root{--cream:#FAF3E3;--bone:#F1E7CE;--paper:#ECE0BE;--ink:#1A1612;--ink-soft:#3D342A;--mustard:#F5C13D;--coral:#FF6B47;--sage:#8FB89C;--sky:#5BA8C9;--plum:#6E3582;--pink:#F26A8D;--olive:#2C2A20;--ease:cubic-bezier(0.16,1,0.3,1);--spring:cubic-bezier(0.34,1.56,0.64,1);--gut:5vw;--max:1020px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+html,body{overflow-x:hidden}
+body{background:var(--cream);color:var(--ink);font-family:'Space Grotesk',sans-serif;font-weight:300;line-height:1.6;min-height:100vh;cursor:none}
+::selection{background:var(--mustard);color:var(--ink)}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.045;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.cursor-dot,.cursor-ring{position:fixed;pointer-events:none;z-index:10000;border-radius:50%;transform:translate(-50%,-50%)}
+.cursor-dot{width:8px;height:8px;background:var(--ink);transition:background .2s var(--ease)}
+.cursor-ring{width:36px;height:36px;border:1.5px solid var(--ink);transition:width .3s var(--ease),height .3s var(--ease),border-color .25s,background .25s}
+.cursor-ring.hover{width:80px;height:80px;background:var(--mustard);border-color:var(--mustard);mix-blend-mode:multiply}
+@media(max-width:900px){body{cursor:default}.cursor-dot,.cursor-ring{display:none}}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:0.4rem;cursor:pointer}
+.nav-hamburger span{display:block;width:22px;height:2px;background:var(--cream);border-radius:2px;transition:transform .35s var(--ease),opacity .25s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-mobile-menu{position:fixed;inset:0;background:var(--ink);z-index:190;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;opacity:0;pointer-events:none;transition:opacity .35s var(--ease)}
+.nav-mobile-menu.open{opacity:1;pointer-events:all}
+.nav-mobile-menu a{font-family:'Fraunces',serif;font-size:clamp(2rem,8vw,3.5rem);font-weight:900;color:var(--cream);text-decoration:none;text-transform:uppercase;letter-spacing:-0.03em;transition:color .2s}
+.nav-mobile-menu a:hover{color:var(--mustard)}
+@media(max-width:900px){nav{padding:0.7rem 1rem}.nav-links{display:none}.nav-hamburger{display:flex}}
+nav{position:fixed;top:1.5rem;left:1.5rem;right:1.5rem;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:0.85rem 1.5rem;background:var(--ink);color:var(--cream);border-radius:999px;font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.06em}
+.nav-logo{display:flex;align-items:center;gap:0.6rem;font-weight:500;text-transform:uppercase;text-decoration:none;color:inherit}
+.nav-logo-dot{width:8px;height:8px;border-radius:50%;background:var(--mustard);animation:pulse 2.4s var(--ease) infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.6}}
+.nav-links{display:flex;gap:1.8rem;list-style:none}
+.nav-links a{color:var(--bone);text-decoration:none;text-transform:uppercase;transition:color .25s var(--ease);cursor:none}
+.nav-links a:hover,.nav-links a.active{color:var(--mustard)}
+.nav-cta{background:var(--mustard);color:var(--ink);padding:0.5rem 1.2rem;border-radius:999px;text-decoration:none;text-transform:uppercase;font-weight:500;transition:background .25s var(--ease);cursor:none}
+.nav-cta:hover{background:var(--coral);color:var(--cream)}
+.article-wrap{max-width:var(--max);margin:0 auto;padding:9rem var(--gut) 6rem}
+.essay-eyebrow{display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.essay-tag{font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;background:var(--mustard);color:var(--ink);padding:.25rem .65rem;border-radius:999px}
+.essay-meta{font-size:.75rem;color:var(--ink-soft);font-family:'DM Mono',monospace}
+h1{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3rem);font-weight:300;line-height:1.15;letter-spacing:-.02em;margin-bottom:1.25rem;color:var(--ink)}
+h1 em{font-style:italic;color:var(--ink-soft)}
+.essay-subtitle{font-family:'Fraunces',serif;font-size:1.15rem;font-style:italic;font-weight:300;color:var(--ink-soft);border-left:3px solid var(--mustard);padding-left:1rem;margin-bottom:3rem;line-height:1.5}
+.essay-body p{font-size:1.05rem;line-height:1.8;margin-bottom:1.5rem;color:var(--ink);text-align:justify;hyphens:auto}
+.essay-body p:first-of-type::first-letter{font-family:'Fraunces',serif;font-size:3.5rem;font-weight:400;line-height:.85;float:left;margin-right:.1em;margin-top:.05em;color:var(--ink)}
+.essay-body a{color:var(--coral);border-bottom:1px solid var(--mustard);text-decoration:none;transition:color .2s,border-color .2s}
+.essay-body a:hover{color:var(--ink);border-color:var(--coral)}
+.essay-body blockquote{border-left:3px solid var(--mustard);padding:1rem 1.25rem;margin:2.5rem 0;background:var(--bone);border-radius:0 4px 4px 0}
+.essay-body blockquote p{font-family:'Fraunces',serif;font-style:italic;font-size:1.1rem;color:var(--ink-soft);margin:0 0 .5rem;text-align:left;hyphens:none}
+.essay-body blockquote cite{font-size:.75rem;font-family:'DM Mono',monospace;color:var(--ink-soft);letter-spacing:.05em}
+.essay-end{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--bone);font-size:.75rem;color:var(--ink-soft);font-family:'DM Mono',monospace;letter-spacing:.05em}
+.subscribe-section{background:var(--plum);color:var(--cream);padding:5rem var(--gut);position:relative;overflow:hidden}
+.subscribe-inner{max-width:600px;margin:0 auto;text-align:center}
+.subscribe-eyebrow{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mustard);margin-bottom:1.2rem}
+.subscribe-title{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2rem,5vw,3.5rem);line-height:1;letter-spacing:-0.03em;margin-bottom:1rem}
+.subscribe-title em{font-style:italic;font-weight:400;color:var(--mustard)}
+.subscribe-blurb{font-family:'Fraunces',serif;font-style:italic;font-size:1.15rem;color:var(--bone);margin-bottom:2.5rem;opacity:0.9;line-height:1.5}
+.subscribe-form{display:flex;gap:0.7rem;max-width:460px;margin:0 auto;flex-wrap:wrap}
+.subscribe-input{flex:1;min-width:200px;padding:0.95rem 1.3rem;border-radius:999px;border:none;background:var(--cream);color:var(--ink);font-family:'Fraunces',serif;font-size:1rem;outline:none}
+.subscribe-input::placeholder{color:var(--ink);opacity:0.45;font-style:italic}
+.subscribe-input:focus{box-shadow:0 0 0 3px var(--mustard)}
+.subscribe-btn{padding:0.95rem 1.5rem;border-radius:999px;border:none;background:var(--mustard);color:var(--ink);font-family:'DM Mono',monospace;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;cursor:none;transition:background .25s var(--ease);font-weight:500}
+.subscribe-btn:hover{background:var(--coral);color:var(--cream)}
+.subscribe-note{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;margin-top:1.4rem;opacity:0.5}
+@media(max-width:600px){.subscribe-form{flex-direction:column}.subscribe-input,.subscribe-btn{width:100%}}
+.disqus-wrap{max-width:var(--max);margin:0 auto;padding:4rem var(--gut) 2rem}
+.disqus-label{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:2rem;display:flex;align-items:center;gap:0.6rem}
+.disqus-label::before{content:'';width:28px;height:1px;background:var(--ink-soft);opacity:0.5}
+.read-next{padding:5rem var(--gut);background:var(--bone)}
+.read-next-inner{max-width:900px;margin:0 auto}
+.read-next-label{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:2.5rem;display:flex;align-items:center;gap:0.6rem}
+.read-next-label::before{content:'';width:28px;height:1px;background:var(--ink-soft);opacity:0.5}
+.read-next-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.read-next-card{text-decoration:none;color:var(--ink);display:block;cursor:none;transition:transform .35s var(--ease)}
+.read-next-card:hover{transform:translateY(-8px)}
+.read-next-img{aspect-ratio:4/3;border-radius:16px;border:1.5px solid var(--ink);margin-bottom:1rem;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:border-radius .35s var(--ease)}
+.read-next-card:hover .read-next-img{border-radius:6px}
+.read-next-meta{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:0.5rem}
+.read-next-title{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;line-height:1.25}
+@media(max-width:700px){.read-next-grid{grid-template-columns:1fr}}
+.strip{background:var(--mustard);padding:5rem var(--gut)}
+.strip-inner{max-width:860px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+@media(max-width:700px){.strip-inner{grid-template-columns:1fr;gap:2rem}}
+.strip-title{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2.2rem,5vw,4rem);line-height:0.95;letter-spacing:-0.03em}
+.strip-title em{font-style:italic;font-weight:400;color:var(--plum)}
+.strip-action{display:flex;flex-direction:column;gap:1.2rem;align-items:flex-start}
+.strip-button{display:inline-flex;align-items:center;gap:0.7rem;background:var(--ink);color:var(--cream);text-decoration:none;padding:1.1rem 2rem;border-radius:999px;font-family:'DM Mono',monospace;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;cursor:none;transition:transform .35s var(--ease),background .25s var(--ease)}
+.strip-button:hover{transform:translateX(8px);background:var(--coral)}
+.strip-note{font-family:'DM Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink);opacity:0.55}
+footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
+.footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+@media(max-width:700px){.footer-inner{grid-template-columns:1fr 1fr;gap:2rem}}
+.footer-brand-title{font-family:'Fraunces',serif;font-weight:900;font-size:2.2rem;line-height:1;letter-spacing:-0.04em;margin-bottom:0.8rem}
+.footer-brand-title em{font-style:italic;font-weight:400;color:var(--mustard)}
+.footer-brand p{color:var(--bone);opacity:0.7;font-size:0.92rem;max-width:30ch}
+.footer-col h4{font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mustard);margin-bottom:1rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.6rem}
+.footer-col a{color:var(--bone);text-decoration:none;font-size:0.9rem;opacity:0.75;transition:color .2s,opacity .2s;cursor:none}
+.footer-col a:hover{color:var(--mustard);opacity:1}
+.footer-bottom{border-top:1px solid rgba(241,231,206,0.15);padding-top:1.4rem;display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--bone);opacity:0.5;flex-wrap:wrap;gap:0.5rem}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+
 <div class="nav-mobile-menu" id="navMobileMenu" role="dialog" aria-label="Navigation menu">
-  <a href="../index.html">Home</a>
-  <a href="../about.html">About</a>
-  <a href="../shop.html">Shop</a>
-  <a href="../blog.html">Essays</a>
+  <a href="/">Home</a>
+  <a href="/about">About</a>
+  <a href="/shop">Shop</a>
+  <a href="/essays">Essays</a>
 </div>
+
 <nav aria-label="Main navigation">
-  <a href="../index.html" class="nav-logo"><span class="nav-logo-dot" aria-hidden="true"></span><span>Pocket Notes</span></a>
+  <a href="/" class="nav-logo"><span class="nav-logo-dot" aria-hidden="true"></span><span>Pocket Notes</span></a>
   <ul class="nav-links">
-    <li><a href="../index.html">Home</a></li>
-    <li><a href="../about.html">About</a></li>
-    <li><a href="../shop.html">Shop</a></li>
-    <li><a href="../blog.html" class="active">From the notebook</a></li>
+    <li><a href="/shop">Shop</a></li>
+    <li><a href="/essays" class="active">Essays</a></li>
+    <li><a href="/about">About</a></li>
   </ul>
-  <a href="../shop.html" class="nav-cta">Carry the method ↗</a>
+  <a href="/shop" class="nav-cta">See the notebooks ↗</a>
   <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </nav>
+
 <main class="article-wrap">
-  <div class="article-inner">
-    <a href="../blog.html" class="back-link">&#8592; All essays</a>
-    <header>
-      <p class="article-eyebrow">
-        <span class="tag">Ritual</span>
-        <span class="sep">·</span>
-        <span>5 min read</span>
-        <span class="sep">·</span>
-        <span>April 2026</span>
-      </p>
-      <h1 class="article-title">Two Lines, Every Day: The Smallest Reliable Habit</h1>
-      <p class="article-subtitle">A retired schoolteacher in Coorg has written two lines every morning for eleven years. Not a philosophy. A concession.</p>
-    </header>
-    <hr class="article-rule">
-    <article class="article-body">
-      <p class="opening">A retired schoolteacher in Coorg has written two lines in a notebook every morning for eleven years. Not a journal entry. Not a reflection. Two lines — sometimes a sentence and a fragment, sometimes two complete sentences, occasionally something closer to a couplet — and then she closes the notebook and makes coffee. She started because she wanted to write and could not find the time. The two-line limit was not a philosophy. It was a concession.</p>
-      <p>The notebooks have accumulated. She fills one every several months, less because she writes much per day and more because she pastes things in — a stamp, a leaf, a newspaper fragment — which use up the pages faster than two lines would on their own. She has never missed a day, except for one week when her husband was in hospital, and even then she wrote the missing days in as a single entry afterward, catching up without drama.</p>
-      <p>The ambition problem with creative practices is easy to observe. Someone decides to journal and commits to half an hour each morning, knowing that the great diarists — Pepys, Woolf, Kafka — filled volumes. For three weeks, perhaps four, the half hour happens. Then it shrinks to fifteen minutes, then to occasional bursts of guilt-writing, then to the notebook sitting on the nightstand being looked at. The practice collapses not from lack of interest but from the gap between what was promised and what the ordinary day can deliver.</p>
-      <p>Two lines sidesteps this entirely. Two lines is always possible. Two lines is possible when you are sick, when you are travelling, when it is late and you are tired, when nothing happened worth noting, when everything happened and you can't face addressing it. Two lines is the lower bound that doesn't go lower. It is also, on most days, the upper bound that doesn't need to go higher.</p>
-      <p>There is a precision that the constraint produces. Two lines forces selection. If you have, say, a paragraph of feeling to work through and only two lines in which to do it, you have to decide what the centre of gravity is. This is not a restriction that stunts the thought. It is the same pressure that makes the subject line of an email sometimes better writing than the email itself. When the space is very small, you cannot afford imprecision.</p>
-      <p>The schoolteacher says she does not read her old notebooks. They are on a shelf. She knows they are there. The two-line habit is not about the archive. It is about the attention it requires each morning to locate the two lines — to look at whatever the day was, or is about to be, and find the thing that needs to be said in the space of two lines. That attention is the practice. The notebook is where the practice leaves its traces.</p>
-      <p>The notebook she uses is small, which is appropriate. A large notebook and two lines per day would feel eccentric — all that white space around the small daily offering. A small notebook closes without comment. The page is not overwhelmed by its own emptiness. Two lines fit.</p>
-    </article>
-    <div class="article-end">
-      <div class="article-tags">
-        <a href="../blog.html" class="article-tag">Ritual</a>
-        <a href="../blog.html" class="article-tag">Practice</a>
-        <a href="../blog.html" class="article-tag">Habit</a>
-      </div>
-    </div>
+  <div class="essay-eyebrow">
+    <span class="essay-tag">Habit</span>
+    <span class="essay-tag" style="background:var(--sage);color:var(--ink)">Practice</span>
+    <span class="essay-meta">4 min read &nbsp;·&nbsp; May 2026</span>
   </div>
+  <h1>Two Lines <em>Every Day</em></h1>
+  <p class="essay-subtitle">You will not write a page every morning. You will not journal for thirty minutes before breakfast. But two lines — one observation, one question, one thing that happened — that you can do. And it compounds.</p>
+
+  <article class="essay-body">
+    <p>B.J. Fogg spent twenty years studying habit formation at Stanford and arrived at a conclusion that ran against most of the advice in the genre: the problem with habits is not motivation. It is size. People set targets that are too large, fail to meet them on the first hard day, and abandon the practice entirely. The solution is not to want it more. The solution is to make the target so small it is almost impossible to fail.</p>
+
+    <p>He called these Tiny Habits. The canonical example: after you sit down to brush your teeth, do one push-up. Not thirty. One. Because one is so close to zero that failing to do it requires a deliberate act of refusal. And once you have done one, on most days, you will do more. But the commitment is to one. The floor is always clearable.</p>
+
+    <p>Two lines in a notebook every day works the same way. Not a page. Not a structured entry with date, weather, and mood. Two lines. Whatever is at the top of your mind. One sentence about something you noticed. One sentence about something you're thinking about. Done. That is the complete practice.</p>
+
+    <blockquote>
+      <p>"Make it so easy you can't say no."</p>
+      <cite>— B.J. Fogg, Tiny Habits</cite>
+    </blockquote>
+
+    <p>The value is not in any single day's two lines. It is in the unbroken chain. Thirty days of two lines is sixty sentences about what you've been thinking and noticing and doing. In a year, that is 730 sentences — more than most people produce in deliberate reflection in a lifetime of good intentions about journalling.</p>
+
+    <p>More importantly, the daily act of opening the notebook and writing two lines maintains the relationship with the practice. It keeps the notebook present. It keeps the habit of observation sharp. You start looking at the world slightly differently when you know you will have to write two lines about it later. You notice more. You hold observations slightly longer before they dissolve.</p>
+
+    <p>The pocket notebook is sized for this. Two lines on an A6 grid page takes about fifteen seconds to write. The notebook is already in your pocket. The only friction is remembering to do it, and even that shrinks once the practice is established — you reach for the notebook the way you reach for your phone, automatically, because the habit has become part of the texture of the day.</p>
+
+    <p>Start there. Two lines. Same time each day if that helps — after the first coffee, last thing before bed, on the commute. The when matters less than the consistent when. Attach it to something that already happens reliably, and the new habit borrows the reliability of the existing one.</p>
+
+    <p>On good days, two lines becomes ten lines. On hard days, it stays at two. On the hardest days, it stays at one. The practice doesn't care. It just needs you to open the notebook.</p>
+
+    <p>Everything else follows from that.</p>
+  </article>
+  <div class="essay-end">— Pocket Notes, May 2026</div>
 </main>
+
+<div class="disqus-wrap">
+  <p class="disqus-label">Discussion</p>
+  <div id="disqus_thread"></div>
+</div>
 
 <section class="subscribe-section">
   <div class="subscribe-inner">
     <p class="subscribe-eyebrow">The newsletter</p>
     <h2 class="subscribe-title">Two lines,<br>every <em>two weeks.</em></h2>
-    <p class="subscribe-blurb">New essays, quiet philosophy. Only when there&#8217;s something worth saying.</p>
+    <p class="subscribe-blurb">New essays, quiet philosophy. Only when there's something worth saying.</p>
     <form class="subscribe-form" id="subscribeForm">
-      <input type="email" class="subscribe-input" placeholder="your@email.com" required aria-label="Email address">
-      <button type="submit" class="subscribe-btn">Subscribe &#8599;</button>
+      <input type="email" class="subscribe-input" placeholder="your@email.com" required aria-label="Email address" id="emailInput">
+      <button type="submit" class="subscribe-btn">Subscribe ↗</button>
     </form>
-    <p class="subscribe-note" id="subscribeNote">No tracking &middot; No spam &middot; Unsubscribe anytime</p>
+    <p class="subscribe-note" id="subscribeNote">No tracking · No spam · Unsubscribe anytime</p>
   </div>
 </section>
 
@@ -229,26 +194,56 @@
   <div class="read-next-inner">
     <p class="read-next-label">Read next</p>
     <div class="read-next-grid">
-      <a href="the-method-beats-the-mood.html" class="read-next-card">
-        <div class="read-next-img" style="background:#5BA8C9;">
-          <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="65" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/><polygon points="100,45 110,100 100,90 90,100" fill="#FF6B47" stroke="#1A1612" stroke-width="2"/><polygon points="100,155 110,100 100,110 90,100" fill="#1A1612"/><circle cx="100" cy="100" r="6" fill="#1A1612"/><text x="100" y="35" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#1A1612">N</text></svg>
+      <a href="/essays/the-method-beats-the-mood" class="read-next-card">
+        <div class="read-next-img" style="background:#F5C13D;">
+          <svg width="60%" height="60%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="95" r="52" fill="none" stroke="#1A1612" stroke-width="2.5"/>
+            <line x1="100" y1="95" x2="100" y2="52" stroke="#1A1612" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="100" y1="95" x2="128" y2="80" stroke="#1A1612" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="100" cy="95" r="5" fill="#FF6B47"/>
+            <line x1="100" y1="44" x2="100" y2="48" stroke="#1A1612" stroke-width="2"/>
+            <line x1="148" y1="95" x2="144" y2="95" stroke="#1A1612" stroke-width="2"/>
+            <line x1="100" y1="146" x2="100" y2="142" stroke="#1A1612" stroke-width="2"/>
+            <line x1="52" y1="95" x2="56" y2="95" stroke="#1A1612" stroke-width="2"/>
+            <line x1="56" y1="152" x2="144" y2="152" stroke="#1A1612" stroke-width="2" opacity="0.4"/>
+            <line x1="62" y1="163" x2="138" y2="163" stroke="#1A1612" stroke-width="1.5" opacity="0.3"/>
+          </svg>
         </div>
-        <p class="read-next-meta">Ritual · 4 min</p>
-        <p class="read-next-title">The method beats the mood</p>
+        <p class="read-next-meta">Habit · 4 min</p>
+        <p class="read-next-title">The method beats the mood.</p>
       </a>
-      <a href="the-first-page-rule.html" class="read-next-card">
-        <div class="read-next-img" style="background:#FF6B47;">
-          <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect x="50" y="30" width="100" height="130" rx="4" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/><line x1="55" y1="55" x2="135" y2="55" stroke="#1A1612" stroke-width="1.5" opacity="0.5"/><line x1="55" y1="70" x2="125" y2="70" stroke="#1A1612" stroke-width="1.5" opacity="0.5"/><line x1="50" y1="35" x2="155" y2="165" stroke="#1A1612" stroke-width="4" stroke-linecap="round"/><line x1="155" y1="35" x2="50" y2="165" stroke="#1A1612" stroke-width="4" stroke-linecap="round"/></svg>
+      <a href="/essays/catch-first-edit-later" class="read-next-card">
+        <div class="read-next-img" style="background:#F5C13D;">
+          <svg width="60%" height="60%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="60" r="18" fill="none" stroke="#FF6B47" stroke-width="2.5"/>
+            <line x1="88" y1="48" x2="80" y2="40" stroke="#FF6B47" stroke-width="2" stroke-linecap="round"/>
+            <line x1="100" y1="44" x2="100" y2="34" stroke="#FF6B47" stroke-width="2" stroke-linecap="round"/>
+            <line x1="112" y1="48" x2="120" y2="40" stroke="#FF6B47" stroke-width="2" stroke-linecap="round"/>
+            <line x1="116" y1="60" x2="126" y2="60" stroke="#FF6B47" stroke-width="2" stroke-linecap="round"/>
+            <line x1="84" y1="60" x2="74" y2="60" stroke="#FF6B47" stroke-width="2" stroke-linecap="round"/>
+            <line x1="100" y1="78" x2="100" y2="118" stroke="#1A1612" stroke-width="1.5" stroke-dasharray="4 4" stroke-linecap="round"/>
+            <path d="M70 140 Q100 118 130 140" fill="none" stroke="#1A1612" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="70" y1="140" x2="70" y2="158" stroke="#1A1612" stroke-width="2" stroke-linecap="round"/>
+            <line x1="100" y1="132" x2="100" y2="158" stroke="#1A1612" stroke-width="2" stroke-linecap="round"/>
+            <line x1="130" y1="140" x2="130" y2="158" stroke="#1A1612" stroke-width="2" stroke-linecap="round"/>
+          </svg>
         </div>
         <p class="read-next-meta">Method · 5 min</p>
-        <p class="read-next-title">The First-Page Rule: start ugly, start honest</p>
+        <p class="read-next-title">Catch first, edit later.</p>
       </a>
-      <a href="the-index-method.html" class="read-next-card">
-        <div class="read-next-img" style="background:#F5C13D;">
-          <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect x="60" y="30" width="80" height="140" rx="4" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/><g stroke="#1A1612" stroke-width="1.5" opacity="0.5"><line x1="75" y1="55" x2="125" y2="55"/><line x1="75" y1="72" x2="125" y2="72"/><line x1="75" y1="89" x2="115" y2="89"/></g><path d="M80 130 L100 110 L120 130" stroke="#FF6B47" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="100" cy="155" r="6" fill="#FF6B47" stroke="#1A1612" stroke-width="2"/></svg>
+      <a href="/essays/the-first-page-rule" class="read-next-card">
+        <div class="read-next-img" style="background:#8FB89C;">
+          <svg width="60%" height="60%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="50" y="38" width="100" height="130" rx="5" fill="#FAF3E3" stroke="#1A1612" stroke-width="2.5"/>
+            <rect x="50" y="38" width="11" height="130" fill="#F5C13D"/>
+            <text x="90" y="120" font-family="serif" font-size="56" font-weight="300" fill="#1A1612" opacity="0.18">1</text>
+            <line x1="72" y1="75" x2="138" y2="75" stroke="#1A1612" stroke-width="1.5" opacity="0.3"/>
+            <line x1="72" y1="90" x2="130" y2="90" stroke="#1A1612" stroke-width="1.5" opacity="0.25"/>
+            <line x1="72" y1="105" x2="135" y2="105" stroke="#FF6B47" stroke-width="2"/>
+          </svg>
         </div>
-        <p class="read-next-meta">Technique · 5 min</p>
-        <p class="read-next-title">The Index Method: how to never lose a thought again</p>
+        <p class="read-next-meta">Practice · 4 min</p>
+        <p class="read-next-title">The first page rule.</p>
       </a>
     </div>
   </div>
@@ -256,10 +251,10 @@
 
 <section class="strip">
   <div class="strip-inner">
-    <h2 class="strip-title">The margin is two<br><em>inches wide.</em></h2>
+    <h2 class="strip-title">Two lines.<br><em>Every day.</em></h2>
     <div class="strip-action">
-      <a href="../shop.html" class="strip-button">Begin a notebook this week &#8599;</a>
-      <p class="strip-note">A6 &middot; 64 pages &middot; Grid &middot; Made in India</p>
+      <a href="/shop" class="strip-button">See the notebooks ↗</a>
+      <p class="strip-note">A6 · 5mm grid · Made in India</p>
     </div>
   </div>
 </section>
@@ -273,65 +268,49 @@
     <div class="footer-col">
       <h4>The notebooks</h4>
       <ul>
-        <li><a href="../shop.html">Founder's 500</a></li>
-        <li><a href="../shop.html">Flow Series</a></li>
-        <li><a href="../about.html">About us</a></li>
+        <li><a href="/shop">Founder's 500</a></li>
+        <li><a href="/shop">Flow Series</a></li>
+        <li><a href="/about">About us</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Say hello</h4>
       <ul>
         <li><a href="mailto:hello@pocketnotes.in">hello@pocketnotes.in</a></li>
-        <li><a href="../blog.html">From the notebook</a></li>
-        <li><a href="#">Instagram &#8599;</a></li>
+        <li><a href="/essays">From the notebook</a></li>
+        <li><a href="#">Instagram ↗</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>&#169; 2026 Pocket Notes</span>
-    <span>Small Books, Big Ideas &middot; Made in India</span>
+    <span>© 2026 Pocket Notes</span>
+    <span>Small Books, Big Ideas · Made in India</span>
   </div>
 </footer>
+
 <script>
-  const dot = document.getElementById('cursorDot');
-  const ring = document.getElementById('cursorRing');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{
-    mx=e.clientX;my=e.clientY;
-    dot.style.left=mx+'px';dot.style.top=my+'px';
-  });
-  (function loop(){
-    rx+=(mx-rx)*.15;ry+=(my-ry)*.15;
-    ring.style.left=rx+'px';ring.style.top=ry+'px';
-    requestAnimationFrame(loop);
-  })();
-  document.querySelectorAll('a,button').forEach(el=>{
-    el.addEventListener('mouseenter',()=>ring.classList.add('hover'));
-    el.addEventListener('mouseleave',()=>ring.classList.remove('hover'));
-  });
-  const hb=document.getElementById('navHamburger');
-  const mm=document.getElementById('navMobileMenu');
-  if(hb){
-    hb.addEventListener('click',()=>{
-      const o=hb.classList.toggle('open');
-      mm.classList.toggle('open',o);
-      hb.setAttribute('aria-expanded',o);
-      document.body.style.overflow=o?'hidden':'';
-    });
-    mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
-      hb.classList.remove('open');mm.classList.remove('open');
-      hb.setAttribute('aria-expanded','false');
-      document.body.style.overflow='';
-    }));
-  }
-  const sf=document.getElementById('subscribeForm');
-  const sn=document.getElementById('subscribeNote');
-  if(sf){sf.addEventListener('submit',e=>{
-    e.preventDefault();
-    sf.style.display='none';
-    sn.textContent='Noted. The newsletter will arrive in your inbox.';
-    sn.style.cssText='opacity:1;font-family:Fraunces,serif;font-style:italic;color:var(--mustard);font-size:1.1rem;margin-top:1.4rem;';
-  });}
+const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hover'));el.addEventListener('mouseleave',()=>ring.classList.remove('hover'));});
+const hamburger=document.getElementById('navHamburger'),mobileMenu=document.getElementById('navMobileMenu');
+if(hamburger){hamburger.addEventListener('click',()=>{const open=hamburger.classList.toggle('open');mobileMenu.classList.toggle('open',open);hamburger.setAttribute('aria-expanded',open);document.body.style.overflow=open?'hidden':'';});mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{hamburger.classList.remove('open');mobileMenu.classList.remove('open');hamburger.setAttribute('aria-expanded','false');document.body.style.overflow='';}));}
+document.getElementById('subscribeForm').addEventListener('submit',async function(e){
+  e.preventDefault();
+  const email=document.getElementById('emailInput').value.trim();
+  const note=document.getElementById('subscribeNote');
+  if(!email)return;
+  note.textContent='Subscribing…';
+  try{
+    const res=await fetch('https://api.sender.net/v2/subscribers',{method:'POST',headers:{'Authorization':'Bearer re_NP3s5B3g_7JY5EdCtREKWRnF2uPA1Gisf','Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({email})});
+    document.getElementById('subscribeForm').style.display='none';
+    note.textContent=res.ok?'Noted. The newsletter will arrive in your inbox.':'Something went wrong. Try again.';
+    note.style.opacity='1';note.style.fontFamily="'Fraunces',serif";note.style.fontStyle='italic';note.style.fontSize='1.1rem';note.style.color=res.ok?'var(--mustard)':'var(--coral)';
+  }catch{document.getElementById('subscribeForm').style.display='none';note.textContent='Something went wrong. Try again.';note.style.opacity='1';}
+});
+var disqus_config=function(){this.page.url='https://pocketnotes.in/essays/two-lines-every-day';this.page.identifier='two-lines-every-day';};
+(function(){var d=document,s=d.createElement('script');s.src='https://pocketnotes.disqus.com/embed.js';s.setAttribute('data-timestamp',+new Date());(d.head||d.body).appendChild(s);})();
 </script>
 </body>
 </html>

@@ -4,334 +4,282 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Notebooks of Ancient Singers — Pocket Notes</title>
-<meta name="description" content="Kabir did not write anything down. From Sanskrit kavyagrantha to medieval troubadours to Bob Dylan's spiral notebooks — on what poets have always used notebooks for."/>
+<meta name="description" content="Before paper, singers kept entire epics in memory using mnemonic systems. Writing didn't kill oral culture — it gave us a new kind of memory. On the notebook as ancient technology."/>
 <link rel="canonical" href="https://pocketnotes.in/essays/notebooks-of-ancient-singers"/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='8' y='4' width='18' height='24' rx='2' fill='%23FAF3E3' stroke='%231A1612' stroke-width='2.5'/%3E%3Crect x='6' y='4' width='4' height='24' fill='%23F5C13D' stroke='%231A1612' stroke-width='2.5'/%3E%3C/svg%3E"/>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,700&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Notebooks of Ancient Singers",
-  "description": "Kabir did not write anything down. From Sanskrit kavyagrantha to medieval troubadours to Bob Dylan's spiral notebooks \u2014 on what poets have always used notebooks for.",
-  "datePublished": "2026-04-01",
-  "author": {
-    "@type": "Organization",
-    "name": "Pocket Notes"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Pocket Notes",
-    "url": "https://pocketnotes.in"
-  },
-  "mainEntityOfPage": "https://pocketnotes.in/essays/notebooks-of-ancient-singers"
-}
-</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=Space+Grotesk:wght@300;400;500&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
 <style>
-  :root {
-    --cream: #FAF3E3; --bone: #F1E7CE; --paper: #ECE0BE;
-    --ink: #1A1612; --ink-soft: #3D342A;
-    --mustard: #F5C13D; --coral: #FF6B47; --sage: #8FB89C;
-    --sky: #5BA8C9; --plum: #6E3582; --pink: #F26A8D;
-    --ease: cubic-bezier(0.16, 1, 0.3, 1);
-    --gut: 5vw; --max: 720px;
-  }
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
-  html, body { overflow-x: hidden; }
-  body { background: var(--cream); color: var(--ink); font-family: 'Space Grotesk', sans-serif; font-size: 18px; line-height: 1.7; -webkit-font-smoothing: antialiased; cursor: none; }
-  ::selection { background: var(--mustard); color: var(--ink); }
-  body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.045; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-
-  /* Cursor */
-  .cursor-dot, .cursor-ring { position: fixed; pointer-events: none; z-index: 10000; border-radius: 50%; transform: translate(-50%, -50%); }
-  .cursor-dot { width: 8px; height: 8px; background: var(--ink); transition: background .2s; }
-  .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--ink); transition: width .3s, height .3s, border-color .25s, background .25s; }
-  .cursor-ring.hover { width: 80px; height: 80px; background: var(--mustard); border-color: var(--mustard); mix-blend-mode: multiply; }
-  @media (max-width: 900px) { body { cursor: default; } .cursor-dot, .cursor-ring { display: none; } }
-
-  /* Hamburger */
-  .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 0.4rem; cursor: pointer; }
-  .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--cream); border-radius: 2px; transition: transform .35s, opacity .25s; }
-  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
-  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  .nav-mobile-menu { position: fixed; inset: 0; background: var(--ink); z-index: 190; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: opacity .35s; }
-  .nav-mobile-menu.open { opacity: 1; pointer-events: all; }
-  .nav-mobile-menu a { font-family: 'Fraunces', serif; font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 900; color: var(--cream); text-decoration: none; text-transform: uppercase; letter-spacing: -0.03em; transition: color .2s; }
-  .nav-mobile-menu a:hover { color: var(--mustard); }
-  @media (max-width: 900px) { nav { padding: 0.7rem 1rem; } .nav-links { display: none; } .nav-hamburger { display: flex; } }
-
-  /* Nav */
-  nav { position: fixed; top: 1.5rem; left: 1.5rem; right: 1.5rem; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 1.5rem; background: var(--ink); color: var(--cream); border-radius: 999px; font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em; }
-  .nav-logo { display: flex; align-items: center; gap: 0.6rem; font-weight: 500; text-transform: uppercase; text-decoration: none; color: inherit; }
-  .nav-logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mustard); animation: pulse 2.4s infinite; }
-  @keyframes pulse { 0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.6} }
-  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
-  .nav-links a { color: var(--bone); text-decoration: none; text-transform: uppercase; transition: color .25s; cursor: none; }
-  .nav-links a:hover, .nav-links a.active { color: var(--mustard); }
-  .nav-cta { background: var(--mustard); color: var(--ink); padding: 0.5rem 1.2rem; border-radius: 999px; text-decoration: none; text-transform: uppercase; font-weight: 500; transition: background .25s; cursor: none; }
-  .nav-cta:hover { background: var(--coral); color: var(--cream); }
-
-  /* Article */
-  .article-wrap { padding-top: 9rem; padding-bottom: 6rem; }
-  .article-inner { max-width: var(--max); margin: 0 auto; padding: 0 var(--gut); }
-  .article-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.8rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-  .article-eyebrow .tag { background: var(--mustard); color: var(--ink); padding: 0.2rem 0.7rem; border-radius: 999px; font-size: 0.68rem; font-weight: 500; }
-  .article-eyebrow .sep { opacity: 0.35; }
-  .article-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(2.6rem, 7vw, 4.8rem); line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 1.4rem; }
-  .article-title em { font-style: italic; font-weight: 400; color: var(--coral); }
-  .article-subtitle { font-family: 'Fraunces', serif; font-size: clamp(1.15rem, 2.2vw, 1.5rem); font-style: italic; font-weight: 300; color: var(--ink-soft); line-height: 1.45; margin-bottom: 2.5rem; border-left: 3px solid var(--mustard); padding-left: 1.2rem; }
-  .article-rule { border: none; border-top: 1.5px solid var(--ink); margin: 2.5rem 0; opacity: 0.15; }
-  .article-body { font-size: 1.05rem; line-height: 1.8; color: var(--ink); }
-  .article-body p { margin-bottom: 1.6rem; }
-  .article-body .opening::first-letter { font-family: 'Fraunces', serif; font-weight: 900; font-size: 5.2rem; line-height: 0.82; float: left; margin-right: 0.1em; margin-top: 0.05em; color: var(--coral); }
-  .article-body h2 { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(1.6rem, 3.5vw, 2.2rem); line-height: 1.05; letter-spacing: -0.025em; margin: 3.5rem 0 1rem; }
-  .pull-quote { margin: 3rem 0; padding: 1.8rem 2rem; border-left: 4px solid var(--mustard); background: var(--bone); border-radius: 0 12px 12px 0; }
-  .pull-quote p { font-family: 'Fraunces', serif; font-style: italic; font-size: clamp(1.2rem, 2.5vw, 1.6rem); line-height: 1.45; color: var(--ink); margin-bottom: 0 !important; }
-  .pull-quote .attr { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-top: 0.9rem; display: block; font-style: normal; }
-  .section-break { text-align: center; margin: 3.5rem 0; color: var(--mustard); font-size: 1.2rem; letter-spacing: 0.4em; opacity: 0.8; }
-  .article-end { margin-top: 4rem; padding-top: 2rem; border-top: 1.5px solid rgba(26,22,18,0.15); }
-  .article-tags { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem; }
-  .article-tag { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem; border: 1.5px solid var(--ink); border-radius: 999px; color: var(--ink-soft); text-decoration: none; cursor: none; transition: background .2s, color .2s; }
-  .article-tag:hover { background: var(--ink); color: var(--cream); }
-  .back-link { display: block; font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; cursor: none; transition: color .2s; margin-bottom: 3rem; }
-  .back-link:hover { color: var(--coral); }
-
-  /* Subscribe */
-  .subscribe-section { background: var(--plum); color: var(--cream); padding: 5rem var(--gut); margin-top: 6rem; }
-  .subscribe-inner { max-width: 600px; margin: 0 auto; text-align: center; }
-  .subscribe-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mustard); margin-bottom: 1.2rem; }
-  .subscribe-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1; letter-spacing: -0.03em; margin-bottom: 1rem; }
-  .subscribe-title em { font-style: italic; font-weight: 400; color: var(--mustard); }
-  .subscribe-blurb { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.15rem; color: var(--bone); margin-bottom: 2.5rem; opacity: 0.9; line-height: 1.5; }
-  .subscribe-form { display: flex; gap: 0.7rem; max-width: 460px; margin: 0 auto; flex-wrap: wrap; }
-  .subscribe-input { flex: 1; min-width: 200px; padding: 0.95rem 1.3rem; border-radius: 999px; border: none; background: var(--cream); color: var(--ink); font-family: 'Fraunces', serif; font-size: 1rem; outline: none; }
-  .subscribe-input::placeholder { color: var(--ink); opacity: 0.45; font-style: italic; }
-  .subscribe-input:focus { box-shadow: 0 0 0 3px var(--mustard); }
-  .subscribe-btn { padding: 0.95rem 1.5rem; border-radius: 999px; border: none; background: var(--mustard); color: var(--ink); font-family: 'DM Mono', monospace; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: none; transition: background .25s; font-weight: 500; }
-  .subscribe-btn:hover { background: var(--coral); color: var(--cream); }
-  .subscribe-note { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 1.4rem; opacity: 0.5; }
-  @media (max-width: 600px) { .subscribe-form { flex-direction: column; } .subscribe-input, .subscribe-btn { width: 100%; } }
-
-  /* Read Next */
-  .read-next { padding: 5rem var(--gut); background: var(--bone); }
-  .read-next-inner { max-width: 900px; margin: 0 auto; }
-  .read-next-label { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 2.5rem; display: flex; align-items: center; gap: 0.6rem; }
-  .read-next-label::before { content: ''; width: 28px; height: 1px; background: var(--ink-soft); opacity: 0.5; }
-  .read-next-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-  .read-next-card { text-decoration: none; color: var(--ink); display: block; cursor: none; transition: transform .35s; }
-  .read-next-card:hover { transform: translateY(-8px); }
-  .read-next-img { aspect-ratio: 4/3; border-radius: 16px; border: 1.5px solid var(--ink); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: border-radius .35s; }
-  .read-next-card:hover .read-next-img { border-radius: 6px; }
-  .read-next-meta { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.5rem; }
-  .read-next-title { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 700; line-height: 1.25; }
-  @media (max-width: 700px) { .read-next-grid { grid-template-columns: 1fr; } }
-
-  /* CTA Strip */
-  .strip { background: var(--mustard); padding: 5rem var(--gut); position: relative; overflow: hidden; }
-  .strip-inner { max-width: 860px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-  @media (max-width: 700px) { .strip-inner { grid-template-columns: 1fr; gap: 2rem; } }
-  .strip-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(2.2rem, 5vw, 4rem); line-height: 0.95; letter-spacing: -0.03em; }
-  .strip-title em { font-style: italic; font-weight: 400; color: var(--plum); }
-  .strip-action { display: flex; flex-direction: column; gap: 1.2rem; align-items: flex-start; }
-  .strip-button { display: inline-flex; align-items: center; gap: 0.7rem; background: var(--ink); color: var(--cream); text-decoration: none; padding: 1.1rem 2rem; border-radius: 999px; font-family: 'DM Mono', monospace; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: none; transition: transform .35s, background .25s; }
-  .strip-button:hover { transform: translateX(8px); background: var(--coral); }
-  .strip-note { font-family: 'DM Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink); opacity: 0.55; }
-
-  /* Footer */
-  footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2rem; }
-  .footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-  @media (max-width: 700px) { .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; } }
-  .footer-brand-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.2rem; line-height: 1; letter-spacing: -0.04em; margin-bottom: 0.8rem; }
-  .footer-brand-title em { font-style: italic; font-weight: 400; color: var(--mustard); }
-  .footer-brand p { color: var(--bone); opacity: 0.7; font-size: 0.92rem; max-width: 30ch; }
-  .footer-col h4 { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mustard); margin-bottom: 1rem; }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-  .footer-col a { color: var(--bone); text-decoration: none; font-size: 0.9rem; opacity: 0.75; transition: color .2s, opacity .2s; cursor: none; }
-  .footer-col a:hover { color: var(--mustard); opacity: 1; }
-  .footer-bottom { border-top: 1px solid rgba(241,231,206,0.15); padding-top: 1.4rem; display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone); opacity: 0.5; flex-wrap: wrap; gap: 0.5rem; }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--cream:#FAF3E3;--bone:#F1E7CE;--paper:#ECE0BE;
+--ink:#1A1612;--ink-soft:#3D342A;
+--mustard:#F5C13D;--coral:#FF6B47;--sage:#8FB89C;
+--sky:#5BA8C9;--plum:#6E3582;--pink:#F26A8D;--olive:#2C2A20;
+--ease:cubic-bezier(0.16,1,0.3,1);--spring:cubic-bezier(0.34,1.56,0.64,1);
+--gut:5vw;--max:720px;
+}
+html{cursor:none;scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:'Space Grotesk',sans-serif;font-weight:300;line-height:1.6;min-height:100vh;overflow-x:hidden}
+#cursor-dot{position:fixed;width:6px;height:6px;background:var(--ink);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s var(--ease)}
+#cursor-ring{position:fixed;width:28px;height:28px;border:1.5px solid var(--ink);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .08s linear,width .25s var(--ease),height .25s var(--ease),opacity .25s}
+a,button,[data-hover]{cursor:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:1.25rem var(--gut);display:flex;align-items:center;justify-content:space-between;background:var(--cream);border-bottom:1px solid var(--bone)}
+.nav-logo{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:400;color:var(--ink);text-decoration:none;letter-spacing:.01em}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.8rem;font-weight:400;color:var(--ink-soft);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;z-index:910}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--ink);transition:transform .3s var(--ease),opacity .3s}
+.mobile-overlay{display:none;position:fixed;inset:0;background:var(--cream);z-index:905;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+.mobile-overlay.open{display:flex}
+.mobile-overlay a{font-family:'Fraunces',serif;font-size:2rem;color:var(--ink);text-decoration:none}
+.article-wrap{max-width:var(--max);margin:0 auto;padding:7rem var(--gut) 4rem}
+.essay-eyebrow{display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.essay-tag{font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;background:var(--plum);color:#fff;padding:.25rem .65rem;border-radius:2px}
+.essay-meta{font-size:.75rem;color:var(--ink-soft);font-family:'DM Mono',monospace}
+h1{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3rem);font-weight:300;line-height:1.15;letter-spacing:-.02em;margin-bottom:1.25rem;color:var(--ink)}
+h1 em{font-style:italic;color:var(--ink-soft)}
+.essay-subtitle{font-family:'Fraunces',serif;font-size:1.15rem;font-style:italic;font-weight:300;color:var(--ink-soft);border-left:3px solid var(--mustard);padding-left:1rem;margin-bottom:3rem;line-height:1.5}
+.essay-body p{font-size:1.05rem;line-height:1.8;margin-bottom:1.5rem;color:var(--ink)}
+.essay-body p:first-of-type::first-letter{font-family:'Fraunces',serif;font-size:3.5rem;font-weight:400;line-height:.85;float:left;margin-right:.1em;margin-top:.05em;color:var(--ink)}
+.essay-body blockquote{border-left:3px solid var(--mustard);padding:1rem 1.25rem;margin:2.5rem 0;background:var(--bone);border-radius:0 4px 4px 0}
+.essay-body blockquote p{font-family:'Fraunces',serif;font-style:italic;font-size:1.1rem;color:var(--ink-soft);margin:0 0 .5rem}
+.essay-body blockquote cite{font-size:.75rem;font-family:'DM Mono',monospace;color:var(--ink-soft);letter-spacing:.05em}
+.essay-end{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--bone);font-size:.75rem;color:var(--ink-soft);font-family:'DM Mono',monospace;letter-spacing:.05em}
+.disqus-section{max-width:var(--max);margin:0 auto;padding:3rem var(--gut) 2rem}
+.disqus-section h3{font-family:'Fraunces',serif;font-weight:300;font-size:1.3rem;margin-bottom:1.5rem;color:var(--ink)}
+.subscribe-section{background:var(--plum);color:#fff;padding:5rem var(--gut);text-align:center}
+.subscribe-section h2{font-family:'Fraunces',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:300;margin-bottom:.75rem;letter-spacing:-.02em}
+.subscribe-section p{font-size:.95rem;opacity:.8;margin-bottom:2rem;max-width:420px;margin-left:auto;margin-right:auto}
+.subscribe-form{display:flex;gap:.75rem;max-width:420px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.subscribe-form input{flex:1;min-width:200px;padding:.85rem 1.1rem;border:1.5px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:.9rem;border-radius:3px;outline:none;transition:border-color .2s}
+.subscribe-form input::placeholder{color:rgba(255,255,255,.5)}
+.subscribe-form input:focus{border-color:rgba(255,255,255,.7)}
+.subscribe-form button{padding:.85rem 1.75rem;background:var(--mustard);color:var(--ink);font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;border:none;border-radius:3px;transition:transform .2s var(--spring),box-shadow .2s}
+.subscribe-form button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.subscribe-msg{margin-top:1rem;font-size:.85rem;min-height:1.2em}
+.read-next{max-width:var(--max);margin:0 auto;padding:4rem var(--gut)}
+.read-next h3{font-family:'Fraunces',serif;font-weight:300;font-size:1.1rem;letter-spacing:.01em;margin-bottom:2rem;color:var(--ink-soft)}
+.read-next-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1.25rem}
+.read-next-card{text-decoration:none;color:var(--ink);background:var(--bone);border-radius:4px;overflow:hidden;transition:transform .3s var(--ease)}
+.read-next-card:hover{transform:translateY(-4px)}
+.card-thumb{width:100%;aspect-ratio:3/2;display:block}
+.card-body{padding:.85rem 1rem}
+.card-tag{font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.35rem}
+.card-title{font-family:'Fraunces',serif;font-size:.95rem;font-weight:400;line-height:1.3}
+.cta-strip{background:var(--mustard);padding:3rem var(--gut);display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.cta-strip p{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:300;color:var(--ink);max-width:520px}
+.btn-ink{display:inline-block;padding:.8rem 2rem;background:var(--ink);color:var(--cream);font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:transform .2s var(--spring)}
+.btn-ink:hover{transform:translateY(-2px)}
+footer{background:var(--olive);color:rgba(250,243,227,.7);padding:3rem var(--gut);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem}
+.footer-logo{font-family:'Fraunces',serif;font-size:1.1rem;color:var(--cream);text-decoration:none}
+.footer-links{display:flex;gap:1.5rem;list-style:none}
+.footer-links a{font-size:.75rem;letter-spacing:.07em;text-transform:uppercase;color:rgba(250,243,227,.6);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--cream)}
+.footer-copy{font-size:.7rem;opacity:.45;font-family:'DM Mono',monospace}
+@media(max-width:640px){
+.nav-links{display:none}
+.hamburger{display:flex}
+.read-next-grid{grid-template-columns:1fr 1fr}
+.cta-strip{flex-direction:column;text-align:center}
+}
 </style>
 </head>
 <body>
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-<div class="nav-mobile-menu" id="navMobileMenu" role="dialog" aria-label="Navigation menu">
-  <a href="../index.html">Home</a>
-  <a href="../about.html">About</a>
-  <a href="../shop.html">Shop</a>
-  <a href="../blog.html">Essays</a>
-</div>
-<nav aria-label="Main navigation">
-  <a href="../index.html" class="nav-logo"><span class="nav-logo-dot" aria-hidden="true"></span><span>Pocket Notes</span></a>
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<nav>
+  <a class="nav-logo" href="/">Pocket Notes</a>
   <ul class="nav-links">
-    <li><a href="../index.html">Home</a></li>
-    <li><a href="../about.html">About</a></li>
-    <li><a href="../shop.html">Shop</a></li>
-    <li><a href="../blog.html" class="active">From the notebook</a></li>
+    <li><a href="/shop">Shop</a></li>
+    <li><a href="/essays">Essays</a></li>
+    <li><a href="/about">About</a></li>
   </ul>
-  <a href="../shop.html" class="nav-cta">Carry the method ↗</a>
-  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+  <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
+<div class="mobile-overlay" id="mobileOverlay">
+  <a href="/shop">Shop</a>
+  <a href="/essays">Essays</a>
+  <a href="/about">About</a>
+</div>
+
 <main class="article-wrap">
-  <div class="article-inner">
-    <a href="../blog.html" class="back-link">&#8592; All essays</a>
-    <header>
-      <p class="article-eyebrow">
-        <span class="tag">History</span>
-        <span class="sep">·</span>
-        <span>8 min read</span>
-        <span class="sep">·</span>
-        <span>April 2026</span>
-      </p>
-      <h1 class="article-title">Notebooks of Ancient Singers</h1>
-      <p class="article-subtitle">Kabir did not write anything down. The poems survived because other people did.</p>
-    </header>
-    <hr class="article-rule">
-    <article class="article-body">
-      <p class="opening">Kabir did not write anything down. This is one of the more startling facts about a poet whose verses have survived for six centuries, been translated into dozens of languages, and are still sung at temple ghats along the Ganga by people who never read a book of criticism in their lives. The poems travelled because other people wrote them down — disciples, wandering musicians, people who heard something in a market town in Uttar Pradesh and could not let it go.</p>
-      <p>The kavyagrantha tradition in Sanskrit was, among other things, a record-keeping technology. Poets working within the tradition maintained manuscripts — often palm leaf, sometimes birch bark — not as finished texts but as working records. The verses were composed in memory, refined in performance, and written down the way a craftsman might write down measurements: not as the thing itself, but as a way of not losing it between sessions. The manuscript was the backup, not the primary medium.</p>
-      <p>This is a different relationship to notebooks than we tend to assume. We imagine the great poet sitting at a desk, committing finished thoughts to paper. The actual history is usually more anxious than that. The notebook catches what might otherwise escape.</p>
-      <p>Troubadours in medieval Provence worked within a similarly oral tradition, but enough of them intersected with literate culture — the courts of Languedoc, the monasteries nearby — to leave behind a body of written work. The chansonniers, those large manuscript collections compiled in the thirteenth and fourteenth centuries, were themselves a kind of archival notebook: scribes collecting the lyrics of singers who had travelled the same circuit for decades, writing down words that had existed only in performance and in memory until that moment.</p>
-      <p>Bob Dylan kept notebooks throughout his career — spiral-bound, the kind sold at drugstores — and used them the way a workshop uses a bench. The notebooks from the early 1960s show lyrics tried five different ways, images that didn't make it into songs, fragments that would surface years later in different contexts. The proportion of waste to use is, in the notebooks of working musicians, always high.</p>
-      <p>What connects these histories — the Sanskrit manuscript tradition, the Provençal chansonniers, the American folk-rock songwriter in a rented room — is not the notebook itself but the problem the notebook solves. The thing that needs to be written down is not finished. It is in transit between the place where it arrived and the form it will eventually take. The notebook is where it lives during that transit, which can last an afternoon or a decade.</p>
-      <p>The singers who kept notebooks were not less oral for doing so. They were just honest about the limits of memory. Kabir's disciples who wrote his verses down were doing what any careful listener does: trying to preserve the quality of attention the original required. The notebook, in this reading, is not a substitute for memory but a hedge against its ordinary failures.</p>
-    </article>
-    <div class="article-end">
-      <div class="article-tags">
-        <a href="../blog.html" class="article-tag">History</a>
-        <a href="../blog.html" class="article-tag">Writing</a>
-        <a href="../blog.html" class="article-tag">Music</a>
-      </div>
-    </div>
+  <div class="essay-eyebrow">
+    <span class="essay-tag">History</span>
+    <span class="essay-tag">Culture</span>
+    <span class="essay-meta">5 min read &nbsp;·&nbsp; May 2026</span>
   </div>
+  <h1>Notebooks of <em>Ancient Singers</em></h1>
+  <p class="essay-subtitle">Before paper, Homeric bards held twenty-four books of the Iliad in memory — not word-for-word, but as structures, formulas, patterns. When writing arrived, it didn't kill memory. It extended it outward.</p>
+
+  <article class="essay-body">
+    <p>A blind old man, standing in a hall somewhere near the Aegean, is performing a poem fifteen thousand lines long. He has not read it. He cannot read. He is reconstructing it in real time from thousands of memorised formulas, stock scenes, and structural patterns accumulated over a lifetime of performance. The words are slightly different every time. The poem is the same.</p>
+
+    <p>This is how the Iliad survived before writing. The oral tradition was not a primitive version of literature — it was a complete information technology, with its own architecture for storing, retrieving, and transmitting knowledge across generations. The singers were not reciting from memory the way an actor learns lines. They were composing in performance, fluently, using a system of interlocking formulas the way a skilled improvisational musician uses scales.</p>
+
+    <p>The ancient Greeks had a word for the tools that aided memory before writing: <em>hypomnema</em>. Notes, reminders, the marks you made to hold an idea in place when your own recall was not enough. Aristotle used the term. So did Plato — somewhat dismissively, concerned that writing would allow people to outsource memory entirely and grow intellectually shallow.</p>
+
+    <blockquote>
+      <p>"Writing is unfortunately like painting; for the creations of the painter have the attitude of life, and yet if you ask them a question they preserve a solemn silence."</p>
+      <cite>— Plato, Phaedrus</cite>
+    </blockquote>
+
+    <p>Plato was wrong about the direction of the effect, but not entirely wrong about the concern. Writing does change memory — it changes what we bother to remember, and how. What it gives in return is something different: not the deep internal architecture of the oral tradition, but an external one. Ideas that do not have to live inside a single person's skull. Ideas that can outlast their author, be read by strangers, accumulate annotation across centuries.</p>
+
+    <p>The Mesopotamians were making notes before 3000 BCE — not poetry, but grain inventories, debt records, lists of names. The bureaucratic mind is ancient. Before long, the same clay tablets that tracked barley shipments were being used to preserve the Epic of Gilgamesh, the oldest written story we have, a story about a king and his companion and the grief of watching someone you love die.</p>
+
+    <p>The technologies were not separate. The same surface that held the invoice held the elegy.</p>
+
+    <p>What the ancient world understood, in practice if not in theory, is that notation extends cognition. You cannot hold everything in your head. But you can hold a great deal in your head and your notes together, as a combined system — the way a musician keeps some things in the fingers and some in the sheet music, and the performance lives in the combination.</p>
+
+    <p>This is what the pocket notebook is doing, in its unremarkable modern way. It is not replacing your thinking. It is extending it outward, the way the oral bards extended their memory into formulas and the way the Mesopotamians extended their accounting into clay.</p>
+
+    <p>The medium changes. The impulse is the same: I have thought something. I do not want to lose it. Let me make a mark.</p>
+
+    <p>Three thousand years from now, no one will excavate a pocket notebook the way archaeologists excavated Uruk's clay tablets. But the thought you wrote down this morning is at least as likely to be the one you build something from, and the act of writing it — the slowing down, the compression into words, the mark made on a surface outside your head — connects you to something considerably older than the app on your phone.</p>
+  </article>
+  <div class="essay-end">— Pocket Notes, May 2026</div>
 </main>
 
+<section class="disqus-section">
+  <h3>Discussion</h3>
+  <div id="disqus_thread"></div>
+</section>
+
 <section class="subscribe-section">
-  <div class="subscribe-inner">
-    <p class="subscribe-eyebrow">The newsletter</p>
-    <h2 class="subscribe-title">Two lines,<br>every <em>two weeks.</em></h2>
-    <p class="subscribe-blurb">New essays, quiet philosophy. Only when there&#8217;s something worth saying.</p>
-    <form class="subscribe-form" id="subscribeForm">
-      <input type="email" class="subscribe-input" placeholder="your@email.com" required aria-label="Email address">
-      <button type="submit" class="subscribe-btn">Subscribe &#8599;</button>
-    </form>
-    <p class="subscribe-note" id="subscribeNote">No tracking &middot; No spam &middot; Unsubscribe anytime</p>
-  </div>
+  <h2>Essays on how writers work</h2>
+  <p>New essays, no filler. Drop your email and we'll send them straight through.</p>
+  <form class="subscribe-form" id="subscribeForm">
+    <input type="email" id="emailInput" placeholder="your@email.com" required/>
+    <button type="submit">Subscribe</button>
+  </form>
+  <p class="subscribe-msg" id="subscribeMsg"></p>
 </section>
 
 <section class="read-next">
-  <div class="read-next-inner">
-    <p class="read-next-label">Read next</p>
-    <div class="read-next-grid">
-      <a href="the-roman-wax-tablet.html" class="read-next-card">
-        <div class="read-next-img" style="background:#F26A8D;">
-          <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="50" width="140" height="100" rx="4" fill="#6E3582" stroke="#1A1612" stroke-width="3"/><rect x="40" y="60" width="120" height="80" fill="#F5C13D" stroke="#1A1612" stroke-width="2"/><g stroke="#1A1612" stroke-width="1.8" opacity="0.7"><line x1="50" y1="80" x2="80" y2="80"/><line x1="85" y1="80" x2="100" y2="80"/><line x1="105" y1="80" x2="140" y2="80"/><line x1="50" y1="95" x2="95" y2="95"/><line x1="100" y1="95" x2="150" y2="95"/></g><line x1="155" y1="40" x2="190" y2="20" stroke="#1A1612" stroke-width="3" stroke-linecap="round"/><circle cx="190" cy="20" r="4" fill="#FF6B47" stroke="#1A1612" stroke-width="2"/></svg>
-        </div>
-        <p class="read-next-meta">History · 10 min</p>
-        <p class="read-next-title">The Roman wax tablet, ancestor to all of this</p>
-      </a>
-      <a href="the-people-who-write-in-the-margins.html" class="read-next-card">
-        <div class="read-next-img" style="background:#FF6B47;">
-          <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect x="40" y="30" width="120" height="140" rx="4" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/><line x1="62" y1="30" x2="62" y2="170" stroke="#1A1612" stroke-width="1" opacity="0.4"/><g stroke="#1A1612" stroke-width="1.5" opacity="0.3"><line x1="70" y1="55" x2="145" y2="55"/><line x1="70" y1="70" x2="140" y2="70"/><line x1="70" y1="85" x2="145" y2="85"/><line x1="70" y1="100" x2="130" y2="100"/></g><path d="M48 65 Q52 75 50 90 Q47 100 52 115" stroke="#FF6B47" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="48" cy="100" r="3" fill="#FF6B47"/></svg>
-        </div>
-        <p class="read-next-meta">History · 11 min</p>
-        <p class="read-next-title">The people who write in the margins</p>
-      </a>
-      <a href="margins-where-great-ideas-live.html" class="read-next-card">
-        <div class="read-next-img" style="background:#5BA8C9;">
-          <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect x="40" y="30" width="120" height="140" rx="4" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/><line x1="62" y1="30" x2="62" y2="170" stroke="#1A1612" stroke-width="1" opacity="0.4"/><g stroke="#1A1612" stroke-width="1.5" opacity="0.3"><line x1="70" y1="55" x2="145" y2="55"/><line x1="70" y1="70" x2="140" y2="70"/><line x1="70" y1="85" x2="145" y2="85"/><line x1="70" y1="100" x2="130" y2="100"/></g><path d="M48 65 Q52 75 50 90 Q47 100 52 115" stroke="#FF6B47" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="48" cy="100" r="3" fill="#FF6B47"/></svg>
-        </div>
-        <p class="read-next-meta">History · 6 min</p>
-        <p class="read-next-title">Margins: where great ideas actually live</p>
-      </a>
-    </div>
+  <h3>Read next</h3>
+  <div class="read-next-grid">
+    <a class="read-next-card" href="/essays/the-roman-wax-tablet">
+      <svg class="card-thumb" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="200" fill="#F1E7CE"/>
+        <rect x="60" y="50" width="180" height="110" rx="3" fill="#ECE0BE" stroke="#3D342A" stroke-width="1.5" opacity=".6"/>
+        <rect x="75" y="65" width="150" height="80" rx="2" fill="#F5C13D" opacity=".3"/>
+        <rect x="88" y="78" width="120" height="4" rx="1" fill="#1A1612" opacity=".4"/>
+        <rect x="88" y="90" width="100" height="4" rx="1" fill="#1A1612" opacity=".3"/>
+        <rect x="88" y="102" width="110" height="4" rx="1" fill="#1A1612" opacity=".25"/>
+      </svg>
+      <div class="card-body">
+        <div class="card-tag">History</div>
+        <div class="card-title">The Roman Wax Tablet</div>
+      </div>
+    </a>
+    <a class="read-next-card" href="/essays/margins-where-great-ideas-live">
+      <svg class="card-thumb" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="200" fill="#F1E7CE"/>
+        <rect x="50" y="40" width="200" height="120" rx="4" fill="#FAF3E3" stroke="#ECE0BE" stroke-width="2"/>
+        <rect x="70" y="60" width="4" height="80" fill="#F5C13D" opacity=".7"/>
+        <rect x="85" y="65" width="140" height="4" rx="1" fill="#3D342A" opacity=".25"/>
+        <rect x="85" y="78" width="120" height="4" rx="1" fill="#3D342A" opacity=".2"/>
+        <rect x="85" y="91" width="130" height="4" rx="1" fill="#3D342A" opacity=".2"/>
+      </svg>
+      <div class="card-body">
+        <div class="card-tag">Culture</div>
+        <div class="card-title">Margins Where Great Ideas Live</div>
+      </div>
+    </a>
+    <a class="read-next-card" href="/essays/notes-as-identity">
+      <svg class="card-thumb" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="200" fill="#F1E7CE"/>
+        <circle cx="150" cy="100" r="50" fill="none" stroke="#6E3582" stroke-width="2" opacity=".4"/>
+        <circle cx="150" cy="100" r="30" fill="none" stroke="#6E3582" stroke-width="1.5" opacity=".3"/>
+        <rect x="135" y="95" width="30" height="4" rx="1" fill="#1A1612" opacity=".4"/>
+      </svg>
+      <div class="card-body">
+        <div class="card-tag">Identity</div>
+        <div class="card-title">Notes as Identity</div>
+      </div>
+    </a>
   </div>
 </section>
 
-<section class="strip">
-  <div class="strip-inner">
-    <h2 class="strip-title">The margin is two<br><em>inches wide.</em></h2>
-    <div class="strip-action">
-      <a href="../shop.html" class="strip-button">Begin a notebook this week &#8599;</a>
-      <p class="strip-note">A6 &middot; 64 pages &middot; Grid &middot; Made in India</p>
-    </div>
-  </div>
-</section>
+<div class="cta-strip">
+  <p>Small books. Big ideas. A6 notebooks built for the way you actually think.</p>
+  <a class="btn-ink" href="/shop">See the notebooks</a>
+</div>
 
 <footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <h3 class="footer-brand-title">Pocket<br><em>Notes</em></h3>
-      <p>A capture device for fast thinkers. Small grid notebooks, made in India, for people who already write.</p>
-    </div>
-    <div class="footer-col">
-      <h4>The notebooks</h4>
-      <ul>
-        <li><a href="../shop.html">Founder's 500</a></li>
-        <li><a href="../shop.html">Flow Series</a></li>
-        <li><a href="../about.html">About us</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Say hello</h4>
-      <ul>
-        <li><a href="mailto:hello@pocketnotes.in">hello@pocketnotes.in</a></li>
-        <li><a href="../blog.html">From the notebook</a></li>
-        <li><a href="#">Instagram &#8599;</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>&#169; 2026 Pocket Notes</span>
-    <span>Small Books, Big Ideas &middot; Made in India</span>
-  </div>
+  <a class="footer-logo" href="/">Pocket Notes</a>
+  <ul class="footer-links">
+    <li><a href="/shop">Shop</a></li>
+    <li><a href="/essays">Essays</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+  <span class="footer-copy">© 2026 Pocket Notes</span>
 </footer>
+
 <script>
-  const dot = document.getElementById('cursorDot');
-  const ring = document.getElementById('cursorRing');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{
-    mx=e.clientX;my=e.clientY;
-    dot.style.left=mx+'px';dot.style.top=my+'px';
-  });
-  (function loop(){
-    rx+=(mx-rx)*.15;ry+=(my-ry)*.15;
-    ring.style.left=rx+'px';ring.style.top=ry+'px';
-    requestAnimationFrame(loop);
-  })();
-  document.querySelectorAll('a,button').forEach(el=>{
-    el.addEventListener('mouseenter',()=>ring.classList.add('hover'));
-    el.addEventListener('mouseleave',()=>ring.classList.remove('hover'));
-  });
-  const hb=document.getElementById('navHamburger');
-  const mm=document.getElementById('navMobileMenu');
-  if(hb){
-    hb.addEventListener('click',()=>{
-      const o=hb.classList.toggle('open');
-      mm.classList.toggle('open',o);
-      hb.setAttribute('aria-expanded',o);
-      document.body.style.overflow=o?'hidden':'';
+// Cursor
+const dot = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
+(function animRing(){ rx += (mx-rx)*.12; ry += (my-ry)*.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(animRing); })();
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => { ring.style.width='48px'; ring.style.height='48px'; ring.style.opacity='.5'; });
+  el.addEventListener('mouseleave', () => { ring.style.width='28px'; ring.style.height='28px'; ring.style.opacity='1'; });
+});
+
+// Nav hamburger
+const hamburger = document.getElementById('hamburger');
+const overlay = document.getElementById('mobileOverlay');
+hamburger.addEventListener('click', () => { overlay.classList.toggle('open'); });
+overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => overlay.classList.remove('open')));
+
+// Subscribe
+document.getElementById('subscribeForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const email = document.getElementById('emailInput').value.trim();
+  const msg = document.getElementById('subscribeMsg');
+  if (!email) return;
+  msg.textContent = 'Subscribing…';
+  try {
+    const res = await fetch('https://api.sender.net/v2/subscribers', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer re_NP3s5B3g_7JY5EdCtREKWRnF2uPA1Gisf',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({ email })
     });
-    mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
-      hb.classList.remove('open');mm.classList.remove('open');
-      hb.setAttribute('aria-expanded','false');
-      document.body.style.overflow='';
-    }));
+    if (res.ok) {
+      msg.textContent = 'You\'re in. Essays incoming.';
+      msg.style.color = '#F5C13D';
+      document.getElementById('emailInput').value = '';
+    } else {
+      msg.textContent = 'Something went wrong. Try again.';
+    }
+  } catch(err) {
+    msg.textContent = 'Something went wrong. Try again.';
   }
-  const sf=document.getElementById('subscribeForm');
-  const sn=document.getElementById('subscribeNote');
-  if(sf){sf.addEventListener('submit',e=>{
-    e.preventDefault();
-    sf.style.display='none';
-    sn.textContent='Noted. The newsletter will arrive in your inbox.';
-    sn.style.cssText='opacity:1;font-family:Fraunces,serif;font-style:italic;color:var(--mustard);font-size:1.1rem;margin-top:1.4rem;';
-  });}
+});
+
+// Disqus
+var disqus_config = function() {
+  this.page.url = 'https://pocketnotes.in/essays/notebooks-of-ancient-singers';
+  this.page.identifier = 'notebooks-of-ancient-singers';
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = 'https://pocketnotes.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
 </script>
 </body>
 </html>
