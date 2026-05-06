@@ -39,6 +39,7 @@
     --ease:     cubic-bezier(0.16, 1, 0.3, 1);
     --gut:      5vw;
     --max:      972px;
+    --spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -86,7 +87,7 @@
   .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .nav-mobile-menu { position: fixed; inset: 0; background: var(--ink); z-index: 190; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: opacity .35s var(--ease); }
   .nav-mobile-menu.open { opacity: 1; pointer-events: all; }
-  .nav-mobile-menu a { font-family: 'Fraunces', serif; font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 900; color: var(--cream); text-decoration: none; text-transform: uppercase; letter-spacing: -0.03em; transition: color .2s; }
+  .nav-mobile-menu a { font-family: 'Fraunces', serif; font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 900; color: var(--cream); text-decoration: none; text-transform: uppercase; letter-spacing: -0.03em; transition: color .2s; cursor: none; }
   .nav-mobile-menu a:hover { color: var(--mustard); }
   @media (max-width: 900px) { nav { padding: 0.7rem 1rem; } .nav-links { display: none; } .nav-hamburger { display: flex; } }
 
@@ -136,7 +137,7 @@
     background: var(--ink); color: var(--cream); border-radius: 999px;
     font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em;
   }
-  .nav-logo { display: flex; align-items: center; gap: 0.6rem; font-weight: 500; text-transform: uppercase; text-decoration: none; color: inherit; }
+  .nav-logo { display: flex; align-items: center; gap: 0.6rem; font-weight: 500; text-transform: uppercase; text-decoration: none; color: inherit; cursor: none; }
   .nav-logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mustard); animation: pulse 2.4s var(--ease) infinite; }
   @keyframes pulse { 0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.6} }
   .nav-links { display: flex; gap: 1.8rem; list-style: none; }
@@ -220,9 +221,18 @@
 
   .article-body p {
     margin-bottom: 1.6rem;
+    text-align: justify;
+    hyphens: auto;
   }
 
-  .article-body p + p { }
+  .article-body a {
+    color: var(--coral);
+    text-decoration: none;
+    border-bottom: 1px solid var(--mustard);
+    transition: color .2s var(--ease), border-color .2s var(--ease);
+    cursor: none;
+  }
+  .article-body a:hover { color: var(--ink); border-color: var(--coral); }
 
   /* Drop cap on opening paragraph */
   .article-body .opening::first-letter {
@@ -472,6 +482,10 @@
   .footer-col a:hover { color: var(--mustard); opacity: 1; }
   .footer-bottom { border-top: 1px solid rgba(241,231,206,0.15); padding-top: 1.4rem; display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone); opacity: 0.5; flex-wrap: wrap; gap: 0.5rem; }
 
+  /* DISQUS */
+  .disqus-section { max-width: var(--max); margin: 4rem auto 0; padding: 0 var(--gut) 2rem; }
+  .disqus-section h3 { font-family: 'Fraunces', serif; font-weight: 300; font-size: 1.3rem; margin-bottom: 1.5rem; color: var(--ink); }
+
   /* ─── REDUCED MOTION ─────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
@@ -485,21 +499,21 @@
 <div class="cursor-ring" id="cursorRing"></div>
 
 <div class="nav-mobile-menu" id="navMobileMenu" role="dialog" aria-label="Navigation menu">
-  <a href="../index.html">Home</a>
-  <a href="../about.html">About</a>
-  <a href="../shop.html">Shop</a>
-  <a href="../blog.html">Essays</a>
+  <a href="/">Home</a>
+  <a href="/about">About</a>
+  <a href="/shop">Shop</a>
+  <a href="/essays">Essays</a>
 </div>
 
 <nav aria-label="Main navigation">
-  <a href="../index.html" class="nav-logo"><span class="nav-logo-dot" aria-hidden="true"></span><span>Pocket Notes</span></a>
+  <a href="/" class="nav-logo"><span class="nav-logo-dot" aria-hidden="true"></span><span>Pocket Notes</span></a>
   <ul class="nav-links">
-    <li><a href="../index.html">Home</a></li>
-    <li><a href="../about.html">About</a></li>
-    <li><a href="../shop.html">Shop</a></li>
-    <li><a href="../blog.html" class="active">From the notebook</a></li>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/shop">Shop</a></li>
+    <li><a href="/essays" class="active">Essays</a></li>
   </ul>
-  <a href="../shop.html" class="nav-cta">Carry the method ↗</a>
+  <a href="/shop" class="nav-cta">Carry the method ↗</a>
   <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -509,7 +523,7 @@
 <main class="article-wrap">
   <div class="article-inner">
 
-    <a href="../blog.html" class="back-link">← All essays</a>
+    <a href="/essays" class="back-link">← All essays</a>
 
     <header>
       <p class="article-eyebrow">
@@ -529,7 +543,7 @@
 
     <article class="article-body">
 
-      <p class="opening">In the autumn of 1815, Samuel Taylor Coleridge — poet, opium addict, and husband of one Sara — sat down to annotate a book for another woman entirely. Her name was Sara Hutchinson, and she was, inconveniently for everyone involved, his best friend's sister-in-law. Coleridge had been in love with her for years. His chosen method of courtship was, to put it charitably, indirect: he wrote notes in the margins of books and passed the books to her. He was forty-three. He had written "The Rime of the Ancient Mariner" fifteen years earlier and appeared to be coasting. His marriage was, by all accounts, a well-documented catastrophe. But in the margins of his books, Coleridge remained the most rigorous mind in any room — and the margins were, apparently, also where he kept his heart.</p>
+      <p class="opening">In the autumn of 1815, Samuel Taylor Coleridge — poet, opium addict, and husband of one Sara — sat down to annotate a book for another woman entirely. Her name was Sara Hutchinson, and she was, inconveniently for everyone involved, his best friend's sister-in-law. Coleridge had been in love with her for years. His chosen method of courtship was, to put it charitably, indirect: he wrote notes in the margins of books and passed the books to her. He was forty-three. He had written <em>The Rime of the Ancient Mariner</em> fifteen years earlier and appeared to be coasting. His marriage was, by all accounts, a well-documented catastrophe. But in the margins of his books, <strong>Coleridge remained the most rigorous mind in any room</strong> — and the margins were, apparently, also where he kept his heart.</p>
 
       <p>What he left behind was not just romance. Coleridge devised an entire private annotation system — a secret language for the white space beside other people's sentences. He sketched it out by hand in a flyleaf, where it has sat, undisturbed, for two centuries:</p>
 
@@ -598,7 +612,7 @@
 
       <p>And then there is the matter of the pointing hand.</p>
 
-      <p>The <em>manicule</em> — from the Latin for "little hand" — was the medieval reader's device for drawing attention to a passage worth noting. A small hand, drawn in the margin, its finger pointing at the line that mattered. In a 14th-century manuscript held at Berkeley's Bancroft Library, a reader used a manicule to flag a passage. The passage was long. One hand was not sufficient. So the reader drew another. And then, apparently deciding that something more was called for, employed the tentacles of an octopus to bracket the remainder. We have no record of who did this, or what the passage said. We know only that it was, apparently, very important.</p>
+      <p>The <em>manicule</em> — from the Latin for <em>manicula</em>, "little hand" — was the medieval reader's device for drawing attention to a passage worth noting. A small hand, drawn in the margin, its finger pointing at the line that mattered. In a 14th-century manuscript held at Berkeley's Bancroft Library, a reader used a manicule to flag a passage. The passage was long. One hand was not sufficient. So the reader drew another. And then, apparently deciding that something more was called for, employed the tentacles of an octopus to bracket the remainder. We have no record of who did this, or what the passage said. We know only that it was, apparently, very important.</p>
 
       <figure class="article-img">
         <img src="../assets/images/marginalia/img-022.png" alt="A medieval Latin manuscript with a hand-drawn manicule — a pointing hand with a decorated sleeve — in the left margin, used to flag important text"/>
@@ -618,9 +632,9 @@
         <span class="attr">Bill Gates, on reading books he disagrees with</span>
       </div>
 
-      <p>Gates argues with books in the margins. He has described the experience of sustained disagreement with an author as something close to physical discomfort, resolved only by continuous note-taking. A reader arguing with a dead author, alone in a room, at midnight, pen moving faster as the frustration rises. This is, by most definitions, not normal behaviour. It is also, apparently, how one of the most consequential readers of the last century chose to spend his evenings.</p>
+      <p>Gates argues with books in the margins. He has described the experience of sustained disagreement with an author as something close to physical discomfort, resolved only by <strong>continuous note-taking</strong>. A reader arguing with a dead author, alone in a room, at midnight, pen moving faster as the frustration rises. This is, by most definitions, not normal behaviour. It is also, apparently, how one of the most consequential readers of the last century chose to spend his evenings.</p>
 
-      <p>The medieval critics who called out bad Gospel translations would have recognised him completely.</p>
+      <p>The medieval critics who called out bad Gospel translations would have recognised him completely. Both were doing what <a href="/essays/catch-first-edit-later">good note-takers do</a>: catching the reaction before it cooled.</p>
 
       <div class="section-break">✦ ✦ ✦</div>
 
@@ -691,11 +705,11 @@
 
       <p>Coleridge devising symbols to name what moved him. The monk who could not let a bad translation pass without comment. Taylor adding blue beside her great-uncle's red. Fermat claiming he had a proof but that the space was insufficient. The person in Norfolk who simply needed, for reasons we will never know, to write down what the dog said.</p>
 
-      <p>They were all doing the same thing: catching a thought before it dissolved. Parking it somewhere — the two inches beside the text, the blank page of a small grid notebook, the back of an envelope on a train — before the moment passed and the thought passed with it.</p>
+      <p>They were all doing the same thing: <a href="/essays/catch-first-edit-later">catching a thought before it dissolved</a>. Parking it somewhere — the two inches beside the text, the blank page of a <a href="/shop">small grid notebook</a>, the back of an envelope on a train — before the moment passed and the thought passed with it.</p>
 
-      <p>The margin and the pocket notebook are the same impulse. The same refusal to let the thought evaporate. The same insistence that it was worth something, even before it was polished, even before it was finished, even before you knew exactly why.</p>
+      <p>The margin and the pocket notebook are the same impulse. The same refusal to let the thought evaporate. The same insistence that it was worth something, even before it was polished, even before it was finished, even before you knew exactly why. On that subject, it's worth reading about <a href="/essays/notes-as-identity-the-corebook">the notebook as a record of who you were</a>.</p>
 
-      <p>A thought noted is different from a thought that passes through. The act of putting ink on a small surface — a margin, a grid page, a napkin, an inside cover — is the act of making something real. A draft. A bracket. A checkmark that says: <em>this one mattered.</em></p>
+      <p><strong>A thought noted is different from a thought that passes through.</strong> The act of putting ink on a small surface — a margin, a grid page, a napkin, an inside cover — is the act of making something real. A draft. A bracket. A checkmark that says: <em>this one mattered.</em></p>
 
       <p>The margin says: I was here. I noticed.</p>
 
@@ -705,10 +719,10 @@
 
     <div class="article-end">
       <div class="article-tags">
-        <a href="../blog.html" class="article-tag">History</a>
-        <a href="../blog.html" class="article-tag">Method</a>
-        <a href="../blog.html" class="article-tag">Philosophy</a>
-        <a href="../blog.html" class="article-tag">Reading</a>
+        <a href="/essays" class="article-tag">History</a>
+        <a href="/essays" class="article-tag">Method</a>
+        <a href="/essays" class="article-tag">Philosophy</a>
+        <a href="/essays" class="article-tag">Reading</a>
       </div>
 
       <div class="article-sources">
@@ -719,6 +733,11 @@
   </div>
 </main>
 
+<section class="disqus-section">
+  <h3>Discussion</h3>
+  <div id="disqus_thread"></div>
+</section>
+
 <!-- ─── EMAIL SUBSCRIBE ──────────────────────────────── -->
 <section class="subscribe-section">
   <div class="subscribe-inner">
@@ -726,10 +745,10 @@
     <h2 class="subscribe-title">Two lines,<br>every <em>two weeks.</em></h2>
     <p class="subscribe-blurb">New essays, quiet philosophy. Only when there's something worth saying.</p>
     <form class="subscribe-form" id="subscribeForm">
-      <input type="email" class="subscribe-input" placeholder="your@email.com" required aria-label="Email address">
+      <input type="email" class="subscribe-input" id="emailInput" placeholder="your@email.com" required aria-label="Email address">
       <button type="submit" class="subscribe-btn">Subscribe ↗</button>
     </form>
-    <p class="subscribe-note" id="subscribeNote">No tracking · No spam · Unsubscribe anytime</p>
+    <p class="subscribe-note" id="subscribeMsg">&nbsp;</p>
   </div>
 </section>
 
@@ -738,7 +757,7 @@
   <div class="read-next-inner">
     <p class="read-next-label">Read next</p>
     <div class="read-next-grid">
-      <a href="notebooks-of-ancient-singers.html" class="read-next-card">
+      <a href="/essays/notebooks-of-ancient-singers" class="read-next-card">
         <div class="read-next-img" style="background:#F5C13D;">
           <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <path d="M30 60 Q80 30 150 80 T180 60" stroke="#1A1612" stroke-width="3" fill="none" stroke-linecap="round"/>
@@ -749,7 +768,7 @@
         <p class="read-next-meta">History · 8 min</p>
         <p class="read-next-title">Notebooks of ancient singers</p>
       </a>
-      <a href="margins-where-great-ideas-live.html" class="read-next-card">
+      <a href="/essays/margins-where-great-ideas-live" class="read-next-card">
         <div class="read-next-img" style="background:#5BA8C9;">
           <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <rect x="40" y="30" width="120" height="140" rx="4" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
@@ -760,7 +779,7 @@
         <p class="read-next-meta">History · 6 min</p>
         <p class="read-next-title">Margins: where great ideas actually live</p>
       </a>
-      <a href="the-roman-wax-tablet.html" class="read-next-card">
+      <a href="/essays/the-roman-wax-tablet" class="read-next-card">
         <div class="read-next-img" style="background:#F26A8D;">
           <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <rect x="30" y="50" width="140" height="100" rx="4" fill="#6E3582" stroke="#1A1612" stroke-width="3"/>
@@ -781,7 +800,7 @@
   <div class="strip-inner">
     <h2 class="strip-title">The margin is two<br><em>inches wide.</em></h2>
     <div class="strip-action">
-      <a href="../shop.html" class="strip-button">Begin a notebook this week ↗</a>
+      <a href="/shop" class="strip-button">Begin a notebook this week ↗</a>
       <p class="strip-note">A6 · 64 pages · Grid · Made in India</p>
     </div>
   </div>
@@ -791,29 +810,27 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <h3 class="footer-brand-title">Pocket<br><em>Notes</em></h3>
-      <p>A capture device for fast thinkers. Small grid notebooks, made in India, for people who already write.</p>
+      <p class="footer-brand-title">Pocket<br><em>Notes</em></p>
+      <p>A6 grid-lined pocket notebooks. Made to go everywhere you go.</p>
     </div>
     <div class="footer-col">
-      <h4>The notebooks</h4>
+      <h4>Shop</h4>
       <ul>
-        <li><a href="../shop.html">Founder's 500</a></li>
-        <li><a href="../shop.html">Flow Series</a></li>
-        <li><a href="../about.html">About us</a></li>
+        <li><a href="/shop">Founder's 500 Series</a></li>
+        <li><a href="/shop">Flow Series</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Say hello</h4>
+      <h4>Read</h4>
       <ul>
-        <li><a href="mailto:hello@pocketnotes.in">hello@pocketnotes.in</a></li>
-        <li><a href="../blog.html">From the notebook</a></li>
-        <li><a href="#">Instagram ↗</a></li>
+        <li><a href="/essays">All Essays</a></li>
+        <li><a href="/about">About</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
     <span>© 2026 Pocket Notes</span>
-    <span>Small Books, Big Ideas · Made in India</span>
+    <span>pocketnotes.in</span>
   </div>
 </footer>
 
@@ -836,6 +853,18 @@
     el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
   });
 
+  // Disqus
+  var disqus_config = function() {
+    this.page.url = 'https://pocketnotes.in/essays/the-people-who-write-in-the-margins';
+    this.page.identifier = 'the-people-who-write-in-the-margins';
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://pocketnotes.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+
   // Hamburger
   const hamburger  = document.getElementById('navHamburger');
   const mobileMenu = document.getElementById('navMobileMenu');
@@ -854,21 +883,34 @@
     }));
   }
 
-  // Subscribe form
-  const subForm = document.getElementById('subscribeForm');
-  const subNote = document.getElementById('subscribeNote');
-  if (subForm) {
-    subForm.addEventListener('submit', e => {
-      e.preventDefault();
-      subForm.style.display = 'none';
-      subNote.textContent = 'Noted. The newsletter will arrive in your inbox.';
-      subNote.style.opacity = '1';
-      subNote.style.fontFamily = "'Fraunces', serif";
-      subNote.style.fontStyle = 'italic';
-      subNote.style.color = 'var(--mustard)';
-      subNote.style.fontSize = '1.1rem';
-    });
-  }
+  // Subscribe
+  document.getElementById('subscribeForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const email = document.getElementById('emailInput').value.trim();
+    const msg = document.getElementById('subscribeMsg');
+    if (!email) return;
+    msg.textContent = 'Subscribing…';
+    try {
+      const res = await fetch('https://api.sender.net/v2/subscribers', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer re_NP3s5B3g_7JY5EdCtREKWRnF2uPA1Gisf',
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ email })
+      });
+      if (res.ok) {
+        msg.textContent = 'You\'re in. Essays incoming.';
+        msg.style.color = '#F5C13D';
+        document.getElementById('emailInput').value = '';
+      } else {
+        msg.textContent = 'Something went wrong. Try again.';
+      }
+    } catch(err) {
+      msg.textContent = 'Something went wrong. Try again.';
+    }
+  });
 </script>
 
 </body>
