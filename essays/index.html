@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Essays — Pocket Notes</title>
+<meta name="description" content="Writing on the practice of notebooks — how people think, catch ideas, and compound them over time. New essays whenever there's something worth saying."/>
+<link rel="canonical" href="https://pocketnotes.in/essays"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='8' y='4' width='18' height='24' rx='2' fill='%23FAF3E3' stroke='%231A1612' stroke-width='2.5'/%3E%3Crect x='6' y='4' width='4' height='24' fill='%23F5C13D' stroke='%231A1612' stroke-width='2.5'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,700&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream:    #FAF3E3;
+    --bone:     #F1E7CE;
+    --paper:    #ECE0BE;
+    --ink:      #1A1612;
+    --ink-soft: #3D342A;
+    --mustard:  #F5C13D;
+    --coral:    #FF6B47;
+    --sage:     #8FB89C;
+    --sky:      #5BA8C9;
+    --plum:     #6E3582;
+    --pink:     #F26A8D;
+    --olive:    #2C2A20;
+    --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+    --gut:      5vw;
+    --max:      1160px;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  html, body { overflow-x: hidden; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    cursor: none;
+  }
+
+  ::selection { background: var(--mustard); color: var(--ink); }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.045;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* CURSOR */
+  .cursor-dot, .cursor-ring {
+    position: fixed; pointer-events: none; z-index: 10000;
+    border-radius: 50%; transform: translate(-50%, -50%);
+  }
+  .cursor-dot { width: 8px; height: 8px; background: var(--ink); transition: background .2s var(--ease); }
+  .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--ink); transition: width .3s var(--ease), height .3s var(--ease), border-color .25s, background .25s; }
+  .cursor-ring.hover { width: 80px; height: 80px; background: var(--mustard); border-color: var(--mustard); mix-blend-mode: multiply; }
+  @media (max-width: 900px) { body { cursor: default; } .cursor-dot, .cursor-ring { display: none; } }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 1.5rem; left: 1.5rem; right: 1.5rem; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.85rem 1.5rem;
+    background: var(--ink); color: var(--cream); border-radius: 999px;
+    font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 0.6rem; font-weight: 500; text-transform: uppercase; text-decoration: none; color: inherit; cursor: none; }
+  .nav-logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mustard); animation: pulse 2.4s var(--ease) infinite; flex-shrink: 0; }
+  @keyframes pulse { 0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.6} }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+  .nav-links a { color: var(--bone); text-decoration: none; text-transform: uppercase; transition: color .25s var(--ease); cursor: none; }
+  .nav-links a:hover { color: var(--mustard); }
+  .nav-links a.active { color: var(--mustard); }
+  .nav-cta { background: var(--mustard); color: var(--ink); padding: 0.5rem 1.2rem; border-radius: 999px; text-decoration: none; text-transform: uppercase; font-weight: 500; transition: background .25s var(--ease); cursor: none; white-space: nowrap; }
+  .nav-cta:hover { background: var(--coral); color: var(--cream); }
+
+  /* HAMBURGER */
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 0.4rem; cursor: pointer; }
+  .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--cream); border-radius: 2px; transition: transform .35s var(--ease), opacity .25s; }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .nav-mobile-menu { position: fixed; inset: 0; background: var(--ink); z-index: 190; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: opacity .35s var(--ease); }
+  .nav-mobile-menu.open { opacity: 1; pointer-events: all; }
+  .nav-mobile-menu a { font-family: 'Fraunces', serif; font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 900; color: var(--cream); text-decoration: none; text-transform: uppercase; letter-spacing: -0.03em; transition: color .2s; cursor: none; }
+  .nav-mobile-menu a:hover { color: var(--mustard); }
+  @media (max-width: 900px) { nav { padding: 0.7rem 1rem; } .nav-links { display: none; } .nav-cta { display: none; } .nav-hamburger { display: flex; } }
+
+  /* PAGE HEADER */
+  .page-header { padding-top: 10rem; padding-bottom: 4rem; padding-left: var(--gut); padding-right: var(--gut); max-width: var(--max); margin: 0 auto; }
+  .page-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.2rem; }
+  .page-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(3rem, 8vw, 5.5rem); line-height: 0.92; letter-spacing: -0.04em; margin-bottom: 1.5rem; }
+  .page-title em { font-style: italic; font-weight: 400; color: var(--coral); }
+  .page-desc { font-family: 'Fraunces', serif; font-style: italic; font-size: clamp(1.05rem, 2vw, 1.3rem); font-weight: 300; color: var(--ink-soft); max-width: 52ch; line-height: 1.55; }
+
+  /* FEATURED ESSAY */
+  .featured-wrap { padding: 0 var(--gut) 4rem; max-width: var(--max); margin: 0 auto; }
+  .featured-card { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; background: var(--bone); border-radius: 20px; overflow: hidden; text-decoration: none; color: var(--ink); cursor: none; transition: transform .35s var(--ease); }
+  .featured-card:hover { transform: translateY(-6px); }
+  .featured-img { aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .featured-body { padding: 3rem 3rem 3rem 0; }
+  .featured-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem; }
+  .featured-tag { background: var(--mustard); color: var(--ink); padding: 0.2rem 0.7rem; border-radius: 999px; font-size: 0.68rem; font-weight: 500; }
+  .featured-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1rem; }
+  .featured-title em { font-style: italic; font-weight: 400; color: var(--coral); }
+  .featured-subtitle { font-family: 'Fraunces', serif; font-style: italic; font-size: 1rem; font-weight: 300; color: var(--ink-soft); line-height: 1.5; margin-bottom: 1.5rem; }
+  .featured-read { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--coral); display: flex; align-items: center; gap: 0.5rem; }
+  @media (max-width: 800px) { .featured-card { grid-template-columns: 1fr; } .featured-body { padding: 0 2rem 2rem; } }
+
+  /* ESSAYS GRID */
+  .essays-section { padding: 0 var(--gut) 6rem; max-width: var(--max); margin: 0 auto; }
+  .essays-section-label { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 2.5rem; display: flex; align-items: center; gap: 0.6rem; }
+  .essays-section-label::before { content: ''; width: 28px; height: 1px; background: var(--ink-soft); opacity: 0.5; }
+  .essays-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  @media (max-width: 900px) { .essays-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .essays-grid { grid-template-columns: 1fr; } }
+
+  .essay-card { display: block; text-decoration: none; color: var(--ink); cursor: none; transition: transform .35s var(--ease); }
+  .essay-card:hover { transform: translateY(-8px); }
+  .essay-thumb { aspect-ratio: 4/3; border-radius: 16px; border: 1.5px solid var(--ink); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: border-radius .35s var(--ease); }
+  .essay-card:hover .essay-thumb { border-radius: 6px; }
+  .essay-meta { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .essay-tag { background: var(--mustard); color: var(--ink); padding: 0.15rem 0.55rem; border-radius: 999px; font-size: 0.65rem; }
+  .essay-title { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
+
+  /* CTA STRIP */
+  .strip { background: var(--mustard); padding: 5rem var(--gut); position: relative; overflow: hidden; }
+  .strip-inner { max-width: 860px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  @media (max-width: 700px) { .strip-inner { grid-template-columns: 1fr; gap: 2rem; } }
+  .strip-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(2.2rem, 5vw, 4rem); line-height: 0.95; letter-spacing: -0.03em; }
+  .strip-title em { font-style: italic; font-weight: 400; color: var(--plum); }
+  .strip-action { display: flex; flex-direction: column; gap: 1.2rem; align-items: flex-start; }
+  .strip-button { display: inline-flex; align-items: center; gap: 0.7rem; background: var(--ink); color: var(--cream); text-decoration: none; padding: 1.1rem 2rem; border-radius: 999px; font-family: 'DM Mono', monospace; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: none; transition: transform .35s var(--ease), background .25s var(--ease); }
+  .strip-button:hover { transform: translateX(8px); background: var(--coral); }
+  .strip-note { font-family: 'DM Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink); opacity: 0.55; }
+
+  /* FOOTER */
+  footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2rem; }
+  .footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  @media (max-width: 700px) { .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+  .footer-brand-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.2rem; line-height: 1; letter-spacing: -0.04em; margin-bottom: 0.8rem; }
+  .footer-brand-title em { font-style: italic; font-weight: 400; color: var(--mustard); }
+  .footer-brand p { color: var(--bone); opacity: 0.7; font-size: 0.92rem; max-width: 30ch; }
+  .footer-col h4 { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mustard); margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col a { color: var(--bone); text-decoration: none; font-size: 0.9rem; opacity: 0.75; transition: color .2s, opacity .2s; cursor: none; }
+  .footer-col a:hover { color: var(--mustard); opacity: 1; }
+  .footer-bottom { border-top: 1px solid rgba(241,231,206,0.15); padding-top: 1.4rem; display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone); opacity: 0.5; flex-wrap: wrap; gap: 0.5rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <a href="/">Home</a>
+  <a href="/about">About</a>
+  <a href="/shop">Shop</a>
+  <a href="/essays">Essays</a>
+</div>
+
+<nav>
+  <a href="/" class="nav-logo"><span class="nav-logo-dot"></span><span>Pocket Notes</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/shop">Shop</a></li>
+    <li><a href="/essays" class="active">Essays</a></li>
+  </ul>
+  <a href="/shop" class="nav-cta">Carry the method ↗</a>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page-header">
+  <p class="page-eyebrow">Pocket Notes — Writing</p>
+  <h1 class="page-title">Essays on<br><em>notebooks.</em></h1>
+  <p class="page-desc">On the practice of writing things down — how people think, catch ideas, and compound them over time. New writing whenever there's something worth saying.</p>
+</div>
+
+<div class="featured-wrap">
+  <a href="/essays/the-people-who-write-in-the-margins" class="featured-card">
+    <div class="featured-img" style="background:var(--coral);">
+      <svg width="75%" height="75%" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <rect x="70" y="30" width="260" height="190" rx="6" fill="#FAF3E3" stroke="#1A1612" stroke-width="3.5"/>
+        <rect x="70" y="30" width="40" height="190" fill="#F5C13D" stroke="#1A1612" stroke-width="3.5"/>
+        <text x="230" y="72" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="18" fill="#1A1612" opacity=".7">INDEX</text>
+        <line x1="130" y1="88" x2="310" y2="88" stroke="#1A1612" stroke-width="1.5" opacity=".4"/>
+        <g stroke="#1A1612" stroke-width="1.5" opacity=".45">
+          <line x1="130" y1="108" x2="295" y2="108"/>
+          <line x1="130" y1="124" x2="275" y2="124"/>
+          <line x1="130" y1="140" x2="290" y2="140"/>
+          <line x1="130" y1="156" x2="265" y2="156"/>
+          <line x1="130" y1="172" x2="285" y2="172"/>
+          <line x1="130" y1="188" x2="270" y2="188"/>
+        </g>
+        <circle cx="125" cy="108" r="3.5" fill="#FF6B47"/>
+        <circle cx="125" cy="124" r="3.5" fill="#FF6B47"/>
+        <circle cx="125" cy="140" r="3.5" fill="#1A1612"/>
+        <circle cx="125" cy="156" r="3.5" fill="#1A1612"/>
+        <circle cx="125" cy="172" r="3.5" fill="#FF6B47"/>
+      </svg>
+    </div>
+    <div class="featured-body">
+      <p class="featured-eyebrow"><span class="featured-tag">History</span> <span>11 min read</span></p>
+      <h2 class="featured-title">The People Who Write<br><em>in the Margins</em></h2>
+      <p class="featured-subtitle">A gossipy tour of history's most brazen readers — Coleridge, Fermat, a medieval monk with opinions, and a duck named Queck.</p>
+      <span class="featured-read">Read essay →</span>
+    </div>
+  </a>
+</div>
+
+<div class="essays-section">
+  <p class="essays-section-label">All essays</p>
+  <div class="essays-grid">
+
+    <a class="essay-card" href="/essays/notes-as-identity-the-corebook">
+      <div class="essay-thumb" style="background:var(--plum);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#6E3582"/>
+          <rect x="80" y="50" width="140" height="125" rx="4" fill="#FAF3E3" opacity=".15" stroke="#FAF3E3" stroke-width="1.5" stroke-opacity=".3"/>
+          <rect x="80" y="50" width="22" height="125" fill="#F5C13D" opacity=".6"/>
+          <rect x="114" y="72" width="88" height="4" rx="1" fill="#FAF3E3" opacity=".5"/>
+          <rect x="114" y="84" width="72" height="4" rx="1" fill="#FAF3E3" opacity=".35"/>
+          <rect x="114" y="96" width="80" height="4" rx="1" fill="#FAF3E3" opacity=".35"/>
+          <rect x="114" y="114" width="68" height="4" rx="1" fill="#FAF3E3" opacity=".3"/>
+          <rect x="114" y="126" width="80" height="4" rx="1" fill="#FAF3E3" opacity=".3"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Identity</span> · 5 min read</p>
+      <p class="essay-title">Notes as Identity: The Corebook</p>
+    </a>
+
+    <a class="essay-card" href="/essays/notes-as-identity">
+      <div class="essay-thumb" style="background:var(--sage);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#8FB89C"/>
+          <circle cx="150" cy="112" r="65" fill="none" stroke="#FAF3E3" stroke-width="2" opacity=".4"/>
+          <circle cx="150" cy="112" r="40" fill="none" stroke="#FAF3E3" stroke-width="1.5" opacity=".3"/>
+          <circle cx="150" cy="112" r="16" fill="#FAF3E3" opacity=".25"/>
+          <line x1="150" y1="47" x2="150" y2="177" stroke="#FAF3E3" stroke-width="1" opacity=".3"/>
+          <line x1="85" y1="112" x2="215" y2="112" stroke="#FAF3E3" stroke-width="1" opacity=".3"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Method</span> · 4 min read</p>
+      <p class="essay-title">Notes as Identity</p>
+    </a>
+
+    <a class="essay-card" href="/essays/attention-is-physical">
+      <div class="essay-thumb" style="background:var(--sky);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#5BA8C9"/>
+          <rect x="80" y="60" width="140" height="105" rx="6" fill="#FAF3E3" opacity=".18"/>
+          <rect x="100" y="85" width="100" height="8" rx="2" fill="#FAF3E3" opacity=".6"/>
+          <rect x="100" y="101" width="76" height="6" rx="1.5" fill="#FAF3E3" opacity=".4"/>
+          <rect x="100" y="115" width="88" height="6" rx="1.5" fill="#FAF3E3" opacity=".4"/>
+          <circle cx="150" cy="150" r="12" fill="#F5C13D" opacity=".7" stroke="#FAF3E3" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Method</span> · 5 min read</p>
+      <p class="essay-title">Attention Is Physical</p>
+    </a>
+
+    <a class="essay-card" href="/essays/born-of-necessity">
+      <div class="essay-thumb" style="background:var(--mustard);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#F5C13D"/>
+          <rect x="65" y="55" width="170" height="115" rx="5" fill="#1A1612" opacity=".12" stroke="#1A1612" stroke-width="2" stroke-opacity=".2"/>
+          <rect x="65" y="55" width="28" height="115" fill="#1A1612" opacity=".2"/>
+          <rect x="108" y="78" width="110" height="5" rx="1" fill="#1A1612" opacity=".35"/>
+          <rect x="108" y="92" width="88" height="5" rx="1" fill="#1A1612" opacity=".25"/>
+          <rect x="108" y="106" width="100" height="5" rx="1" fill="#1A1612" opacity=".25"/>
+          <rect x="108" y="124" width="76" height="5" rx="1" fill="#1A1612" opacity=".2"/>
+          <rect x="108" y="138" width="92" height="5" rx="1" fill="#1A1612" opacity=".2"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">History</span> · 6 min read</p>
+      <p class="essay-title">Born of Necessity</p>
+    </a>
+
+    <a class="essay-card" href="/essays/we-dont-compete-with-notebooks">
+      <div class="essay-thumb" style="background:var(--ink);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#1A1612"/>
+          <rect x="70" y="55" width="70" height="90" rx="4" fill="#FAF3E3" opacity=".12" stroke="#FAF3E3" stroke-width="1.5" stroke-opacity=".25"/>
+          <rect x="160" y="80" width="70" height="90" rx="4" fill="#FAF3E3" opacity=".12" stroke="#FAF3E3" stroke-width="1.5" stroke-opacity=".25"/>
+          <rect x="115" y="68" width="70" height="90" rx="4" fill="#F5C13D" opacity=".18" stroke="#F5C13D" stroke-width="1.5" stroke-opacity=".5"/>
+          <line x1="150" y1="180" x2="150" y2="200" stroke="#FAF3E3" stroke-width="1" opacity=".2"/>
+          <circle cx="150" cy="200" r="4" fill="#FF6B47" opacity=".6"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag" style="background:var(--coral);">Brand</span> · 4 min read</p>
+      <p class="essay-title">We Don't Compete with Notebooks</p>
+    </a>
+
+    <a class="essay-card" href="/essays/notebooks-of-ancient-singers">
+      <div class="essay-thumb" style="background:var(--mustard);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#F5C13D"/>
+          <path d="M60 90 Q100 55 150 85 T240 90" stroke="#1A1612" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+          <path d="M60 120 Q90 85 140 110 T240 120" stroke="#FF6B47" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
+          <path d="M60 150 Q110 115 160 145 T240 150" stroke="#1A1612" stroke-width="3" fill="none" stroke-linecap="round" opacity=".4"/>
+          <circle cx="75" cy="170" r="7" fill="#FF6B47" stroke="#1A1612" stroke-width="2" opacity=".7"/>
+          <circle cx="120" cy="50" r="5" fill="#1A1612" opacity=".4"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">History</span> · 8 min read</p>
+      <p class="essay-title">Notebooks of Ancient Singers</p>
+    </a>
+
+    <a class="essay-card" href="/essays/margins-where-great-ideas-live">
+      <div class="essay-thumb" style="background:var(--bone);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#F1E7CE"/>
+          <rect x="55" y="45" width="190" height="135" rx="4" fill="#FAF3E3" stroke="#ECE0BE" stroke-width="2"/>
+          <rect x="55" y="45" width="30" height="135" fill="#F5C13D" opacity=".5" stroke="#ECE0BE" stroke-width="2"/>
+          <rect x="98" y="66" width="130" height="5" rx="1" fill="#3D342A" opacity=".2"/>
+          <rect x="98" y="80" width="108" height="5" rx="1" fill="#3D342A" opacity=".18"/>
+          <rect x="98" y="94" width="120" height="5" rx="1" fill="#3D342A" opacity=".18"/>
+          <rect x="62" y="110" width="16" height="5" rx="1" fill="#FF6B47" opacity=".6"/>
+          <rect x="62" y="122" width="16" height="5" rx="1" fill="#FF6B47" opacity=".4"/>
+          <rect x="98" y="110" width="140" height="5" rx="1" fill="#3D342A" opacity=".16"/>
+          <rect x="98" y="124" width="118" height="5" rx="1" fill="#3D342A" opacity=".14"/>
+          <rect x="98" y="138" width="132" height="5" rx="1" fill="#3D342A" opacity=".14"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">History</span> · 7 min read</p>
+      <p class="essay-title">Margins: Where Great Ideas Live</p>
+    </a>
+
+    <a class="essay-card" href="/essays/the-roman-wax-tablet">
+      <div class="essay-thumb" style="background:var(--pink);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#F26A8D"/>
+          <rect x="65" y="55" width="160" height="115" rx="5" fill="#6E3582" opacity=".5" stroke="#FAF3E3" stroke-width="1.5" stroke-opacity=".3"/>
+          <rect x="78" y="68" width="134" height="89" fill="#F5C13D" opacity=".2"/>
+          <g stroke="#FAF3E3" stroke-width="1.8" opacity=".5">
+            <line x1="90" y1="84" x2="130" y2="84"/>
+            <line x1="136" y1="84" x2="158" y2="84"/>
+            <line x1="90" y1="100" x2="148" y2="100"/>
+            <line x1="90" y1="116" x2="162" y2="116"/>
+            <line x1="90" y1="132" x2="138" y2="132"/>
+          </g>
+          <line x1="188" y1="42" x2="228" y2="24" stroke="#FAF3E3" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+          <circle cx="228" cy="24" r="5" fill="#F5C13D" stroke="#FAF3E3" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">History</span> · 10 min read</p>
+      <p class="essay-title">The Roman Wax Tablet</p>
+    </a>
+
+    <a class="essay-card" href="/essays/idea-parking">
+      <div class="essay-thumb" style="background:var(--sky);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#5BA8C9"/>
+          <rect x="60" y="80" width="180" height="65" rx="6" fill="#FAF3E3" opacity=".2" stroke="#FAF3E3" stroke-width="1.5" stroke-opacity=".4"/>
+          <circle cx="100" cy="112" r="16" fill="#F5C13D" opacity=".7" stroke="#FAF3E3" stroke-width="1.5"/>
+          <rect x="126" y="101" width="96" height="6" rx="1.5" fill="#FAF3E3" opacity=".6"/>
+          <rect x="126" y="116" width="74" height="6" rx="1.5" fill="#FAF3E3" opacity=".4"/>
+          <rect x="72" y="160" width="156" height="5" rx="1" fill="#FAF3E3" opacity=".2"/>
+          <rect x="72" y="172" width="120" height="5" rx="1" fill="#FAF3E3" opacity=".15"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Method</span> · 4 min read</p>
+      <p class="essay-title">Idea Parking</p>
+    </a>
+
+    <a class="essay-card" href="/essays/constraint-as-creative-practice">
+      <div class="essay-thumb" style="background:var(--plum);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#6E3582"/>
+          <rect x="90" y="60" width="120" height="105" rx="4" fill="#FAF3E3" opacity=".12" stroke="#FAF3E3" stroke-width="1.5" stroke-opacity=".3"/>
+          <rect x="90" y="60" width="120" height="105" rx="4" fill="none" stroke="#F5C13D" stroke-width="1.5" stroke-opacity=".4" stroke-dasharray="6 4"/>
+          <rect x="112" y="80" width="76" height="5" rx="1" fill="#FAF3E3" opacity=".5"/>
+          <rect x="112" y="94" width="58" height="5" rx="1" fill="#FAF3E3" opacity=".35"/>
+          <rect x="112" y="112" width="68" height="5" rx="1" fill="#F5C13D" opacity=".6"/>
+          <rect x="112" y="126" width="52" height="5" rx="1" fill="#FAF3E3" opacity=".3"/>
+          <rect x="112" y="140" width="64" height="5" rx="1" fill="#FAF3E3" opacity=".3"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Method</span> · 5 min read</p>
+      <p class="essay-title">Constraint as Creative Practice</p>
+    </a>
+
+    <a class="essay-card" href="/essays/the-first-page-rule">
+      <div class="essay-thumb" style="background:var(--coral);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#FF6B47"/>
+          <rect x="75" y="50" width="150" height="125" rx="5" fill="#FAF3E3" opacity=".2" stroke="#FAF3E3" stroke-width="1.5" stroke-opacity=".4"/>
+          <rect x="75" y="50" width="24" height="125" fill="#1A1612" opacity=".2"/>
+          <rect x="112" y="72" width="96" height="6" rx="1.5" fill="#FAF3E3" opacity=".7"/>
+          <rect x="112" y="72" width="26" height="6" rx="1.5" fill="#FAF3E3" opacity=".9"/>
+          <rect x="112" y="88" width="80" height="5" rx="1" fill="#FAF3E3" opacity=".4"/>
+          <rect x="112" y="102" width="88" height="5" rx="1" fill="#FAF3E3" opacity=".4"/>
+          <rect x="112" y="120" width="72" height="5" rx="1" fill="#FAF3E3" opacity=".35"/>
+          <rect x="112" y="134" width="84" height="5" rx="1" fill="#FAF3E3" opacity=".35"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Method</span> · 4 min read</p>
+      <p class="essay-title">The First Page Rule</p>
+    </a>
+
+    <a class="essay-card" href="/essays/the-grid-page-and-the-wandering-thought">
+      <div class="essay-thumb" style="background:var(--sky);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#5BA8C9"/>
+          <g stroke="#FAF3E3" stroke-width="1" opacity=".35">
+            <line x1="50" y1="45" x2="250" y2="45"/>
+            <line x1="50" y1="85" x2="250" y2="85"/>
+            <line x1="50" y1="125" x2="250" y2="125"/>
+            <line x1="50" y1="165" x2="250" y2="165"/>
+            <line x1="50" y1="45" x2="50" y2="185"/>
+            <line x1="90" y1="45" x2="90" y2="185"/>
+            <line x1="130" y1="45" x2="130" y2="185"/>
+            <line x1="170" y1="45" x2="170" y2="185"/>
+            <line x1="210" y1="45" x2="210" y2="185"/>
+            <line x1="250" y1="45" x2="250" y2="185"/>
+          </g>
+          <circle cx="150" cy="112" r="44" fill="#FAF3E3" opacity=".18" stroke="#FAF3E3" stroke-width="2" stroke-opacity=".5"/>
+          <polygon points="150,78 158,112 150,103 142,112" fill="#FF6B47" opacity=".8"/>
+          <circle cx="150" cy="112" r="5" fill="#FAF3E3" opacity=".8"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Technique</span> · 4 min read</p>
+      <p class="essay-title">The Grid Page and the Wandering Thought</p>
+    </a>
+
+    <a class="essay-card" href="/essays/the-index-method">
+      <div class="essay-thumb" style="background:var(--sage);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#8FB89C"/>
+          <circle cx="150" cy="78" r="30" fill="#FAF3E3" opacity=".2" stroke="#FAF3E3" stroke-width="2" stroke-opacity=".4"/>
+          <path d="M126 104 L126 170 Q126 188 150 188 Q174 188 174 170 L174 104 Z" fill="#6E3582" opacity=".4" stroke="#FAF3E3" stroke-width="1.5" stroke-opacity=".3"/>
+          <g fill="#F5C13D" opacity=".7">
+            <circle cx="68" cy="62" r="9"/>
+            <line x1="77" y1="62" x2="77" y2="36" stroke="#F5C13D" stroke-width="2.5"/>
+            <circle cx="232" cy="88" r="9"/>
+            <line x1="241" y1="88" x2="241" y2="62" stroke="#F5C13D" stroke-width="2.5"/>
+            <circle cx="72" cy="130" r="9"/>
+            <line x1="81" y1="130" x2="81" y2="104" stroke="#F5C13D" stroke-width="2.5"/>
+          </g>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Technique</span> · 5 min read</p>
+      <p class="essay-title">The Index Method</p>
+    </a>
+
+    <a class="essay-card" href="/essays/two-lines-every-day">
+      <div class="essay-thumb" style="background:var(--mustard);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#F5C13D"/>
+          <rect x="60" y="80" width="180" height="65" rx="6" fill="#1A1612" opacity=".1" stroke="#1A1612" stroke-width="1.5" stroke-opacity=".2"/>
+          <rect x="80" y="96" width="140" height="7" rx="2" fill="#1A1612" opacity=".35"/>
+          <rect x="80" y="112" width="112" height="7" rx="2" fill="#1A1612" opacity=".25"/>
+          <rect x="58" y="60" width="14" height="14" rx="2" fill="#FF6B47" opacity=".6"/>
+          <rect x="58" y="155" width="184" height="2" rx="1" fill="#1A1612" opacity=".15"/>
+          <rect x="58" y="165" width="120" height="2" rx="1" fill="#1A1612" opacity=".1"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Habit</span> · 3 min read</p>
+      <p class="essay-title">Two Lines Every Day</p>
+    </a>
+
+    <a class="essay-card" href="/essays/why-your-notebook-should-never-be-organised">
+      <div class="essay-thumb" style="background:var(--plum);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#6E3582"/>
+          <rect x="56" y="50" width="188" height="125" rx="5" fill="#FAF3E3" opacity=".1" stroke="#FAF3E3" stroke-width="1" stroke-opacity=".2"/>
+          <rect x="68" y="66" width="110" height="5" rx="1" fill="#F5C13D" opacity=".6"/>
+          <rect x="68" y="80" width="88" height="5" rx="1" fill="#FAF3E3" opacity=".35"/>
+          <rect x="68" y="96" width="130" height="5" rx="1" fill="#FAF3E3" opacity=".3"/>
+          <rect x="68" y="118" width="68" height="5" rx="1" fill="#FF6B47" opacity=".5"/>
+          <rect x="68" y="132" width="100" height="5" rx="1" fill="#FAF3E3" opacity=".25"/>
+          <rect x="68" y="148" width="80" height="5" rx="1" fill="#FAF3E3" opacity=".25"/>
+          <line x1="188" y1="88" x2="228" y2="72" stroke="#F5C13D" stroke-width="1.5" opacity=".4"/>
+          <circle cx="228" cy="72" r="5" fill="#F5C13D" opacity=".5"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Method</span> · 5 min read</p>
+      <p class="essay-title">Why Your Notebook Should Never Be Organised</p>
+    </a>
+
+    <a class="essay-card" href="/essays/the-page-is-a-tool">
+      <div class="essay-thumb" style="background:var(--coral);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#FF6B47"/>
+          <rect x="68" y="48" width="164" height="129" rx="5" fill="#FAF3E3" opacity=".2" stroke="#FAF3E3" stroke-width="1.5" stroke-opacity=".4"/>
+          <line x1="88" y1="72" x2="88" y2="157" stroke="#1A1612" stroke-width="1.5" opacity=".3"/>
+          <rect x="98" y="70" width="120" height="6" rx="1.5" fill="#FAF3E3" opacity=".55"/>
+          <rect x="98" y="84" width="96" height="5" rx="1" fill="#FAF3E3" opacity=".4"/>
+          <rect x="98" y="98" width="108" height="5" rx="1" fill="#FAF3E3" opacity=".4"/>
+          <rect x="98" y="116" width="80" height="5" rx="1" fill="#FAF3E3" opacity=".35"/>
+          <rect x="98" y="130" width="100" height="5" rx="1" fill="#FAF3E3" opacity=".35"/>
+          <rect x="98" y="144" width="72" height="5" rx="1" fill="#FAF3E3" opacity=".3"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Method</span> · 4 min read</p>
+      <p class="essay-title">The Page Is a Tool</p>
+    </a>
+
+    <a class="essay-card" href="/essays/constraint-sharpens">
+      <div class="essay-thumb" style="background:var(--sky);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#5BA8C9"/>
+          <polygon points="150,48 220,180 80,180" fill="none" stroke="#FAF3E3" stroke-width="2" opacity=".4"/>
+          <polygon points="150,72 198,162 102,162" fill="#FAF3E3" opacity=".1" stroke="#F5C13D" stroke-width="1.5" stroke-opacity=".5"/>
+          <circle cx="150" cy="48" r="6" fill="#F5C13D" opacity=".8"/>
+          <circle cx="220" cy="180" r="6" fill="#FAF3E3" opacity=".5"/>
+          <circle cx="80" cy="180" r="6" fill="#FAF3E3" opacity=".5"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Method</span> · 4 min read</p>
+      <p class="essay-title">Constraint Sharpens</p>
+    </a>
+
+    <a class="essay-card" href="/essays/catch-first-edit-later">
+      <div class="essay-thumb" style="background:var(--coral);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#FF6B47"/>
+          <rect x="60" y="55" width="180" height="8" rx="2" fill="#FAF3E3" opacity=".5"/>
+          <rect x="60" y="72" width="140" height="8" rx="2" fill="#FAF3E3" opacity=".35"/>
+          <rect x="60" y="89" width="160" height="8" rx="2" fill="#FAF3E3" opacity=".35"/>
+          <circle cx="85" cy="145" r="26" fill="#FAF3E3" opacity=".22" stroke="#FAF3E3" stroke-width="1.5" stroke-opacity=".4"/>
+          <rect x="118" y="134" width="122" height="7" rx="2" fill="#FAF3E3" opacity=".5"/>
+          <rect x="118" y="149" width="96" height="7" rx="2" fill="#FAF3E3" opacity=".35"/>
+          <line x1="72" y1="135" x2="98" y2="155" stroke="#F5C13D" stroke-width="2.5" opacity=".6"/>
+          <line x1="98" y1="135" x2="72" y2="155" stroke="#F5C13D" stroke-width="2.5" opacity=".6"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Method</span> · 4 min read</p>
+      <p class="essay-title">Catch First, Edit Later</p>
+    </a>
+
+    <a class="essay-card" href="/essays/the-method-beats-the-mood">
+      <div class="essay-thumb" style="background:var(--mustard);">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#F5C13D"/>
+          <line x1="50" y1="112" x2="250" y2="112" stroke="#1A1612" stroke-width="2" opacity=".3"/>
+          <rect x="50" y="68" width="96" height="28" rx="3" fill="#1A1612" opacity=".12"/>
+          <rect x="55" y="118" width="200" height="6" rx="2" fill="#1A1612" opacity=".3"/>
+          <rect x="55" y="132" width="164" height="6" rx="2" fill="#1A1612" opacity=".22"/>
+          <rect x="55" y="146" width="184" height="6" rx="2" fill="#1A1612" opacity=".18"/>
+          <path d="M180 68 L200 50 L220 68" fill="none" stroke="#FF6B47" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".6"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Habit</span> · 4 min read</p>
+      <p class="essay-title">The Method Beats the Mood</p>
+    </a>
+
+  </div>
+</div>
+
+<div class="strip">
+  <div class="strip-inner">
+    <h2 class="strip-title">Small books.<br><em>Big ideas.</em></h2>
+    <div class="strip-action">
+      <a href="/shop" class="strip-button">See the notebooks →</a>
+      <p class="strip-note">A6 grid · sewn binding · India only</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-brand-title">Pocket<br><em>Notes</em></p>
+      <p>A6 grid-lined pocket notebooks. Made to go everywhere you go.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="/shop">Founder's 500 Series</a></li>
+        <li><a href="/shop">Flow Series</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Read</h4>
+      <ul>
+        <li><a href="/essays">All Essays</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Pocket Notes</span>
+    <span>pocketnotes.in</span>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cursorDot = document.getElementById('cursorDot');
+const cursorRing = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursorDot.style.left = mx + 'px'; cursorDot.style.top = my + 'px';
+});
+(function animRing() {
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+});
+
+// Hamburger
+const hamburger = document.getElementById('navHamburger');
+const mobileMenu = document.getElementById('navMobileMenu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}));
+</script>
+</body>
+</html>
