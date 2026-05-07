@@ -3,6 +3,9 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const ALLOWED_PRODUCTS = ['founders', 'flow', 'both'];
+const NAME_RE = /^[a-zA-Z\s'\-]{2,50}$/;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const CITY_RE = /^[a-zA-Z\s\-]{2,50}$/;
 
 function setCORS(res, origin) {
   const allowed = ['https://pocketnotes.in', 'http://localhost:3000', 'http://localhost'];
@@ -12,23 +15,42 @@ function setCORS(res, origin) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
 
-async function kvSet(name, city, product_interest) {
+async function kvFetch(path, method = 'GET') {
   const KV_URL = process.env.KV_REST_API_URL;
   const KV_TOKEN = process.env.KV_REST_API_TOKEN;
-  if (!KV_URL || !KV_TOKEN) {
-    console.error('KV write skipped: missing KV_REST_API_URL or KV_REST_API_TOKEN');
-    return;
-  }
+  if (!KV_URL || !KV_TOKEN) return null;
   try {
-    const key = `waitlist:${Date.now()}`;
-    const value = JSON.stringify({ name, city, product_interest, timestamp: new Date().toISOString() });
-    await fetch(`${KV_URL}/set/${key}/${encodeURIComponent(value)}`, {
-      method: 'GET',
+    const r = await fetch(`${KV_URL}${path}`, {
+      method,
       headers: { Authorization: `Bearer ${KV_TOKEN}` },
     });
+    return r.json();
   } catch (err) {
-    console.error('KV write failed:', err.message);
+    console.error('KV fetch failed:', err.message);
+    return null;
   }
+}
+
+async function checkDuplicate(email) {
+  const keysData = await kvFetch('/keys/waitlist:*');
+  if (!keysData) return false;
+  const keys = keysData.result || [];
+  for (const key of keys) {
+    const valData = await kvFetch(`/get/${encodeURIComponent(key)}`);
+    if (!valData) continue;
+    try {
+      const raw = valData.result;
+      const entry = typeof raw === 'string' ? JSON.parse(raw) : raw;
+      if (entry && entry.email && entry.email.toLowerCase() === email) return true;
+    } catch (_) {}
+  }
+  return false;
+}
+
+async function kvSet(name, email, city, product_interest) {
+  const key = `waitlist:${Date.now()}`;
+  const value = JSON.stringify({ name, email, city, product_interest, timestamp: new Date().toISOString() });
+  await kvFetch(`/set/${key}/${encodeURIComponent(value)}`);
 }
 
 async function sendEmail(cleanName, cleanEmail) {
@@ -75,25 +97,29 @@ export default async function handler(req, res) {
 
   const { name, email, city, product_interest } = req.body || {};
 
-  if (!name || name.trim().length < 2) {
-    return res.status(400).json({ error: 'Name must be at least 2 characters.' });
+  if (!name || !NAME_RE.test(name.trim())) {
+    return res.status(400).json({ error: 'Please enter a valid name' });
   }
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-    return res.status(400).json({ error: 'A valid email is required.' });
+  if (!email || !EMAIL_RE.test(email.trim())) {
+    return res.status(400).json({ error: 'Please enter a valid email address' });
   }
-  if (!city || !city.trim()) {
-    return res.status(400).json({ error: 'City is required.' });
+  if (!city || !CITY_RE.test(city.trim())) {
+    return res.status(400).json({ error: 'Please enter a valid city name' });
   }
   if (!ALLOWED_PRODUCTS.includes(product_interest)) {
-    return res.status(400).json({ error: 'Please select a product.' });
+    return res.status(400).json({ error: 'Please select a product' });
   }
 
   const cleanName = name.trim();
   const cleanEmail = email.trim().toLowerCase();
   const cleanCity = city.trim();
 
-  kvSet(cleanName, cleanCity, product_interest);
+  const isDuplicate = await checkDuplicate(cleanEmail);
+  if (isDuplicate) {
+    return res.status(200).json({ success: true, duplicate: true, message: "You're already on the list." });
+  }
 
+  await kvSet(cleanName, cleanEmail, cleanCity, product_interest);
   await sendEmail(cleanName, cleanEmail);
 
   return res.status(200).json({ success: true });

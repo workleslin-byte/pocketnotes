@@ -319,8 +319,8 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
     </form>
 
     <div class="form-success" id="formSuccess">
-      <h3 class="success-title">Yayy! We've reserved<br><em>your set.</em></h3>
-      <p style="color:var(--ink-soft);margin-top:1rem">We'll reach out to <strong id="successEmail"></strong> when it's time.</p>
+      <h3 class="success-title" id="successTitle">Yayy! We've reserved<br><em>your set.</em></h3>
+      <p style="color:var(--ink-soft);margin-top:1rem" id="successBody">We'll reach out to <strong id="successEmail"></strong> when it's time.</p>
       <p class="success-note">No payment now · First access guaranteed</p>
     </div>
   </div>
@@ -411,7 +411,7 @@ function buildTickerHTML(entries) {
 function flashNew(entry) {
   const el = document.getElementById('tickerFlash');
   el.classList.remove('show');
-  void el.offsetWidth; // force reflow
+  void el.offsetWidth;
   const label = PRODUCT_LABELS[entry.product_interest] || 'Founders Series';
   el.textContent = `● JUST NOW   ${entry.name}, ${entry.city} reserved the ${label}`;
   el.classList.add('show');
@@ -419,13 +419,16 @@ function flashNew(entry) {
 }
 
 async function loadTicker() {
-  let entries = [];
+  let entries = [], total = null;
   try {
     const res = await fetch('/api/ticker');
-    if (res.ok) { const d = await res.json(); entries = d.entries || []; }
+    if (res.ok) {
+      const d = await res.json();
+      entries = d.entries || [];
+      if (typeof d.total === 'number') total = d.total;
+    }
   } catch(_) {}
 
-  // Detect new entries since last poll
   if (entries.length && previousIds.size > 0) {
     const newEntry = entries.find(e => !previousIds.has(entryId(e)));
     if (newEntry) flashNew(newEntry);
@@ -435,23 +438,41 @@ async function loadTicker() {
   const html = buildTickerHTML(entries);
   document.getElementById('tickerRow1').innerHTML = html;
   document.getElementById('tickerRow2').innerHTML = html;
-  updateScarcity(entries.length);
+
+  if (total !== null) updateScarcity(total);
 }
 
 loadTicker();
 setInterval(loadTicker, 30000);
 
 // ── SCARCITY ──
+const scarcityCountEl = document.getElementById('scarcityCount');
+const progressFillEl = document.getElementById('progressFill');
+
 function updateScarcity(count) {
-  const total = 100;
-  const display = count || '—';
-  document.getElementById('scarcityCount').innerHTML = `${display} of <em>${total}</em> sets reserved`;
-  document.getElementById('progressFill').style.width = Math.min((count/total)*100, 100) + '%';
+  if (count >= 100) {
+    scarcityCountEl.innerHTML = `First 100 sets fully reserved. Join the next batch →`;
+    progressFillEl.style.width = '100%';
+    document.getElementById('submitBtn').disabled = true;
+  } else {
+    const display = count || '—';
+    scarcityCountEl.innerHTML = `${display} of <em>100</em> sets reserved`;
+    progressFillEl.style.width = Math.min((count / 100) * 100, 100) + '%';
+  }
+}
+
+function incrementScarcity() {
+  const current = parseInt(scarcityCountEl.textContent) || 0;
+  updateScarcity(current + 1);
 }
 
 // ── FORM ──
 const form = document.getElementById('waitlistForm');
 const submitBtn = document.getElementById('submitBtn');
+
+const NAME_RE = /^[a-zA-Z\s'\-]{2,50}$/;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const CITY_RE = /^[a-zA-Z\s\-]{2,50}$/;
 
 function showError(id, show, msg) {
   const el = document.getElementById(id);
@@ -460,6 +481,30 @@ function showError(id, show, msg) {
 }
 function clearErrors() {
   ['errName','errEmail','errCity','errProduct','errGeneral'].forEach(id => showError(id, false));
+}
+
+// Clear error on field focus
+['wlName','wlEmail','wlCity'].forEach(id => {
+  document.getElementById(id).addEventListener('focus', () => {
+    const errMap = {wlName:'errName', wlEmail:'errEmail', wlCity:'errCity'};
+    showError(errMap[id], false);
+  });
+});
+document.querySelectorAll('input[name="product_interest"]').forEach(r => {
+  r.addEventListener('change', () => showError('errProduct', false));
+});
+
+function showSuccess(isDuplicate, email) {
+  form.style.display = 'none';
+  document.getElementById('waitlistHeader').style.display = 'none';
+  const formSuccess = document.getElementById('formSuccess');
+  if (isDuplicate) {
+    document.getElementById('successTitle').innerHTML = `Looks like you're<br><em>already on the list.</em>`;
+    document.getElementById('successBody').textContent = `We'll be in touch.`;
+  } else {
+    document.getElementById('successEmail').textContent = email;
+  }
+  formSuccess.classList.add('visible');
 }
 
 form.addEventListener('submit', async function(e) {
@@ -473,10 +518,10 @@ form.addEventListener('submit', async function(e) {
   const product_interest = productEl ? productEl.value : null;
 
   let valid = true;
-  if (!name || name.length < 2) { showError('errName', true); valid = false; }
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('errEmail', true); valid = false; }
-  if (!city) { showError('errCity', true); valid = false; }
-  if (!product_interest) { showError('errProduct', true); valid = false; }
+  if (!NAME_RE.test(name)) { showError('errName', true, 'Please enter your name (letters only)'); valid = false; }
+  if (!EMAIL_RE.test(email)) { showError('errEmail', true, 'Please enter a valid email'); valid = false; }
+  if (!CITY_RE.test(city)) { showError('errCity', true, 'Enter your city (letters only, no numbers)'); valid = false; }
+  if (!product_interest) { showError('errProduct', true, 'Please choose a series'); valid = false; }
   if (!valid) return;
 
   submitBtn.disabled = true;
@@ -491,10 +536,8 @@ form.addEventListener('submit', async function(e) {
     const data = await res.json();
 
     if (res.ok && data.success) {
-      form.style.display = 'none';
-      document.getElementById('waitlistHeader').style.display = 'none';
-      document.getElementById('successEmail').textContent = email;
-      document.getElementById('formSuccess').classList.add('visible');
+      if (!data.duplicate) incrementScarcity();
+      showSuccess(!!data.duplicate, email);
       loadTicker();
     } else {
       showError('errGeneral', true, data.error || 'Something went wrong. Please try again.');

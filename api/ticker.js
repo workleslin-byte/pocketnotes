@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   const KV_TOKEN = process.env.KV_REST_API_TOKEN;
 
   if (!KV_URL || !KV_TOKEN) {
-    return res.status(200).json({ entries: [] });
+    return res.status(200).json({ entries: [], total: 0 });
   }
 
   try {
@@ -29,9 +29,10 @@ export default async function handler(req, res) {
     });
     const keysData = await keysRes.json();
     const keys = keysData.result || [];
+    const total = keys.length;
 
-    if (!keys.length) {
-      return res.status(200).json({ entries: [] });
+    if (!total) {
+      return res.status(200).json({ entries: [], total: 0 });
     }
 
     const values = await Promise.all(
@@ -54,7 +55,7 @@ export default async function handler(req, res) {
       .slice(0, 20)
       .map(({ name, city, product_interest }) => ({ name, city, product_interest }));
 
-    return res.status(200).json({ entries });
+    return res.status(200).json({ entries, total });
   } catch (err) {
     console.error('Ticker handler error:', err);
     return res.status(500).json({ error: 'Could not load ticker.' });
