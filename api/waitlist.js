@@ -1,7 +1,6 @@
-import Redis from 'ioredis';
+import { Resend } from 'resend';
 
-const redis = new Redis(process.env.REDIS_URL, { tls: {}, lazyConnect: false });
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const ALLOWED_PRODUCTS = ['founders', 'flow', 'both'];
 
@@ -13,49 +12,44 @@ function setCORS(res, origin) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
 
-async function kvSet(key, value) {
+async function kvSet(name, city, product_interest) {
+  const KV_URL = process.env.KV_REST_API_URL;
+  const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+  if (!KV_URL || !KV_TOKEN) {
+    console.error('KV write skipped: missing KV_REST_API_URL or KV_REST_API_TOKEN');
+    return;
+  }
   try {
-    await redis.set(key, JSON.stringify(value));
+    const key = `waitlist:${Date.now()}`;
+    const value = JSON.stringify({ name, city, product_interest, timestamp: new Date().toISOString() });
+    await fetch(`${KV_URL}/set/${key}/${encodeURIComponent(value)}`, {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${KV_TOKEN}` },
+    });
   } catch (err) {
     console.error('KV write failed:', err.message);
   }
 }
 
 async function sendEmail(cleanName, cleanEmail) {
-  if (!RESEND_API_KEY) {
-    console.error('RESEND_API_KEY not set');
-    return;
-  }
-
-  const payload = {
-    from: 'Pocket Notes <hello@pocketnotes.in>',
-    to: [cleanEmail],
-    reply_to: 'hello@pocketnotes.in',
-    template_id: '3741dff1-3aa7-4e8f-88e4-0c764d338568',
-    with: { first_name: cleanName },
-    headers: {
-      'X-Entity-Ref-ID': Date.now().toString(),
-    },
-  };
-
   try {
-    const r = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
+    const { data, error } = await resend.emails.send({
+      from: 'Pocket Notes <hello@pocketnotes.in>',
+      to: cleanEmail,
+      replyTo: 'hello@pocketnotes.in',
+      subject: `${cleanName}, you just joined a short list.`,
+      template: {
+        id: process.env.RESEND_WAITLIST_TEMPLATE_ID,
+        variables: { first_name: cleanName },
       },
-      body: JSON.stringify(payload),
     });
-    if (!r.ok) {
-      const err = await r.json().catch(() => ({}));
-      console.error('Resend error:', JSON.stringify(err));
+    if (error) {
+      console.error('Resend error:', JSON.stringify(error));
     } else {
-      const ok = await r.json().catch(() => ({}));
-      console.log('Resend success:', ok.id);
+      console.log('Resend success:', data.id);
     }
   } catch (err) {
-    console.error('Resend fetch failed:', err.message);
+    console.error('Resend send failed:', err.message);
   }
 }
 
@@ -71,6 +65,13 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  console.log('ENV CHECK:', {
+    hasKvUrl: !!process.env.KV_REST_API_URL,
+    hasKvToken: !!process.env.KV_REST_API_TOKEN,
+    hasResendKey: !!process.env.RESEND_API_KEY,
+    hasTemplateId: !!process.env.RESEND_WAITLIST_TEMPLATE_ID,
+  });
 
   const { name, email, city, product_interest } = req.body || {};
 
@@ -91,7 +92,7 @@ export default async function handler(req, res) {
   const cleanEmail = email.trim().toLowerCase();
   const cleanCity = city.trim();
 
-  kvSet(`waitlist:${Date.now()}`, { name: cleanName, city: cleanCity, product_interest, timestamp: new Date().toISOString() });
+  kvSet(cleanName, cleanCity, product_interest);
 
   await sendEmail(cleanName, cleanEmail);
 
