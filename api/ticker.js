@@ -1,24 +1,11 @@
-const KV_REST_API_URL = process.env.KV_REST_API_URL;
-const KV_REST_API_TOKEN = process.env.KV_REST_API_TOKEN;
+import Redis from 'ioredis';
+
+const redis = new Redis(process.env.REDIS_URL, { tls: {}, lazyConnect: false });
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
 };
-
-async function kvKeys(pattern) {
-  const res = await fetch(`${KV_REST_API_URL}/keys/${encodeURIComponent(pattern)}`, {
-    headers: { Authorization: `Bearer ${KV_REST_API_TOKEN}` },
-  });
-  return res.json();
-}
-
-async function kvGet(key) {
-  const res = await fetch(`${KV_REST_API_URL}/get/${encodeURIComponent(key)}`, {
-    headers: { Authorization: `Bearer ${KV_REST_API_TOKEN}` },
-  });
-  return res.json();
-}
 
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {
@@ -34,24 +21,19 @@ export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
 
   try {
-    const keysResult = await kvKeys('waitlist:*');
-    const keys = keysResult.result || [];
+    const keys = await redis.keys('waitlist:*');
 
-    if (!keys.length) {
+    if (!keys || keys.length === 0) {
       return res.status(200).json({ entries: [] });
     }
 
-    const values = await Promise.all(keys.map(k => kvGet(k)));
+    const values = await redis.mget(...keys);
 
     const entries = values
+      .filter(Boolean)
       .map(v => {
-        const raw = v.result;
-        if (!raw) return null;
-        try {
-          return typeof raw === 'string' ? JSON.parse(raw) : raw;
-        } catch {
-          return null;
-        }
+        try { return typeof v === 'string' ? JSON.parse(v) : v; }
+        catch { return null; }
       })
       .filter(Boolean)
       .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))

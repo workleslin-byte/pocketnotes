@@ -1,5 +1,6 @@
-const KV_REST_API_URL = process.env.KV_REST_API_URL;
-const KV_REST_API_TOKEN = process.env.KV_REST_API_TOKEN;
+import Redis from 'ioredis';
+
+const redis = new Redis(process.env.REDIS_URL, { tls: {}, lazyConnect: false });
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
 const ALLOWED_PRODUCTS = ['founders', 'flow', 'both'];
@@ -14,9 +15,7 @@ function setCORS(res, origin) {
 
 async function kvSet(key, value) {
   try {
-    await fetch(`${KV_REST_API_URL}/set/${key}/${encodeURIComponent(JSON.stringify(value))}`, {
-      headers: { Authorization: `Bearer ${KV_REST_API_TOKEN}` },
-    });
+    await redis.set(key, JSON.stringify(value));
   } catch (err) {
     console.error('KV write failed:', err.message);
   }
@@ -100,9 +99,7 @@ export default async function handler(req, res) {
   const cleanEmail = email.trim().toLowerCase();
   const cleanCity = city.trim();
 
-  const key = `waitlist:${Date.now()}`;
-  const value = { name: cleanName, city: cleanCity, product_interest, timestamp: new Date().toISOString() };
-  kvSet(key, value);
+  kvSet(`waitlist:${Date.now()}`, { name: cleanName, city: cleanCity, product_interest, timestamp: new Date().toISOString() });
 
   await sendEmail(cleanName, cleanEmail);
 
