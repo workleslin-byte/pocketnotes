@@ -52,12 +52,27 @@ nav{position:fixed;top:1.5rem;left:1.5rem;right:1.5rem;z-index:200;display:flex;
 .hero-badge{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;background:var(--bone);color:var(--ink-soft);padding:0.4rem 0.85rem;border-radius:999px;border:1px solid var(--paper)}
 
 /* ── TICKER ── */
-.ticker-wrap{background:var(--ink);color:var(--cream);padding:1.2rem 0;overflow:hidden;white-space:nowrap;position:relative}
-.ticker-track{display:inline-flex;gap:0;animation:ticker-scroll 35s linear infinite}
-.ticker-track:hover{animation-play-state:paused}
-.ticker-segment{display:inline-flex;align-items:center;padding:0 2rem;font-family:'Fraunces',serif;font-style:italic;font-size:1.1rem;white-space:nowrap}
-.ticker-star{color:var(--mustard);font-style:normal;margin:0 1.5rem}
-@keyframes ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker{position:relative;background:var(--ink);overflow:hidden;padding:0;border-top:1px solid rgba(250,243,227,0.08);border-bottom:1px solid rgba(250,243,227,0.08)}
+.ticker:hover .ticker-row-track{animation-play-state:paused}
+.ticker-row{display:flex;white-space:nowrap;padding:10px 0;overflow:hidden}
+.ticker-row-1{border-bottom:1px solid rgba(250,243,227,0.06)}
+.ticker-row-track{display:inline-flex;white-space:nowrap}
+.ticker-row-track.dir-left{animation:tick-left 38s linear infinite}
+.ticker-row-track.dir-right{animation:tick-right 44s linear infinite}
+@keyframes tick-left{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes tick-right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.tick-entry{display:inline-flex;align-items:center;padding:0 1.5rem}
+.tick-sep{color:#F5C13D;opacity:0.4;font-family:'DM Mono',monospace;font-size:10px;margin:0 0.5rem}
+.tick-pip{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:8px;vertical-align:middle;flex-shrink:0;animation:pip-pulse 2.4s cubic-bezier(0.16,1,0.3,1) infinite}
+.tick-pip.founders{background:#F5C13D}
+.tick-pip.flow{background:#6E3582}
+.tick-pip.both{background:#FF6B47}
+@keyframes pip-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:0.5}}
+.tick-name{font-family:'Fraunces',serif;font-style:italic;font-weight:700;font-size:17px;color:#FAF3E3;margin-right:6px}
+.tick-meta{font-family:'DM Mono',monospace;font-size:11px;color:#FAF3E3;opacity:0.55;margin-right:20px}
+.ticker-flash{position:absolute;left:0;top:50%;transform:translateY(-50%);background:var(--mustard);color:var(--ink);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;padding:6px 14px;z-index:10;opacity:0;pointer-events:none;white-space:nowrap}
+.ticker-flash.show{animation:flash-anim 3s var(--ease) forwards}
+@keyframes flash-anim{0%{opacity:0}6.7%{opacity:1}86.7%{opacity:1}100%{opacity:0}}
 
 /* ── PRODUCTS ── */
 .products{padding:7rem var(--gut);max-width:var(--max);margin:0 auto}
@@ -179,10 +194,10 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
 </section>
 
 <!-- ── LIVE TICKER ── -->
-<div class="ticker-wrap" aria-label="Live reservations" aria-live="polite">
-  <div class="ticker-track" id="tickerTrack">
-    <!-- Populated by JS -->
-  </div>
+<div class="ticker" id="tickerWrap" aria-label="Live reservations" aria-live="polite">
+  <div class="ticker-flash" id="tickerFlash"></div>
+  <div class="ticker-row ticker-row-1"><div class="ticker-row-track dir-left" id="tickerRow1"></div></div>
+  <div class="ticker-row ticker-row-2"><div class="ticker-row-track dir-right" id="tickerRow2"></div></div>
 </div>
 
 <!-- ── PRODUCTS ── -->
@@ -193,19 +208,9 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
 
     <!-- Founders Series -->
     <div class="product-card">
-      <div class="product-visual founders">
+      <div class="product-visual founders" style="overflow:hidden;padding:0;">
         <span class="product-visual-label">Founders Series</span>
-        <svg width="55%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <rect x="30" y="55" width="140" height="100" rx="5" fill="#FAF3E3" stroke="#1A1612" stroke-width="2" transform="rotate(-6 100 105)"/>
-          <rect x="30" y="55" width="14" height="100" fill="#FF6B47" transform="rotate(-6 100 105)"/>
-          <rect x="30" y="60" width="140" height="100" rx="5" fill="#F1E7CE" stroke="#1A1612" stroke-width="2" transform="rotate(3 100 110)"/>
-          <rect x="30" y="60" width="14" height="100" fill="#6E3582" transform="rotate(3 100 110)"/>
-          <rect x="32" y="58" width="140" height="100" rx="5" fill="#FAF3E3" stroke="#1A1612" stroke-width="2.5"/>
-          <rect x="32" y="58" width="14" height="100" fill="#1A1612"/>
-          <line x1="58" y1="82" x2="160" y2="82" stroke="#1A1612" stroke-width="1.5" opacity="0.2"/>
-          <line x1="58" y1="96" x2="148" y2="96" stroke="#1A1612" stroke-width="1.5" opacity="0.2"/>
-          <line x1="58" y1="110" x2="155" y2="110" stroke="#F5C13D" stroke-width="2"/>
-        </svg>
+        <img src="/assets/images/20251030_1932_Pocket Notebook Mockup_remix_01k8tppm8xf3msdvq4z9et5z4p.png" alt="Founders Series — three notebooks: Thinking, To-do, Execution" style="width:100%;height:100%;object-fit:cover;display:block"/>
       </div>
       <div class="product-info">
         <h3 class="product-name">Think. Do. <em>Execute.</em></h3>
@@ -217,8 +222,8 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
         </div>
         <div class="product-footer">
           <div>
-            <div class="product-price">₹499</div>
-            <div class="product-shipping">Free shipping</div>
+            <div class="product-price">₹249</div>
+            <div class="product-shipping">+ shipping</div>
           </div>
           <button class="product-cta" id="ctaFounders">Reserve this set ↗</button>
         </div>
@@ -227,32 +232,22 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
 
     <!-- Flow Series -->
     <div class="product-card">
-      <div class="product-visual flow">
+      <div class="product-visual flow" style="overflow:hidden;padding:0;">
         <span class="product-visual-label" style="background:var(--cream);color:var(--ink)">Flow Series</span>
-        <svg width="45%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <rect x="55" y="30" width="90" height="140" rx="6" fill="#FAF3E3" stroke="#F1E7CE" stroke-width="2.5"/>
-          <rect x="55" y="30" width="11" height="140" fill="#F5C13D"/>
-          <ellipse cx="100" cy="100" rx="32" ry="38" fill="none" stroke="#FAF3E3" stroke-width="1.5" opacity="0.3"/>
-          <ellipse cx="100" cy="100" rx="20" ry="24" fill="none" stroke="#FAF3E3" stroke-width="1" opacity="0.2"/>
-          <line x1="76" y1="68" x2="133" y2="68" stroke="#FAF3E3" stroke-width="1.5" opacity="0.3"/>
-          <line x1="76" y1="82" x2="128" y2="82" stroke="#FAF3E3" stroke-width="1.5" opacity="0.25"/>
-          <line x1="76" y1="96" x2="133" y2="96" stroke="#F5C13D" stroke-width="2" opacity="0.7"/>
-          <line x1="76" y1="110" x2="120" y2="110" stroke="#FAF3E3" stroke-width="1.5" opacity="0.2"/>
-          <line x1="76" y1="124" x2="130" y2="124" stroke="#FAF3E3" stroke-width="1.5" opacity="0.25"/>
-        </svg>
+        <img src="/assets/images/20251030_1932_Pocket Notebook Mockup_remix_01k8tppm8yfq28j97esxh2vyk5.png" alt="Flow Series — deep purple marble notebook" style="width:100%;height:100%;object-fit:cover;display:block"/>
       </div>
       <div class="product-info">
         <h3 class="product-name">Move. Think. <em>Catch.</em></h3>
-        <p class="product-desc">One notebook. Deep purple marble. For the ones who don't separate thinking from doing.</p>
+        <p class="product-desc">Three notebooks. Deep purple marble. For the ones who don't separate thinking from doing.</p>
         <div class="product-specs">
           <div class="product-spec"><span class="product-spec-key">Format ·</span><span>A6</span></div>
           <div class="product-spec"><span class="product-spec-key">Pages ·</span><span>Grid-lined</span></div>
-          <div class="product-spec"><span class="product-spec-key">Set ·</span><span>1 notebook</span></div>
+          <div class="product-spec"><span class="product-spec-key">Set ·</span><span>3 notebooks</span></div>
         </div>
         <div class="product-footer">
           <div>
             <div class="product-price">₹249</div>
-            <div class="product-shipping" style="color:var(--ink-soft);opacity:0.6">+ shipping</div>
+            <div class="product-shipping">+ shipping</div>
           </div>
           <button class="product-cta" id="ctaFlow">Reserve this set ↗</button>
         </div>
@@ -301,17 +296,17 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
           <label class="radio-option">
             <input type="radio" name="product_interest" value="founders"/>
             <span class="radio-label">Founders Series</span>
-            <span class="radio-price">₹499</span>
+            <span class="radio-price">₹249 + shipping</span>
           </label>
           <label class="radio-option">
             <input type="radio" name="product_interest" value="flow"/>
             <span class="radio-label">Flow Series</span>
-            <span class="radio-price">₹249</span>
+            <span class="radio-price">₹249 + shipping</span>
           </label>
           <label class="radio-option">
             <input type="radio" name="product_interest" value="both"/>
-            <span class="radio-label">Both</span>
-            <span class="radio-price">₹748</span>
+            <span class="radio-label">Both series</span>
+            <span class="radio-price">₹444 · free shipping</span>
           </label>
         </div>
         <p class="form-error" id="errProduct">Please select a product.</p>
@@ -387,22 +382,38 @@ document.getElementById('ctaFounders').addEventListener('click', () => selectPro
 document.getElementById('ctaFlow').addEventListener('click', () => selectProduct('flow'));
 
 // ── TICKER ──
-const PRODUCT_LABELS = {founders:'Founders Series',flow:'Flow Series',both:'both series'};
+const PRODUCT_LABELS = {founders:'Founders Series',flow:'Flow Series',both:'Both Series'};
+const PLACEHOLDER_ENTRIES = [
+  {name:'Arjun',city:'Mumbai',product_interest:'founders'},
+  {name:'Meera',city:'Chennai',product_interest:'flow'},
+  {name:'Kavya',city:'Hyderabad',product_interest:'flow'},
+  {name:'Rahul',city:'Delhi',product_interest:'both'},
+  {name:'Priya',city:'Bangalore',product_interest:'flow'},
+];
+
+let previousIds = new Set();
+
+function entryId(e) { return `${e.name}|${e.city}|${e.product_interest}`; }
+
+function buildEntryHTML(e) {
+  const pipClass = e.product_interest === 'both' ? 'both' : e.product_interest;
+  const label = PRODUCT_LABELS[e.product_interest] || 'Founders Series';
+  return `<span class="tick-entry"><span class="tick-pip ${pipClass}"></span><span class="tick-name">${e.name}</span><span class="tick-meta">${e.city} · ${label}</span></span><span class="tick-sep">•</span>`;
+}
 
 function buildTickerHTML(entries) {
-  if (!entries.length) {
-    entries = [
-      {name:'Arjun',city:'Mumbai',product_interest:'founders'},
-      {name:'Priya',city:'Bangalore',product_interest:'flow'},
-      {name:'Rahul',city:'Delhi',product_interest:'both'},
-      {name:'Meera',city:'Chennai',product_interest:'founders'},
-      {name:'Kavya',city:'Hyderabad',product_interest:'flow'},
-    ];
-  }
-  const items = entries.map(e =>
-    `<span class="ticker-segment">${e.name}, ${e.city} reserved the ${PRODUCT_LABELS[e.product_interest]||'Founders Series'}<span class="ticker-star"> ★ </span></span>`
-  ).join('');
-  return items + items;
+  const source = entries.length ? entries : PLACEHOLDER_ENTRIES;
+  return source.map(buildEntryHTML).join('') + source.map(buildEntryHTML).join('');
+}
+
+function flashNew(entry) {
+  const el = document.getElementById('tickerFlash');
+  el.classList.remove('show');
+  void el.offsetWidth; // force reflow
+  const label = PRODUCT_LABELS[entry.product_interest] || 'Founders Series';
+  el.textContent = `● JUST NOW   ${entry.name}, ${entry.city} reserved the ${label}`;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3000);
 }
 
 async function loadTicker() {
@@ -411,7 +422,17 @@ async function loadTicker() {
     const res = await fetch('/api/ticker');
     if (res.ok) { const d = await res.json(); entries = d.entries || []; }
   } catch(_) {}
-  document.getElementById('tickerTrack').innerHTML = buildTickerHTML(entries);
+
+  // Detect new entries since last poll
+  if (entries.length && previousIds.size > 0) {
+    const newEntry = entries.find(e => !previousIds.has(entryId(e)));
+    if (newEntry) flashNew(newEntry);
+  }
+  previousIds = new Set(entries.map(entryId));
+
+  const html = buildTickerHTML(entries);
+  document.getElementById('tickerRow1').innerHTML = html;
+  document.getElementById('tickerRow2').innerHTML = html;
   updateScarcity(entries.length);
 }
 

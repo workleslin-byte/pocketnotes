@@ -1,28 +1,30 @@
 import { kv } from '@vercel/kv';
 
 const ALLOWED_PRODUCTS = ['founders', 'flow', 'both'];
-const CORS = {
-  'Access-Control-Allow-Origin': 'https://pocketnotes.in',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-};
+
+function setCORS(res, origin) {
+  const allowed = ['https://pocketnotes.in', 'http://localhost:3000'];
+  const o = allowed.includes(origin) ? origin : 'https://pocketnotes.in';
+  res.setHeader('Access-Control-Allow-Origin', o);
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
 
 export default async function handler(req, res) {
-  // Handle CORS preflight
+  const origin = req.headers.origin || '';
+  setCORS(res, origin);
+
   if (req.method === 'OPTIONS') {
-    res.writeHead(204, CORS);
-    return res.end();
+    res.status(204).end();
+    return;
   }
 
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  Object.entries(CORS).forEach(([k, v]) => res.setHeader(k, v));
-
   const { name, email, city, product_interest } = req.body || {};
 
-  // Validation
   if (!name || name.trim().length < 2) {
     return res.status(400).json({ error: 'Name must be at least 2 characters.' });
   }
@@ -41,7 +43,7 @@ export default async function handler(req, res) {
   const cleanCity = city.trim();
 
   try {
-    // Write to KV — never store email (ticker only)
+    // Write to KV — email never stored
     await kv.set(
       `waitlist:${Date.now()}`,
       JSON.stringify({
@@ -52,25 +54,28 @@ export default async function handler(req, res) {
       })
     );
 
-    // Send confirmation via Resend
+    // Send confirmation via Resend (template with {{{NAME}}} variable)
+    const resendPayload = {
+      from: 'Pocket Notes <hello@pocketnotes.in>',
+      to: cleanEmail,
+      subject: "You're on the list.",
+    };
+
+    if (process.env.RESEND_WAITLIST_TEMPLATE_ID) {
+      resendPayload.template_id = process.env.RESEND_WAITLIST_TEMPLATE_ID;
+      resendPayload.data = { NAME: cleanName };
+    } else {
+      // Fallback plain-text email until template is published
+      resendPayload.html = `<p>Hi ${cleanName},</p><p>You're on the Pocket Notes waitlist. We'll reach out when we launch.</p><p>— Pocket Notes</p>`;
+    }
+
     const resendRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        from: 'Pocket Notes <hello@pocketnotes.in>',
-        to: cleanEmail,
-        subject: 'You're on the list.',
-        template: {
-          id: process.env.RESEND_WAITLIST_TEMPLATE_ID,
-          variables: {
-            NAME: cleanName,
-            CITY: cleanCity,
-          },
-        },
-      }),
+      body: JSON.stringify(resendPayload),
     });
 
     if (!resendRes.ok) {
