@@ -29,9 +29,8 @@ export default async function handler(req, res) {
     });
     const keysData = await keysRes.json();
     const keys = keysData.result || [];
-    const total = keys.length;
 
-    if (!total) {
+    if (!keys.length) {
       return res.status(200).json({ entries: [], total: 0 });
     }
 
@@ -43,7 +42,7 @@ export default async function handler(req, res) {
       )
     );
 
-    const entries = values
+    const parsed = values
       .map(v => {
         const raw = v.result;
         if (!raw) return null;
@@ -51,7 +50,31 @@ export default async function handler(req, res) {
         catch { return null; }
       })
       .filter(Boolean)
-      .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+      .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    // Deduplicate by email (keep most recent — already sorted desc)
+    const seenEmails = new Set();
+    const dedupedByEmail = parsed.filter(e => {
+      if (!e.email) return true;
+      const key = e.email.toLowerCase();
+      if (seenEmails.has(key)) return false;
+      seenEmails.add(key);
+      return true;
+    });
+
+    // Deduplicate by name+city combination (keep most recent)
+    const seenNameCity = new Set();
+    const deduped = dedupedByEmail.filter(e => {
+      if (!e.name || !e.city) return true;
+      const key = `${e.name.toLowerCase().trim()}|${e.city.toLowerCase().trim()}`;
+      if (seenNameCity.has(key)) return false;
+      seenNameCity.add(key);
+      return true;
+    });
+
+    const total = deduped.length;
+
+    const entries = deduped
       .slice(0, 20)
       .map(({ name, city, product_interest }) => ({ name, city, product_interest }));
 

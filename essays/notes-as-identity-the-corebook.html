@@ -251,7 +251,7 @@
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<div class="nav-mobile-menu" id="navMobileMenu">
+<div class="nav-mobile-menu" id="navMobileMenu" role="dialog" aria-label="Navigation menu">
   <a href="/">Home</a>
   <a href="/about">About</a>
   <a href="/shop">Shop</a>
@@ -267,7 +267,7 @@
     <li><a href="/essays" class="active">Essays</a></li>
   </ul>
   <a href="/shop" class="nav-cta">Carry the method ↗</a>
-  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -429,6 +429,7 @@
       <ul>
         <li><a href="/essays">All Essays</a></li>
         <li><a href="/about">About</a></li>
+        <li><a href="https://www.instagram.com/pocketnotes__?igsh=czh5NGJvNnB6eDJx&utm_source=qr" target="_blank" rel="noopener">Instagram ↗</a></li>
       </ul>
     </div>
   </div>
@@ -460,14 +461,7 @@ document.querySelectorAll('a, button').forEach(el => {
 // Hamburger
 const hamburger = document.getElementById('navHamburger');
 const mobileMenu = document.getElementById('navMobileMenu');
-hamburger.addEventListener('click', () => {
-  hamburger.classList.toggle('open');
-  mobileMenu.classList.toggle('open');
-});
-mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  hamburger.classList.remove('open');
-  mobileMenu.classList.remove('open');
-}));
+if(hamburger){hamburger.addEventListener('click',()=>{const open=hamburger.classList.toggle('open');mobileMenu.classList.toggle('open',open);hamburger.setAttribute('aria-expanded',open);document.body.style.overflow=open?'hidden':'';});mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{hamburger.classList.remove('open');mobileMenu.classList.remove('open');hamburger.setAttribute('aria-expanded','false');document.body.style.overflow='';}));}
 
 // Subscribe
 document.getElementById('subscribeForm').addEventListener('submit', async function(e) {
