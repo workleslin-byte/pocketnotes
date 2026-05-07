@@ -16,16 +16,16 @@ export default async function handler(req, res) {
   Object.entries(CORS).forEach(([k, v]) => res.setHeader(k, v));
   res.setHeader('Cache-Control', 'no-store');
 
-  const KV_URL = process.env.KV_REST_API_URL;
-  const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+  const URL = process.env.UPSTASH_REDIS_REST_URL;
+  const TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
 
-  if (!KV_URL || !KV_TOKEN) {
+  if (!URL || !TOKEN) {
     return res.status(200).json({ entries: [], total: 0 });
   }
 
   try {
-    const keysRes = await fetch(`${KV_URL}/keys/waitlist:*`, {
-      headers: { Authorization: `Bearer ${KV_TOKEN}` },
+    const keysRes = await fetch(`${URL}/keys/waitlist:*`, {
+      headers: { Authorization: `Bearer ${TOKEN}` },
     });
     const keysData = await keysRes.json();
     const keys = keysData.result || [];
@@ -37,8 +37,8 @@ export default async function handler(req, res) {
 
     const values = await Promise.all(
       keys.map(k =>
-        fetch(`${KV_URL}/get/${encodeURIComponent(k)}`, {
-          headers: { Authorization: `Bearer ${KV_TOKEN}` },
+        fetch(`${URL}/get/${encodeURIComponent(k)}`, {
+          headers: { Authorization: `Bearer ${TOKEN}` },
         }).then(r => r.json())
       )
     );

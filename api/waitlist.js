@@ -15,14 +15,13 @@ function setCORS(res, origin) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
 
-async function kvFetch(path, method = 'GET') {
-  const KV_URL = process.env.KV_REST_API_URL;
-  const KV_TOKEN = process.env.KV_REST_API_TOKEN;
-  if (!KV_URL || !KV_TOKEN) return null;
+async function kvFetch(path) {
+  const URL = process.env.UPSTASH_REDIS_REST_URL;
+  const TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!URL || !TOKEN) return null;
   try {
-    const r = await fetch(`${KV_URL}${path}`, {
-      method,
-      headers: { Authorization: `Bearer ${KV_TOKEN}` },
+    const r = await fetch(`${URL}${path}`, {
+      headers: { Authorization: `Bearer ${TOKEN}` },
     });
     return r.json();
   } catch (err) {
@@ -89,8 +88,8 @@ export default async function handler(req, res) {
   }
 
   console.log('ENV CHECK:', {
-    hasKvUrl: !!process.env.KV_REST_API_URL,
-    hasKvToken: !!process.env.KV_REST_API_TOKEN,
+    hasKvUrl: !!process.env.UPSTASH_REDIS_REST_URL,
+    hasKvToken: !!process.env.UPSTASH_REDIS_REST_TOKEN,
     hasResendKey: !!process.env.RESEND_API_KEY,
     hasTemplateId: !!process.env.RESEND_WAITLIST_TEMPLATE_ID,
   });
