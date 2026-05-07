@@ -1,3 +1,7 @@
+import Redis from 'ioredis';
+
+const redis = new Redis(process.env.REDIS_URL);
+
 const ALLOWED_PRODUCTS = ['founders', 'flow', 'both'];
 
 function setCORS(res, origin) {
@@ -10,13 +14,11 @@ function setCORS(res, origin) {
 
 async function writeKV(name, city, product_interest) {
   try {
-    const { kv } = await import('@vercel/kv');
-    await kv.set(
+    await redis.set(
       `waitlist:${Date.now()}`,
       JSON.stringify({ name, city, product_interest, timestamp: new Date().toISOString() })
     );
   } catch (err) {
-    // KV not connected or unavailable — log but don't block the response
     console.error('KV write failed:', err.message);
   }
 }
@@ -32,7 +34,6 @@ async function sendEmail(cleanName, cleanEmail) {
 
   let payload;
   if (templateId) {
-    // Resend transactional template — NAME variable matches {{{NAME}}} in template
     payload = {
       from: 'Pocket Notes <hello@pocketnotes.in>',
       to: [cleanEmail],
@@ -40,7 +41,6 @@ async function sendEmail(cleanName, cleanEmail) {
       data: { NAME: cleanName },
     };
   } else {
-    // Fallback HTML until template is published in Resend dashboard
     payload = {
       from: 'Pocket Notes <hello@pocketnotes.in>',
       to: [cleanEmail],
@@ -91,7 +91,6 @@ export default async function handler(req, res) {
 
   const { name, email, city, product_interest } = req.body || {};
 
-  // Validate
   if (!name || name.trim().length < 2) {
     return res.status(400).json({ error: 'Name must be at least 2 characters.' });
   }
@@ -109,10 +108,8 @@ export default async function handler(req, res) {
   const cleanEmail = email.trim().toLowerCase();
   const cleanCity = city.trim();
 
-  // Fire KV write non-blocking — don't let a missing KV store break the form
   writeKV(cleanName, cleanCity, product_interest);
 
-  // Send email — awaited but errors are caught internally, never surfaced to user
   await sendEmail(cleanName, cleanEmail);
 
   return res.status(200).json({ success: true });

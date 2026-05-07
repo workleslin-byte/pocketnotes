@@ -1,4 +1,6 @@
-import { kv } from '@vercel/kv';
+import Redis from 'ioredis';
+
+const redis = new Redis(process.env.REDIS_URL);
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -19,14 +21,13 @@ export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
 
   try {
-    const keys = await kv.keys('waitlist:*');
+    const keys = await redis.keys('waitlist:*');
 
     if (!keys || keys.length === 0) {
       return res.status(200).json({ entries: [] });
     }
 
-    // Get all values, sort by timestamp desc, take last 20
-    const values = await Promise.all(keys.map(k => kv.get(k)));
+    const values = await redis.mget(...keys);
 
     const entries = values
       .filter(Boolean)

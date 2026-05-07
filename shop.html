@@ -317,7 +317,7 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
     </form>
 
     <div class="form-success" id="formSuccess">
-      <h3 class="success-title">You're on the list,<br><em id="successName"></em></h3>
+      <h3 class="success-title">Yayy! We've reserved<br><em>your set.</em></h3>
       <p style="color:var(--ink-soft);margin-top:1rem">We'll reach out to <strong id="successEmail"></strong> when it's time.</p>
       <p class="success-note">No payment now · First access guaranteed</p>
     </div>
@@ -490,7 +490,6 @@ form.addEventListener('submit', async function(e) {
 
     if (res.ok && data.success) {
       form.style.display = 'none';
-      document.getElementById('successName').textContent = name;
       document.getElementById('successEmail').textContent = email;
       document.getElementById('formSuccess').classList.add('visible');
       loadTicker();
