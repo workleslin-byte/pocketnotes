@@ -31,7 +31,11 @@ async function sendEmail(cleanName, cleanEmail) {
   const payload = {
     from: 'Pocket Notes <hello@pocketnotes.in>',
     to: [cleanEmail],
+    reply_to: 'hello@pocketnotes.in',
     subject: `${cleanName}, you just joined a short list.`,
+    headers: {
+      'X-Entity-Ref-ID': Date.now().toString(),
+    },
     html: `<!DOCTYPE html>
 <html>
 <body style="font-family:Georgia,serif;background:#FAF3E3;padding:40px;color:#1A1612;max-width:500px;margin:0 auto">
