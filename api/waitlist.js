@@ -32,11 +32,19 @@ async function sendEmail(cleanName, cleanEmail) {
     from: 'Pocket Notes <hello@pocketnotes.in>',
     to: [cleanEmail],
     reply_to: 'hello@pocketnotes.in',
-    template_id: '3741dff1-3aa7-4e8f-88e4-0c764d338568',
-    data: { NAME: cleanName },
+    subject: `${cleanName}, you just joined a short list.`,
     headers: {
       'X-Entity-Ref-ID': Date.now().toString(),
     },
+    html: `<!DOCTYPE html>
+<html>
+<body style="font-family:Georgia,serif;background:#FAF3E3;padding:40px;color:#1A1612;max-width:500px;margin:0 auto">
+  <h1 style="font-size:2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.5rem">Hi ${cleanName}.</h1>
+  <p style="font-size:1.05rem;line-height:1.7;margin-bottom:1.5rem">You're on the Pocket Notes waitlist.</p>
+  <p style="font-size:1.05rem;line-height:1.7;margin-bottom:1.5rem">We'll reach out the moment we're live. First 100 sets only — you have first access.</p>
+  <p style="font-size:0.85rem;color:#3D342A;font-family:monospace">— Pocket Notes</p>
+</body>
+</html>`,
   };
 
   try {
