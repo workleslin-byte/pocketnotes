@@ -1,6 +1,8 @@
 import Redis from 'ioredis';
+import { Resend } from 'resend';
 
 const redis = new Redis(process.env.REDIS_URL);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const ALLOWED_PRODUCTS = ['founders', 'flow', 'both'];
 
@@ -24,55 +26,43 @@ async function writeKV(name, city, product_interest) {
 }
 
 async function sendEmail(cleanName, cleanEmail) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.error('RESEND_API_KEY not set');
-    return;
-  }
-
-  const templateId = process.env.RESEND_WAITLIST_TEMPLATE_ID;
-
-  let payload;
-  if (templateId) {
-    payload = {
-      from: 'Pocket Notes <hello@pocketnotes.in>',
-      to: [cleanEmail],
-      template_id: templateId,
-      data: { NAME: cleanName },
-    };
-  } else {
-    payload = {
-      from: 'Pocket Notes <hello@pocketnotes.in>',
-      to: [cleanEmail],
-      subject: "You're on the list.",
-      html: `<!DOCTYPE html><html><body style="font-family:Georgia,serif;background:#FAF3E3;padding:40px;color:#1A1612;max-width:500px;margin:0 auto">
-        <h1 style="font-size:2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.5rem">Hi ${cleanName}.</h1>
-        <p style="font-size:1.05rem;line-height:1.7;margin-bottom:1.5rem">You're on the Pocket Notes waitlist.</p>
-        <p style="font-size:1.05rem;line-height:1.7;margin-bottom:1.5rem">We'll reach out the moment we're live. First 100 sets only — you have first access.</p>
-        <p style="font-size:0.85rem;color:#3D342A;font-family:monospace">— Pocket Notes</p>
-      </body></html>`,
-    };
-  }
-
   try {
-    const resendRes = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
+    const templateId = process.env.RESEND_WAITLIST_TEMPLATE_ID;
 
-    if (!resendRes.ok) {
-      const err = await resendRes.json().catch(() => ({}));
-      console.error('Resend error:', JSON.stringify(err));
+    let payload;
+    if (templateId) {
+      payload = {
+        from: 'Pocket Notes <hello@pocketnotes.in>',
+        to: cleanEmail,
+        subject: `${cleanName}, you just joined a short list.`,
+        template: {
+          id: templateId,
+          variables: { NAME: cleanName },
+        },
+      };
     } else {
-      const ok = await resendRes.json().catch(() => ({}));
-      console.log('Resend success:', ok.id);
+      payload = {
+        from: 'Pocket Notes <hello@pocketnotes.in>',
+        to: cleanEmail,
+        subject: `${cleanName}, you just joined a short list.`,
+        html: `<!DOCTYPE html><html><body style="font-family:Georgia,serif;background:#FAF3E3;padding:40px;color:#1A1612;max-width:500px;margin:0 auto">
+          <h1 style="font-size:2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.5rem">Hi ${cleanName}.</h1>
+          <p style="font-size:1.05rem;line-height:1.7;margin-bottom:1.5rem">You're on the Pocket Notes waitlist.</p>
+          <p style="font-size:1.05rem;line-height:1.7;margin-bottom:1.5rem">We'll reach out the moment we're live. First 100 sets only — you have first access.</p>
+          <p style="font-size:0.85rem;color:#3D342A;font-family:monospace">— Pocket Notes</p>
+        </body></html>`,
+      };
+    }
+
+    const { data, error } = await resend.emails.send(payload);
+
+    if (error) {
+      console.error('Resend error:', JSON.stringify(error));
+    } else {
+      console.log('Resend success:', data.id);
     }
   } catch (err) {
-    console.error('Resend fetch failed:', err.message);
+    console.error('Resend send failed:', err.message);
   }
 }
 

@@ -270,9 +270,11 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
 <!-- ── WAITLIST FORM ── -->
 <section class="waitlist" id="waitlist">
   <div class="waitlist-inner">
-    <p class="waitlist-eyebrow">Waitlist</p>
-    <h2 class="waitlist-title">Reserve your <em>set.</em></h2>
-    <p class="waitlist-sub">We'll email you the moment we're live. You get first access.</p>
+    <div id="waitlistHeader">
+      <p class="waitlist-eyebrow">Waitlist</p>
+      <h2 class="waitlist-title">Reserve your <em>set.</em></h2>
+      <p class="waitlist-sub">We'll email you the moment we're live. You get first access.</p>
+    </div>
 
     <form id="waitlistForm" novalidate>
       <div class="form-group">
@@ -344,7 +346,7 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
       <ul>
         <li><a href="mailto:hello@pocketnotes.in">hello@pocketnotes.in</a></li>
         <li><a href="/essays">From the notebook</a></li>
-        <li><a href="#">Instagram ↗</a></li>
+        <li><a href="https://www.instagram.com/pocketnotes__?igsh=czh5NGJvNnB6eDJx&utm_source=qr" target="_blank" rel="noopener">Instagram ↗</a></li>
       </ul>
     </div>
   </div>
@@ -490,6 +492,7 @@ form.addEventListener('submit', async function(e) {
 
     if (res.ok && data.success) {
       form.style.display = 'none';
+      document.getElementById('waitlistHeader').style.display = 'none';
       document.getElementById('successEmail').textContent = email;
       document.getElementById('formSuccess').classList.add('visible');
       loadTicker();
