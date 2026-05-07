@@ -2,9 +2,5 @@
   "name": "pocketnotes",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
-  "dependencies": {
-    "ioredis": "^5.3.2",
-    "resend": "^3.5.0"
-  }
+  "type": "module"
 }
