@@ -5,120 +5,178 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-const essays = [
-  { slug: 'the-people-who-write-in-the-margins', title: 'The People Who Write in the Margins', category: 'History', color: '#F5C13D', textColor: '#1A1612' },
-  { slug: 'the-page-is-a-tool', title: 'The Page Is a Tool', category: 'Method', color: '#FF6B47', textColor: '#FAF3E3' },
-  { slug: 'constraint-sharpens', title: 'Constraint Sharpens', category: 'Method', color: '#1A1612', textColor: '#FAF3E3' },
-  { slug: 'catch-first-edit-later', title: 'Catch First, Edit Later', category: 'Method', color: '#8FB89C', textColor: '#1A1612' },
-  { slug: 'the-method-beats-the-mood', title: 'The Method Beats the Mood', category: 'Habit', color: '#6E3582', textColor: '#FAF3E3' },
-  { slug: 'the-grid-page-and-the-wandering-thought', title: 'The Grid Page and the Wandering Thought', category: 'Technique', color: '#5BA8C9', textColor: '#1A1612' },
-  { slug: 'the-index-method', title: 'The Index Method', category: 'Technique', color: '#F5C13D', textColor: '#1A1612' },
-  { slug: 'two-lines-every-day', title: 'Two Lines Every Day', category: 'Habit', color: '#FF6B47', textColor: '#FAF3E3' },
-  { slug: 'why-your-notebook-should-never-be-organised', title: 'Why Your Notebook Should Never Be Organised', category: 'Method', color: '#6E3582', textColor: '#FAF3E3' },
-  { slug: 'attention-is-physical', title: 'Attention Is Physical', category: 'Method', color: '#F26A8D', textColor: '#FAF3E3' },
-  { slug: 'born-of-necessity', title: 'Born of Necessity', category: 'History', color: '#2C2A20', textColor: '#FAF3E3' },
-  { slug: 'we-dont-compete-with-notebooks', title: "We Don't Compete with Notebooks", category: 'Brand', color: '#F5C13D', textColor: '#1A1612' },
-  { slug: 'notebooks-of-ancient-singers', title: 'Notebooks of Ancient Singers', category: 'History', color: '#5BA8C9', textColor: '#1A1612' },
-  { slug: 'margins-where-great-ideas-live', title: 'Margins: Where Great Ideas Live', category: 'History', color: '#8FB89C', textColor: '#1A1612' },
-  { slug: 'the-roman-wax-tablet', title: 'The Roman Wax Tablet', category: 'History', color: '#2C2A20', textColor: '#FAF3E3' },
-  { slug: 'idea-parking', title: 'Idea Parking', category: 'Method', color: '#FF6B47', textColor: '#FAF3E3' },
-  { slug: 'constraint-as-creative-practice', title: 'Constraint as Creative Practice', category: 'Method', color: '#1A1612', textColor: '#FAF3E3' },
-  { slug: 'the-first-page-rule', title: 'The First Page Rule', category: 'Method', color: '#F5C13D', textColor: '#1A1612' },
-  { slug: 'notes-as-identity-the-corebook', title: 'Notes as Identity: The Corebook', category: 'Identity', color: '#6E3582', textColor: '#FAF3E3' },
+// Slugs to generate — order matches essays/index.html
+const slugs = [
+  'the-people-who-write-in-the-margins',
+  'the-page-is-a-tool',
+  'constraint-sharpens',
+  'catch-first-edit-later',
+  'the-method-beats-the-mood',
+  'the-grid-page-and-the-wandering-thought',
+  'the-index-method',
+  'two-lines-every-day',
+  'why-your-notebook-should-never-be-organised',
+  'attention-is-physical',
+  'born-of-necessity',
+  'we-dont-compete-with-notebooks',
+  'notebooks-of-ancient-singers',
+  'margins-where-great-ideas-live',
+  'the-roman-wax-tablet',
+  'idea-parking',
+  'constraint-as-creative-practice',
+  'the-first-page-rule',
+  'notes-as-identity-the-corebook',
 ]
 
-const html = (essay) => `<!DOCTYPE html>
+async function generate() {
+  const outDir = path.join(__dirname, '../assets/images/og')
+  if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true })
+
+  const browser = await puppeteer.launch({ args: ['--no-sandbox'] })
+
+  // ── Step 1: load the essays index page and extract card data ──
+  const indexPath = path.join(__dirname, '../essays/index.html')
+  const indexUrl = 'file:///' + indexPath.replace(/\\/g, '/')
+
+  const extractPage = await browser.newPage()
+  await extractPage.setViewport({ width: 1440, height: 900 })
+  await extractPage.goto(indexUrl, { waitUntil: 'domcontentloaded' })
+  await extractPage.evaluate(() => document.fonts.ready)
+
+  // Extract: for each slug, grab the thumb innerHTML and its bg colour.
+  // Handles both .essay-card > .essay-thumb and .featured-card > .featured-img
+  const cardData = await extractPage.evaluate((slugs) => {
+    return slugs.map(slug => {
+      // Try regular essay card first
+      let card = document.querySelector(`.essay-card[href*="${slug}"]`)
+      let thumb, titleEl, tagEl
+
+      if (card) {
+        thumb = card.querySelector('.essay-thumb')
+        titleEl = card.querySelector('.essay-title')
+        tagEl = card.querySelector('.essay-tag')
+      } else {
+        // Try featured card
+        card = document.querySelector(`.featured-card[href*="${slug}"]`)
+        if (card) {
+          thumb = card.querySelector('.featured-img')
+          titleEl = card.querySelector('.featured-title')
+          tagEl = card.querySelector('.featured-tag')
+        }
+      }
+
+      if (!card || !thumb) return { slug, thumbHTML: '', bgColor: '#FAF3E3', titleText: slug, category: '' }
+
+      const bg = getComputedStyle(thumb).backgroundColor
+      return {
+        slug,
+        thumbHTML: thumb.innerHTML,
+        bgColor: bg,
+        titleText: titleEl ? titleEl.textContent.trim().replace(/\s+/g, ' ') : slug,
+        category: tagEl ? tagEl.textContent.trim() : '',
+      }
+    })
+  }, slugs)
+
+  await extractPage.close()
+
+  // ── Step 2: for each card, render a 1200×630 OG frame and screenshot ──
+  const renderPage = await browser.newPage()
+  await renderPage.setViewport({ width: 1200, height: 630, deviceScaleFactor: 1 })
+
+  for (const card of cardData) {
+    if (!card.thumbHTML) {
+      console.warn(`⚠ card not found for slug: ${card.slug}`)
+      continue
+    }
+
+    const ogHtml = `<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8"/>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,900;1,9..144,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
   body {
-    width: 1200px;
-    height: 630px;
-    background: ${essay.color};
-    color: ${essay.textColor};
-    font-family: 'DM Mono', monospace;
+    background: ${card.bgColor};
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 64px 72px;
+    font-family: 'DM Mono', monospace;
+  }
+  /* illustration fills top 70% */
+  .thumb-area {
+    flex: 0 0 441px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
+    background: ${card.bgColor};
+  }
+  .thumb-area svg {
+    width: 100%;
+    height: 100%;
+  }
+  /* text strip fills bottom 30% */
+  .text-area {
+    flex: 1;
+    background: ${card.bgColor};
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 72px 36px;
+    gap: 10px;
+    border-top: 1.5px solid rgba(0,0,0,0.12);
   }
   .category {
-    font-size: 13px;
+    font-size: 12px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    opacity: 0.65;
+    opacity: 0.55;
+    color: inherit;
   }
   .title {
     font-family: 'Fraunces', serif;
     font-weight: 900;
-    font-size: 72px;
-    line-height: 0.92;
+    font-size: 52px;
+    line-height: 1;
     letter-spacing: -0.03em;
-    max-width: 900px;
-    margin-top: auto;
-    padding-bottom: 48px;
-  }
-  .title em {
-    font-style: italic;
-    font-weight: 400;
-  }
-  .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    border-top: 1.5px solid currentColor;
-    padding-top: 20px;
-    opacity: 0.7;
+    color: inherit;
   }
   .wordmark {
     font-size: 11px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-  }
-  .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: currentColor;
-    opacity: 0.8;
+    opacity: 0.5;
+    color: inherit;
+    margin-top: 8px;
   }
 </style>
 </head>
 <body>
-  <div class="category">Pocket Notes · ${essay.category}</div>
-  <div class="title">${essay.title}</div>
-  <div class="footer">
-    <span class="wordmark">pocketnotes.in</span>
-    <div class="dot"></div>
+  <div class="thumb-area">${card.thumbHTML}</div>
+  <div class="text-area">
+    <div class="category">Pocket Notes · ${card.category}</div>
+    <div class="title">${card.titleText}</div>
+    <div class="wordmark">pocketnotes.in</div>
   </div>
 </body>
 </html>`
 
-async function generate() {
-  const browser = await puppeteer.launch()
-  const page = await browser.newPage()
-  await page.setViewport({ width: 1200, height: 630, deviceScaleFactor: 1 })
+    await renderPage.setContent(ogHtml, { waitUntil: 'domcontentloaded' })
+    await renderPage.evaluate(() => document.fonts.ready)
 
-  const outDir = path.join(__dirname, '../assets/images/og')
-  if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true })
-
-  for (const essay of essays) {
-    await page.setContent(html(essay), { waitUntil: 'domcontentloaded' })
-    await page.evaluate(() => document.fonts.ready)
-    await page.screenshot({
-      path: path.join(outDir, `${essay.slug}.jpg`),
+    await renderPage.screenshot({
+      path: path.join(outDir, `${card.slug}.jpg`),
       type: 'jpeg',
       quality: 92,
     })
-    console.log(`✓ ${essay.slug}`)
+    console.log(`✓ ${card.slug}`)
   }
 
+  await renderPage.close()
   await browser.close()
-  console.log('\nDone. 19 OG images saved to assets/images/og/')
+  console.log('\nDone. OG images saved to assets/images/og/')
 }
 
 generate()
