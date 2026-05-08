@@ -85,25 +85,129 @@ nav{position:fixed;top:1.5rem;left:1.5rem;right:1.5rem;z-index:200;display:flex;
 .products-label::before{content:'※ ';color:var(--coral)}
 .products-title{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2rem,5vw,4rem);line-height:0.95;letter-spacing:-0.03em;margin-bottom:5rem}
 .products-title em{font-style:italic;font-weight:400;color:var(--plum)}
-.products-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
-@media(max-width:760px){.products-grid{grid-template-columns:1fr}}
-.product-card{background:var(--bone);border-radius:32px;padding:2.5rem;display:flex;flex-direction:column;gap:2rem;transition:transform .35s var(--ease)}
-.product-card:hover{transform:translateY(-10px)}
-.product-visual{aspect-ratio:4/3;border-radius:20px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.products-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:1100px;margin:0 auto}
+@media(max-width:760px){.products-grid{grid-template-columns:1fr;gap:48px}}
+
+/* Card shell */
+.product-card{
+  background:var(--cream);
+  border:1.5px solid var(--ink);
+  border-radius:8px;
+  padding:32px;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  box-shadow:4px 4px 0px var(--ink);
+  cursor:pointer;
+  transition:box-shadow .2s ease, transform .2s ease;
+}
+.product-card:hover{box-shadow:6px 6px 0px var(--ink);transform:translate(-1px,-1px)}
+.product-card.founders{border-top:3px solid var(--mustard)}
+.product-card.flow{border-top:3px solid var(--plum)}
+
+/* Product image */
+.product-visual{
+  aspect-ratio:4/3;
+  border-radius:4px;
+  border:1px solid var(--bone);
+  position:relative;
+  overflow:hidden;
+  margin-bottom:0;
+}
 .product-visual.founders{background:var(--mustard)}
 .product-visual.flow{background:var(--plum)}
-.product-visual-label{position:absolute;top:1rem;left:1rem;font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;background:var(--ink);color:var(--cream);padding:0.3rem 0.7rem;border-radius:999px}
-.product-name{font-family:'Fraunces',serif;font-weight:900;font-size:1.6rem;line-height:1.1;letter-spacing:-0.02em;margin-bottom:0.75rem}
+.product-visual img{width:100%;height:100%;object-fit:cover;display:block}
+.product-visual-label{
+  position:absolute;top:12px;left:12px;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;
+  background:var(--ink);color:var(--cream);
+  padding:6px 12px;border-radius:20px;
+  line-height:1;
+}
+
+/* Headline */
+.product-name{
+  font-family:'Fraunces',serif;font-weight:900;font-size:36px;line-height:1.05;letter-spacing:-0.02em;
+  color:var(--ink);
+  margin:24px 0 16px;
+}
 .product-name em{font-style:italic;font-weight:400}
-.product-desc{font-size:0.95rem;color:var(--ink-soft);line-height:1.6;margin-bottom:1.5rem}
-.product-specs{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.5rem}
-.product-spec{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.06em;color:var(--ink-soft);display:flex;gap:0.5rem}
-.product-spec-key{opacity:0.55;text-transform:uppercase}
-.product-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-.product-price{font-family:'Fraunces',serif;font-weight:700;font-size:1.5rem}
-.product-shipping{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage)}
-.product-cta{display:inline-flex;align-items:center;gap:0.5rem;background:var(--ink);color:var(--cream);text-decoration:none;padding:0.85rem 1.5rem;border-radius:999px;font-family:'DM Mono',monospace;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;border:none;cursor:pointer;transition:background .25s var(--ease),transform .25s var(--ease);font-weight:500}
-.product-cta:hover{background:var(--coral);transform:translateX(4px)}
+
+/* Description */
+.product-desc{
+  font-family:'Space Grotesk',sans-serif;font-size:16px;line-height:1.75;
+  color:rgba(26,22,18,0.8);
+  margin-bottom:20px;
+}
+
+/* What's in the set pills — Founders only */
+.product-set-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.product-set-pill{
+  background:var(--bone);
+  border:1px solid rgba(26,22,18,0.2);
+  border-radius:20px;
+  padding:6px 14px;
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--ink);
+  line-height:1;
+}
+
+/* Specs grid */
+.product-specs{
+  display:grid;
+  grid-template-columns:80px 1fr;
+  margin-bottom:0;
+  border-top:1px solid var(--bone);
+}
+.product-spec-row{
+  display:contents;
+}
+.product-spec-row .spec-key,
+.product-spec-row .spec-val{
+  padding:10px 0;
+  border-bottom:1px solid var(--bone);
+  font-size:14px;
+  line-height:1.4;
+}
+.product-spec-row .spec-key{
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(26,22,18,0.4);
+  padding-right:12px;
+}
+.product-spec-row .spec-val{
+  font-family:'Space Grotesk',sans-serif;
+  color:var(--ink);
+}
+
+/* Price block */
+.product-price-block{
+  display:flex;align-items:baseline;justify-content:space-between;
+  margin:24px 0;
+  padding-top:24px;
+  border-top:1px solid var(--bone);
+}
+.product-price{
+  font-family:'Fraunces',serif;font-weight:700;font-size:40px;
+  color:var(--ink);line-height:1;
+}
+.product-shipping{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--coral);
+  line-height:1;
+}
+
+/* CTA button */
+.product-cta{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;height:52px;
+  border:none;border-radius:4px;
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+  cursor:pointer;
+  transition:opacity .2s ease, transform .2s ease;
+}
+.product-cta.founders-cta{background:var(--ink);color:var(--cream)}
+.product-cta.flow-cta{background:var(--plum);color:var(--cream)}
+.product-cta:hover{opacity:0.85;transform:translateY(-1px)}
 
 /* ── SCARCITY ── */
 .scarcity{background:var(--ink);color:var(--cream);padding:4rem var(--gut)}
@@ -191,11 +295,10 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
 
   /* Products: single column */
   .products-grid{grid-template-columns:1fr}
-  .product-card{padding:28px 20px}
-  .product-name{font-size:32px}
-  .product-footer{flex-direction:row;align-items:center}
-  .product-price{font-size:1.3rem}
-  .product-cta{width:100%;min-height:52px;justify-content:center}
+  .product-card{padding:24px}
+  .product-name{font-size:28px}
+  .product-price{font-size:2rem}
+  .product-cta{min-height:52px}
   .products-title{font-size:clamp(2rem,10vw,3rem)}
 
   /* Scarcity */
@@ -280,59 +383,101 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
   <div class="products-grid">
 
     <!-- Founders Series -->
-    <div class="product-card">
-      <div class="product-visual founders" style="overflow:hidden;padding:0;">
+    <div class="product-card founders">
+      <div class="product-visual founders">
         <span class="product-visual-label">Founders Series</span>
-        <img src="/assets/images/20251114_2240_Elegant Pocket Notebooks_remix_01ka1nd1dhea6808actayw9cka.png" alt="Founders Series — three notebooks: Thinking, To-do, Execution" style="width:100%;height:100%;object-fit:cover;display:block"/>
+        <img src="/assets/images/20251114_2240_Elegant Pocket Notebooks_remix_01ka1nd1dhea6808actayw9cka.png" alt="Founders Series — three notebooks: Thinking, To-do, Execution"/>
       </div>
-      <div class="product-info">
-        <h3 class="product-name">Think. Do. <em>Execute.</em></h3>
-        <p class="product-desc">Three notebooks. One system. Built for the way fast thinkers actually work — not in one mode, but in three.<br><br>Thinking is messy. To-dos are tactical. Execution is focused. Most notebooks try to hold all three. These don't.<br><br>Each notebook in the set has a single job. That's the whole point.</p>
-        <div class="product-specs">
-          <div class="product-spec"><span class="product-spec-key">What's in the set ·</span><span>Thinking · To-do · Execution</span></div>
-          <div class="product-spec"><span class="product-spec-key">Size ·</span><span>A6 — 105mm × 148mm</span></div>
-          <div class="product-spec"><span class="product-spec-key">Pages ·</span><span>64 grid-lined pages per notebook</span></div>
-          <div class="product-spec"><span class="product-spec-key">Binding ·</span><span>Staple-bound, lies completely flat</span></div>
-          <div class="product-spec"><span class="product-spec-key">Cover ·</span><span>Black with gold type</span></div>
-          <div class="product-spec"><span class="product-spec-key">Paper ·</span><span>Cream-toned, faint grid</span></div>
-          <div class="product-spec"><span class="product-spec-key">Made ·</span><span>In India</span></div>
+
+      <h3 class="product-name">Think. Do. <em>Execute.</em></h3>
+
+      <p class="product-desc">Three notebooks. One system. Built for the way fast thinkers actually work — not in one mode, but in three.<br><br>Each notebook has a single job. Thinking is messy. To-dos are tactical. Execution is focused. That's the whole point.</p>
+
+      <div class="product-set-pills">
+        <span class="product-set-pill">Thinking</span>
+        <span class="product-set-pill">To-Do</span>
+        <span class="product-set-pill">Execution</span>
+      </div>
+
+      <div class="product-specs">
+        <div class="product-spec-row">
+          <span class="spec-key">Size</span>
+          <span class="spec-val">105 × 148mm — slips into any pocket</span>
         </div>
-        <div class="product-footer">
-          <div>
-            <div class="product-price">₹499</div>
-            <div class="product-shipping">Free shipping anywhere in India</div>
-          </div>
-          <button class="product-cta" id="ctaFounders">Reserve this set ↗</button>
+        <div class="product-spec-row">
+          <span class="spec-key">Pages</span>
+          <span class="spec-val">64 grid-lined pages</span>
+        </div>
+        <div class="product-spec-row">
+          <span class="spec-key">Binding</span>
+          <span class="spec-val">Staple-bound — lies completely flat</span>
+        </div>
+        <div class="product-spec-row">
+          <span class="spec-key">Cover</span>
+          <span class="spec-val">Black with gold type</span>
+        </div>
+        <div class="product-spec-row">
+          <span class="spec-key">Paper</span>
+          <span class="spec-val">Cream-toned, faint grid</span>
+        </div>
+        <div class="product-spec-row">
+          <span class="spec-key">Origin</span>
+          <span class="spec-val">Made in India</span>
         </div>
       </div>
+
+      <div class="product-price-block">
+        <span class="product-price">₹249</span>
+        <span class="product-shipping">+ Shipping at checkout</span>
+      </div>
+
+      <button class="product-cta founders-cta" id="ctaFounders">Reserve this set ↗</button>
     </div>
 
     <!-- Flow Series -->
-    <div class="product-card">
-      <div class="product-visual flow" style="overflow:hidden;padding:0;">
-        <span class="product-visual-label" style="background:var(--cream);color:var(--ink)">Flow Series</span>
-        <img src="/assets/images/20251114_2249_Creative Desk Workspace_remix_01ka1nybjyey7v99rak5pjysk6.png" alt="Flow Series — deep purple marble notebook" style="width:100%;height:100%;object-fit:cover;display:block"/>
+    <div class="product-card flow">
+      <div class="product-visual flow">
+        <span class="product-visual-label">Flow Series</span>
+        <img src="/assets/images/20251114_2249_Creative Desk Workspace_remix_01ka1nybjyey7v99rak5pjysk6.png" alt="Flow Series — deep purple marble notebook"/>
       </div>
-      <div class="product-info">
-        <h3 class="product-name">Move. Think. <em>Catch.</em></h3>
-        <p class="product-desc">One notebook. No system required.<br><br>For the ones who don't separate thinking from doing — they just move. Train rides. Cafés. The five minutes between calls. The idea that arrives at 11pm.<br><br>The Flow Series doesn't ask you to organise before you begin. It asks you to begin.</p>
-        <div class="product-specs">
-          <div class="product-spec"><span class="product-spec-key">What it is ·</span><span>A single notebook for everything — drafts, lists, half-sentences, rough sketches, first lines</span></div>
-          <div class="product-spec"><span class="product-spec-key">Size ·</span><span>A6 — 105mm × 148mm</span></div>
-          <div class="product-spec"><span class="product-spec-key">Pages ·</span><span>64 grid-lined pages</span></div>
-          <div class="product-spec"><span class="product-spec-key">Binding ·</span><span>Staple-bound, lies completely flat</span></div>
-          <div class="product-spec"><span class="product-spec-key">Cover ·</span><span>Deep purple marble texture</span></div>
-          <div class="product-spec"><span class="product-spec-key">Paper ·</span><span>Cream-toned, faint grid</span></div>
-          <div class="product-spec"><span class="product-spec-key">Made ·</span><span>In India</span></div>
+
+      <h3 class="product-name">Move. Think. <em>Catch.</em></h3>
+
+      <p class="product-desc">One notebook. No system required.<br><br>For the ones who don't separate thinking from doing — they just move. Train rides. Cafés. The five minutes between calls. The idea that arrives at 11pm.<br><br>Fill it fast. Start another.</p>
+
+      <div class="product-specs">
+        <div class="product-spec-row">
+          <span class="spec-key">Size</span>
+          <span class="spec-val">105 × 148mm — slips into any pocket</span>
         </div>
-        <div class="product-footer">
-          <div>
-            <div class="product-price">₹249</div>
-            <div class="product-shipping">+ shipping calculated at checkout</div>
-          </div>
-          <button class="product-cta" id="ctaFlow">Reserve this set ↗</button>
+        <div class="product-spec-row">
+          <span class="spec-key">Pages</span>
+          <span class="spec-val">64 grid-lined pages</span>
+        </div>
+        <div class="product-spec-row">
+          <span class="spec-key">Binding</span>
+          <span class="spec-val">Staple-bound — lies completely flat</span>
+        </div>
+        <div class="product-spec-row">
+          <span class="spec-key">Cover</span>
+          <span class="spec-val">Deep purple marble texture</span>
+        </div>
+        <div class="product-spec-row">
+          <span class="spec-key">Paper</span>
+          <span class="spec-val">Cream-toned, faint grid</span>
+        </div>
+        <div class="product-spec-row">
+          <span class="spec-key">Origin</span>
+          <span class="spec-val">Made in India</span>
         </div>
       </div>
+
+      <div class="product-price-block">
+        <span class="product-price">₹249</span>
+        <span class="product-shipping">+ Shipping at checkout</span>
+      </div>
+
+      <button class="product-cta flow-cta" id="ctaFlow">Reserve this set ↗</button>
     </div>
 
   </div>
@@ -379,7 +524,7 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
           <label class="radio-option">
             <input type="radio" name="product_interest" value="founders"/>
             <span class="radio-label">Founders Series (3-pack)</span>
-            <span class="radio-price">₹499 · free shipping</span>
+            <span class="radio-price">₹249 + shipping</span>
           </label>
           <label class="radio-option">
             <input type="radio" name="product_interest" value="flow"/>
@@ -389,7 +534,7 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
           <label class="radio-option">
             <input type="radio" name="product_interest" value="both"/>
             <span class="radio-label">Both series</span>
-            <span class="radio-price">₹748 · free shipping</span>
+            <span class="radio-price">₹444 · free shipping</span>
           </label>
         </div>
         <p class="form-error" id="errProduct">Please select a product.</p>
