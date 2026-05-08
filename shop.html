@@ -161,6 +161,71 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
 .footer-col a:hover{color:var(--mustard);opacity:1}
 .footer-bottom{border-top:1px solid rgba(241,231,206,0.15);padding-top:1.4rem;display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--bone);opacity:0.5;flex-wrap:wrap;gap:0.5rem}
 
+/* ── MOBILE POLISH ── */
+@media(max-width:768px){
+  *{cursor:auto!important}
+  .cursor-dot,.cursor-ring{display:none!important}
+  body{font-size:15px;line-height:1.75}
+
+  /* Sections: 60px top/bottom, 20px sides */
+  .hero{padding:7rem 20px 3rem}
+  .products{padding:60px 20px}
+  .waitlist{padding:60px 20px}
+  .scarcity{padding:3rem 20px}
+  footer{padding:40px 20px 24px}
+
+  /* Typography */
+  .hero-eyebrow{font-size:9px;letter-spacing:0.08em}
+
+  /* Hero */
+  .hero-title{font-size:clamp(44px,12vw,72px);line-height:0.92}
+  .hero-sub{font-size:15px;max-width:100%}
+  .hero-badges{flex-direction:column;gap:0.5rem}
+  .hero-badge{text-align:center;justify-content:center}
+
+  /* Ticker: single row, no overflow */
+  .ticker{overflow:hidden}
+  .ticker-row-2{display:none}
+  .tick-name{font-size:14px}
+  .tick-meta{font-size:10px}
+
+  /* Products: single column */
+  .products-grid{grid-template-columns:1fr}
+  .product-card{padding:28px 20px}
+  .product-name{font-size:32px}
+  .product-footer{flex-direction:row;align-items:center}
+  .product-price{font-size:1.3rem}
+  .product-cta{width:100%;min-height:52px;justify-content:center}
+  .products-title{font-size:clamp(2rem,10vw,3rem)}
+
+  /* Scarcity */
+  .scarcity-count{font-size:clamp(1.6rem,6vw,3rem)}
+  .scarcity-note{font-size:9px;text-align:center}
+  .progress-track{height:6px}
+  .scarcity-inner{text-align:center}
+
+  /* Waitlist form */
+  .waitlist-inner{padding:0}
+  .form-input{min-height:52px;font-size:16px}
+  .submit-btn{min-height:56px;font-size:0.85rem}
+  .radio-option{min-height:48px}
+  .waitlist-title{font-size:clamp(2rem,8vw,3rem)}
+
+  /* Success state */
+  .form-success.visible{padding:40px 20px;text-align:center}
+  .success-title{font-size:18px}
+
+  /* Footer */
+  .footer-inner{grid-template-columns:1fr}
+  .footer-col ul{align-items:flex-start}
+  .footer-bottom{flex-direction:column;gap:0.5rem}
+
+  /* Touch targets */
+  .product-cta:active{background:var(--coral)}
+  .submit-btn:active{background:var(--coral)}
+  .ticker{-webkit-overflow-scrolling:touch}
+}
+
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}html{scroll-behavior:auto}}
 </style>
 </head>
