@@ -3,3 +3,5 @@
 .claude/settings.local.json
 __MACOSX/
 Thumbs.db
+node_modules/
+package-lock.json
