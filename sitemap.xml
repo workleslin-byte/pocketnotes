@@ -1,141 +1,165 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
-    <loc>https://pocketnotes.in/</loc>
+    <loc>https://www.pocketnotes.in/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/about</loc>
+    <loc>https://www.pocketnotes.in/about</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/shop</loc>
+    <loc>https://www.pocketnotes.in/shop</loc>
     <lastmod>2026-05-08</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays</loc>
+    <loc>https://www.pocketnotes.in/essays</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/the-people-who-write-in-the-margins</loc>
+    <loc>https://www.pocketnotes.in/essays/the-people-who-write-in-the-margins</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/the-page-is-a-tool</loc>
+    <loc>https://www.pocketnotes.in/essays/the-page-is-a-tool</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/constraint-sharpens</loc>
+    <loc>https://www.pocketnotes.in/essays/constraint-sharpens</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/catch-first-edit-later</loc>
+    <loc>https://www.pocketnotes.in/essays/catch-first-edit-later</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/the-method-beats-the-mood</loc>
+    <loc>https://www.pocketnotes.in/essays/the-method-beats-the-mood</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/the-grid-page-and-the-wandering-thought</loc>
+    <loc>https://www.pocketnotes.in/essays/the-grid-page-and-the-wandering-thought</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/the-index-method</loc>
+    <loc>https://www.pocketnotes.in/essays/the-index-method</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/two-lines-every-day</loc>
+    <loc>https://www.pocketnotes.in/essays/two-lines-every-day</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/why-your-notebook-should-never-be-organised</loc>
+    <loc>https://www.pocketnotes.in/essays/why-your-notebook-should-never-be-organised</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/attention-is-physical</loc>
+    <loc>https://www.pocketnotes.in/essays/attention-is-physical</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/born-of-necessity</loc>
+    <loc>https://www.pocketnotes.in/essays/born-of-necessity</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/we-dont-compete-with-notebooks</loc>
+    <loc>https://www.pocketnotes.in/essays/we-dont-compete-with-notebooks</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/notebooks-of-ancient-singers</loc>
+    <loc>https://www.pocketnotes.in/essays/notebooks-of-ancient-singers</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/margins-where-great-ideas-live</loc>
+    <loc>https://www.pocketnotes.in/essays/margins-where-great-ideas-live</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/the-roman-wax-tablet</loc>
+    <loc>https://www.pocketnotes.in/essays/the-roman-wax-tablet</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/idea-parking</loc>
+    <loc>https://www.pocketnotes.in/essays/idea-parking</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/constraint-as-creative-practice</loc>
+    <loc>https://www.pocketnotes.in/essays/constraint-as-creative-practice</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/the-first-page-rule</loc>
+    <loc>https://www.pocketnotes.in/essays/the-first-page-rule</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
-    <loc>https://pocketnotes.in/essays/notes-as-identity-the-corebook</loc>
+    <loc>https://www.pocketnotes.in/essays/notes-as-identity-the-corebook</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
 </urlset>
