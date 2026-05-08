@@ -85,10 +85,21 @@ nav{position:fixed;top:1.5rem;left:1.5rem;right:1.5rem;z-index:200;display:flex;
 .products-label::before{content:'※ ';color:var(--coral)}
 .products-title{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2rem,5vw,4rem);line-height:0.95;letter-spacing:-0.03em;margin-bottom:5rem}
 .products-title em{font-style:italic;font-weight:400;color:var(--plum)}
-.products-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:1100px;margin:0 auto}
-@media(max-width:760px){.products-grid{grid-template-columns:1fr;gap:48px}}
+/* Grid: align-items stretch ensures equal height columns */
+.products-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:stretch;
+  gap:48px;
+  max-width:1100px;
+  margin:0 auto;
+}
+@media(max-width:760px){.products-grid{grid-template-columns:1fr;gap:32px}}
 
-/* Card shell */
+/* ── Card shell ── */
+/* flex-direction:column + product-card-bottom margin-top:auto
+   pushes price+CTA to the bottom of every card regardless of
+   how much content (desc length, pills) sits above */
 .product-card{
   background:var(--cream);
   border:1.5px solid var(--ink);
@@ -97,22 +108,28 @@ nav{position:fixed;top:1.5rem;left:1.5rem;right:1.5rem;z-index:200;display:flex;
   display:flex;
   flex-direction:column;
   gap:0;
-  box-shadow:4px 4px 0px var(--ink);
+  /* Founders gets stronger shadow for primary/secondary hierarchy */
+  box-shadow:6px 6px 0px var(--ink);
   cursor:pointer;
   transition:box-shadow .2s ease, transform .2s ease;
 }
-.product-card:hover{box-shadow:6px 6px 0px var(--ink);transform:translate(-1px,-1px)}
+.product-card:hover{box-shadow:8px 8px 0px var(--ink);transform:translate(-2px,-2px)}
 .product-card.founders{border-top:3px solid var(--mustard)}
-.product-card.flow{border-top:3px solid var(--plum)}
+.product-card.flow{
+  border-top:3px solid var(--plum);
+  /* Flow: slightly recessed shadow creates primary/secondary hierarchy */
+  box-shadow:4px 4px 0px rgba(26,22,18,0.6);
+}
+.product-card.flow:hover{box-shadow:6px 6px 0px rgba(26,22,18,0.6);transform:translate(-1px,-1px)}
 
-/* Product image */
+/* ── Product image ── */
 .product-visual{
   aspect-ratio:4/3;
   border-radius:4px;
   border:1px solid var(--bone);
   position:relative;
   overflow:hidden;
-  margin-bottom:0;
+  flex-shrink:0;
 }
 .product-visual.founders{background:var(--mustard)}
 .product-visual.flow{background:var(--plum)}
@@ -125,61 +142,80 @@ nav{position:fixed;top:1.5rem;left:1.5rem;right:1.5rem;z-index:200;display:flex;
   line-height:1;
 }
 
-/* Headline */
+/* ── Headline ── */
 .product-name{
   font-family:'Fraunces',serif;font-weight:900;font-size:36px;line-height:1.05;letter-spacing:-0.02em;
   color:var(--ink);
   margin:24px 0 16px;
+  flex-shrink:0;
 }
 .product-name em{font-style:italic;font-weight:400}
 
-/* Description */
+/* ── Description ── */
 .product-desc{
   font-family:'Space Grotesk',sans-serif;font-size:16px;line-height:1.75;
   color:rgba(26,22,18,0.8);
   margin-bottom:20px;
 }
 
-/* What's in the set pills — Founders only */
-.product-set-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+/* ── What's in the set pills — Founders only ──
+   Each pill has its own accent colour for editorial character */
+.product-set-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;flex-shrink:0}
 .product-set-pill{
-  background:var(--bone);
-  border:1px solid rgba(26,22,18,0.2);
-  border-radius:20px;
-  padding:6px 14px;
-  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
+  background:transparent;
+  border-radius:3px;
+  padding:5px 12px;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;
   color:var(--ink);
   line-height:1;
 }
+.product-set-pill.thinking{border:1px solid var(--mustard)}
+.product-set-pill.todo{border:1px solid rgba(26,22,18,0.3)}
+.product-set-pill.execution{border:1px solid var(--coral)}
 
-/* Specs grid */
+/* ── Specs grid ──
+   display:grid on parent, display:contents on rows —
+   all cells participate in the same 2-col grid so
+   column widths are identical across both cards */
 .product-specs{
   display:grid;
-  grid-template-columns:80px 1fr;
-  margin-bottom:0;
+  grid-template-columns:72px 1fr;
   border-top:1px solid var(--bone);
+  flex-shrink:0;
 }
-.product-spec-row{
-  display:contents;
-}
+.product-spec-row{display:contents}
 .product-spec-row .spec-key,
 .product-spec-row .spec-val{
-  padding:10px 0;
+  padding:12px 0;
   border-bottom:1px solid var(--bone);
-  font-size:14px;
   line-height:1.4;
+  align-self:center;
 }
 .product-spec-row .spec-key{
-  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;
+  font-family:'DM Mono',monospace;
+  font-size:9px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
   color:rgba(26,22,18,0.4);
   padding-right:12px;
 }
 .product-spec-row .spec-val{
   font-family:'Space Grotesk',sans-serif;
-  color:var(--ink);
+  font-size:14px;
+  color:rgba(26,22,18,0.9);
 }
 
-/* Price block */
+/* ── Card bottom: price + CTA ──
+   margin-top:auto is the key — pushes this block to the
+   bottom of the card regardless of content height above,
+   so price and CTA lock to the same vertical position
+   across both cards */
+.product-card-bottom{
+  margin-top:auto;
+  padding-top:0;
+}
+
+/* ── Price block ── */
 .product-price-block{
   display:flex;align-items:baseline;justify-content:space-between;
   margin:24px 0;
@@ -196,7 +232,7 @@ nav{position:fixed;top:1.5rem;left:1.5rem;right:1.5rem;z-index:200;display:flex;
   line-height:1;
 }
 
-/* CTA button */
+/* ── CTA button ── */
 .product-cta{
   display:flex;align-items:center;justify-content:center;gap:8px;
   width:100%;height:52px;
@@ -287,18 +323,61 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
   .hero-badges{flex-direction:column;gap:0.5rem}
   .hero-badge{text-align:center;justify-content:center}
 
-  /* Ticker: single row, no overflow */
+  /* Ticker: both rows show on mobile */
   .ticker{overflow:hidden}
-  .ticker-row-2{display:none}
   .tick-name{font-size:14px}
   .tick-meta{font-size:10px}
 
-  /* Products: single column */
-  .products-grid{grid-template-columns:1fr}
-  .product-card{padding:24px}
-  .product-name{font-size:28px}
-  .product-price{font-size:2rem}
-  .product-cta{min-height:52px}
+  /* Products: mobile full-bleed card design */
+  /* Page background shifts to bone so cream card reads as raised */
+  .products{background:var(--bone);padding:48px 0;max-width:100%}
+  .products-label,.products-title{padding-left:20px;padding-right:20px}
+  .products-title{font-size:clamp(2rem,10vw,3rem);margin-bottom:3rem}
+  .products-grid{grid-template-columns:1fr;gap:32px;padding:0 20px;max-width:100%}
+
+  /* Card: no box-shadow on mobile, use background contrast instead */
+  .product-card,.product-card.flow{
+    background:var(--cream);
+    box-shadow:none;
+    border:1.5px solid var(--ink);
+    padding:0 0 20px;
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .product-card:hover,.product-card.flow:hover{
+    box-shadow:none;transform:none
+  }
+
+  /* Image: full bleed to card top — no side padding, no border-radius on top */
+  .product-visual{
+    border-radius:0;
+    border:none;
+    border-bottom:1px solid var(--bone);
+  }
+
+  /* Series pill: move to bottom-left of image on mobile */
+  .product-visual-label{
+    top:auto;
+    bottom:12px;
+    left:12px;
+    background:rgba(26,22,18,0.75);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+    border-radius:20px;
+  }
+
+  /* Inner content: apply padding */
+  .product-name{font-size:28px;line-height:1.0;margin:20px 20px 12px}
+  .product-desc{font-size:15px;line-height:1.7;margin:0 20px 16px}
+  .product-set-pills{margin:0 20px 16px}
+  .product-set-pill{font-size:8px;padding:4px 10px}
+  .product-specs{margin:0 20px;border-top:1px solid var(--bone)}
+  .product-spec-row .spec-key{font-size:8px;padding:10px 0}
+  .product-spec-row .spec-val{font-size:12px;padding:10px 0}
+  .product-card-bottom{padding:0 20px}
+  .product-price-block{margin:20px 0 16px;padding-top:20px}
+  .product-price{font-size:32px}
+  .product-cta{height:52px;border-radius:6px;font-size:11px}
   .products-title{font-size:clamp(2rem,10vw,3rem)}
 
   /* Scarcity */
@@ -394,9 +473,9 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
       <p class="product-desc">Three notebooks. One system. Built for the way fast thinkers actually work — not in one mode, but in three.<br><br>Each notebook has a single job. Thinking is messy. To-dos are tactical. Execution is focused. That's the whole point.</p>
 
       <div class="product-set-pills">
-        <span class="product-set-pill">Thinking</span>
-        <span class="product-set-pill">To-Do</span>
-        <span class="product-set-pill">Execution</span>
+        <span class="product-set-pill thinking">Thinking</span>
+        <span class="product-set-pill todo">To-Do</span>
+        <span class="product-set-pill execution">Execution</span>
       </div>
 
       <div class="product-specs">
@@ -426,12 +505,13 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
         </div>
       </div>
 
-      <div class="product-price-block">
-        <span class="product-price">₹249</span>
-        <span class="product-shipping">+ Shipping at checkout</span>
+      <div class="product-card-bottom">
+        <div class="product-price-block">
+          <span class="product-price">₹249</span>
+          <span class="product-shipping">+ Shipping at checkout</span>
+        </div>
+        <button class="product-cta founders-cta" id="ctaFounders">Reserve this set ↗</button>
       </div>
-
-      <button class="product-cta founders-cta" id="ctaFounders">Reserve this set ↗</button>
     </div>
 
     <!-- Flow Series -->
@@ -472,12 +552,13 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
         </div>
       </div>
 
-      <div class="product-price-block">
-        <span class="product-price">₹249</span>
-        <span class="product-shipping">+ Shipping at checkout</span>
+      <div class="product-card-bottom">
+        <div class="product-price-block">
+          <span class="product-price">₹249</span>
+          <span class="product-shipping">+ Shipping at checkout</span>
+        </div>
+        <button class="product-cta flow-cta" id="ctaFlow">Reserve this set ↗</button>
       </div>
-
-      <button class="product-cta flow-cta" id="ctaFlow">Reserve this set ↗</button>
     </div>
 
   </div>
