@@ -410,6 +410,14 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
 
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}html{scroll-behavior:auto}}
 </style>
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]);t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}var u=t.createElement("script");u.type="text/javascript";u.async=!0;u.src=s.api_host+"/static/array.js";var l=t.getElementsByTagName("script")[0];l.parentNode.insertBefore(u,l);var r=e;function n(t){return function(){r.push([t].concat(Array.prototype.slice.call(arguments,0)))}}var o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags".split(" ");for(var a=0;a<o.length;a++)g(r,o[a]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_vnyLFVa6a9jCQzBdYNXG8m5hDDYWFiTEQBuPMxzmcmqy', {
+    api_host: 'https://us.i.posthog.com',
+    capture_pageview: true,
+    capture_pageleave: true
+  })
+</script>
 </head>
 <body>
 
@@ -694,8 +702,14 @@ function selectProduct(value) {
   const radio = document.querySelector(`input[name="product_interest"][value="${value}"]`);
   if (radio) { radio.checked = true; radio.dispatchEvent(new Event('change')); }
 }
-document.getElementById('ctaFounders').addEventListener('click', () => selectProduct('founders'));
-document.getElementById('ctaFlow').addEventListener('click', () => selectProduct('flow'));
+document.getElementById('ctaFounders').addEventListener('click', () => {
+  posthog.capture('reserve_clicked', {product: 'founders'});
+  selectProduct('founders');
+});
+document.getElementById('ctaFlow').addEventListener('click', () => {
+  posthog.capture('reserve_clicked', {product: 'flow'});
+  selectProduct('flow');
+});
 
 // ── TICKER ──
 const PRODUCT_LABELS = {founders:'Founders Series',flow:'Flow Series',both:'Both Series'};
@@ -866,6 +880,7 @@ form.addEventListener('submit', async function(e) {
     const data = await res.json();
 
     if (res.ok && data.success) {
+      posthog.capture('waitlist_submitted', {product_interest: product_interest});
       if (!data.duplicate) incrementScarcity();
       showSuccess(!!data.duplicate, email);
       loadTicker();
@@ -880,6 +895,21 @@ form.addEventListener('submit', async function(e) {
     submitBtn.textContent = 'Reserve my spot →';
   }
 });
+
+// ── ANALYTICS: waitlist section view ──
+(function() {
+  const waitlistSection = document.getElementById('waitlist');
+  if (!waitlistSection) return;
+  let fired = false;
+  const observer = new IntersectionObserver((entries) => {
+    if (!fired && entries[0].isIntersecting) {
+      posthog.capture('waitlist_form_viewed');
+      fired = true;
+      observer.disconnect();
+    }
+  }, {threshold: 0.3});
+  observer.observe(waitlistSection);
+})();
 </script>
 </body>
 </html>
