@@ -15,7 +15,12 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 html,body{overflow-x:hidden}
-body{background:var(--cream);color:var(--ink);font-family:'Space Grotesk',sans-serif;font-weight:300;line-height:1.6;min-height:100vh}
+body{background:var(--cream);color:var(--ink);font-family:'Space Grotesk',sans-serif;font-weight:300;line-height:1.6;min-height:100vh;cursor:none}
+.cursor-dot,.cursor-ring{position:fixed;pointer-events:none;z-index:10000;border-radius:50%;transform:translate(-50%,-50%)}
+.cursor-dot{width:8px;height:8px;background:var(--ink);transition:background .2s var(--ease)}
+.cursor-ring{width:36px;height:36px;border:1.5px solid var(--ink);transition:width .3s var(--ease),height .3s var(--ease),border-color .25s,background .25s}
+.cursor-ring.hover{width:80px;height:80px;background:var(--mustard);border-color:var(--mustard);mix-blend-mode:multiply}
+@media(max-width:900px){body{cursor:default}.cursor-dot,.cursor-ring{display:none}}
 ::selection{background:var(--mustard);color:var(--ink)}
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.045;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
@@ -59,8 +64,8 @@ nav{position:fixed;top:1.5rem;left:1.5rem;right:1.5rem;z-index:200;display:flex;
 .ticker-row-track{display:inline-flex;white-space:nowrap}
 .ticker-row-track.dir-left{animation:tick-left 38s linear infinite}
 .ticker-row-track.dir-right{animation:tick-right 44s linear infinite}
-@keyframes tick-left{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes tick-right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+@keyframes tick-left{from{transform:translateX(0)}to{transform:translateX(-33.333%)}}
+@keyframes tick-right{from{transform:translateX(-33.333%)}to{transform:translateX(0)}}
 .tick-entry{display:inline-flex;align-items:center;padding:0 1.5rem}
 .tick-sep{color:#F5C13D;opacity:0.4;font-family:'DM Mono',monospace;font-size:10px;margin:0 0.5rem}
 .tick-pip{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:8px;vertical-align:middle;flex-shrink:0;animation:pip-pulse 2.4s cubic-bezier(0.16,1,0.3,1) infinite}
@@ -161,6 +166,9 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
 </head>
 <body>
 
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
 <div class="nav-mobile-menu" id="navMobileMenu" role="dialog" aria-label="Navigation menu">
   <a href="/">Home</a>
   <a href="/about">About</a>
@@ -214,16 +222,20 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
       </div>
       <div class="product-info">
         <h3 class="product-name">Think. Do. <em>Execute.</em></h3>
-        <p class="product-desc">Three notebooks. One system. Thinking, To-do, Execution — built for the way founders actually work.</p>
+        <p class="product-desc">Three notebooks. One system. Built for the way fast thinkers actually work — not in one mode, but in three.<br><br>Thinking is messy. To-dos are tactical. Execution is focused. Most notebooks try to hold all three. These don't.<br><br>Each notebook in the set has a single job. That's the whole point.</p>
         <div class="product-specs">
-          <div class="product-spec"><span class="product-spec-key">Format ·</span><span>A6</span></div>
-          <div class="product-spec"><span class="product-spec-key">Pages ·</span><span>Grid-lined</span></div>
-          <div class="product-spec"><span class="product-spec-key">Set ·</span><span>3 notebooks</span></div>
+          <div class="product-spec"><span class="product-spec-key">What's in the set ·</span><span>Thinking · To-do · Execution</span></div>
+          <div class="product-spec"><span class="product-spec-key">Size ·</span><span>A6 — 105mm × 148mm</span></div>
+          <div class="product-spec"><span class="product-spec-key">Pages ·</span><span>64 grid-lined pages per notebook</span></div>
+          <div class="product-spec"><span class="product-spec-key">Binding ·</span><span>Staple-bound, lies completely flat</span></div>
+          <div class="product-spec"><span class="product-spec-key">Cover ·</span><span>Black with gold type</span></div>
+          <div class="product-spec"><span class="product-spec-key">Paper ·</span><span>Cream-toned, faint grid</span></div>
+          <div class="product-spec"><span class="product-spec-key">Made ·</span><span>In India</span></div>
         </div>
         <div class="product-footer">
           <div>
-            <div class="product-price">₹249</div>
-            <div class="product-shipping">+ shipping</div>
+            <div class="product-price">₹499</div>
+            <div class="product-shipping">Free shipping anywhere in India</div>
           </div>
           <button class="product-cta" id="ctaFounders">Reserve this set ↗</button>
         </div>
@@ -238,16 +250,20 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
       </div>
       <div class="product-info">
         <h3 class="product-name">Move. Think. <em>Catch.</em></h3>
-        <p class="product-desc">Three notebooks. Deep purple marble. For the ones who don't separate thinking from doing.</p>
+        <p class="product-desc">One notebook. No system required.<br><br>For the ones who don't separate thinking from doing — they just move. Train rides. Cafés. The five minutes between calls. The idea that arrives at 11pm.<br><br>The Flow Series doesn't ask you to organise before you begin. It asks you to begin.</p>
         <div class="product-specs">
-          <div class="product-spec"><span class="product-spec-key">Format ·</span><span>A6</span></div>
-          <div class="product-spec"><span class="product-spec-key">Pages ·</span><span>Grid-lined</span></div>
-          <div class="product-spec"><span class="product-spec-key">Set ·</span><span>3 notebooks</span></div>
+          <div class="product-spec"><span class="product-spec-key">What it is ·</span><span>A single notebook for everything — drafts, lists, half-sentences, rough sketches, first lines</span></div>
+          <div class="product-spec"><span class="product-spec-key">Size ·</span><span>A6 — 105mm × 148mm</span></div>
+          <div class="product-spec"><span class="product-spec-key">Pages ·</span><span>64 grid-lined pages</span></div>
+          <div class="product-spec"><span class="product-spec-key">Binding ·</span><span>Staple-bound, lies completely flat</span></div>
+          <div class="product-spec"><span class="product-spec-key">Cover ·</span><span>Deep purple marble texture</span></div>
+          <div class="product-spec"><span class="product-spec-key">Paper ·</span><span>Cream-toned, faint grid</span></div>
+          <div class="product-spec"><span class="product-spec-key">Made ·</span><span>In India</span></div>
         </div>
         <div class="product-footer">
           <div>
             <div class="product-price">₹249</div>
-            <div class="product-shipping">+ shipping</div>
+            <div class="product-shipping">+ shipping calculated at checkout</div>
           </div>
           <button class="product-cta" id="ctaFlow">Reserve this set ↗</button>
         </div>
@@ -297,18 +313,18 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
         <div class="radio-group">
           <label class="radio-option">
             <input type="radio" name="product_interest" value="founders"/>
-            <span class="radio-label">Founders Series</span>
-            <span class="radio-price">₹249 + shipping</span>
+            <span class="radio-label">Founders Series (3-pack)</span>
+            <span class="radio-price">₹499 · free shipping</span>
           </label>
           <label class="radio-option">
             <input type="radio" name="product_interest" value="flow"/>
-            <span class="radio-label">Flow Series</span>
+            <span class="radio-label">Flow Series (single)</span>
             <span class="radio-price">₹249 + shipping</span>
           </label>
           <label class="radio-option">
             <input type="radio" name="product_interest" value="both"/>
             <span class="radio-label">Both series</span>
-            <span class="radio-price">₹444 · free shipping</span>
+            <span class="radio-price">₹748 · free shipping</span>
           </label>
         </div>
         <p class="form-error" id="errProduct">Please select a product.</p>
@@ -357,6 +373,13 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
 </footer>
 
 <script>
+// ── CURSOR ──
+const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hover'));el.addEventListener('mouseleave',()=>ring.classList.remove('hover'));});
+
 // ── NAV ──
 const hamburger=document.getElementById('navHamburger'),mobileMenu=document.getElementById('navMobileMenu');
 if(hamburger){
@@ -403,9 +426,25 @@ function buildEntryHTML(e) {
   return `<span class="tick-entry"><span class="tick-pip ${pipClass}"></span><span class="tick-name">${e.name}</span><span class="tick-meta">${e.city} · ${label}</span></span><span class="tick-sep">•</span>`;
 }
 
+const TICKER_PAD = [
+  {name:'Shreya',city:'Pune',product_interest:'flow'},
+  {name:'Ankit',city:'Kolkata',product_interest:'founders'},
+  {name:'Divya',city:'Jaipur',product_interest:'both'},
+  {name:'Rohan',city:'Surat',product_interest:'flow'},
+  {name:'Nisha',city:'Lucknow',product_interest:'founders'},
+  {name:'Vikram',city:'Ahmedabad',product_interest:'both'},
+  {name:'Pooja',city:'Kochi',product_interest:'flow'},
+  {name:'Aditya',city:'Indore',product_interest:'founders'},
+];
+
 function buildTickerHTML(entries) {
-  const source = entries.length ? entries : PLACEHOLDER_ENTRIES;
-  return source.map(buildEntryHTML).join('') + source.map(buildEntryHTML).join('');
+  let source = entries.length ? entries : PLACEHOLDER_ENTRIES;
+  if (source.length < 12) {
+    const padNeeded = 12 - source.length;
+    source = [...source, ...TICKER_PAD.slice(0, padNeeded)];
+  }
+  const html = source.map(buildEntryHTML).join('');
+  return html + html + html;
 }
 
 function flashNew(entry) {
