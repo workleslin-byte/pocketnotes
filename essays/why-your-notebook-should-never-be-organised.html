@@ -64,7 +64,22 @@ h1{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3rem);font-weight:300;l
 h1 em{font-style:italic;color:var(--ink-soft)}
 .essay-subtitle{font-family:'Fraunces',serif;font-size:1.15rem;font-style:italic;font-weight:300;color:var(--ink-soft);border-left:3px solid var(--mustard);padding-left:1rem;margin-bottom:3rem;line-height:1.5}
 .essay-body p{font-size:1.05rem;line-height:1.8;margin-bottom:1.5rem;color:var(--ink);text-align:justify;hyphens:auto}
-.essay-body p:first-of-type::first-letter{font-family:'Fraunces',serif;font-size:3.5rem;font-weight:400;line-height:.85;float:left;margin-right:.1em;margin-top:.05em;color:var(--ink)}
+.drop-cap{float:left;font-family:'Fraunces',serif;font-weight:900;font-size:5.2rem;line-height:0.72;margin-right:6px;margin-top:8px;color:var(--coral,#FF6B47)}
+@media(max-width:768px){.drop-cap{font-size:4rem;line-height:0.75;margin-right:4px}}
+.reading-bar{position:fixed;top:0;left:0;width:0%;height:2px;background:var(--mustard,#F5C13D);z-index:999;transition:width 0.1s linear}
+.pull-quote{margin:2.5rem 0;padding:1.5rem 0 1.5rem 1.5rem;border-left:3px solid var(--mustard,#F5C13D);font-family:'Fraunces',serif;font-style:italic;font-weight:700;font-size:1.4rem;line-height:1.35;color:var(--ink,#1A1612);quotes:none}
+@media(max-width:768px){.pull-quote{font-size:1.15rem;padding:1rem 0 1rem 1rem}}
+.related-essays{margin:3rem 0 2rem;padding-top:2rem;border-top:1px solid var(--bone,#ECE0BE)}
+.related-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink,#1A1612);opacity:0.45;margin:0 0 1.2rem}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.related-card{display:flex;flex-direction:column;gap:8px;padding:16px;background:var(--bone,#ECE0BE);border-radius:4px;text-decoration:none;border:1px solid transparent;transition:border-color 0.2s ease,transform 0.2s ease}
+.related-card:hover{border-color:var(--ink,#1A1612);transform:translateY(-2px)}
+.related-cat{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink,#1A1612);opacity:0.45}
+.related-title{font-family:'Fraunces',serif;font-weight:700;font-size:15px;line-height:1.3;color:var(--ink,#1A1612)}
+@media(max-width:768px){.related-grid{grid-template-columns:1fr;gap:10px}}
+.essay-with-margin{position:relative}
+@media(min-width:1100px){.margin-note{position:absolute;right:-180px;width:160px;font-family:'DM Mono',monospace;font-size:10px;line-height:1.5;letter-spacing:0.04em;color:var(--ink,#1A1612);opacity:0.4;font-style:italic;transform:rotate(-1deg)}}
+@media(max-width:1099px){.margin-note{display:none}}
 .essay-body a{color:var(--coral);border-bottom:1px solid var(--mustard);text-decoration:none;transition:color .2s,border-color .2s}
 .essay-body a:hover{color:var(--ink);border-color:var(--coral)}
 .essay-body em{font-style:italic}
@@ -125,6 +140,7 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
 </style>
 </head>
 <body>
+<div class="reading-bar" id="readingBar"></div>
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
@@ -157,12 +173,13 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
   <h1>Why Your Notebook Should <em>Never Be Organised</em></h1>
   <p class="essay-subtitle">Leonardo's notebooks mixed hydraulics with shopping lists. Darwin's journals were famous for their productive chaos. Picasso never organised anything. The mess is not the problem. The mess is the method.</p>
 
-  <article class="essay-body">
-    <p>Look at a page from Leonardo da Vinci's notebooks and you will find, on the same surface, a diagram of a water wheel, a note about the price of crimson cloth, three studies of a horse's leg from different angles, and a sketch of a crossbow. There is no order. There is no system of notation that separates engineering from commerce from art from anatomy. There is just the page, and on it, everything that was in Leonardo's head that day.</p>
+  <article class="essay-body essay-with-margin">
+    <p><span class="drop-cap">L</span>ook at a page from Leonardo da Vinci's notebooks and you will find, on the same surface, a diagram of a water wheel, a note about the price of crimson cloth, three studies of a horse's leg from different angles, and a sketch of a crossbow. There is no order. There is no system of notation that separates engineering from commerce from art from anatomy. There is just the page, and on it, everything that was in Leonardo's head that day.</p>
 
     <p>Scholars have spent centuries trying to organise his notebooks. There are now editions sorted by topic — the mechanics notebooks, the anatomy notebooks, the painting notebooks. These are useful for reference. They are completely unlike what Leonardo produced, and they tell us nothing about how he thought.</p>
 
     <p>What they do tell us is that the chaos was not incidental. His notebooks were disorganised because he was thinking across domains simultaneously. The sketch of the water wheel appeared next to the horse's leg because in that moment he was thinking about force and resistance, and both subjects were inside that thought. The proximity was not confusion. It was a record of a connection.</p>
+    <span class="margin-note">Da Vinci never used tabs.</span>
 
     <blockquote>
       <p>"Learning never exhausts the mind."</p>
@@ -172,14 +189,35 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
     <p>Darwin filled his notebooks the same way. The famous notebook B, from 1837, contains the first sketch of what would become the theory of natural selection — a rough tree diagram with the words "I think" above it, drawn among pages of observation about barnacles, notes from conversations with breeders, and fragments of speculation about inheritance that go nowhere. The theory did not emerge from ordered thinking. It emerged from associative accumulation — from the barnacles being next to the breeders being next to the speculation until eventually the connection declared itself.</p>
 
     <p>Picasso's notebooks are almost unusable as organised documents. They are dense with quick sketches, studies in different media, unfinished ideas, returned-to ideas, ideas abandoned mid-stroke. What you can see, if you look at enough of them, is a mind working — not drafting, not developing, but <em>trying</em>. The notebook is the site of the trying, not the site of the result.</p>
+    <span class="margin-note">The result was never the point.</span>
 
     <p>The impulse to organise a notebook — to use tabs, to dedicate sections to specific topics, to write neatly and systematically — is understandable. It feels like it should make the notebook more useful. In most cases it makes it less. Because the cost of keeping it organised is that you stop writing anything that doesn't fit the system. The rough thought, the half-connection, the shopping list that ends up on the same page as the good idea — these stop appearing. The notebook becomes tidy. It becomes a filing system rather than a thinking space.</p>
+
+    <blockquote class="pull-quote">The notebook becomes tidy. It becomes a filing system rather than a thinking space.</blockquote>
 
     <p>The pocket notebook is the right size for disorder. An A6 page holds one session of thinking, whatever shape that takes. You do not need to decide in advance where a thought belongs. You write what is in your head and move on. When you return to the notebook later, the juxtapositions will sometimes be surprising. A note from last Monday and a note from this morning will sit on the same spread and mean something in combination that neither meant alone.</p>
 
     <p>Let it be a mess. The mess is doing something.</p>
   </article>
   <div class="essay-end">— Pocket Notes, May 2026</div>
+
+  <aside class="related-essays">
+    <p class="related-label">Keep reading</p>
+    <div class="related-grid">
+      <a href="/essays/the-people-who-write-in-the-margins" class="related-card">
+        <span class="related-cat">History · 11 min</span>
+        <span class="related-title">The People Who Write in the Margins</span>
+      </a>
+      <a href="/essays/the-index-method" class="related-card">
+        <span class="related-cat">Technique · 5 min</span>
+        <span class="related-title">The Index Method: How to Never Lose a Thought Again</span>
+      </a>
+      <a href="/essays/catch-first-edit-later" class="related-card">
+        <span class="related-cat">Method · 4 min</span>
+        <span class="related-title">Catch First, Edit Later</span>
+      </a>
+    </div>
+  </aside>
 </main>
 
 <div class="disqus-wrap">
@@ -302,6 +340,8 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
 </footer>
 
 <script>
+const bar=document.getElementById('readingBar');
+if(bar){window.addEventListener('scroll',()=>{const total=document.body.scrollHeight-window.innerHeight;bar.style.width=Math.min((window.scrollY/total)*100,100)+'%';},{passive:true});}
 const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
