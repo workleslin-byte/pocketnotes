@@ -1153,5 +1153,16 @@ const OUTER = [
 })();
 </script>
 
+<script>
+setTimeout(() => {
+  const imgs = document.querySelectorAll('.orbit-card img')
+  console.log('Total orbit images found:', imgs.length)
+  imgs.forEach((img, i) => {
+    console.log(i, img.src, img.complete,
+      img.naturalWidth, img.getBoundingClientRect())
+  })
+}, 2000)
+</script>
+
 </body>
 </html>
