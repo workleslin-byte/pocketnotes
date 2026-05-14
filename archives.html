@@ -311,21 +311,22 @@ nav {
 .theme-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border: 1.5px solid var(--ink);
+  border: 2px solid var(--ink);
   border-radius: 10px; overflow: hidden;
-  max-width: 1100px; margin: 0 auto;
+  max-width: 1240px; width: calc(100% - 40px); margin: 60px auto 0;
   box-shadow: 0 4px 40px rgba(26,22,18,0.07);
 }
 
 .theme-col {
   display: flex; flex-direction: column;
-  border-right: 1.5px solid var(--ink);
+  border-right: 2px solid var(--ink);
 }
 .theme-col:last-child { border-right: none; }
 
 /* Column header */
 .theme-col-head {
   padding: 30px 24px 24px;
+  min-height: 200px;
   position: relative; overflow: hidden;
 }
 .theme-col-head::before {
@@ -343,7 +344,7 @@ nav {
 }
 .col-name {
   font-family: 'Fraunces', serif; font-weight: 900;
-  font-size: clamp(20px, 2.2vw, 26px);
+  font-size: clamp(26px, 2.8vw, 36px);
   line-height: 1.05; letter-spacing: -0.025em; color: var(--ink);
 }
 .col-desc {
@@ -368,14 +369,44 @@ nav {
 
 /* Article list */
 .theme-col-list {
-  flex: 1; border-top: 1.5px solid var(--ink);
+  flex: 1; border-top: 2px solid var(--ink);
   background: var(--cream);
   display: flex; flex-direction: column;
 }
 
+/* Hide rows after first — show only 1 before gate */
+.theme-col-list .article-row:not(:first-child) { display: none; }
+.theme-col-list .article-row.unlocked { display: block !important; }
+
+/* Col-gate block */
+.col-gate {
+  padding: 32px 20px;
+  text-align: center;
+  background: linear-gradient(to bottom, rgba(250,243,227,0) 0%, rgba(250,243,227,1) 40%);
+  display: flex; flex-direction: column;
+  align-items: center; gap: 8px; flex: 1;
+}
+.col-gate-icon {
+  font-size: 18px; color: var(--ink); opacity: 0.3;
+  animation: gatebounce 1.8s ease infinite;
+}
+@keyframes gatebounce {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(5px); }
+}
+.col-gate-text {
+  font-family: 'Fraunces', serif; font-weight: 700;
+  font-size: 15px; color: var(--ink); line-height: 1.2;
+}
+.col-gate-sub {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink); opacity: 0.45;
+}
+
 .article-row {
   display: block;
-  padding: 16px 24px 15px;
+  padding: 20px 26px 19px;
   border-bottom: 1px solid var(--paper);
   text-decoration: none; color: inherit;
   cursor: none;
@@ -663,6 +694,11 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
           <span class="row-source" style="color:#B8900A">Paul Graham</span>
           <span class="row-title">Taste for Makers</span>
         </a>
+        <div class="col-gate" id="gateTaste">
+          <div class="col-gate-icon">↓</div>
+          <div class="col-gate-text">9 more in this collection</div>
+          <div class="col-gate-sub">Enter your email below to unlock</div>
+        </div>
         <a class="article-row" style="--row-accent:#B8900A" href="https://paulgraham.com/goodtaste.html" target="_blank" rel="noopener noreferrer">
           <span class="row-source" style="color:#B8900A">Paul Graham</span>
           <span class="row-title">Is There Such a Thing as Good Taste?</span>
@@ -719,6 +755,11 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
           <span class="row-source" style="color:#C04020">Knowledge Lust · Substack</span>
           <span class="row-title">The Modern Autodidact System</span>
         </a>
+        <div class="col-gate" id="gateAuto">
+          <div class="col-gate-icon">↓</div>
+          <div class="col-gate-text">9 more in this collection</div>
+          <div class="col-gate-sub">Enter your email below to unlock</div>
+        </div>
         <a class="article-row" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/childhoods" target="_blank" rel="noopener noreferrer">
           <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
           <span class="row-title">Childhoods of Exceptional People</span>
@@ -775,6 +816,11 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
           <span class="row-source" style="color:#6E3582">Paul Graham</span>
           <span class="row-title">How to Do What You Love</span>
         </a>
+        <div class="col-gate" id="gateSide">
+          <div class="col-gate-icon">↓</div>
+          <div class="col-gate-text">9 more in this collection</div>
+          <div class="col-gate-sub">Enter your email below to unlock</div>
+        </div>
         <a class="article-row" style="--row-accent:#6E3582" href="https://kk.org/thetechnium/1000-true-fans" target="_blank" rel="noopener noreferrer">
           <span class="row-source" style="color:#6E3582">Kevin Kelly</span>
           <span class="row-title">1000 True Fans</span>
@@ -1059,6 +1105,23 @@ const OUTER = [
       locked.forEach(r => r.classList.add('unlocked'));
       setTimeout(() => { blur.style.display = 'none'; }, 820);
     }, 600);
+    // Remove col-gate blocks and reveal hidden rows with stagger
+    document.querySelectorAll('.col-gate').forEach(g => g.remove());
+    const hiddenRows = document.querySelectorAll('.theme-col-list .article-row:not(:first-child)');
+    hiddenRows.forEach((row, i) => {
+      setTimeout(() => {
+        row.style.display = 'block';
+        row.style.opacity = '0';
+        row.style.transform = 'translateY(8px)';
+        row.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            row.style.opacity = '1';
+            row.style.transform = 'translateY(0)';
+          });
+        });
+      }, i * 40);
+    });
   }
 
   btn.addEventListener('click', async () => {
