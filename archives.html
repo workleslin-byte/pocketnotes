@@ -23,647 +23,603 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,700&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --cream:    #FAF3E3;
-    --bone:     #F1E7CE;
-    --paper:    #ECE0BE;
-    --ink:      #1A1612;
-    --ink-soft: #3D342A;
-    --mustard:  #F5C13D;
-    --coral:    #FF6B47;
-    --sage:     #8FB89C;
-    --sky:      #5BA8C9;
-    --plum:     #6E3582;
-    --pink:     #F26A8D;
-    --olive:    #2C2A20;
-    --ease:     cubic-bezier(0.16, 1, 0.3, 1);
-    --spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
-    --gut:      5vw;
-    --max:      1280px;
-  }
+/* ─── TOKENS ─────────────────────────────── */
+:root {
+  --cream:    #FAF3E3;
+  --bone:     #F1E7CE;
+  --paper:    #ECE0BE;
+  --ink:      #1A1612;
+  --ink-soft: #3D342A;
+  --mustard:  #F5C13D;
+  --coral:    #FF6B47;
+  --sage:     #8FB89C;
+  --sky:      #5BA8C9;
+  --plum:     #6E3582;
+  --pink:     #F26A8D;
+  --olive:    #2C2A20;
+  --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+  --spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+  --gut:      5vw;
+  --max:      1280px;
+  --c-taste:  #F5C13D;
+  --c-auto:   #FF6B47;
+  --c-side:   #6E3582;
+}
 
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
-  html, body { overflow-x: hidden; }
+/* ─── RESET ─────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+html, body { overflow-x: hidden; }
 
-  body {
-    background: var(--cream);
-    color: var(--ink);
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 18px;
-    line-height: 1.7;
-    -webkit-font-smoothing: antialiased;
-    cursor: none;
-  }
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  cursor: none;
+}
 
-  ::selection { background: var(--mustard); color: var(--ink); }
+::selection { background: var(--mustard); color: var(--ink); }
 
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.045;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 9999;
+  opacity: 0.045; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 
-  /* ─── CURSOR ─────────────────────────────── */
-  .cursor-dot, .cursor-ring {
-    position: fixed; pointer-events: none; z-index: 10000;
-    border-radius: 50%; transform: translate(-50%, -50%);
-  }
-  .cursor-dot { width: 8px; height: 8px; background: var(--ink); transition: background .2s var(--ease); }
-  .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--ink); transition: width .3s var(--ease), height .3s var(--ease), border-color .25s, background .25s; }
-  .cursor-ring.hover { width: 80px; height: 80px; background: var(--mustard); border-color: var(--mustard); mix-blend-mode: multiply; }
-  @media (max-width: 900px) { body { cursor: default; } .cursor-dot, .cursor-ring { display: none; } }
+/* ─── CURSOR ─────────────────────────────── */
+.cursor-dot, .cursor-ring {
+  position: fixed; pointer-events: none; z-index: 10000;
+  border-radius: 50%; transform: translate(-50%, -50%);
+}
+.cursor-dot { width: 8px; height: 8px; background: var(--ink); transition: background .2s var(--ease); }
+.cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--ink); transition: width .3s var(--ease), height .3s var(--ease), border-color .25s, background .25s; }
+.cursor-ring.hover { width: 80px; height: 80px; background: var(--mustard); border-color: var(--mustard); mix-blend-mode: multiply; }
+@media (max-width: 900px) { body { cursor: default; } .cursor-dot, .cursor-ring { display: none; } }
 
-  /* ─── NAV ─────────────────────────────── */
-  nav {
-    position: fixed; top: 1.5rem; left: 1.5rem; right: 1.5rem; z-index: 200;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 0.85rem 1.5rem;
-    background: var(--ink); color: var(--cream); border-radius: 999px;
-    font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em;
-  }
-  .nav-logo { display: flex; align-items: center; gap: 0.6rem; font-weight: 500; text-transform: uppercase; text-decoration: none; color: inherit; cursor: none; }
-  .nav-logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mustard); animation: pulse 2.4s var(--ease) infinite; }
-  @keyframes pulse { 0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.6} }
-  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
-  .nav-links a { color: var(--bone); text-decoration: none; text-transform: uppercase; transition: color .25s var(--ease); cursor: none; }
-  .nav-links a:hover { color: var(--mustard); }
-  .nav-links a.active { color: var(--mustard); }
-  .nav-cta { background: var(--mustard); color: var(--ink); padding: 0.5rem 1.2rem; border-radius: 999px; text-decoration: none; text-transform: uppercase; font-weight: 500; transition: background .25s var(--ease); cursor: none; }
-  .nav-cta:hover { background: var(--coral); color: var(--cream); }
+/* ─── NAV ─────────────────────────────── */
+nav {
+  position: fixed; top: 1.5rem; left: 1.5rem; right: 1.5rem; z-index: 300;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.85rem 1.5rem;
+  background: var(--ink); color: var(--cream); border-radius: 999px;
+  font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em;
+}
+.nav-logo { display: flex; align-items: center; gap: 0.6rem; font-weight: 500; text-transform: uppercase; text-decoration: none; color: inherit; cursor: none; }
+.nav-logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mustard); animation: pulse 2.4s var(--ease) infinite; }
+@keyframes pulse { 0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.6} }
+.nav-links { display: flex; gap: 1.8rem; list-style: none; }
+.nav-links a { color: var(--bone); text-decoration: none; text-transform: uppercase; transition: color .25s var(--ease); cursor: none; }
+.nav-links a:hover { color: var(--mustard); }
+.nav-links a.active { color: var(--mustard); }
+.nav-cta { background: var(--mustard); color: var(--ink); padding: 0.5rem 1.2rem; border-radius: 999px; text-decoration: none; text-transform: uppercase; font-weight: 500; transition: background .25s var(--ease); cursor: none; }
+.nav-cta:hover { background: var(--coral); color: var(--cream); }
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 0.4rem; cursor: pointer; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--cream); border-radius: 2px; transition: transform .35s var(--ease), opacity .25s; }
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-mobile-menu { position: fixed; inset: 0; background: var(--ink); z-index: 290; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: opacity .35s var(--ease); }
+.nav-mobile-menu.open { opacity: 1; pointer-events: all; }
+.nav-mobile-menu a { font-family: 'Fraunces', serif; font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 900; color: var(--cream); text-decoration: none; text-transform: uppercase; letter-spacing: -0.03em; transition: color .2s; cursor: none; }
+.nav-mobile-menu a:hover { color: var(--mustard); }
+@media (max-width: 900px) { nav { padding: 0.7rem 1rem; } .nav-links { display: none; } .nav-hamburger { display: flex; } }
 
-  /* Hamburger */
-  .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 0.4rem; cursor: pointer; }
-  .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--cream); border-radius: 2px; transition: transform .35s var(--ease), opacity .25s; }
-  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
-  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  .nav-mobile-menu { position: fixed; inset: 0; background: var(--ink); z-index: 190; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: opacity .35s var(--ease); }
-  .nav-mobile-menu.open { opacity: 1; pointer-events: all; }
-  .nav-mobile-menu a { font-family: 'Fraunces', serif; font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 900; color: var(--cream); text-decoration: none; text-transform: uppercase; letter-spacing: -0.03em; transition: color .2s; cursor: none; }
-  .nav-mobile-menu a:hover { color: var(--mustard); }
-  @media (max-width: 900px) { nav { padding: 0.7rem 1rem; } .nav-links { display: none; } .nav-hamburger { display: flex; } }
+/* ─── SECTION 1: HERO ─────────────────────────────── */
+.hero {
+  position: relative;
+  width: 100%; height: 100dvh;
+  background: var(--ink);
+  overflow: hidden;
+}
 
-  /* ─── SECTION 1: ORBITAL HERO ─────────────────────────────── */
-  .hero {
-    position: relative;
-    width: 100%;
-    height: 100dvh;
-    background: var(--ink);
-    overflow: hidden;
-  }
+.orbit-stage {
+  position: absolute; inset: 0; z-index: 1;
+}
 
-  .hero-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-    text-align: center;
-    pointer-events: none;
-  }
+.hero-center {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10; text-align: center;
+  pointer-events: none;
+  width: 100%;
+}
 
-  .hero-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--cream);
-    opacity: 0.4;
-    margin-bottom: 16px;
-  }
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream); opacity: 0.4;
+  margin-bottom: 14px;
+}
 
-  .hero-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: clamp(72px, 10vw, 120px);
-    letter-spacing: -0.04em;
-    line-height: 0.88;
-    color: var(--cream);
-  }
+.hero-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(72px, 10vw, 120px);
+  letter-spacing: -0.04em; line-height: 0.88;
+  color: var(--cream);
+}
 
-  .hero-subhead {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 16px;
-    color: var(--cream);
-    opacity: 0.5;
-    max-width: 340px;
-    text-align: center;
-    margin: 16px auto 0;
-    line-height: 1.55;
-  }
+.hero-subhead {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px; color: var(--cream); opacity: 0.45;
+  max-width: 320px; margin: 16px auto 0;
+  line-height: 1.55;
+}
 
-  .hero-rule {
-    width: 40px;
-    height: 1px;
-    background: var(--mustard);
-    margin: 20px auto;
-  }
+.hero-divider {
+  width: 40px; height: 1px;
+  background: var(--mustard);
+  margin: 20px auto;
+}
 
-  .hero-scroll-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--mustard);
-    margin-bottom: 10px;
-  }
+.hero-scroll-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--mustard);
+  margin-bottom: 10px;
+}
 
-  .hero-chevron {
-    display: flex;
-    justify-content: center;
-    animation: bounceDown 1.8s var(--ease) infinite;
-  }
-  .hero-chevron svg { width: 20px; height: 20px; }
-  @keyframes bounceDown {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(6px); }
-  }
+.hero-chevron {
+  display: flex; justify-content: center;
+  animation: bounceDown 1.8s var(--ease) infinite;
+}
+.hero-chevron svg { width: 20px; height: 20px; }
 
-  /* Orbital cards */
-  .orbit-stage {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-  }
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(6px); }
+}
 
-  .orbit-card {
-    position: absolute;
+/* Orbital cards */
+.orbit-card {
+  position: absolute;
+  border-radius: 6px;
+  border: 1.5px solid rgba(250,243,227,0.15);
+  overflow: hidden; cursor: none;
+  transition: border-color 0.3s ease;
+  will-change: transform, opacity;
+  display: flex; flex-direction: column;
+}
+.orbit-card:hover { border-color: rgba(250,243,227,0.55); }
+
+.orbit-card .card-band {
+  flex-shrink: 0;
+  height: 45%;
+  display: flex; align-items: flex-end;
+  padding: 6px 8px;
+}
+.orbit-card .card-band-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 7px; text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(26,22,18,0.65);
+}
+.orbit-card .card-body {
+  flex: 1; background: var(--ink);
+  padding: 7px 8px;
+  display: flex; flex-direction: column;
+}
+.orbit-card .card-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px; line-height: 1.3;
+  color: var(--cream);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.orbit-card .card-source {
+  font-family: 'DM Mono', monospace;
+  font-size: 7px; color: var(--cream);
+  opacity: 0.4; margin-top: 4px;
+  white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis;
+}
+.orbit-card .card-tooltip {
+  position: absolute; top: -30px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--cream); color: var(--ink);
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  padding: 5px 10px; border-radius: 4px;
+  white-space: nowrap; opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease; z-index: 100;
+}
+.orbit-card:hover .card-tooltip { opacity: 1; }
+
+@media (max-width: 768px) { .orbit-outer { display: none !important; } }
+
+/* ─── SECTION 2: COLLECTIONS ─────────────────────────────── */
+.collections {
+  background: var(--cream);
+  padding: 80px var(--gut) 100px;
+}
+
+.collections-intro {
+  max-width: 560px;
+  margin: 0 auto 52px;
+  text-align: center;
+}
+.collections-intro-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ink-soft); opacity: 0.5;
+  margin-bottom: 12px;
+}
+.collections-intro-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(32px, 4.5vw, 52px);
+  letter-spacing: -0.03em; line-height: 1;
+  color: var(--ink);
+}
+.collections-intro-sub {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px; color: var(--ink-soft);
+  opacity: 0.6; margin-top: 10px;
+  line-height: 1.55; max-width: 42ch;
+  margin-left: auto; margin-right: auto;
+}
+
+/* Three-column grid */
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1.5px solid var(--ink);
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.theme-col {
+  display: flex; flex-direction: column;
+  border-right: 1.5px solid var(--ink);
+}
+.theme-col:last-child { border-right: none; }
+
+/* Column header */
+.theme-col-head {
+  padding: 28px 22px 22px;
+  display: flex; flex-direction: column;
+}
+.theme-col-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(26,22,18,0.5);
+}
+.theme-col-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 900; font-size: 26px;
+  line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--ink); margin-top: 6px;
+}
+.theme-col-desc {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px; color: rgba(26,22,18,0.6);
+  line-height: 1.5; margin-top: 10px;
+}
+.theme-col-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: rgba(26,22,18,0.1);
+  color: var(--ink);
+  padding: 4px 10px; border-radius: 999px;
+  margin-top: 14px; display: inline-block;
+  align-self: flex-start;
+}
+
+/* Article list */
+.theme-col-list {
+  flex: 1;
+  border-top: 1.5px solid var(--ink);
+  display: flex; flex-direction: column;
+}
+
+.article-row {
+  display: flex; flex-direction: column;
+  gap: 3px; padding: 14px 20px;
+  border-bottom: 1px solid var(--paper);
+  text-decoration: none; color: inherit;
+  cursor: none;
+  transition: background 0.15s ease;
+  position: relative;
+}
+.article-row:last-child { border-bottom: none; }
+.article-row:hover { background: var(--bone); }
+
+.article-row .row-source {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px; text-transform: uppercase;
+  letter-spacing: 0.1em; opacity: 0.85;
+  line-height: 1;
+}
+.article-row .row-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13.5px; font-weight: 500;
+  line-height: 1.35; color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s;
+}
+
+/* Locked rows */
+.article-row.locked {
+  filter: blur(3px);
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.4;
+  transition: filter 0.6s ease, opacity 0.6s ease;
+}
+.article-row.locked.unlocked-row {
+  filter: none; opacity: 1;
+  pointer-events: auto; user-select: auto;
+}
+
+/* Mobile accordion */
+.theme-col-toggle {
+  display: none;
+}
+@media (max-width: 768px) {
+  .theme-grid {
+    grid-template-columns: 1fr;
     border-radius: 6px;
-    border: 1.5px solid rgba(250,243,227,0.15);
-    overflow: hidden;
-    cursor: none;
-    transition: border-color 0.3s ease;
-    will-change: transform, opacity;
   }
-  .orbit-card:hover {
-    border-color: rgba(250,243,227,0.5);
+  .theme-col {
+    border-right: none;
+    border-bottom: 1.5px solid var(--ink);
   }
-  .orbit-card .card-band {
-    height: 40%;
-    display: flex;
-    align-items: flex-end;
-    padding: 5px 7px;
-  }
-  .orbit-card .card-band-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 7px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: rgba(26,22,18,0.7);
-  }
-  .orbit-card .card-body {
-    height: 60%;
-    background: var(--ink);
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-  .orbit-card .card-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 10px;
-    line-height: 1.3;
-    color: var(--cream);
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-  .orbit-card .card-source {
-    font-family: 'DM Mono', monospace;
-    font-size: 8px;
-    color: var(--cream);
-    opacity: 0.4;
-    margin-top: 4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  /* Card tooltip */
-  .orbit-card .card-tooltip {
-    position: absolute;
-    top: -32px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--cream);
-    color: var(--ink);
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    padding: 6px 10px;
-    border-radius: 4px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-    z-index: 100;
-  }
-  .orbit-card:hover .card-tooltip { opacity: 1; }
-
-  @media (max-width: 768px) {
-    .orbit-outer { display: none !important; }
-  }
-
-  /* ─── SECTION 2: THEME COLLECTIONS ─────────────────────────────── */
-  .collections {
-    background: var(--cream);
-    padding: 80px var(--gut);
-  }
-
-  .theme-section {
-    border-top: 1px solid var(--paper);
-    padding: 60px 0;
-  }
-  .theme-section:first-child { border-top: none; padding-top: 0; }
-
-  .theme-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 36px;
+  .theme-col:last-child { border-bottom: none; }
+  .theme-col-toggle { display: block; }
+  .theme-col-head {
+    cursor: pointer;
+    flex-direction: row;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 8px;
   }
-  .theme-header-left {}
-  .theme-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    margin-bottom: 8px;
-  }
-  .theme-name {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: clamp(36px, 5vw, 56px);
-    letter-spacing: -0.03em;
-    line-height: 1;
-    color: var(--ink);
-  }
-  .theme-descriptor {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 15px;
-    color: var(--ink-soft);
-    opacity: 0.6;
-    max-width: 420px;
-    margin-top: 8px;
-    line-height: 1.5;
-  }
-  .theme-count {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    flex-shrink: 0;
-    padding-top: 4px;
-  }
-  @media (max-width: 768px) { .theme-count { display: none; } }
-
-  .theme-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  @media (max-width: 900px) { .theme-cards { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 600px) {
-    .theme-cards {
-      display: flex;
-      overflow-x: auto;
-      gap: 14px;
-      padding-bottom: 12px;
-      -webkit-overflow-scrolling: touch;
-      scroll-snap-type: x mandatory;
-    }
-  }
-
-  .article-card {
-    background: var(--cream);
-    border: 1.5px solid var(--paper);
-    border-radius: 4px;
-    padding: 20px;
-    cursor: none;
-    transition: transform 0.2s var(--ease), border-color 0.2s var(--ease);
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
+  .theme-col-head-left { flex: 1; }
+  .theme-col-chevron {
+    font-size: 14px; color: var(--ink);
+    transition: transform 0.3s var(--ease);
     flex-shrink: 0;
   }
-  @media (max-width: 600px) { .article-card { min-width: 260px; scroll-snap-align: start; } }
-  .article-card:hover { transform: translateY(-3px); border-color: var(--ink); }
-  .article-card .ac-source {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 8px;
-  }
-  .article-card .ac-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 1.25;
-    color: var(--ink);
-    margin-bottom: 10px;
-  }
-  .article-card .ac-desc {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--ink-soft);
-    opacity: 0.7;
-    margin-bottom: 16px;
-    flex: 1;
-  }
-  .article-card .ac-cta {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    text-decoration: none;
-    border-bottom: 1px solid;
-    padding-bottom: 1px;
-    display: inline;
-    align-self: flex-start;
-    transition: opacity 0.2s;
-  }
-  .article-card .ac-cta:hover { opacity: 0.7; }
+  .theme-col.expanded .theme-col-chevron { transform: rotate(180deg); }
+  .theme-col-list { display: none; }
+  .theme-col.expanded .theme-col-list { display: flex; }
+  .theme-col-desc, .theme-col-count { display: none; }
+  .theme-col.expanded .theme-col-desc,
+  .theme-col.expanded .theme-col-count { display: block; }
+}
 
-  /* ─── SECTION 3: SCROLL GATE ─────────────────────────────── */
-  .gate-blur {
-    position: relative;
-    margin-top: -120px;
-    padding-top: 120px;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(250,243,227,0.7) 20%,
-      rgba(250,243,227,0.96) 40%
-    );
-    z-index: 50;
-    padding-bottom: 80px;
-    transition: opacity 0.8s ease;
-  }
+/* ─── SECTION 3: GATE BAR ─────────────────────────────── */
+.gate-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--ink);
+  border-top: 2px solid var(--mustard);
+  padding: 14px var(--gut);
+  display: flex; align-items: center;
+  gap: 16px; z-index: 250;
+  transform: translateY(100%);
+  transition: transform 0.4s var(--ease);
+  flex-wrap: wrap;
+}
+.gate-bar.visible { transform: translateY(0); }
+.gate-bar.hidden { display: none; }
 
-  .gate-card {
-    background: var(--ink);
-    border-radius: 8px;
-    padding: 48px 40px;
-    max-width: 480px;
-    margin: 0 auto;
-    text-align: center;
-    box-shadow: 0 24px 80px rgba(26,22,18,0.25);
-  }
-  @media (max-width: 600px) { .gate-card { padding: 36px 24px; margin: 0 var(--gut); } }
+.gate-bar-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px; color: var(--cream); flex: 1;
+  min-width: 180px;
+}
+.gate-bar-text strong {
+  color: var(--mustard); font-weight: 500;
+}
+.gate-bar-input {
+  height: 44px; width: 240px;
+  background: rgba(250,243,227,0.08);
+  border: 1.5px solid rgba(250,243,227,0.2);
+  border-radius: 4px; outline: none;
+  color: var(--cream);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px; padding: 0 14px;
+  transition: border-color 0.2s;
+  flex-shrink: 0;
+}
+.gate-bar-input::placeholder { color: rgba(250,243,227,0.35); }
+.gate-bar-input:focus { border-color: var(--mustard); }
+.gate-bar-btn {
+  height: 44px; padding: 0 20px;
+  background: var(--mustard); border: none;
+  border-radius: 4px; cursor: none;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--ink);
+  font-weight: 500;
+  transition: background 0.25s var(--ease);
+  flex-shrink: 0; white-space: nowrap;
+}
+.gate-bar-btn:hover { background: var(--cream); }
 
-  .gate-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--mustard);
-    margin-bottom: 16px;
-  }
-  .gate-headline {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: 28px;
-    line-height: 1.1;
-    color: var(--cream);
-    margin-bottom: 12px;
-  }
-  .gate-subhead {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 15px;
-    color: var(--cream);
-    opacity: 0.6;
-    margin-bottom: 28px;
-    line-height: 1.55;
-  }
-  .gate-input {
-    width: 100%;
-    height: 52px;
-    background: rgba(250,243,227,0.08);
-    border: 1.5px solid rgba(250,243,227,0.2);
-    border-radius: 4px;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 15px;
-    color: var(--cream);
-    padding: 0 16px;
-    outline: none;
-    transition: border-color 0.2s var(--ease);
-  }
-  .gate-input::placeholder { color: rgba(250,243,227,0.35); }
-  .gate-input:focus { border-color: var(--mustard); }
-  .gate-btn {
-    width: 100%;
-    margin-top: 12px;
-    height: 52px;
-    background: var(--mustard);
-    border: none;
-    border-radius: 4px;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--ink);
-    cursor: none;
-    transition: background 0.25s var(--ease);
-    font-weight: 500;
-  }
-  .gate-btn:hover { background: var(--cream); }
+@media (max-width: 600px) {
+  .gate-bar { gap: 10px; padding: 12px 5vw; }
+  .gate-bar-input { width: 100%; flex: 1 1 100%; }
+  .gate-bar-btn { flex: 1 1 100%; }
+}
 
-  .gate-success {
-    display: none;
-    text-align: center;
-    padding: 20px 0;
-  }
-  .gate-success .gs-headline {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 24px;
-    color: var(--cream);
-    margin-bottom: 8px;
-  }
-  .gate-success .gs-sub {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 15px;
-    color: var(--cream);
-    opacity: 0.6;
-  }
+/* Toast */
+.toast {
+  position: fixed; top: 90px; right: 24px;
+  background: var(--mustard); color: var(--ink);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 10px 16px; border-radius: 4px;
+  z-index: 9000; opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  pointer-events: none; max-width: 320px;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
 
-  /* ─── GATED CONTENT ─────────────────────────────── */
-  .gated-content {
-    filter: blur(6px);
-    pointer-events: none;
-    user-select: none;
-    transition: filter 0.8s ease;
-  }
-  .gated-content.unlocked {
-    filter: none;
-    pointer-events: auto;
-    user-select: auto;
-  }
+/* ─── SECTION 4: INDEX ─────────────────────────────── */
+.index-section {
+  background: var(--ink);
+  padding: 80px var(--gut) 60px;
+}
 
-  /* ─── SECTION 4: THE INDEX ─────────────────────────────── */
-  .index-section {
-    background: var(--ink);
-    padding: 80px var(--gut);
-  }
+.index-header { margin-bottom: 40px; }
+.index-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--mustard);
+  margin-bottom: 12px;
+}
+.index-title {
+  font-family: 'Fraunces', serif; font-weight: 900;
+  font-size: clamp(40px, 6vw, 64px);
+  letter-spacing: -0.03em; line-height: 1;
+  color: var(--cream);
+}
 
-  .index-header { margin-bottom: 48px; }
-  .index-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--mustard);
-    margin-bottom: 12px;
-  }
-  .index-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: clamp(40px, 6vw, 64px);
-    letter-spacing: -0.03em;
-    line-height: 1;
-    color: var(--cream);
-  }
+/* Filter pills */
+.index-filters {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.filter-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 6px 14px; border-radius: 999px;
+  border: 1px solid rgba(250,243,227,0.2);
+  background: transparent;
+  color: rgba(250,243,227,0.5);
+  cursor: none; transition: all 0.2s var(--ease);
+}
+.filter-btn:hover { color: var(--cream); border-color: rgba(250,243,227,0.5); }
+.filter-btn.active {
+  color: var(--ink); border-color: transparent;
+}
+.filter-btn[data-filter="all"].active { background: var(--cream); }
+.filter-btn[data-filter="taste"].active { background: var(--c-taste); }
+.filter-btn[data-filter="autodidact"].active { background: var(--c-auto); }
+.filter-btn[data-filter="sidequests"].active { background: var(--c-side); color: var(--cream); }
 
-  .index-list { list-style: none; max-width: var(--max); }
-  .index-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 14px 0;
-    border-bottom: 1px solid rgba(250,243,227,0.08);
-    text-decoration: none;
-    color: var(--cream);
-    position: relative;
-    gap: 12px;
-    cursor: none;
-  }
-  .index-item::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--mustard);
-    transition: width 0.35s var(--ease);
-  }
-  .index-item:hover::after { width: 100%; }
-  .index-item-left {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    flex: 1;
-    min-width: 0;
-  }
-  .index-num {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--cream);
-    opacity: 0.25;
-    width: 32px;
-    flex-shrink: 0;
-  }
-  .index-item-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 15px;
-    color: var(--cream);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: color 0.2s;
-  }
-  .index-item:hover .index-item-title { color: var(--mustard); }
-  .index-item-right {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    flex-shrink: 0;
-  }
-  .index-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    opacity: 0.8;
-  }
-  .index-source {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    color: var(--cream);
-    opacity: 0.35;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 140px;
-  }
-  @media (max-width: 600px) { .index-item-right { display: none; } }
+/* Index list */
+.index-list { list-style: none; max-width: var(--max); }
+.index-item-wrap { border-bottom: 1px solid rgba(250,243,227,0.08); }
+.index-item-wrap.hidden { display: none; }
 
-  /* ─── SECTION 5: FOOTER CTA ─────────────────────────────── */
-  .archives-footer-cta {
-    background: var(--ink);
-    padding: 48px var(--gut) 80px;
-    border-top: 1px solid rgba(250,243,227,0.08);
-    text-align: center;
-  }
-  .afc-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--cream);
-    opacity: 0.35;
-  }
-  .afc-note {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 20px;
-    color: var(--cream);
-    opacity: 0.5;
-    margin-top: 8px;
-  }
-  .afc-link {
-    display: inline-block;
-    margin-top: 20px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--mustard);
-    text-decoration: none;
-    transition: opacity 0.2s;
-    cursor: none;
-  }
-  .afc-link:hover { opacity: 0.7; }
+.index-item {
+  display: flex; align-items: baseline;
+  gap: 0; padding: 13px 0;
+  text-decoration: none; color: var(--cream);
+  position: relative; cursor: none;
+  border-left: 2px solid transparent;
+  padding-left: 12px;
+  transition: border-color 0.2s, padding-left 0.2s;
+}
 
-  /* ─── FOOTER ─────────────────────────────── */
-  footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2rem; }
-  .footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-  @media (max-width: 700px) { .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; } }
-  .footer-brand-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.2rem; line-height: 1; letter-spacing: -0.04em; margin-bottom: 0.8rem; }
-  .footer-brand-title em { font-style: italic; font-weight: 400; color: var(--mustard); }
-  .footer-brand p { color: var(--bone); opacity: 0.7; font-size: 0.92rem; max-width: 30ch; }
-  .footer-col h4 { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mustard); margin-bottom: 1rem; }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-  .footer-col a { color: var(--bone); text-decoration: none; font-size: 0.9rem; opacity: 0.75; transition: color .2s, opacity .2s; cursor: none; }
-  .footer-col a:hover { color: var(--mustard); opacity: 1; }
-  .footer-bottom { border-top: 1px solid rgba(241,231,206,0.15); padding-top: 1.4rem; display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone); opacity: 0.5; flex-wrap: wrap; gap: 0.5rem; }
+.index-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--cream);
+  opacity: 0.3; width: 40px; flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+.index-item-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px; color: var(--cream); flex: 1;
+  white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s;
+}
+.index-item-right {
+  display: flex; align-items: baseline;
+  gap: 14px; flex-shrink: 0;
+  padding-left: 12px;
+}
+.index-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.1em; opacity: 0.8;
+}
+.index-source {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; color: var(--cream);
+  opacity: 0.35; max-width: 130px;
+  white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis;
+}
+.index-arrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px; opacity: 0;
+  transition: opacity 0.2s; flex-shrink: 0;
+}
 
-  /* ─── REDUCED MOTION ─────────────────────────────── */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-    html { scroll-behavior: auto; }
-    .orbit-stage { display: none; }
-  }
+/* Index hover states — set via JS on each item */
+.index-item:hover .index-num { opacity: 0.6; }
+.index-item:hover .index-item-title { color: var(--mustard); }
+.index-item:hover .index-arrow { opacity: 1; }
+
+@media (max-width: 600px) { .index-item-right { display: none; } .index-item { padding-left: 8px; } }
+
+/* ─── FOOTER CTA ─────────────────────────────── */
+.archives-cta {
+  background: var(--ink);
+  padding: 40px var(--gut) 72px;
+  border-top: 1px solid rgba(250,243,227,0.08);
+  text-align: center;
+}
+.archives-cta-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--cream); opacity: 0.35;
+}
+.archives-cta-note {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-size: 19px;
+  color: var(--cream); opacity: 0.5; margin-top: 8px;
+}
+.archives-cta-link {
+  display: inline-block; margin-top: 18px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--mustard);
+  text-decoration: none; cursor: none;
+  transition: opacity 0.2s;
+}
+.archives-cta-link:hover { opacity: 0.7; }
+
+/* ─── FOOTER ─────────────────────────────── */
+footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2rem; }
+.footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+@media (max-width: 700px) { .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+.footer-brand-title { font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.2rem; line-height: 1; letter-spacing: -0.04em; margin-bottom: 0.8rem; }
+.footer-brand-title em { font-style: italic; font-weight: 400; color: var(--mustard); }
+.footer-brand p { color: var(--bone); opacity: 0.7; font-size: 0.92rem; max-width: 30ch; }
+.footer-col h4 { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mustard); margin-bottom: 1rem; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-col a { color: var(--bone); text-decoration: none; font-size: 0.9rem; opacity: 0.75; transition: color .2s, opacity .2s; cursor: none; }
+.footer-col a:hover { color: var(--mustard); opacity: 1; }
+.footer-bottom { border-top: 1px solid rgba(241,231,206,0.15); padding-top: 1.4rem; display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone); opacity: 0.5; flex-wrap: wrap; gap: 0.5rem; }
+
+/* ─── REDUCED MOTION ─────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  html { scroll-behavior: auto; }
+  .orbit-stage { display: none; }
+}
 </style>
 </head>
 <body>
@@ -697,12 +653,11 @@
 <!-- ─── SECTION 1: ORBITAL HERO ─────────────────────────────── -->
 <section class="hero" aria-label="Archives hero">
   <div class="orbit-stage" id="orbitStage" aria-hidden="true"></div>
-
   <div class="hero-center">
     <p class="hero-eyebrow">Pocket Notes · Curated Reading</p>
     <h1 class="hero-title">Archives</h1>
-    <p class="hero-subhead">The internet's best writing on taste, learning, and building your own path. Curated by Pocket Notes.</p>
-    <div class="hero-rule"></div>
+    <p class="hero-subhead">The internet's best writing on taste, learning, and building your own path.</p>
+    <div class="hero-divider"></div>
     <p class="hero-scroll-label">Scroll to Explore</p>
     <div class="hero-chevron">
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -712,149 +667,206 @@
   </div>
 </section>
 
-<!-- ─── SECTION 2: THEME COLLECTIONS ─────────────────────────────── -->
+<!-- ─── SECTION 2: COLLECTIONS ─────────────────────────────── -->
 <section class="collections" id="collections">
-
-  <!-- Theme 1: Taste -->
-  <div class="theme-section">
-    <div class="theme-header">
-      <div class="theme-header-left">
-        <p class="theme-eyebrow" style="color:#F5C13D">— Collection 01</p>
-        <h2 class="theme-name">How to Acquire a Taste</h2>
-        <p class="theme-descriptor">On developing discernment, aesthetic judgment, and the slow work of knowing what you love.</p>
-      </div>
-      <p class="theme-count" style="color:#F5C13D">10 essays</p>
-    </div>
-
-    <div class="theme-cards">
-      <a class="article-card" href="https://paulgraham.com/taste.html" target="_blank" rel="noopener">
-        <p class="ac-source" style="color:#F5C13D">Paul Graham</p>
-        <p class="ac-title">Taste for Makers</p>
-        <p class="ac-desc">Taste is not a gift. It is a skill. Graham argues that the principles of beauty in mathematics, design, and writing are eerily similar — and learnable.</p>
-        <span class="ac-cta" style="color:#F5C13D;border-bottom-color:#F5C13D">Read Essay →</span>
-      </a>
-      <a class="article-card" href="https://paulgraham.com/goodtaste.html" target="_blank" rel="noopener">
-        <p class="ac-source" style="color:#F5C13D">Paul Graham</p>
-        <p class="ac-title">Is There Such a Thing as Good Taste?</p>
-        <p class="ac-desc">The follow-up to Taste for Makers. More personal, more urgent. The argument that aesthetic standards exist even in subjective fields.</p>
-        <span class="ac-cta" style="color:#F5C13D;border-bottom-color:#F5C13D">Read Essay →</span>
-      </a>
-      <a class="article-card" href="https://medium.com/the-year-of-the-looking-glass/on-taste-part-3-d7d9f069f0b2" target="_blank" rel="noopener">
-        <p class="ac-source" style="color:#F5C13D">Julie Zhuo · Medium</p>
-        <p class="ac-title">On Taste, Part 3: How to Improve Your Taste If It Sucks</p>
-        <p class="ac-desc">Six practical steps. No mysticism. Former VP of Design at Facebook on how taste is developed like any other skill.</p>
-        <span class="ac-cta" style="color:#F5C13D;border-bottom-color:#F5C13D">Read Essay →</span>
-      </a>
-    </div>
+  <div class="collections-intro">
+    <p class="collections-intro-eyebrow">Three curated collections</p>
+    <h2 class="collections-intro-title">The Reading List.</h2>
+    <p class="collections-intro-sub">Thirty essays on three ideas worth living with. Free to browse. Subscribe to unlock all of them.</p>
   </div>
 
-  <!-- Gate blur wall starts here -->
-  <div class="gate-blur" id="gateBlur">
-    <div class="gate-card" id="gateCard">
-      <p class="gate-eyebrow">— 27 More Essays Inside</p>
-      <h3 class="gate-headline">The rest of the Archive<br>is one email away.</h3>
-      <p class="gate-subhead">Two more collections. Updated when we find something worth adding. No spam. Unsubscribe anytime.</p>
+  <div class="theme-grid" id="themeGrid">
 
-      <div id="gateForm">
-        <input class="gate-input" type="email" id="gateEmail" placeholder="your@email.com" autocomplete="email"/>
-        <button class="gate-btn" id="gateBtn" type="button">Unlock the Archive →</button>
+    <!-- Column 1: Taste -->
+    <div class="theme-col" id="colTaste">
+      <div class="theme-col-head" style="background:#F5C13D" id="headTaste">
+        <div class="theme-col-head-left">
+          <p class="theme-col-num">01</p>
+          <h3 class="theme-col-name">How to Acquire<br>a Taste</h3>
+          <p class="theme-col-desc">On developing discernment, aesthetic judgment, and the slow work of knowing what you love.</p>
+          <span class="theme-col-count">10 Essays</span>
+        </div>
+        <span class="theme-col-chevron theme-col-toggle" aria-hidden="true">↓</span>
       </div>
-
-      <div class="gate-success" id="gateSuccess">
-        <p class="gs-headline">You're in.</p>
-        <p class="gs-sub">Scroll down to read.</p>
+      <div class="theme-col-list" id="listTaste">
+        <a class="article-row" href="https://paulgraham.com/taste.html" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#B8900A">Paul Graham</span>
+          <span class="row-title">Taste for Makers</span>
+        </a>
+        <a class="article-row" href="https://paulgraham.com/goodtaste.html" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#B8900A">Paul Graham</span>
+          <span class="row-title">Is There Such a Thing as Good Taste?</span>
+        </a>
+        <a class="article-row" href="https://medium.com/the-year-of-the-looking-glass/on-taste-part-3-d7d9f069f0b2" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#B8900A">Julie Zhuo · Medium</span>
+          <span class="row-title">On Taste, Part 3: How to Improve Your Taste If It Sucks</span>
+        </a>
+        <a class="article-row locked" href="https://paulgraham.com/goodart.html" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#B8900A">Paul Graham</span>
+          <span class="row-title">How Art Can Be Good</span>
+        </a>
+        <a class="article-row locked" href="https://amycoded.substack.com/p/10-articles-about-taste-that-are" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#B8900A">Amy Coded · Substack</span>
+          <span class="row-title">10 Articles About Taste Worth Reading</span>
+        </a>
+        <a class="article-row locked" href="https://thechangingroom.substack.com/p/the-secret-formula-to-good-taste" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#B8900A">The Changing Room · Substack</span>
+          <span class="row-title">The Secret Formula to Good Taste</span>
+        </a>
+        <a class="article-row locked" href="https://meettheartdirector.substack.com/p/finding-my-own-aesthetic-after-years" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#B8900A">Meet the Art Director · Substack</span>
+          <span class="row-title">Finding My Own Aesthetic</span>
+        </a>
+        <a class="article-row locked" href="https://goodsurroundings.substack.com/p/the-art-of-personal-taste" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#B8900A">Good Surroundings · Substack</span>
+          <span class="row-title">The Art of Personal Taste</span>
+        </a>
+        <a class="article-row locked" href="https://mimyglow.substack.com/p/on-personal-style-taste-and-inspiration" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#B8900A">Mimy's Journal · Substack</span>
+          <span class="row-title">On Personal Style, Taste and Inspiration</span>
+        </a>
+        <a class="article-row locked" href="https://threeoutfits.substack.com/p/the-art-of-good-taste" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#B8900A">Three Outfits · Substack</span>
+          <span class="row-title">The Art of Good Taste — An Intro</span>
+        </a>
       </div>
     </div>
 
-    <!-- Gated themes (blurred) -->
-    <div class="gated-content" id="gatedContent" style="margin-top:60px; padding: 0 var(--gut);">
-
-      <!-- Theme 2: Autodidact -->
-      <div class="theme-section" style="border-top: 1px solid var(--paper); padding-top:60px;">
-        <div class="theme-header">
-          <div class="theme-header-left">
-            <p class="theme-eyebrow" style="color:#FF6B47">— Collection 02</p>
-            <h2 class="theme-name">How to Become an Autodidact</h2>
-            <p class="theme-descriptor">On self-directed learning, intellectual curiosity, and teaching yourself anything.</p>
-          </div>
-          <p class="theme-count" style="color:#FF6B47">10 essays</p>
+    <!-- Column 2: Autodidact -->
+    <div class="theme-col" id="colAuto">
+      <div class="theme-col-head" style="background:#FF6B47" id="headAuto">
+        <div class="theme-col-head-left">
+          <p class="theme-col-num">02</p>
+          <h3 class="theme-col-name">How to Become<br>an Autodidact</h3>
+          <p class="theme-col-desc">On self-directed learning, intellectual curiosity, and teaching yourself anything.</p>
+          <span class="theme-col-count">10 Essays</span>
         </div>
-        <div class="theme-cards">
-          <a class="article-card" href="https://samuelrinko.substack.com/p/how-i-self-study-new-subjects-the" target="_blank" rel="noopener">
-            <p class="ac-source" style="color:#FF6B47">Knowledge Lust · Substack</p>
-            <p class="ac-title">The Modern Autodidact System</p>
-            <p class="ac-desc">The most complete system for self-directed study online. Gain foundational knowledge in any subject in 3–12 months of daily effort.</p>
-            <span class="ac-cta" style="color:#FF6B47;border-bottom-color:#FF6B47">Read Essay →</span>
-          </a>
-          <a class="article-card" href="https://www.henrikkarlsson.xyz/p/childhoods" target="_blank" rel="noopener">
-            <p class="ac-source" style="color:#FF6B47">Henrik Karlsson · Substack</p>
-            <p class="ac-title">Childhoods of Exceptional People</p>
-            <p class="ac-desc">After reading hundreds of biographies, Karlsson finds a pattern. Most exceptional people had one thing in common — self-directed learning before age 12.</p>
-            <span class="ac-cta" style="color:#FF6B47;border-bottom-color:#FF6B47">Read Essay →</span>
-          </a>
-          <a class="article-card" href="https://www.henrikkarlsson.xyz/p/good-design" target="_blank" rel="noopener">
-            <p class="ac-source" style="color:#FF6B47">Henrik Karlsson · Substack</p>
-            <p class="ac-title">Everything That Turned Out Well Followed the Same Design Process</p>
-            <p class="ac-desc">The essay people print out and pin on their walls. On identifying the constraints that matter and letting them shape your life.</p>
-            <span class="ac-cta" style="color:#FF6B47;border-bottom-color:#FF6B47">Read Essay →</span>
-          </a>
-        </div>
+        <span class="theme-col-chevron theme-col-toggle" aria-hidden="true">↓</span>
       </div>
-
-      <!-- Theme 3: Side Quests -->
-      <div class="theme-section" style="border-top: 1px solid var(--paper); padding-top:60px;">
-        <div class="theme-header">
-          <div class="theme-header-left">
-            <p class="theme-eyebrow" style="color:#6E3582">— Collection 03</p>
-            <h2 class="theme-name">Build Your Own Side Quests</h2>
-            <p class="theme-descriptor">On passion projects, niche obsessions, and building a life off the default path.</p>
-          </div>
-          <p class="theme-count" style="color:#6E3582">10 essays</p>
-        </div>
-        <div class="theme-cards">
-          <a class="article-card" href="https://paulgraham.com/love.html" target="_blank" rel="noopener">
-            <p class="ac-source" style="color:#6E3582">Paul Graham</p>
-            <p class="ac-title">How to Do What You Love</p>
-            <p class="ac-desc">The essay that gives people permission. On prestige, pretending, and the difference between work you find interesting and work that is merely lucrative.</p>
-            <span class="ac-cta" style="color:#6E3582;border-bottom-color:#6E3582">Read Essay →</span>
-          </a>
-          <a class="article-card" href="https://kk.org/thetechnium/1000-true-fans" target="_blank" rel="noopener">
-            <p class="ac-source" style="color:#6E3582">Kevin Kelly</p>
-            <p class="ac-title">1000 True Fans</p>
-            <p class="ac-desc">The intellectual permission slip for niche obsession as a viable life. You do not need a million followers. You need a thousand people who care deeply.</p>
-            <span class="ac-cta" style="color:#6E3582;border-bottom-color:#6E3582">Read Essay →</span>
-          </a>
-          <a class="article-card" href="https://codelikeagirl.substack.com/p/the-magic-of-side-quests" target="_blank" rel="noopener">
-            <p class="ac-source" style="color:#6E3582">Code Like a Girl · Substack</p>
-            <p class="ac-title">The Magic of Side Quests</p>
-            <p class="ac-desc">Why calling them side quests instead of side projects changes how you approach them. On curiosity, pressure-free exploration, and the people who light up.</p>
-            <span class="ac-cta" style="color:#6E3582;border-bottom-color:#6E3582">Read Essay →</span>
-          </a>
-        </div>
+      <div class="theme-col-list" id="listAuto">
+        <a class="article-row" href="https://samuelrinko.substack.com/p/how-i-self-study-new-subjects-the" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#C04020">Knowledge Lust · Substack</span>
+          <span class="row-title">The Modern Autodidact System</span>
+        </a>
+        <a class="article-row" href="https://www.henrikkarlsson.xyz/p/childhoods" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
+          <span class="row-title">Childhoods of Exceptional People</span>
+        </a>
+        <a class="article-row" href="https://www.henrikkarlsson.xyz/p/good-design" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
+          <span class="row-title">Everything That Turned Out Well Followed the Same Design Process</span>
+        </a>
+        <a class="article-row locked" href="https://www.henrikkarlsson.xyz/p/search-query" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
+          <span class="row-title">A Blog Post is a Long Search Query</span>
+        </a>
+        <a class="article-row locked" href="https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#C04020">Knowledge Lust · Substack</span>
+          <span class="row-title">Autodidact Spotlight: The Notebook Czar</span>
+        </a>
+        <a class="article-row locked" href="https://samuelrinko.substack.com/p/12-books-to-become-a-better-learner" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#C04020">Knowledge Lust · Substack</span>
+          <span class="row-title">12 Books to Become a Better Learner</span>
+        </a>
+        <a class="article-row locked" href="https://samuelrinko.substack.com/p/my-self-education-plan-for-fall-2025" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#C04020">Knowledge Lust · Substack</span>
+          <span class="row-title">My Self-Education Plan for 2025</span>
+        </a>
+        <a class="article-row locked" href="https://substack.com/home/post/p-160219815" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#C04020">Substack</span>
+          <span class="row-title">Why School Is Losing</span>
+        </a>
+        <a class="article-row locked" href="https://www.henrikkarlsson.xyz/p/how-i-write" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
+          <span class="row-title">How I Write Essays</span>
+        </a>
+        <a class="article-row locked" href="https://www.henrikkarlsson.xyz/p/diaries" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
+          <span class="row-title">When I Accept Myself Just As I Am, I Change</span>
+        </a>
       </div>
+    </div>
 
-    </div><!-- /gated-content -->
-  </div><!-- /gate-blur -->
+    <!-- Column 3: Side Quests -->
+    <div class="theme-col" id="colSide">
+      <div class="theme-col-head" style="background:#6E3582" id="headSide">
+        <div class="theme-col-head-left">
+          <p class="theme-col-num" style="color:rgba(250,243,227,0.5)">03</p>
+          <h3 class="theme-col-name" style="color:#FAF3E3">Build Your Own<br>Side Quests</h3>
+          <p class="theme-col-desc" style="color:rgba(250,243,227,0.6)">On passion projects, niche obsessions, and building a life off the default path.</p>
+          <span class="theme-col-count" style="background:rgba(250,243,227,0.15);color:#FAF3E3">10 Essays</span>
+        </div>
+        <span class="theme-col-chevron theme-col-toggle" style="color:#FAF3E3" aria-hidden="true">↓</span>
+      </div>
+      <div class="theme-col-list" id="listSide">
+        <a class="article-row" href="https://paulgraham.com/love.html" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#6E3582">Paul Graham</span>
+          <span class="row-title">How to Do What You Love</span>
+        </a>
+        <a class="article-row" href="https://kk.org/thetechnium/1000-true-fans" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#6E3582">Kevin Kelly</span>
+          <span class="row-title">1000 True Fans</span>
+        </a>
+        <a class="article-row" href="https://codelikeagirl.substack.com/p/the-magic-of-side-quests" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#6E3582">Code Like a Girl · Substack</span>
+          <span class="row-title">The Magic of Side Quests</span>
+        </a>
+        <a class="article-row locked" href="https://paulgraham.com/identity.html" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#6E3582">Paul Graham</span>
+          <span class="row-title">Keep Your Identity Small</span>
+        </a>
+        <a class="article-row locked" href="https://pathlesspath.com" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#6E3582">Paul Millerd · Substack</span>
+          <span class="row-title">The Pathless Path</span>
+        </a>
+        <a class="article-row locked" href="https://www.henrikkarlsson.xyz/p/how-i-write" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#6E3582">Henrik Karlsson · Substack</span>
+          <span class="row-title">How I Write Essays</span>
+        </a>
+        <a class="article-row locked" href="https://www.henrikkarlsson.xyz/p/good-design" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#6E3582">Henrik Karlsson · Substack</span>
+          <span class="row-title">Everything That Turned Out Well Followed the Same Design Process</span>
+        </a>
+        <a class="article-row locked" href="https://paulgraham.com/taste.html" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#6E3582">Paul Graham</span>
+          <span class="row-title">Taste for Makers</span>
+        </a>
+        <a class="article-row locked" href="https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#6E3582">Knowledge Lust · Substack</span>
+          <span class="row-title">Autodidact Spotlight: The Notebook Czar</span>
+        </a>
+        <a class="article-row locked" href="https://amycoded.substack.com/p/10-articles-about-taste-that-are" target="_blank" rel="noopener noreferrer">
+          <span class="row-source" style="color:#6E3582">Amy Coded · Substack</span>
+          <span class="row-title">10 Articles About Taste Worth Reading</span>
+        </a>
+      </div>
+    </div>
 
+  </div><!-- /theme-grid -->
 </section>
 
-<!-- ─── SECTION 4: THE INDEX ─────────────────────────────── -->
+<!-- ─── SECTION 4: INDEX ─────────────────────────────── -->
 <section class="index-section" id="indexSection">
   <div class="index-header">
     <p class="index-eyebrow">— Complete Reading List</p>
     <h2 class="index-title">The Full Index.</h2>
   </div>
 
-  <ul class="index-list" id="indexList">
-    <!-- Populated by JS -->
-  </ul>
+  <div class="index-filters" role="group" aria-label="Filter by theme">
+    <button class="filter-btn active" data-filter="all">All 30</button>
+    <button class="filter-btn" data-filter="taste" style="--fc:#F5C13D">Taste</button>
+    <button class="filter-btn" data-filter="autodidact" style="--fc:#FF6B47">Autodidact</button>
+    <button class="filter-btn" data-filter="sidequests" style="--fc:#6E3582">Side Quests</button>
+  </div>
+
+  <ul class="index-list" id="indexList"></ul>
 </section>
 
-<!-- ─── SECTION 5: FOOTER CTA ─────────────────────────────── -->
-<div class="archives-footer-cta">
-  <p class="afc-label">Pocket Notes · Archives</p>
-  <p class="afc-note">Updated when we find something worth adding.</p>
-  <a href="/essays" class="afc-link">Read our own essays →</a>
+<!-- ─── FOOTER CTA ─────────────────────────────── -->
+<div class="archives-cta">
+  <p class="archives-cta-label">Pocket Notes · Archives</p>
+  <p class="archives-cta-note">Updated when we find something worth adding.</p>
+  <a href="/essays" class="archives-cta-link">Read our own essays →</a>
 </div>
 
 <!-- ─── FOOTER ─────────────────────────────────── -->
@@ -887,93 +899,133 @@
   </div>
 </footer>
 
+<!-- ─── GATE BAR ─────────────────────────────────── -->
+<div class="gate-bar" id="gateBar" role="complementary" aria-label="Unlock full archive">
+  <p class="gate-bar-text">Unlock <strong>7 more essays</strong> per collection →</p>
+  <input class="gate-bar-input" type="email" id="gateEmail" placeholder="your@email.com" autocomplete="email" aria-label="Email address"/>
+  <button class="gate-bar-btn" id="gateBtn" type="button">Unlock →</button>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite">Archive unlocked. All 30 essays now available.</div>
+
 <script>
-// ─── ALL CARD DATA ─────────────────────────────────────────────
+// ─── DATA ─────────────────────────────────────────────
 
-const innerCards = [
-  { theme:'taste',      color:'#F5C13D', label:'TASTE',      title:'Taste for Makers',                         source:'Paul Graham',              url:'https://paulgraham.com/taste.html' },
-  { theme:'taste',      color:'#F5C13D', label:'TASTE',      title:'On Taste, Part 3',                         source:'Julie Zhuo · Medium',       url:'https://medium.com/the-year-of-the-looking-glass/on-taste-part-3-d7d9f069f0b2' },
-  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT', title:'The Modern Autodidact System',             source:'Knowledge Lust · Substack', url:'https://samuelrinko.substack.com/p/how-i-self-study-new-subjects-the' },
-  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT', title:'Childhoods of Exceptional People',        source:'Henrik Karlsson',           url:'https://www.henrikkarlsson.xyz/p/childhoods' },
-  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS',title:'1000 True Fans',                          source:'Kevin Kelly',               url:'https://kk.org/thetechnium/1000-true-fans' },
-  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS',title:'How to Do What You Love',                 source:'Paul Graham',               url:'https://paulgraham.com/love.html' },
-  { theme:'taste',      color:'#F5C13D', label:'TASTE',      title:'The Art of Personal Taste',               source:'Good Surroundings · Substack',url:'https://goodsurroundings.substack.com/p/the-art-of-personal-taste' },
-  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT', title:'Everything That Turned Out Well',         source:'Henrik Karlsson',           url:'https://www.henrikkarlsson.xyz/p/good-design' },
+const INNER = [
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'Taste for Makers',                         source:'Paul Graham',              url:'https://paulgraham.com/taste.html' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'Is There Such a Thing as Good Taste?',     source:'Paul Graham',              url:'https://paulgraham.com/goodtaste.html' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'On Taste, Part 3',                         source:'Julie Zhuo · Medium',       url:'https://medium.com/the-year-of-the-looking-glass/on-taste-part-3-d7d9f069f0b2' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'The Modern Autodidact System',             source:'Knowledge Lust',            url:'https://samuelrinko.substack.com/p/how-i-self-study-new-subjects-the' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'Childhoods of Exceptional People',         source:'Henrik Karlsson',           url:'https://www.henrikkarlsson.xyz/p/childhoods' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'1000 True Fans',                           source:'Kevin Kelly',               url:'https://kk.org/thetechnium/1000-true-fans' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'How to Do What You Love',                  source:'Paul Graham',               url:'https://paulgraham.com/love.html' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'Everything That Turned Out Well',          source:'Henrik Karlsson',           url:'https://www.henrikkarlsson.xyz/p/good-design' },
 ];
 
-const outerCards = [
-  { theme:'taste',      color:'#F5C13D', label:'TASTE',      title:'Is There Such a Thing as Good Taste?',    source:'Paul Graham',              url:'https://paulgraham.com/goodtaste.html' },
-  { theme:'taste',      color:'#F5C13D', label:'TASTE',      title:'The Secret Formula to Good Taste',        source:'The Changing Room · Substack',url:'https://thechangingroom.substack.com/p/the-secret-formula-to-good-taste' },
-  { theme:'taste',      color:'#F5C13D', label:'TASTE',      title:'Finding My Own Aesthetic',                source:'Meet the Art Director',    url:'https://meettheartdirector.substack.com/p/finding-my-own-aesthetic-after-years' },
-  { theme:'taste',      color:'#F5C13D', label:'TASTE',      title:'On Personal Style, Taste and Inspiration',source:"Mimy's Journal · Substack",url:'https://mimyglow.substack.com/p/on-personal-style-taste-and-inspiration' },
-  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT', title:'A Blog Post is a Long Search Query',      source:'Henrik Karlsson',           url:'https://www.henrikkarlsson.xyz/p/search-query' },
-  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT', title:'Autodidact Spotlight: The Notebook Czar', source:'Knowledge Lust · Substack', url:'https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase' },
-  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT', title:'Why School Is Losing',                    source:'Substack',                  url:'https://substack.com/home/post/p-160219815' },
-  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS',title:'The Magic of Side Quests',               source:'Code Like a Girl',          url:'https://codelikeagirl.substack.com/p/the-magic-of-side-quests' },
-  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS',title:'The Pathless Path',                      source:'Paul Millerd · Substack',   url:'https://pathlesspath.com' },
-  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS',title:'Keep Your Identity Small',               source:'Paul Graham',               url:'https://paulgraham.com/identity.html' },
-  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS',title:'How I Write Essays',                     source:'Henrik Karlsson',           url:'https://www.henrikkarlsson.xyz/p/how-i-write' },
+const OUTER = [
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'The Secret Formula to Good Taste',         source:'The Changing Room',         url:'https://thechangingroom.substack.com/p/the-secret-formula-to-good-taste' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'Finding My Own Aesthetic',                  source:'Meet the Art Director',     url:'https://meettheartdirector.substack.com/p/finding-my-own-aesthetic-after-years' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'On Personal Style, Taste and Inspiration', source:"Mimy's Journal",            url:'https://mimyglow.substack.com/p/on-personal-style-taste-and-inspiration' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'The Art of Personal Taste',                 source:'Good Surroundings',         url:'https://goodsurroundings.substack.com/p/the-art-of-personal-taste' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'A Blog Post is a Long Search Query',        source:'Henrik Karlsson',           url:'https://www.henrikkarlsson.xyz/p/search-query' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'Autodidact Spotlight: The Notebook Czar',   source:'Knowledge Lust',            url:'https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'Why School Is Losing',                      source:'Substack',                  url:'https://substack.com/home/post/p-160219815' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'The Magic of Side Quests',                  source:'Code Like a Girl',          url:'https://codelikeagirl.substack.com/p/the-magic-of-side-quests' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'The Pathless Path',                         source:'Paul Millerd',              url:'https://pathlesspath.com' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'Keep Your Identity Small',                  source:'Paul Graham',               url:'https://paulgraham.com/identity.html' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'How I Write Essays',                        source:'Henrik Karlsson',           url:'https://www.henrikkarlsson.xyz/p/how-i-write' },
 ];
 
-// ─── FULL INDEX DATA ─────────────────────────────────────────────
-
-const allArticles = [
-  // Taste
-  { theme:'taste', color:'#F5C13D', title:'Taste for Makers',                             source:'Paul Graham',              url:'https://paulgraham.com/taste.html' },
-  { theme:'taste', color:'#F5C13D', title:'Is There Such a Thing as Good Taste?',          source:'Paul Graham',              url:'https://paulgraham.com/goodtaste.html' },
-  { theme:'taste', color:'#F5C13D', title:'On Taste, Part 3: How to Improve Your Taste',   source:'Julie Zhuo · Medium',      url:'https://medium.com/the-year-of-the-looking-glass/on-taste-part-3-d7d9f069f0b2' },
-  { theme:'taste', color:'#F5C13D', title:'How Art Can Be Good',                            source:'Paul Graham',              url:'https://paulgraham.com/goodart.html' },
-  { theme:'taste', color:'#F5C13D', title:'10 Articles About Taste Worth Reading',          source:'Amy Coded · Substack',     url:'https://amycoded.substack.com/p/10-articles-about-taste-that-are' },
-  { theme:'taste', color:'#F5C13D', title:'The Secret Formula to Good Taste',               source:'The Changing Room',        url:'https://thechangingroom.substack.com/p/the-secret-formula-to-good-taste' },
-  { theme:'taste', color:'#F5C13D', title:'Finding My Own Aesthetic',                       source:'Meet the Art Director',    url:'https://meettheartdirector.substack.com/p/finding-my-own-aesthetic-after-years' },
-  { theme:'taste', color:'#F5C13D', title:'The Art of Personal Taste',                      source:'Good Surroundings',        url:'https://goodsurroundings.substack.com/p/the-art-of-personal-taste' },
-  { theme:'taste', color:'#F5C13D', title:'On Personal Style, Taste and Inspiration',       source:"Mimy's Journal",           url:'https://mimyglow.substack.com/p/on-personal-style-taste-and-inspiration' },
-  { theme:'taste', color:'#F5C13D', title:'The Art of Good Taste — An Intro',               source:'Three Outfits · Substack', url:'https://threeoutfits.substack.com/p/the-art-of-good-taste' },
-  // Autodidact
-  { theme:'autodidact', color:'#FF6B47', title:'The Modern Autodidact System',               source:'Knowledge Lust',           url:'https://samuelrinko.substack.com/p/how-i-self-study-new-subjects-the' },
-  { theme:'autodidact', color:'#FF6B47', title:'Childhoods of Exceptional People',           source:'Henrik Karlsson',          url:'https://www.henrikkarlsson.xyz/p/childhoods' },
-  { theme:'autodidact', color:'#FF6B47', title:'Everything That Turned Out Well',            source:'Henrik Karlsson',          url:'https://www.henrikkarlsson.xyz/p/good-design' },
-  { theme:'autodidact', color:'#FF6B47', title:'A Blog Post is a Long Search Query',         source:'Henrik Karlsson',          url:'https://www.henrikkarlsson.xyz/p/search-query' },
-  { theme:'autodidact', color:'#FF6B47', title:'Autodidact Spotlight: The Notebook Czar',    source:'Knowledge Lust',           url:'https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase' },
-  { theme:'autodidact', color:'#FF6B47', title:'12 Books to Become a Better Learner',        source:'Knowledge Lust',           url:'https://samuelrinko.substack.com/p/12-books-to-become-a-better-learner' },
-  { theme:'autodidact', color:'#FF6B47', title:'My Self-Education Plan for 2025',            source:'Knowledge Lust',           url:'https://samuelrinko.substack.com/p/my-self-education-plan-for-fall-2025' },
-  { theme:'autodidact', color:'#FF6B47', title:'Why School Is Losing',                        source:'Substack',                 url:'https://substack.com/home/post/p-160219815' },
-  { theme:'autodidact', color:'#FF6B47', title:'How I Write Essays',                          source:'Henrik Karlsson',          url:'https://www.henrikkarlsson.xyz/p/how-i-write' },
-  { theme:'autodidact', color:'#FF6B47', title:'When I Accept Myself Just As I Am, I Change', source:'Henrik Karlsson',          url:'https://www.henrikkarlsson.xyz/p/diaries' },
-  // Side Quests
-  { theme:'sidequests', color:'#6E3582', title:'How to Do What You Love',                    source:'Paul Graham',              url:'https://paulgraham.com/love.html' },
-  { theme:'sidequests', color:'#6E3582', title:'1000 True Fans',                             source:'Kevin Kelly',              url:'https://kk.org/thetechnium/1000-true-fans' },
-  { theme:'sidequests', color:'#6E3582', title:'The Magic of Side Quests',                   source:'Code Like a Girl',         url:'https://codelikeagirl.substack.com/p/the-magic-of-side-quests' },
-  { theme:'sidequests', color:'#6E3582', title:'Keep Your Identity Small',                   source:'Paul Graham',              url:'https://paulgraham.com/identity.html' },
-  { theme:'sidequests', color:'#6E3582', title:'The Pathless Path',                          source:'Paul Millerd',             url:'https://pathlesspath.com' },
-  { theme:'sidequests', color:'#6E3582', title:'How I Write Essays',                          source:'Henrik Karlsson',          url:'https://www.henrikkarlsson.xyz/p/how-i-write' },
-  { theme:'sidequests', color:'#6E3582', title:'Everything That Turned Out Well',            source:'Henrik Karlsson',          url:'https://www.henrikkarlsson.xyz/p/good-design' },
-  { theme:'sidequests', color:'#6E3582', title:'Taste for Makers',                           source:'Paul Graham',              url:'https://paulgraham.com/taste.html' },
-  { theme:'sidequests', color:'#6E3582', title:'Autodidact Spotlight: The Notebook Czar',    source:'Knowledge Lust',           url:'https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase' },
-  { theme:'sidequests', color:'#6E3582', title:'10 Articles About Taste Worth Reading',      source:'Amy Coded · Substack',     url:'https://amycoded.substack.com/p/10-articles-about-taste-that-are' },
+const ALL_ARTICLES = [
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'Taste for Makers',                                                   source:'Paul Graham',              url:'https://paulgraham.com/taste.html' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'Is There Such a Thing as Good Taste?',                               source:'Paul Graham',              url:'https://paulgraham.com/goodtaste.html' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'On Taste, Part 3: How to Improve Your Taste If It Sucks',            source:'Julie Zhuo · Medium',      url:'https://medium.com/the-year-of-the-looking-glass/on-taste-part-3-d7d9f069f0b2' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'How Art Can Be Good',                                                source:'Paul Graham',              url:'https://paulgraham.com/goodart.html' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'10 Articles About Taste Worth Reading',                              source:'Amy Coded · Substack',     url:'https://amycoded.substack.com/p/10-articles-about-taste-that-are' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'The Secret Formula to Good Taste',                                   source:'The Changing Room',        url:'https://thechangingroom.substack.com/p/the-secret-formula-to-good-taste' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'Finding My Own Aesthetic',                                           source:'Meet the Art Director',    url:'https://meettheartdirector.substack.com/p/finding-my-own-aesthetic-after-years' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'The Art of Personal Taste',                                          source:'Good Surroundings',        url:'https://goodsurroundings.substack.com/p/the-art-of-personal-taste' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'On Personal Style, Taste and Inspiration',                          source:"Mimy's Journal",           url:'https://mimyglow.substack.com/p/on-personal-style-taste-and-inspiration' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'The Art of Good Taste — An Intro',                                   source:'Three Outfits · Substack', url:'https://threeoutfits.substack.com/p/the-art-of-good-taste' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'The Modern Autodidact System',                                       source:'Knowledge Lust',           url:'https://samuelrinko.substack.com/p/how-i-self-study-new-subjects-the' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'Childhoods of Exceptional People',                                   source:'Henrik Karlsson',          url:'https://www.henrikkarlsson.xyz/p/childhoods' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'Everything That Turned Out Well Followed the Same Design Process',   source:'Henrik Karlsson',          url:'https://www.henrikkarlsson.xyz/p/good-design' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'A Blog Post is a Long Search Query',                                 source:'Henrik Karlsson',          url:'https://www.henrikkarlsson.xyz/p/search-query' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'Autodidact Spotlight: The Notebook Czar',                            source:'Knowledge Lust',           url:'https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'12 Books to Become a Better Learner',                                source:'Knowledge Lust',           url:'https://samuelrinko.substack.com/p/12-books-to-become-a-better-learner' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'My Self-Education Plan for 2025',                                    source:'Knowledge Lust',           url:'https://samuelrinko.substack.com/p/my-self-education-plan-for-fall-2025' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'Why School Is Losing',                                               source:'Substack',                 url:'https://substack.com/home/post/p-160219815' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'How I Write Essays',                                                 source:'Henrik Karlsson',          url:'https://www.henrikkarlsson.xyz/p/how-i-write' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'When I Accept Myself Just As I Am, I Change',                       source:'Henrik Karlsson',          url:'https://www.henrikkarlsson.xyz/p/diaries' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'How to Do What You Love',                                            source:'Paul Graham',              url:'https://paulgraham.com/love.html' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'1000 True Fans',                                                     source:'Kevin Kelly',              url:'https://kk.org/thetechnium/1000-true-fans' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'The Magic of Side Quests',                                           source:'Code Like a Girl',         url:'https://codelikeagirl.substack.com/p/the-magic-of-side-quests' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'Keep Your Identity Small',                                            source:'Paul Graham',              url:'https://paulgraham.com/identity.html' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'The Pathless Path',                                                  source:'Paul Millerd',             url:'https://pathlesspath.com' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'How I Write Essays',                                                 source:'Henrik Karlsson',          url:'https://www.henrikkarlsson.xyz/p/how-i-write' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'Everything That Turned Out Well Followed the Same Design Process',   source:'Henrik Karlsson',          url:'https://www.henrikkarlsson.xyz/p/good-design' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'Taste for Makers',                                                   source:'Paul Graham',              url:'https://paulgraham.com/taste.html' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'Autodidact Spotlight: The Notebook Czar',                            source:'Knowledge Lust',           url:'https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'10 Articles About Taste Worth Reading',                              source:'Amy Coded · Substack',     url:'https://amycoded.substack.com/p/10-articles-about-taste-that-are' },
 ];
 
-// ─── BUILD INDEX LIST ─────────────────────────────────────────────
+// ─── BUILD INDEX ─────────────────────────────────────────────
 
-const indexList = document.getElementById('indexList');
-const themeLabels = { taste: 'TASTE', autodidact: 'AUTODIDACT', sidequests: 'SIDE QUESTS' };
+(function buildIndex() {
+  const list = document.getElementById('indexList');
+  const themeMap = { taste:'taste', autodidact:'autodidact', sidequests:'sidequests' };
 
-allArticles.forEach((a, i) => {
-  const li = document.createElement('li');
-  const num = String(i + 1).padStart(3, '0');
-  li.innerHTML = `
-    <a class="index-item" href="${a.url}" target="_blank" rel="noopener">
-      <div class="index-item-left">
-        <span class="index-num">${num}</span>
-        <span class="index-item-title">${a.title}</span>
-      </div>
-      <div class="index-item-right">
-        <span class="index-tag" style="color:${a.color}">${themeLabels[a.theme]}</span>
+  ALL_ARTICLES.forEach((a, i) => {
+    const num = String(i + 1).padStart(3, '0');
+    const wrap = document.createElement('li');
+    wrap.className = 'index-item-wrap';
+    wrap.dataset.theme = a.theme;
+
+    const link = document.createElement('a');
+    link.className = 'index-item';
+    link.href = a.url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.style.setProperty('--hover-color', a.color);
+
+    link.addEventListener('mouseenter', () => {
+      link.style.borderLeftColor = a.color;
+    });
+    link.addEventListener('mouseleave', () => {
+      link.style.borderLeftColor = 'transparent';
+    });
+
+    link.innerHTML = `
+      <span class="index-num">${num}</span>
+      <span class="index-item-title">${a.title}</span>
+      <span class="index-item-right">
+        <span class="index-tag" style="color:${a.color}">${a.label}</span>
         <span class="index-source">${a.source}</span>
-      </div>
-    </a>`;
-  indexList.appendChild(li);
-});
+        <span class="index-arrow" style="color:${a.color}">↗</span>
+      </span>`;
+
+    wrap.appendChild(link);
+    list.appendChild(wrap);
+  });
+})();
+
+// ─── INDEX FILTERS ─────────────────────────────────────────────
+
+(function initFilters() {
+  const btns = document.querySelectorAll('.filter-btn');
+  const wraps = document.querySelectorAll('.index-item-wrap');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      wraps.forEach(w => {
+        w.classList.toggle('hidden', f !== 'all' && w.dataset.theme !== f);
+      });
+    });
+  });
+})();
 
 // ─── ORBITAL ANIMATION ─────────────────────────────────────────────
 
@@ -981,182 +1033,144 @@ allArticles.forEach((a, i) => {
   const stage = document.getElementById('orbitStage');
   const isMobile = () => window.innerWidth < 768;
 
-  function makeCard(data, w, h) {
+  function makeCard(d, w, h) {
     const el = document.createElement('div');
     el.className = 'orbit-card';
     el.style.width = w + 'px';
     el.style.height = h + 'px';
-    el.style.position = 'absolute';
 
     el.innerHTML = `
       <div class="card-tooltip">READ →</div>
-      <div class="card-band" style="background:${data.color}">
-        <span class="card-band-label">${data.label}</span>
+      <div class="card-band" style="background:${d.color}">
+        <span class="card-band-label">${d.label}</span>
       </div>
       <div class="card-body">
-        <p class="card-title">${data.title}</p>
-        <p class="card-source">${data.source}</p>
+        <p class="card-title">${d.title}</p>
+        <p class="card-source">${d.source}</p>
       </div>`;
 
-    el.addEventListener('click', () => window.open(data.url, '_blank', 'noopener'));
+    el.addEventListener('click', () => window.open(d.url, '_blank', 'noopener'));
     return el;
   }
 
-  // Build rings
-  const innerW = 110, innerH = 130;
-  const outerW = 90,  outerH = 110;
+  const IW = 112, IH = 132, OW = 90, OH = 110;
 
-  const innerEls = innerCards.map(d => makeCard(d, innerW, innerH));
-  const outerEls = outerCards.map(d => makeCard(d, outerW, outerH));
+  const innerEls = INNER.map(d => { const el = makeCard(d, IW, IH); el.classList.add('orbit-inner'); stage.appendChild(el); return el; });
+  const outerEls = OUTER.map(d => { const el = makeCard(d, OW, OH); el.classList.add('orbit-outer'); stage.appendChild(el); return el; });
 
-  innerEls.forEach(el => { el.classList.add('orbit-inner'); stage.appendChild(el); });
-  outerEls.forEach(el => { el.classList.add('orbit-outer'); stage.appendChild(el); });
-
-  // Pause state per card
   const pausedAngles = new Map();
+  const iCache = new Float64Array(INNER.length);
+  const oCache = new Float64Array(OUTER.length);
 
-  function attachPause(el, getRingAngle) {
-    el.addEventListener('mouseenter', () => {
-      pausedAngles.set(el, getRingAngle());
-    });
-    el.addEventListener('mouseleave', () => {
-      pausedAngles.delete(el);
-    });
+  innerEls.forEach((el, i) => {
+    el.addEventListener('mouseenter', () => pausedAngles.set(el, iCache[i]));
+    el.addEventListener('mouseleave', () => pausedAngles.delete(el));
+  });
+  outerEls.forEach((el, i) => {
+    el.addEventListener('mouseenter', () => pausedAngles.set(el, oCache[i]));
+    el.addEventListener('mouseleave', () => pausedAngles.delete(el));
+  });
+
+  const t0 = performance.now();
+  const DI = 50000, DO = 75000;
+
+  function angle(elapsed, dur, idx, total, cw) {
+    const base = ((elapsed % dur) / dur) * Math.PI * 2;
+    const off  = (idx / total) * Math.PI * 2;
+    return cw ? base + off : -(base - off);
   }
-
-  const startTime = performance.now();
-  const innerDuration = 50000;
-  const outerDuration = 75000;
-
-  function getAngle(elapsed, duration, index, total, clockwise) {
-    const base = ((elapsed % duration) / duration) * Math.PI * 2;
-    const offset = (index / total) * Math.PI * 2;
-    return clockwise ? (base + offset) : -(base - offset);
-  }
-
-  // Attach pause handlers (inner ring angles captured lazily per frame)
-  const innerAngleCache = new Array(innerCards.length).fill(0);
-  const outerAngleCache = new Array(outerCards.length).fill(0);
-
-  innerEls.forEach((el, i) => attachPause(el, () => innerAngleCache[i]));
-  outerEls.forEach((el, i) => attachPause(el, () => outerAngleCache[i]));
 
   function frame(now) {
-    const elapsed = now - startTime;
+    const el = now - t0;
     const cx = window.innerWidth / 2;
     const cy = window.innerHeight / 2;
-    const mobile = isMobile();
-
-    const irX = mobile ? window.innerWidth * 0.42 : window.innerWidth * 0.38;
-    const irY = mobile ? window.innerHeight * 0.22 : window.innerHeight * 0.28;
+    const mob = isMobile();
+    const irX = mob ? window.innerWidth * 0.42 : window.innerWidth * 0.38;
+    const irY = mob ? window.innerHeight * 0.22 : window.innerHeight * 0.28;
     const orX = window.innerWidth * 0.52;
     const orY = window.innerHeight * 0.38;
+    const iw  = mob ? 85 : IW;
+    const ih  = mob ? 100 : IH;
 
-    const iw = mobile ? 85 : innerW;
-    const ih = mobile ? 100 : innerH;
-
-    innerEls.forEach((el, i) => {
-      let angle;
-      if (pausedAngles.has(el)) {
-        angle = pausedAngles.get(el);
-      } else {
-        angle = getAngle(elapsed, innerDuration, i, innerEls.length, true);
-        innerAngleCache[i] = angle;
-      }
-
-      const sinVal = Math.sin(angle);
-      const scale   = 0.82 + 0.18 * ((sinVal + 1) / 2);
-      const opacity = 0.45 + 0.55 * ((sinVal + 1) / 2);
-      const zIndex  = Math.round(sinVal * 10 + 10);
-
-      const x = cx + irX * Math.cos(angle) - iw / 2;
-      const y = cy + irY * Math.sin(angle) - ih / 2;
-
-      el.style.left    = x + 'px';
-      el.style.top     = y + 'px';
-      el.style.opacity = opacity;
-      el.style.transform = `scale(${scale})`;
-      el.style.zIndex  = zIndex;
-      el.style.width   = iw + 'px';
-      el.style.height  = ih + 'px';
+    innerEls.forEach((card, i) => {
+      let a = pausedAngles.has(card) ? pausedAngles.get(card) : angle(el, DI, i, innerEls.length, true);
+      iCache[i] = a;
+      const sv = Math.sin(a);
+      const sc = 0.82 + 0.18 * ((sv + 1) / 2);
+      const op = 0.45 + 0.55 * ((sv + 1) / 2);
+      card.style.left    = (cx + irX * Math.cos(a) - iw / 2) + 'px';
+      card.style.top     = (cy + irY * sv - ih / 2) + 'px';
+      card.style.opacity = op;
+      card.style.transform = `scale(${sc})`;
+      card.style.zIndex  = Math.round(sv * 10 + 10);
+      card.style.width   = iw + 'px';
+      card.style.height  = ih + 'px';
     });
 
-    if (!mobile) {
-      outerEls.forEach((el, i) => {
-        let angle;
-        if (pausedAngles.has(el)) {
-          angle = pausedAngles.get(el);
-        } else {
-          angle = getAngle(elapsed, outerDuration, i, outerEls.length, false);
-          outerAngleCache[i] = angle;
-        }
-
-        const sinVal = Math.sin(angle);
-        const scale   = 0.82 + 0.18 * ((sinVal + 1) / 2);
-        const opacity = 0.45 + 0.55 * ((sinVal + 1) / 2);
-        const zIndex  = Math.round(sinVal * 10 + 10);
-
-        const x = cx + orX * Math.cos(angle) - outerW / 2;
-        const y = cy + orY * Math.sin(angle) - outerH / 2;
-
-        el.style.left    = x + 'px';
-        el.style.top     = y + 'px';
-        el.style.opacity = opacity;
-        el.style.transform = `scale(${scale})`;
-        el.style.zIndex  = zIndex;
+    if (!mob) {
+      outerEls.forEach((card, i) => {
+        let a = pausedAngles.has(card) ? pausedAngles.get(card) : angle(el, DO, i, outerEls.length, false);
+        oCache[i] = a;
+        const sv = Math.sin(a);
+        const sc = 0.82 + 0.18 * ((sv + 1) / 2);
+        const op = 0.45 + 0.55 * ((sv + 1) / 2);
+        card.style.left    = (cx + orX * Math.cos(a) - OW / 2) + 'px';
+        card.style.top     = (cy + orY * sv - OH / 2) + 'px';
+        card.style.opacity = op;
+        card.style.transform = `scale(${sc})`;
+        card.style.zIndex  = Math.round(sv * 10 + 10);
       });
     }
 
     requestAnimationFrame(frame);
   }
-
   requestAnimationFrame(frame);
 })();
 
-// ─── SCROLL GATE ─────────────────────────────────────────────
+// ─── GATE BAR ─────────────────────────────────────────────
 
 (function initGate() {
-  const gateBlur    = document.getElementById('gateBlur');
-  const gateForm    = document.getElementById('gateForm');
-  const gateSuccess = document.getElementById('gateSuccess');
-  const gatedContent= document.getElementById('gatedContent');
-  const gateBtn     = document.getElementById('gateBtn');
-  const gateEmail   = document.getElementById('gateEmail');
-  const indexSection= document.getElementById('indexSection');
+  const bar    = document.getElementById('gateBar');
+  const btn    = document.getElementById('gateBtn');
+  const input  = document.getElementById('gateEmail');
+  const toast  = document.getElementById('toast');
+  const locked = document.querySelectorAll('.article-row.locked');
 
-  // Hide index on load
-  indexSection.style.display = 'none';
+  // Show bar after scrolling 80% of hero height
+  let barVisible = false;
+  function checkScroll() {
+    const threshold = window.innerHeight * 0.8;
+    if (!barVisible && window.scrollY > threshold) {
+      bar.classList.add('visible');
+      barVisible = true;
+    }
+  }
+  window.addEventListener('scroll', checkScroll, { passive: true });
 
   function unlock() {
-    // Show success state
-    gateForm.style.display = 'none';
-    gateSuccess.style.display = 'block';
+    // Animate blur off all locked rows
+    locked.forEach(row => {
+      row.classList.add('unlocked-row');
+    });
 
-    // Reveal gated content
-    gatedContent.classList.add('unlocked');
+    // Hide bar
+    bar.classList.add('hidden');
 
-    // Fade out gate blur
-    setTimeout(() => {
-      gateBlur.style.opacity = '0';
-      setTimeout(() => {
-        gateBlur.remove();
-        // Show index section
-        indexSection.style.display = 'block';
-      }, 800);
-    }, 600);
+    // Toast
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3200);
   }
 
-  gateBtn.addEventListener('click', async () => {
-    const email = gateEmail.value.trim();
+  btn.addEventListener('click', async () => {
+    const email = input.value.trim();
     if (!email || !email.includes('@')) {
-      gateEmail.focus();
-      gateEmail.style.borderColor = '#FF6B47';
-      setTimeout(() => { gateEmail.style.borderColor = ''; }, 1500);
+      input.style.borderColor = '#FF6B47';
+      input.focus();
+      setTimeout(() => { input.style.borderColor = ''; }, 1500);
       return;
     }
-
-    gateBtn.textContent = 'UNLOCKING...';
-    gateBtn.disabled = true;
+    btn.textContent = 'UNLOCKING...';
+    btn.disabled = true;
 
     try {
       await fetch('/api/newsletter', {
@@ -1164,15 +1178,23 @@ allArticles.forEach((a, i) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
-    } catch (_) {
-      // proceed regardless — don't block on API failure
-    }
+    } catch (_) { /* proceed regardless */ }
 
     unlock();
   });
 
-  gateEmail.addEventListener('keydown', e => {
-    if (e.key === 'Enter') gateBtn.click();
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
+})();
+
+// ─── MOBILE ACCORDION ─────────────────────────────────────────────
+
+(function initAccordion() {
+  if (window.innerWidth > 768) return;
+  document.querySelectorAll('.theme-col-head').forEach(head => {
+    head.addEventListener('click', () => {
+      const col = head.closest('.theme-col');
+      col.classList.toggle('expanded');
+    });
   });
 })();
 
@@ -1215,6 +1237,20 @@ allArticles.forEach((a, i) => {
     });
   });
 })();
+
+// ─── ARTICLE ROW HOVER (theme underline) ─────────────────────────────────
+
+document.querySelectorAll('.article-row').forEach(row => {
+  const title = row.querySelector('.row-title');
+  const source = row.querySelector('.row-source');
+  const themeColor = getComputedStyle(source).color;
+  row.addEventListener('mouseenter', () => {
+    if (title) title.style.textDecorationColor = themeColor;
+  });
+  row.addEventListener('mouseleave', () => {
+    if (title) title.style.textDecorationColor = 'transparent';
+  });
+});
 </script>
 
 </body>
