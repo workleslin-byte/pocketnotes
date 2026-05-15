@@ -1202,6 +1202,7 @@ const OUTER = [
         row.style.opacity = '1';
         row.style.pointerEvents = 'auto';
         row.style.userSelect = 'auto';
+        if (row.dataset.href) row.setAttribute('href', row.dataset.href);
       }, i * 30);
     });
   }
@@ -1335,10 +1336,17 @@ const OUTER = [
   }
 
   document.querySelectorAll('.blurred-row').forEach(row => {
+    row.dataset.href = row.getAttribute('href') || '';
+    row.removeAttribute('href');
+    row.setAttribute('role', 'button');
+    row.setAttribute('tabindex', '0');
     row.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       openModal();
+    });
+    row.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(); }
     });
   });
 
