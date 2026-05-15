@@ -1,4 +1,4 @@
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -30,36 +30,20 @@ module.exports = async (req, res) => {
       'audience:', audienceId ? 'set' : 'MISSING');
 
     if (apiKey && audienceId) {
-      const https = require('https');
-      const payload = JSON.stringify({
-        email,
-        audience_id: audienceId,
-        unsubscribed: false,
+      const r = await fetch('https://api.resend.com/contacts', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          audience_id: audienceId,
+          unsubscribed: false,
+        }),
       });
-
-      await new Promise((resolve, reject) => {
-        const options = {
-          hostname: 'api.resend.com',
-          path: '/contacts',
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': 'application/json',
-            'Content-Length': Buffer.byteLength(payload),
-          },
-        };
-        const req2 = https.request(options, (r) => {
-          let data = '';
-          r.on('data', chunk => { data += chunk; });
-          r.on('end', () => {
-            console.log('Resend response:', r.statusCode, data);
-            resolve();
-          });
-        });
-        req2.on('error', reject);
-        req2.write(payload);
-        req2.end();
-      });
+      const data = await r.json();
+      console.log('Resend response:', r.status, JSON.stringify(data));
     }
 
     return res.status(200).json({ success: true });
@@ -67,4 +51,4 @@ module.exports = async (req, res) => {
     console.error('Newsletter error:', err.message);
     return res.status(500).json({ error: err.message });
   }
-};
+}
