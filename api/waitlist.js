@@ -95,6 +95,20 @@ export default async function handler(req, res) {
   if (!email || !EMAIL_RE.test(email.trim())) {
     return res.status(400).json({ error: 'Please enter a valid email address' });
   }
+
+  const BLOCKED_DOMAINS = [
+    'mailinator.com', 'guerrillamail.com', 'tempmail.com', 'throwaway.email',
+    'yopmail.com', 'sharklasers.com', 'guerrillamailblock.com', 'grr.la',
+    'guerrillamail.info', 'spam4.me', 'trashmail.com', 'trashmail.net',
+    'dispostable.com', 'maildrop.cc', 'fakeinbox.com', 'mailnull.com',
+    'spamgourmet.com', 'spamgourmet.net', 'boun.cr', 'spamfree24.org',
+    'discard.email', 'spamcero.com', 'objectmail.com', 'ownmail.net',
+  ];
+  const emailDomain = email.trim().split('@')[1].toLowerCase();
+  if (BLOCKED_DOMAINS.includes(emailDomain)) {
+    return res.status(400).json({ error: 'Please use a real email address' });
+  }
+
   if (!city || !CITY_RE.test(city.trim())) {
     return res.status(400).json({ error: 'Please enter a valid city name' });
   }

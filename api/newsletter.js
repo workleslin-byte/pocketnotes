@@ -26,6 +26,35 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Valid email required' });
     }
 
+    const BLOCKED_DOMAINS = [
+      'mailinator.com', 'guerrillamail.com', 'tempmail.com', 'throwaway.email',
+      'yopmail.com', 'sharklasers.com', 'guerrillamailblock.com', 'grr.la',
+      'guerrillamail.info', 'spam4.me', 'trashmail.com', 'trashmail.net',
+      'dispostable.com', 'maildrop.cc', 'fakeinbox.com', 'mailnull.com',
+      'spamgourmet.com', 'spamgourmet.net', 'boun.cr', 'spamfree24.org',
+      'discard.email', 'spamcero.com', 'objectmail.com', 'ownmail.net',
+    ];
+
+    const domain = email.split('@')[1].toLowerCase();
+
+    if (BLOCKED_DOMAINS.includes(domain)) {
+      return res.status(400).json({ error: 'Please use a real email address' });
+    }
+
+    const tld = domain.split('.').pop();
+    if (!tld || tld.length < 2) {
+      return res.status(400).json({ error: 'Please enter a valid email address' });
+    }
+
+    if (
+      email.includes('test@test') ||
+      email.includes('fake@') ||
+      email.includes('asdf') ||
+      /^[a-z]{1,2}@/.test(email)
+    ) {
+      return res.status(400).json({ error: 'Please use a real email address' });
+    }
+
     const apiKey = process.env.RESEND_API_KEY;
     const audienceId = process.env.RESEND_NEWSLETTER_AUDIENCE_ID;
 
