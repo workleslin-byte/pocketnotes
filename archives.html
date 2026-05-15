@@ -351,7 +351,7 @@ nav {
   border-right: 1px solid var(--paper);
   text-decoration: none; color: inherit; cursor: none;
   transition: background 0.15s ease;
-  position: relative; min-height: 220px;
+  position: relative; min-height: 120px; max-height: 200px;
 }
 .article-featured::before {
   content: ''; position: absolute; left: 0; top: 0; bottom: 0;
@@ -359,9 +359,9 @@ nav {
 }
 .article-featured:hover::before { background: var(--feat-color, var(--mustard)); }
 .article-featured:hover { background: var(--bone); }
-.article-featured-img { width: 42%; flex-shrink: 0; overflow: hidden; }
+.article-featured-img { width: 42%; flex-shrink: 0; overflow: hidden; max-height: 200px; }
 .article-featured-img img {
-  width: 100%; height: 100%; object-fit: cover; object-position: center top;
+  width: 100%; height: 100%; max-height: 200px; object-fit: cover; object-position: center center;
   display: block; transition: transform 0.4s var(--ease);
 }
 .article-featured:hover .article-featured-img img { transform: scale(1.03); }
@@ -425,14 +425,32 @@ nav {
 /* blur-gate-cta */
 .blur-gate-cta {
   text-align: center;
-  padding: 12px 16px;
+  padding: 12px 16px 16px;
   background: linear-gradient(to bottom, rgba(250,243,227,0.0) 0%, rgba(250,243,227,0.85) 60%, rgba(250,243,227,1) 100%);
-  position: relative; z-index: 2; margin-top: -40px; pointer-events: none;
+  position: relative; z-index: 2; margin-top: -40px;
 }
 .blur-gate-text {
   font-family: 'DM Mono', monospace; font-size: 9px;
   letter-spacing: 0.12em; text-transform: uppercase; color: #1A1612; opacity: 0.6;
 }
+.inline-gate-form {
+  display: flex; gap: 6px; margin-top: 10px; justify-content: center;
+}
+.inline-gate-input {
+  height: 36px; padding: 0 12px;
+  font-family: 'Space Grotesk', sans-serif; font-size: 13px;
+  border: 1.5px solid #1A1612; border-radius: 4px;
+  background: #FAF3E3; color: #1A1612; width: 180px; outline: none;
+}
+.inline-gate-input:focus { border-color: #F5C13D; }
+.inline-gate-btn {
+  height: 36px; padding: 0 14px;
+  background: #1A1612; color: #FAF3E3;
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border: none; border-radius: 4px; cursor: pointer; white-space: nowrap;
+}
+.inline-gate-btn:hover { background: #F5C13D; color: #1A1612; }
 
 @media (max-width: 860px) {
   .theme-article-grid { grid-template-columns: 1fr; }
@@ -695,7 +713,13 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
             <span class="row-source" style="color:#B8900A">Paul Graham</span>
             <span class="row-title">Is There Such a Thing as Good Taste?</span>
           </a>
-          <div class="blur-gate-cta"><span class="blur-gate-text">Sign up to read all 10 essays</span></div>
+          <div class="blur-gate-cta">
+            <span class="blur-gate-text">Sign up to read all 10 essays</span>
+            <div class="inline-gate-form">
+              <input type="email" class="inline-gate-input" placeholder="your@email.com" />
+              <button class="inline-gate-btn">Unlock →</button>
+            </div>
+          </div>
           <a class="article-row blurred-row" style="--row-accent:#B8900A" href="https://medium.com/the-year-of-the-looking-glass/on-taste-part-3-d7d9f069f0b2" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#B8900A">Julie Zhuo · Medium</span>
             <span class="row-title">On Taste, Part 3: How to Improve Your Taste If It Sucks</span>
@@ -761,7 +785,13 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
             <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
             <span class="row-title">Childhoods of Exceptional People</span>
           </a>
-          <div class="blur-gate-cta"><span class="blur-gate-text">Sign up to read all 10 essays</span></div>
+          <div class="blur-gate-cta">
+            <span class="blur-gate-text">Sign up to read all 10 essays</span>
+            <div class="inline-gate-form">
+              <input type="email" class="inline-gate-input" placeholder="your@email.com" />
+              <button class="inline-gate-btn">Unlock →</button>
+            </div>
+          </div>
           <a class="article-row blurred-row" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/good-design" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
             <span class="row-title">Everything That Turned Out Well Followed the Same Design Process</span>
@@ -827,7 +857,13 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
             <span class="row-source" style="color:#6E3582">Kevin Kelly</span>
             <span class="row-title">1000 True Fans</span>
           </a>
-          <div class="blur-gate-cta"><span class="blur-gate-text">Sign up to read all 10 essays</span></div>
+          <div class="blur-gate-cta">
+            <span class="blur-gate-text">Sign up to read all 10 essays</span>
+            <div class="inline-gate-form">
+              <input type="email" class="inline-gate-input" placeholder="your@email.com" />
+              <button class="inline-gate-btn">Unlock →</button>
+            </div>
+          </div>
           <a class="article-row blurred-row" style="--row-accent:#6E3582" href="https://codelikeagirl.substack.com/p/the-magic-of-side-quests" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#6E3582">Code Like a Girl · Substack</span>
             <span class="row-title">The Magic of Side Quests</span>
@@ -1170,6 +1206,33 @@ const OUTER = [
     unlock();
   });
   input.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
+
+  /* Inline gate forms (one per column) */
+  const EMAIL_RE_INLINE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  document.querySelectorAll('.inline-gate-btn').forEach(inlineBtn => {
+    inlineBtn.addEventListener('click', () => {
+      const inlineInput = inlineBtn.previousElementSibling;
+      const email = inlineInput.value.trim();
+      if (!EMAIL_RE_INLINE.test(email)) {
+        inlineInput.style.borderColor = '#FF6B47';
+        setTimeout(() => { inlineInput.style.borderColor = ''; }, 1500);
+        return;
+      }
+      inlineBtn.textContent = 'Unlocking...';
+      inlineBtn.disabled = true;
+      fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      })
+      .then(r => r.json())
+      .then(() => { unlock(); })
+      .catch(() => {
+        inlineBtn.textContent = 'Try again';
+        inlineBtn.disabled = false;
+      });
+    });
+  });
 })();
 
 /* ── SCROLL REVEAL ──────────────────────────────────────────── */
