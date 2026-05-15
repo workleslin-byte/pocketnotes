@@ -87,13 +87,6 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  console.log('ENV CHECK:', {
-    hasKvUrl: !!process.env.UPSTASH_REDIS_REST_URL,
-    hasKvToken: !!process.env.UPSTASH_REDIS_REST_TOKEN,
-    hasResendKey: !!process.env.RESEND_API_KEY,
-    hasTemplateId: !!process.env.RESEND_WAITLIST_TEMPLATE_ID,
-  });
-
   const { name, email, city, product_interest } = req.body || {};
 
   if (!name || !NAME_RE.test(name.trim())) {

@@ -200,7 +200,7 @@ nav {
 .card-face {
   position: absolute; inset: 0;
   border-radius: 8px;
-  overflow: hidden;
+  clip-path: inset(0 round 7px);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   border: 1.5px solid rgba(250,243,227,0.15);
@@ -280,12 +280,12 @@ nav {
 ════════════════════════════════════════ */
 .collections {
   background: var(--cream);
-  padding: 96px var(--gut) 80px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
-
-/* Section intro */
 .sec-header {
-  max-width: 640px; margin: 0 auto 56px;
+  max-width: 640px; margin: 0 auto;
+  padding: 80px var(--gut) 0;
   text-align: center;
 }
 .sec-kicker {
@@ -307,150 +307,140 @@ nav {
   line-height: 1.6; max-width: 44ch; margin-left: auto; margin-right: auto;
 }
 
-/* Three-column grid */
-.theme-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border: 2px solid var(--ink);
-  border-radius: 10px; overflow: hidden;
-  max-width: 1240px; width: calc(100% - 40px); margin: 60px auto 0;
-  box-shadow: 0 4px 40px rgba(26,22,18,0.07);
-}
+/* Hierarchical theme block */
+.theme-block { border-bottom: 2px solid var(--ink); }
+.theme-block:last-child { border-bottom: none; }
 
-.theme-col {
-  display: flex; flex-direction: column;
-  border-right: 2px solid var(--ink);
+.theme-block-head {
+  background: var(--ink);
+  padding: 32px var(--gut);
+  display: flex; justify-content: space-between; align-items: center; gap: 24px;
 }
-.theme-col:last-child { border-right: none; }
-
-/* Column header */
-.theme-col-head {
-  padding: 30px 24px 24px;
-  min-height: 200px;
-  position: relative; overflow: hidden;
-}
-.theme-col-head::before {
-  content: attr(data-num);
-  position: absolute; top: -10px; right: 16px;
-  font-family: 'Fraunces', serif; font-weight: 900;
-  font-size: 88px; line-height: 1; letter-spacing: -0.05em;
-  opacity: 0.08; color: var(--ink);
-  pointer-events: none;
-}
-.col-kicker {
+.theme-block-head-left { flex: 1; }
+.theme-block-eyebrow {
   font-family: 'DM Mono', monospace; font-size: 9px;
-  text-transform: uppercase; letter-spacing: 0.14em;
-  color: rgba(26,22,18,0.5); margin-bottom: 8px;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: var(--mustard); margin-bottom: 6px; display: block;
 }
-.col-name {
+.theme-block-name {
   font-family: 'Fraunces', serif; font-weight: 900;
-  font-size: clamp(26px, 2.8vw, 36px);
-  line-height: 1.05; letter-spacing: -0.025em; color: var(--ink);
+  font-size: clamp(36px, 5vw, 60px);
+  letter-spacing: -0.03em; line-height: 0.95; color: var(--cream); margin-bottom: 10px;
 }
-.col-desc {
-  font-family: 'Space Grotesk', sans-serif; font-size: 13px;
-  color: rgba(26,22,18,0.58); line-height: 1.5; margin-top: 10px;
-  max-width: 30ch;
+.theme-block-desc {
+  font-family: 'Space Grotesk', sans-serif; font-size: 15px;
+  color: var(--cream); opacity: 0.5; max-width: 400px; line-height: 1.55;
 }
-.col-count {
-  display: inline-block; margin-top: 16px;
-  font-family: 'DM Mono', monospace; font-size: 8.5px;
-  text-transform: uppercase; letter-spacing: 0.1em;
-  background: rgba(26,22,18,0.09); color: var(--ink);
-  padding: 4px 11px; border-radius: 999px;
+.theme-block-head-right { display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
+.theme-block-count {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  border: 1px solid rgba(250,243,227,0.2); color: var(--cream);
+  padding: 6px 14px; border-radius: 999px; white-space: nowrap;
 }
+.theme-block-bar { width: 3px; height: 48px; border-radius: 2px; flex-shrink: 0; }
 
-/* Plum column — invert text */
-.theme-col--plum .col-kicker  { color: rgba(250,243,227,0.5); }
-.theme-col--plum .col-name    { color: var(--cream); }
-.theme-col--plum .col-desc    { color: rgba(250,243,227,0.58); }
-.theme-col--plum .col-count   { background: rgba(250,243,227,0.13); color: var(--cream); }
-.theme-col--plum .theme-col-head::before { color: var(--cream); }
-
-/* Article list */
-.theme-col-list {
-  flex: 1; border-top: 2px solid var(--ink);
+/* Article grid */
+.theme-article-grid {
   background: var(--cream);
-  display: flex; flex-direction: column;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
 }
 
-/* Hide rows after first — show only 1 before gate */
-.theme-col-list .article-row:not(:first-child) { display: none; }
-.theme-col-list .article-row.unlocked { display: block !important; }
-
-/* Col-gate block */
-.col-gate {
-  padding: 32px 20px;
-  text-align: center;
-  background: linear-gradient(to bottom, rgba(250,243,227,0) 0%, rgba(250,243,227,1) 40%);
-  display: flex; flex-direction: column;
-  align-items: center; gap: 8px; flex: 1;
+/* Featured card */
+.article-featured {
+  display: flex; flex-direction: row;
+  border-right: 1px solid var(--paper);
+  text-decoration: none; color: inherit; cursor: none;
+  transition: background 0.15s ease;
+  position: relative; min-height: 220px;
 }
-.col-gate-icon {
-  font-size: 18px; color: var(--ink); opacity: 0.3;
-  animation: gatebounce 1.8s ease infinite;
+.article-featured::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; background: transparent; transition: background 0.2s;
 }
-@keyframes gatebounce {
-  0%,100% { transform: translateY(0); }
-  50%      { transform: translateY(5px); }
+.article-featured:hover::before { background: var(--feat-color, var(--mustard)); }
+.article-featured:hover { background: var(--bone); }
+.article-featured-img { width: 42%; flex-shrink: 0; overflow: hidden; }
+.article-featured-img img {
+  width: 100%; height: 100%; object-fit: cover; object-position: center top;
+  display: block; transition: transform 0.4s var(--ease);
 }
-.col-gate-text {
-  font-family: 'Fraunces', serif; font-weight: 700;
-  font-size: 15px; color: var(--ink); line-height: 1.2;
+.article-featured:hover .article-featured-img img { transform: scale(1.03); }
+.article-featured-content {
+  flex: 1; padding: 28px 24px;
+  display: flex; flex-direction: column; justify-content: space-between;
 }
-.col-gate-sub {
+.article-featured-source {
   font-family: 'DM Mono', monospace; font-size: 9px;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--ink); opacity: 0.45;
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; display: block;
 }
+.article-featured-title {
+  font-family: 'Fraunces', serif; font-weight: 700; font-size: 22px;
+  line-height: 1.2; letter-spacing: -0.015em; color: var(--ink); flex: 1; display: block;
+}
+.article-featured-cta {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-top: 16px; display: inline-block;
+  border-bottom: 1px solid currentColor; padding-bottom: 2px;
+}
+
+/* Standard rows column */
+.theme-col-list { display: flex; flex-direction: column; }
 
 .article-row {
   display: block;
   padding: 20px 26px 19px;
   border-bottom: 1px solid var(--paper);
   text-decoration: none; color: inherit;
-  cursor: none;
-  transition: background 0.15s ease;
+  cursor: none; transition: background 0.15s ease;
   position: relative;
 }
 .article-row:last-child { border-bottom: none; }
-
 .article-row::before {
-  content: '';
-  position: absolute; left: 0; top: 0; bottom: 0;
-  width: 3px; background: transparent;
-  transition: background 0.2s;
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; background: transparent; transition: background 0.2s;
 }
 .article-row:hover::before { background: var(--row-accent, var(--mustard)); }
 .article-row:hover { background: var(--bone); }
-
 .row-source {
-  display: block;
-  font-family: 'DM Mono', monospace; font-size: 9px;
-  text-transform: uppercase; letter-spacing: 0.1em;
-  opacity: 0.8; margin-bottom: 4px; line-height: 1;
+  display: block; font-family: 'DM Mono', monospace; font-size: 9px;
+  text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.8; margin-bottom: 4px; line-height: 1;
 }
 .row-title {
-  display: block;
-  font-family: 'Space Grotesk', sans-serif; font-size: 15px;
+  display: block; font-family: 'Space Grotesk', sans-serif; font-size: 15px;
   font-weight: 500; line-height: 1.35; color: var(--ink);
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  text-underline-offset: 3px;
+  text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px;
   transition: text-decoration-color 0.2s;
 }
 .article-row:hover .row-title { text-decoration-color: var(--row-accent, var(--mustard)); }
 
-/* ─── Scroll-stagger for each column row ─── */
-.article-row {
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease),
-              background 0.15s ease;
+/* Hide non-first rows, show on unlock */
+.theme-col-list .article-row:not(:first-child) { display: none; }
+.theme-col-list .article-row.unlocked { display: block !important; }
+
+/* Scroll-stagger */
+.article-row { opacity: 0; transform: translateY(14px); transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), background 0.15s ease; }
+.article-row.row-visible { opacity: 1; transform: translateY(0); }
+
+/* col-gate block */
+.col-gate {
+  padding: 32px 20px; text-align: center;
+  background: linear-gradient(to bottom, rgba(250,243,227,0) 0%, rgba(250,243,227,1) 40%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1;
 }
-.article-row.row-visible {
-  opacity: 1;
-  transform: translateY(0);
+.col-gate-icon { font-size: 18px; color: var(--ink); opacity: 0.3; animation: gatebounce 1.8s ease infinite; }
+@keyframes gatebounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+.col-gate-text { font-family: 'Fraunces', serif; font-weight: 700; font-size: 15px; color: var(--ink); line-height: 1.2; }
+.col-gate-sub { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); opacity: 0.45; }
+
+@media (max-width: 860px) {
+  .theme-article-grid { grid-template-columns: 1fr; }
+  .article-featured { min-height: auto; flex-direction: column; border-right: none; border-bottom: 1px solid var(--paper); }
+  .article-featured-img { width: 100%; height: 200px; }
+  .theme-block-head { flex-direction: column; align-items: flex-start; }
+  .theme-block-head-right { align-self: flex-start; }
 }
 
 /* ════════════════════════════════════════
@@ -664,9 +654,9 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════
+<!-- ═══════════════════════════════════════════
      SECTION 2 — COLLECTIONS
-═══════════════════════════════════════ -->
+═══════════════════════════════════════════ -->
 <section class="collections" id="collections">
 
   <div class="sec-header reveal">
@@ -675,192 +665,219 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
     <p class="sec-sub">Thirty essays on three ideas worth sitting with. Free to browse — subscribe to read all thirty.</p>
   </div>
 
-  <div class="theme-grid reveal" style="transition-delay:0.1s">
+  <div class="collections-inner" style="margin-top:56px">
 
-    <!-- ── Column 1: TASTE ── -->
-    <div class="theme-col" id="colTaste">
-      <div class="theme-col-head" style="background:var(--c-taste)" data-num="01" id="headTaste">
-        <div class="theme-col-head-main">
-          <p class="col-kicker">Collection 01</p>
-          <h3 class="col-name">How to Acquire<br>a Taste</h3>
-          <p class="col-desc">On developing discernment, aesthetic judgment, and the slow work of knowing what you love.</p>
-          <span class="col-count">10 Essays</span>
+    <!-- TASTE -->
+    <div class="theme-block reveal">
+      <div class="theme-block-head">
+        <div class="theme-block-head-left">
+          <span class="theme-block-eyebrow">— Collection 01</span>
+          <h3 class="theme-block-name">How to Acquire a Taste</h3>
+          <p class="theme-block-desc">On developing discernment, aesthetic judgment, and the slow work of knowing what you love.</p>
         </div>
-        <span class="col-chevron" aria-hidden="true">↓</span>
+        <div class="theme-block-head-right">
+          <span class="theme-block-count">10 Essays</span>
+          <div class="theme-block-bar" style="background:var(--c-taste)"></div>
+        </div>
       </div>
-
-      <div class="theme-col-list" id="listTaste">
-        <a class="article-row" style="--row-accent:#B8900A" href="https://paulgraham.com/taste.html" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#B8900A">Paul Graham</span>
-          <span class="row-title">Taste for Makers</span>
+      <div class="theme-article-grid">
+        <a class="article-featured" style="--feat-color:#B8900A" href="https://paulgraham.com/taste.html" target="_blank" rel="noopener noreferrer">
+          <div class="article-featured-img">
+            <img src="/assets/og/paulgraham.comtaste.html.jpg" alt="Taste for Makers" loading="eager"/>
+          </div>
+          <div class="article-featured-content">
+            <span class="article-featured-source" style="color:#B8900A">Paul Graham</span>
+            <span class="article-featured-title">Taste for Makers</span>
+            <span class="article-featured-cta" style="color:#B8900A">Read →</span>
+          </div>
         </a>
-        <div class="col-gate" id="gateTaste">
-          <div class="col-gate-icon">↓</div>
-          <div class="col-gate-text">9 more in this collection</div>
-          <div class="col-gate-sub">Enter your email below to unlock</div>
+        <div class="theme-col-list" id="listTaste">
+          <div class="col-gate" id="gateTaste">
+            <div class="col-gate-icon">↓</div>
+            <div class="col-gate-text">9 more in this collection</div>
+            <div class="col-gate-sub">Enter your email below to unlock</div>
+          </div>
+          <a class="article-row" style="--row-accent:#B8900A" href="https://paulgraham.com/goodtaste.html" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#B8900A">Paul Graham</span>
+            <span class="row-title">Is There Such a Thing as Good Taste?</span>
+          </a>
+          <a class="article-row" style="--row-accent:#B8900A" href="https://medium.com/the-year-of-the-looking-glass/on-taste-part-3-d7d9f069f0b2" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#B8900A">Julie Zhuo · Medium</span>
+            <span class="row-title">On Taste, Part 3: How to Improve Your Taste If It Sucks</span>
+          </a>
+          <a class="article-row" style="--row-accent:#B8900A" href="https://paulgraham.com/goodart.html" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#B8900A">Paul Graham</span>
+            <span class="row-title">How Art Can Be Good</span>
+          </a>
+          <a class="article-row" style="--row-accent:#B8900A" href="https://amycoded.substack.com/p/10-articles-about-taste-that-are" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#B8900A">Amy Coded · Substack</span>
+            <span class="row-title">10 Articles About Taste Worth Reading</span>
+          </a>
+          <a class="article-row" style="--row-accent:#B8900A" href="https://thechangingroom.substack.com/p/the-secret-formula-to-good-taste" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#B8900A">The Changing Room · Substack</span>
+            <span class="row-title">The Secret Formula to Good Taste</span>
+          </a>
+          <a class="article-row" style="--row-accent:#B8900A" href="https://meettheartdirector.substack.com/p/finding-my-own-aesthetic-after-years" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#B8900A">Meet the Art Director</span>
+            <span class="row-title">Finding My Own Aesthetic</span>
+          </a>
+          <a class="article-row" style="--row-accent:#B8900A" href="https://goodsurroundings.substack.com/p/the-art-of-personal-taste" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#B8900A">Good Surroundings · Substack</span>
+            <span class="row-title">The Art of Personal Taste</span>
+          </a>
+          <a class="article-row" style="--row-accent:#B8900A" href="https://mimyglow.substack.com/p/on-personal-style-taste-and-inspiration" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#B8900A">Mimy’s Journal · Substack</span>
+            <span class="row-title">On Personal Style, Taste and Inspiration</span>
+          </a>
+          <a class="article-row" style="--row-accent:#B8900A" href="https://threeoutfits.substack.com/p/the-art-of-good-taste" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#B8900A">Three Outfits · Substack</span>
+            <span class="row-title">The Art of Good Taste — An Intro</span>
+          </a>
         </div>
-        <a class="article-row" style="--row-accent:#B8900A" href="https://paulgraham.com/goodtaste.html" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#B8900A">Paul Graham</span>
-          <span class="row-title">Is There Such a Thing as Good Taste?</span>
-        </a>
-        <a class="article-row" style="--row-accent:#B8900A" href="https://medium.com/the-year-of-the-looking-glass/on-taste-part-3-d7d9f069f0b2" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#B8900A">Julie Zhuo · Medium</span>
-          <span class="row-title">On Taste, Part 3: How to Improve Your Taste If It Sucks</span>
-        </a>
-        <a class="article-row" style="--row-accent:#B8900A" href="https://paulgraham.com/goodart.html" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#B8900A">Paul Graham</span>
-          <span class="row-title">How Art Can Be Good</span>
-        </a>
-        <a class="article-row" style="--row-accent:#B8900A" href="https://amycoded.substack.com/p/10-articles-about-taste-that-are" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#B8900A">Amy Coded · Substack</span>
-          <span class="row-title">10 Articles About Taste Worth Reading</span>
-        </a>
-        <a class="article-row" style="--row-accent:#B8900A" href="https://thechangingroom.substack.com/p/the-secret-formula-to-good-taste" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#B8900A">The Changing Room · Substack</span>
-          <span class="row-title">The Secret Formula to Good Taste</span>
-        </a>
-        <a class="article-row" style="--row-accent:#B8900A" href="https://meettheartdirector.substack.com/p/finding-my-own-aesthetic-after-years" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#B8900A">Meet the Art Director</span>
-          <span class="row-title">Finding My Own Aesthetic</span>
-        </a>
-        <a class="article-row" style="--row-accent:#B8900A" href="https://goodsurroundings.substack.com/p/the-art-of-personal-taste" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#B8900A">Good Surroundings · Substack</span>
-          <span class="row-title">The Art of Personal Taste</span>
-        </a>
-        <a class="article-row" style="--row-accent:#B8900A" href="https://mimyglow.substack.com/p/on-personal-style-taste-and-inspiration" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#B8900A">Mimy's Journal · Substack</span>
-          <span class="row-title">On Personal Style, Taste and Inspiration</span>
-        </a>
-        <a class="article-row" style="--row-accent:#B8900A" href="https://threeoutfits.substack.com/p/the-art-of-good-taste" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#B8900A">Three Outfits · Substack</span>
-          <span class="row-title">The Art of Good Taste — An Intro</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- ── Column 2: AUTODIDACT ── -->
-    <div class="theme-col" id="colAuto">
-      <div class="theme-col-head" style="background:var(--c-auto)" data-num="02" id="headAuto">
-        <div class="theme-col-head-main">
-          <p class="col-kicker">Collection 02</p>
-          <h3 class="col-name">How to Become<br>an Autodidact</h3>
-          <p class="col-desc">On self-directed learning, intellectual curiosity, and teaching yourself anything.</p>
-          <span class="col-count">10 Essays</span>
-        </div>
-        <span class="col-chevron" aria-hidden="true">↓</span>
-      </div>
-
-      <div class="theme-col-list" id="listAuto">
-        <a class="article-row" style="--row-accent:#C04020" href="https://samuelrinko.substack.com/p/how-i-self-study-new-subjects-the" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#C04020">Knowledge Lust · Substack</span>
-          <span class="row-title">The Modern Autodidact System</span>
-        </a>
-        <div class="col-gate" id="gateAuto">
-          <div class="col-gate-icon">↓</div>
-          <div class="col-gate-text">9 more in this collection</div>
-          <div class="col-gate-sub">Enter your email below to unlock</div>
-        </div>
-        <a class="article-row" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/childhoods" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
-          <span class="row-title">Childhoods of Exceptional People</span>
-        </a>
-        <a class="article-row" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/good-design" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
-          <span class="row-title">Everything That Turned Out Well Followed the Same Design Process</span>
-        </a>
-        <a class="article-row" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/search-query" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
-          <span class="row-title">A Blog Post is a Long Search Query</span>
-        </a>
-        <a class="article-row" style="--row-accent:#C04020" href="https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#C04020">Knowledge Lust · Substack</span>
-          <span class="row-title">Autodidact Spotlight: The Notebook Czar</span>
-        </a>
-        <a class="article-row" style="--row-accent:#C04020" href="https://samuelrinko.substack.com/p/12-books-to-become-a-better-learner" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#C04020">Knowledge Lust · Substack</span>
-          <span class="row-title">12 Books to Become a Better Learner</span>
-        </a>
-        <a class="article-row" style="--row-accent:#C04020" href="https://samuelrinko.substack.com/p/my-self-education-plan-for-fall-2025" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#C04020">Knowledge Lust · Substack</span>
-          <span class="row-title">My Self-Education Plan for 2025</span>
-        </a>
-        <a class="article-row" style="--row-accent:#C04020" href="https://substack.com/home/post/p-160219815" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#C04020">Substack</span>
-          <span class="row-title">Why School Is Losing</span>
-        </a>
-        <a class="article-row" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/how-i-write" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
-          <span class="row-title">How I Write Essays</span>
-        </a>
-        <a class="article-row" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/diaries" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
-          <span class="row-title">When I Accept Myself Just As I Am, I Change</span>
-        </a>
       </div>
     </div>
 
-    <!-- ── Column 3: SIDE QUESTS ── -->
-    <div class="theme-col theme-col--plum" id="colSide">
-      <div class="theme-col-head" style="background:var(--c-side)" data-num="03" id="headSide">
-        <div class="theme-col-head-main">
-          <p class="col-kicker">Collection 03</p>
-          <h3 class="col-name">Build Your Own<br>Side Quests</h3>
-          <p class="col-desc">On passion projects, niche obsessions, and building a life off the default path.</p>
-          <span class="col-count">10 Essays</span>
+    <!-- AUTODIDACT -->
+    <div class="theme-block reveal" style="transition-delay:0.08s">
+      <div class="theme-block-head">
+        <div class="theme-block-head-left">
+          <span class="theme-block-eyebrow">— Collection 02</span>
+          <h3 class="theme-block-name">How to Become an Autodidact</h3>
+          <p class="theme-block-desc">On self-directed learning, intellectual curiosity, and teaching yourself anything.</p>
         </div>
-        <span class="col-chevron" style="color:var(--cream)" aria-hidden="true">↓</span>
+        <div class="theme-block-head-right">
+          <span class="theme-block-count">10 Essays</span>
+          <div class="theme-block-bar" style="background:var(--c-auto)"></div>
+        </div>
       </div>
-
-      <div class="theme-col-list" id="listSide">
-        <a class="article-row" style="--row-accent:#6E3582" href="https://paulgraham.com/love.html" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#6E3582">Paul Graham</span>
-          <span class="row-title">How to Do What You Love</span>
+      <div class="theme-article-grid">
+        <a class="article-featured" style="--feat-color:#C04020" href="https://samuelrinko.substack.com/p/how-i-self-study-new-subjects-the" target="_blank" rel="noopener noreferrer">
+          <div class="article-featured-img">
+            <img src="/assets/og/samuelrinko.substack.comphow-i-self-study-new-subjects-the.jpg" alt="The Modern Autodidact System" loading="eager"/>
+          </div>
+          <div class="article-featured-content">
+            <span class="article-featured-source" style="color:#C04020">Knowledge Lust · Substack</span>
+            <span class="article-featured-title">The Modern Autodidact System</span>
+            <span class="article-featured-cta" style="color:#C04020">Read →</span>
+          </div>
         </a>
-        <div class="col-gate" id="gateSide">
-          <div class="col-gate-icon">↓</div>
-          <div class="col-gate-text">9 more in this collection</div>
-          <div class="col-gate-sub">Enter your email below to unlock</div>
+        <div class="theme-col-list" id="listAuto">
+          <div class="col-gate" id="gateAuto">
+            <div class="col-gate-icon">↓</div>
+            <div class="col-gate-text">9 more in this collection</div>
+            <div class="col-gate-sub">Enter your email below to unlock</div>
+          </div>
+          <a class="article-row" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/childhoods" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
+            <span class="row-title">Childhoods of Exceptional People</span>
+          </a>
+          <a class="article-row" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/good-design" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
+            <span class="row-title">Everything That Turned Out Well Followed the Same Design Process</span>
+          </a>
+          <a class="article-row" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/search-query" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
+            <span class="row-title">A Blog Post is a Long Search Query</span>
+          </a>
+          <a class="article-row" style="--row-accent:#C04020" href="https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#C04020">Knowledge Lust · Substack</span>
+            <span class="row-title">Autodidact Spotlight: The Notebook Czar</span>
+          </a>
+          <a class="article-row" style="--row-accent:#C04020" href="https://samuelrinko.substack.com/p/12-books-to-become-a-better-learner" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#C04020">Knowledge Lust · Substack</span>
+            <span class="row-title">12 Books to Become a Better Learner</span>
+          </a>
+          <a class="article-row" style="--row-accent:#C04020" href="https://samuelrinko.substack.com/p/my-self-education-plan-for-fall-2025" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#C04020">Knowledge Lust · Substack</span>
+            <span class="row-title">My Self-Education Plan for 2025</span>
+          </a>
+          <a class="article-row" style="--row-accent:#C04020" href="https://substack.com/home/post/p-160219815" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#C04020">Substack</span>
+            <span class="row-title">Why School Is Losing</span>
+          </a>
+          <a class="article-row" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/how-i-write" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
+            <span class="row-title">How I Write Essays</span>
+          </a>
+          <a class="article-row" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/diaries" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
+            <span class="row-title">When I Accept Myself Just As I Am, I Change</span>
+          </a>
         </div>
-        <a class="article-row" style="--row-accent:#6E3582" href="https://kk.org/thetechnium/1000-true-fans" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#6E3582">Kevin Kelly</span>
-          <span class="row-title">1000 True Fans</span>
-        </a>
-        <a class="article-row" style="--row-accent:#6E3582" href="https://codelikeagirl.substack.com/p/the-magic-of-side-quests" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#6E3582">Code Like a Girl · Substack</span>
-          <span class="row-title">The Magic of Side Quests</span>
-        </a>
-        <a class="article-row" style="--row-accent:#6E3582" href="https://paulgraham.com/identity.html" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#6E3582">Paul Graham</span>
-          <span class="row-title">Keep Your Identity Small</span>
-        </a>
-        <a class="article-row" style="--row-accent:#6E3582" href="https://pathlesspath.com" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#6E3582">Paul Millerd · Substack</span>
-          <span class="row-title">The Pathless Path</span>
-        </a>
-        <a class="article-row" style="--row-accent:#6E3582" href="https://www.henrikkarlsson.xyz/p/how-i-write" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#6E3582">Henrik Karlsson · Substack</span>
-          <span class="row-title">How I Write Essays</span>
-        </a>
-        <a class="article-row" style="--row-accent:#6E3582" href="https://www.henrikkarlsson.xyz/p/good-design" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#6E3582">Henrik Karlsson · Substack</span>
-          <span class="row-title">Everything That Turned Out Well Followed the Same Design Process</span>
-        </a>
-        <a class="article-row" style="--row-accent:#6E3582" href="https://paulgraham.com/taste.html" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#6E3582">Paul Graham</span>
-          <span class="row-title">Taste for Makers</span>
-        </a>
-        <a class="article-row" style="--row-accent:#6E3582" href="https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#6E3582">Knowledge Lust · Substack</span>
-          <span class="row-title">Autodidact Spotlight: The Notebook Czar</span>
-        </a>
-        <a class="article-row" style="--row-accent:#6E3582" href="https://amycoded.substack.com/p/10-articles-about-taste-that-are" target="_blank" rel="noopener noreferrer">
-          <span class="row-source" style="color:#6E3582">Amy Coded · Substack</span>
-          <span class="row-title">10 Articles About Taste Worth Reading</span>
-        </a>
       </div>
     </div>
 
-  </div><!-- /theme-grid -->
+    <!-- SIDE QUESTS -->
+    <div class="theme-block reveal" style="transition-delay:0.16s">
+      <div class="theme-block-head">
+        <div class="theme-block-head-left">
+          <span class="theme-block-eyebrow">— Collection 03</span>
+          <h3 class="theme-block-name">Build Your Own Side Quests</h3>
+          <p class="theme-block-desc">On passion projects, niche obsessions, and building a life off the default path.</p>
+        </div>
+        <div class="theme-block-head-right">
+          <span class="theme-block-count">10 Essays</span>
+          <div class="theme-block-bar" style="background:var(--c-side)"></div>
+        </div>
+      </div>
+      <div class="theme-article-grid">
+        <a class="article-featured" style="--feat-color:#6E3582" href="https://paulgraham.com/love.html" target="_blank" rel="noopener noreferrer">
+          <div class="article-featured-img">
+            <img src="/assets/og/paulgraham.comlove.html.jpg" alt="How to Do What You Love" loading="eager"/>
+          </div>
+          <div class="article-featured-content">
+            <span class="article-featured-source" style="color:#6E3582">Paul Graham</span>
+            <span class="article-featured-title">How to Do What You Love</span>
+            <span class="article-featured-cta" style="color:#6E3582">Read →</span>
+          </div>
+        </a>
+        <div class="theme-col-list" id="listSide">
+          <div class="col-gate" id="gateSide">
+            <div class="col-gate-icon">↓</div>
+            <div class="col-gate-text">9 more in this collection</div>
+            <div class="col-gate-sub">Enter your email below to unlock</div>
+          </div>
+          <a class="article-row" style="--row-accent:#6E3582" href="https://kk.org/thetechnium/1000-true-fans" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#6E3582">Kevin Kelly</span>
+            <span class="row-title">1000 True Fans</span>
+          </a>
+          <a class="article-row" style="--row-accent:#6E3582" href="https://codelikeagirl.substack.com/p/the-magic-of-side-quests" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#6E3582">Code Like a Girl · Substack</span>
+            <span class="row-title">The Magic of Side Quests</span>
+          </a>
+          <a class="article-row" style="--row-accent:#6E3582" href="https://paulgraham.com/identity.html" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#6E3582">Paul Graham</span>
+            <span class="row-title">Keep Your Identity Small</span>
+          </a>
+          <a class="article-row" style="--row-accent:#6E3582" href="https://pathlesspath.com" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#6E3582">Paul Millerd · Substack</span>
+            <span class="row-title">The Pathless Path</span>
+          </a>
+          <a class="article-row" style="--row-accent:#6E3582" href="https://www.henrikkarlsson.xyz/p/how-i-write" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#6E3582">Henrik Karlsson · Substack</span>
+            <span class="row-title">How I Write Essays</span>
+          </a>
+          <a class="article-row" style="--row-accent:#6E3582" href="https://www.henrikkarlsson.xyz/p/good-design" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#6E3582">Henrik Karlsson · Substack</span>
+            <span class="row-title">Everything That Turned Out Well Followed the Same Design Process</span>
+          </a>
+          <a class="article-row" style="--row-accent:#6E3582" href="https://paulgraham.com/taste.html" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#6E3582">Paul Graham</span>
+            <span class="row-title">Taste for Makers</span>
+          </a>
+          <a class="article-row" style="--row-accent:#6E3582" href="https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#6E3582">Knowledge Lust · Substack</span>
+            <span class="row-title">Autodidact Spotlight: The Notebook Czar</span>
+          </a>
+          <a class="article-row" style="--row-accent:#6E3582" href="https://amycoded.substack.com/p/10-articles-about-taste-that-are" target="_blank" rel="noopener noreferrer">
+            <span class="row-source" style="color:#6E3582">Amy Coded · Substack</span>
+            <span class="row-title">10 Articles About Taste Worth Reading</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /collections-inner -->
 </section>
 
 <!-- ═══════════════════════════════════════
@@ -935,28 +952,28 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
 const IMG = '/assets/og/';
 
 const INNER = [
-  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'Taste for Makers',                        source:'Paul Graham',       url:'https://paulgraham.com/taste.html',                                                           img: IMG+'paulgraham.comtaste.html.jpg' },
-  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'Is There Such a Thing as Good Taste?',    source:'Paul Graham',       url:'https://paulgraham.com/goodtaste.html',                                                       img: IMG+'paulgraham.comgoodtaste.html.jpg' },
-  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'On Taste, Part 3',                        source:'Julie Zhuo',        url:'https://medium.com/the-year-of-the-looking-glass/on-taste-part-3-d7d9f069f0b2',              img: IMG+'medium.comthe-year-of-the-looking-glasson-taste-part-3-d7d9f069f0b2.jpg' },
-  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'The Modern Autodidact System',            source:'Knowledge Lust',    url:'https://samuelrinko.substack.com/p/how-i-self-study-new-subjects-the',                     img: IMG+'samuelrinko.substack.comphow-i-self-study-new-subjects-the.jpg' },
-  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'Childhoods of Exceptional People',        source:'Henrik Karlsson',   url:'https://www.henrikkarlsson.xyz/p/childhoods',                                               img: IMG+'henrikkarlsson.xyzpchildhoods.jpg' },
-  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'1000 True Fans',                          source:'Kevin Kelly',       url:'https://kk.org/thetechnium/1000-true-fans',                                                  img: IMG+'kk.orgthetechnium1000-true-fans.jpg' },
-  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'How to Do What You Love',                 source:'Paul Graham',       url:'https://paulgraham.com/love.html',                                                           img: IMG+'paulgraham.comlove.html.jpg' },
-  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'Everything That Turned Out Well',         source:'Henrik Karlsson',   url:'https://www.henrikkarlsson.xyz/p/good-design',                                              img: IMG+'henrikkarlsson.xyzpgood-design.jpg' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'Taste for Makers',                   source:'Paul Graham',       url:'https://paulgraham.com/taste.html',                                                img:'/assets/og/paulgraham.comtaste.html.jpg' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'Is There Such a Thing as Good Taste?', source:'Paul Graham',     url:'https://paulgraham.com/goodtaste.html',                                            img:'/assets/og/paulgraham.comgoodtaste.html.jpg' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'Childhoods of Exceptional People',   source:'Henrik Karlsson',   url:'https://www.henrikkarlsson.xyz/p/childhoods',                                      img:'/assets/og/henrikkarlsson.xyzpchildhoods.jpg' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'Everything That Turned Out Well',    source:'Henrik Karlsson',   url:'https://www.henrikkarlsson.xyz/p/good-design',                                     img:'/assets/og/henrikkarlsson.xyzpgood-design.jpg' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'How to Do What You Love',            source:'Paul Graham',       url:'https://paulgraham.com/love.html',                                                  img:'/assets/og/paulgraham.comlove.html.jpg' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'1000 True Fans',                     source:'Kevin Kelly',       url:'https://kk.org/thetechnium/1000-true-fans',                                         img:'/assets/og/kk.orgthetechnium1000-true-fans.jpg' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'The Art of Personal Taste',          source:'Good Surroundings', url:'https://goodsurroundings.substack.com/p/the-art-of-personal-taste',                 img:'/assets/og/goodsurroundings.substack.compthe-art-of-personal-taste.jpg' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'A Blog Post is a Long Search Query', source:'Henrik Karlsson',   url:'https://www.henrikkarlsson.xyz/p/search-query',                                    img:'/assets/og/henrikkarlsson.xyzpsearch-query.jpg' },
 ];
 
 const OUTER = [
-  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'The Secret Formula to Good Taste',        source:'The Changing Room', url:'https://thechangingroom.substack.com/p/the-secret-formula-to-good-taste',                  img: IMG+'thechangingroom.substack.compthe-secret-formula-to-good-taste.jpg' },
-  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'Finding My Own Aesthetic',                source:'Meet the Art Dir.', url:'https://meettheartdirector.substack.com/p/finding-my-own-aesthetic-after-years',           img: IMG+'meettheartdirector.substack.compfinding-my-own-aesthetic-after-years.jpg' },
-  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'On Personal Style, Taste & Inspiration',  source:"Mimy's Journal",    url:'https://mimyglow.substack.com/p/on-personal-style-taste-and-inspiration',                 img: IMG+'mimyglow.substack.compon-personal-style-taste-and-inspiration.jpg' },
-  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'The Art of Personal Taste',               source:'Good Surroundings', url:'https://goodsurroundings.substack.com/p/the-art-of-personal-taste',                         img: IMG+'goodsurroundings.substack.compthe-art-of-personal-taste.jpg' },
-  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'A Blog Post is a Long Search Query',      source:'Henrik Karlsson',   url:'https://www.henrikkarlsson.xyz/p/search-query',                                             img: IMG+'henrikkarlsson.xyzpsearch-query.jpg' },
-  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'Autodidact Spotlight: The Notebook Czar', source:'Knowledge Lust',    url:'https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase',               img: IMG+'samuelrinko.substack.compautodidact-spotlight-2-parker-settecase.jpg' },
-  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'Why School Is Losing',                    source:'Substack',          url:'https://substack.com/home/post/p-160219815',                                                img: IMG+'substack.comhomepostp-160219815.jpg' },
-  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'The Magic of Side Quests',                source:'Code Like a Girl',  url:'https://codelikeagirl.substack.com/p/the-magic-of-side-quests',                            img: IMG+'codelikeagirl.substack.compthe-magic-of-side-quests.jpg' },
-  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'The Pathless Path',                       source:'Paul Millerd',      url:'https://pathlesspath.com',                                                                  img: IMG+'pathlesspath.com.jpg' },
-  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'Keep Your Identity Small',                source:'Paul Graham',       url:'https://paulgraham.com/identity.html',                                                       img: IMG+'paulgraham.comidentity.html.jpg' },
-  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'How I Write Essays',                      source:'Henrik Karlsson',   url:'https://www.henrikkarlsson.xyz/p/how-i-write',                                              img: IMG+'henrikkarlsson.xyzphow-i-write.jpg' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'On Taste, Part 3',                    source:'Julie Zhuo · Medium', url:'https://medium.com/the-year-of-the-looking-glass/on-taste-part-3-d7d9f069f0b2',    img:'/assets/og/medium.comthe-year-of-the-looking-glasson-taste-part-3-d7d9f069f0b2.jpg' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'The Secret Formula to Good Taste',    source:'The Changing Room',   url:'https://thechangingroom.substack.com/p/the-secret-formula-to-good-taste',          img:'/assets/og/thechangingroom.substack.compthe-secret-formula-to-good-taste.jpg' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'Finding My Own Aesthetic',            source:'Meet the Art Director', url:'https://meettheartdirector.substack.com/p/finding-my-own-aesthetic-after-years', img:'/assets/og/meettheartdirector.substack.compfinding-my-own-aesthetic-after-years.jpg' },
+  { theme:'taste',      color:'#F5C13D', label:'TASTE',       title:'On Personal Style and Taste',         source:"Mimy's Journal",      url:'https://mimyglow.substack.com/p/on-personal-style-taste-and-inspiration',        img:'/assets/og/mimyglow.substack.compon-personal-style-taste-and-inspiration.jpg' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'The Modern Autodidact System',        source:'Knowledge Lust',      url:'https://samuelrinko.substack.com/p/how-i-self-study-new-subjects-the',            img:'/assets/og/samuelrinko.substack.comphow-i-self-study-new-subjects-the.jpg' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'Autodidact Spotlight: Notebook Czar', source:'Knowledge Lust',      url:'https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase',    img:'/assets/og/samuelrinko.substack.compautodidact-spotlight-2-parker-settecase.jpg' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'My Self-Education Plan for 2025',     source:'Knowledge Lust',      url:'https://samuelrinko.substack.com/p/my-self-education-plan-for-fall-2025',        img:'/assets/og/samuelrinko.substack.compmy-self-education-plan-for-fall-2025.jpg' },
+  { theme:'autodidact', color:'#FF6B47', label:'AUTODIDACT',  title:'Why School Is Losing',                source:'Substack',            url:'https://substack.com/home/post/p-160219815',                                      img:'/assets/og/substack.comhomepostp-160219815.jpg' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'The Magic of Side Quests',            source:'Code Like a Girl',    url:'https://codelikeagirl.substack.com/p/the-magic-of-side-quests',                  img:'/assets/og/codelikeagirl.substack.compthe-magic-of-side-quests.jpg' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'The Pathless Path',                   source:'Paul Millerd',        url:'https://pathlesspath.com',                                                        img:'/assets/og/pathlesspath.com.jpg' },
+  { theme:'sidequests', color:'#6E3582', label:'SIDE QUESTS', title:'How I Write Essays',                  source:'Henrik Karlsson',     url:'https://www.henrikkarlsson.xyz/p/how-i-write',                                    img:'/assets/og/henrikkarlsson.xyzphow-i-write.jpg' },
 ];
 
 
@@ -982,6 +999,12 @@ const OUTER = [
     if (d.img) {
       const img = document.createElement('img');
       img.src = d.img; img.alt = d.title; img.loading = 'eager';
+      img.style.width = '100%'; img.style.height = '55%';
+      img.style.objectFit = 'cover'; img.style.objectPosition = 'center top';
+      img.style.display = 'block'; img.style.flexShrink = '0';
+      img.style.width = '100%'; img.style.height = '55%';
+      img.style.objectFit = 'cover'; img.style.objectPosition = 'center top';
+      img.style.display = 'block'; img.style.flexShrink = '0';
       front.appendChild(img);
     } else {
       /* colour-band fallback */
@@ -1195,6 +1218,26 @@ const OUTER = [
     el.addEventListener('mouseenter', () => ring.classList.add('hover'));
     el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
   });
+
+/* ── CURSOR SCROLL COLOUR ────────────────────────────────────────── */
+(function initCursorTheme() {
+  const dot  = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  const hero = document.querySelector('.hero');
+  if (!dot || !ring || !hero) return;
+  function setLight() {
+    dot.style.background  = '#FAF3E3';
+    ring.style.borderColor = 'rgba(250,243,227,0.5)';
+  }
+  function setDark() {
+    dot.style.background  = '#1A1612';
+    ring.style.borderColor = 'rgba(26,22,18,0.3)';
+  }
+  setLight(); // hero is always first
+  window.addEventListener('scroll', () => {
+    if (window.scrollY < hero.offsetHeight - 80) setLight(); else setDark();
+  }, { passive: true });
+})();
 })();
 
 /* ── NAV HAMBURGER ──────────────────────────────────────────── */
@@ -1216,16 +1259,6 @@ const OUTER = [
 })();
 </script>
 
-<script>
-setTimeout(() => {
-  const imgs = document.querySelectorAll('.orbit-card img')
-  console.log('Total orbit images found:', imgs.length)
-  imgs.forEach((img, i) => {
-    console.log(i, img.src, img.complete,
-      img.naturalWidth, img.getBoundingClientRect())
-  })
-}, 2000)
-</script>
 
 </body>
 </html>
