@@ -1319,70 +1319,6 @@ const OUTER = [
   });
 })();
 
-/* ── UNLOCK MODAL ── */
-(function initModal() {
-  const modal = document.getElementById('unlockModal');
-  const closeBtn = document.querySelector('.unlock-modal-close');
-
-  function openModal() {
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    setTimeout(() => { document.getElementById('modalEmailInput').focus(); }, 300);
-  }
-
-  function closeModal() {
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  document.querySelectorAll('.blurred-row').forEach(row => {
-    row.dataset.href = row.getAttribute('href') || '';
-    row.removeAttribute('href');
-    row.setAttribute('role', 'button');
-    row.setAttribute('tabindex', '0');
-    row.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      openModal();
-    });
-    row.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(); }
-    });
-  });
-
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-  document.getElementById('modalSubmitBtn').addEventListener('click', () => {
-    const input = document.getElementById('modalEmailInput');
-    const btn = document.getElementById('modalSubmitBtn');
-    const email = input.value.trim();
-    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!EMAIL_RE.test(email)) {
-      input.style.borderColor = '#FF6B47';
-      input.focus();
-      return;
-    }
-    btn.textContent = 'Unlocking...';
-    btn.disabled = true;
-    fetch('/api/newsletter', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email })
-    })
-    .then(r => r.json())
-    .then(() => { closeModal(); window.unlock && window.unlock(); })
-    .catch(() => { btn.textContent = 'Try again'; btn.disabled = false; });
-  });
-
-  document.getElementById('modalEmailInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') document.getElementById('modalSubmitBtn').click();
-  });
-
-  const bottomGate = document.querySelector('.gate-section, #gateSection, .gate-card');
-  if (bottomGate) bottomGate.style.display = 'none';
-})();
 </script>
 
 <div id="unlockModal" class="unlock-modal">
@@ -1398,6 +1334,83 @@ const OUTER = [
     <p class="unlock-footer-note">No spam · Unsubscribe anytime</p>
   </div>
 </div>
+
+<script>
+(function() {
+  const modal = document.getElementById('unlockModal');
+  if (!modal) { console.error('Modal not found'); return; }
+
+  function openModal() {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => {
+      const input = document.getElementById('modalEmailInput');
+      if (input) input.focus();
+    }, 300);
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.blurred-row').forEach(row => {
+    if (row.getAttribute('href')) {
+      row.dataset.href = row.getAttribute('href');
+      row.removeAttribute('href');
+    }
+    row.style.cursor = 'pointer';
+    row.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openModal();
+    });
+  });
+
+  const closeBtn = modal.querySelector('.unlock-modal-close');
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  const submitBtn = document.getElementById('modalSubmitBtn');
+  if (submitBtn) {
+    submitBtn.addEventListener('click', () => {
+      const input = document.getElementById('modalEmailInput');
+      const email = (input ? input.value : '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (input) { input.style.borderColor = '#FF6B47'; input.focus(); }
+        return;
+      }
+      submitBtn.textContent = 'Unlocking...';
+      submitBtn.disabled = true;
+      fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      })
+      .then(r => r.json())
+      .then(() => {
+        closeModal();
+        if (typeof window.unlock === 'function') window.unlock();
+        document.querySelectorAll('[data-href]').forEach(row => {
+          row.setAttribute('href', row.dataset.href);
+        });
+      })
+      .catch(() => {
+        submitBtn.textContent = 'Try again';
+        submitBtn.disabled = false;
+      });
+    });
+
+    document.getElementById('modalEmailInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') submitBtn.click();
+    });
+  }
+
+  const bottomGate = document.querySelector('.gate-section, #gateSection, .gate-card');
+  if (bottomGate) bottomGate.style.display = 'none';
+})();
+</script>
 
 </body>
 </html>
