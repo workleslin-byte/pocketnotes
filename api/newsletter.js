@@ -22,6 +22,7 @@ module.exports = async (req, res) => {
   try {
     const audienceId = process.env.RESEND_NEWSLETTER_AUDIENCE_ID;
     const apiKey = process.env.RESEND_API_KEY;
+    console.log('Newsletter signup:', email, 'audience:', audienceId ? 'set' : 'MISSING');
 
     if (audienceId && apiKey) {
       await fetch('https://api.resend.com/contacts', {

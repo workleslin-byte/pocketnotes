@@ -415,7 +415,8 @@ nav {
 .article-row:hover .row-title { text-decoration-color: var(--row-accent, var(--mustard)); }
 
 /* Blurred rows visible but gated */
-.theme-col-list .article-row.blurred-row { filter: blur(3px); opacity: 0.6; pointer-events: auto; user-select: none; }
+.theme-col-list .article-row.blurred-row { filter: blur(3px); opacity: 0.6; pointer-events: auto !important; cursor: pointer !important; user-select: none; }
+.theme-col-list .article-row.blurred-row * { pointer-events: none; }
 .theme-col-list .article-row.blurred-row.unlocked { filter: none; opacity: 1; pointer-events: auto; user-select: auto; }
 
 /* Scroll-stagger */
@@ -1334,7 +1335,11 @@ const OUTER = [
   }
 
   document.querySelectorAll('.blurred-row').forEach(row => {
-    row.addEventListener('click', openModal);
+    row.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openModal();
+    });
   });
 
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
