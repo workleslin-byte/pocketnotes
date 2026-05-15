@@ -2,6 +2,37 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+function sanitise(str) {
+  if (typeof str !== 'string') return '';
+  return str
+    .replace(/[<>'"]/g, '')
+    .replace(/javascript:/gi, '')
+    .trim()
+    .slice(0, 200);
+}
+
+async function checkRateLimit(ip, endpoint) {
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return true;
+  const key = `ratelimit:${endpoint}:${ip}`;
+  try {
+    const incrRes = await fetch(`${url}/incr/${key}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const incrData = await incrRes.json();
+    const count = incrData.result;
+    if (count === 1) {
+      await fetch(`${url}/expire/${key}/3600`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    }
+    return count <= 5;
+  } catch {
+    return true;
+  }
+}
+
 const ALLOWED_PRODUCTS = ['founders', 'flow', 'both'];
 const NAME_RE = /^[a-zA-Z\s'\-]{2,50}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -61,7 +92,7 @@ async function sendEmail(cleanName, cleanEmail) {
       subject: `${cleanName}, you just joined a short list.`,
       template: {
         id: process.env.RESEND_WAITLIST_TEMPLATE_ID,
-        variables: { first_name: cleanName },
+        variables: { NAME: cleanName },
       },
     });
     if (error) {
@@ -83,11 +114,28 @@ export default async function handler(req, res) {
     return;
   }
 
+  const contentLength = parseInt(req.headers['content-length'] || '0');
+  if (contentLength > 2048) {
+    return res.status(413).json({ error: 'Request too large' });
+  }
+
+  const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim()
+    || req.socket?.remoteAddress
+    || 'unknown';
+  const allowed = await checkRateLimit(ip, 'waitlist');
+  if (!allowed) {
+    return res.status(429).json({ error: 'Too many requests. Please try again later.' });
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, email, city, product_interest } = req.body || {};
+  const raw = req.body || {};
+  const name = sanitise(raw.name);
+  const email = sanitise(raw.email);
+  const city = sanitise(raw.city);
+  const product_interest = sanitise(raw.product_interest);
 
   if (!name || !NAME_RE.test(name.trim())) {
     return res.status(400).json({ error: 'Please enter a valid name' });
