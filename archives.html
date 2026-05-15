@@ -1388,7 +1388,11 @@ const OUTER = [
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
       })
-      .then(r => r.json())
+      .then(async r => {
+        const data = await r.json();
+        if (!r.ok) throw new Error(data.error || 'Failed');
+        return data;
+      })
       .then(() => {
         closeModal();
         if (typeof window.unlock === 'function') window.unlock();
@@ -1396,7 +1400,8 @@ const OUTER = [
           row.setAttribute('href', row.dataset.href);
         });
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error('Newsletter fetch error:', err);
         submitBtn.textContent = 'Try again';
         submitBtn.disabled = false;
       });
