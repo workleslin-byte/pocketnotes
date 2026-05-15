@@ -347,11 +347,11 @@ nav {
 
 /* Featured card */
 .article-featured {
-  display: flex; flex-direction: row;
+  display: flex; flex-direction: row; align-items: stretch;
   border-right: 1px solid var(--paper);
   text-decoration: none; color: inherit; cursor: none;
   transition: background 0.15s ease;
-  position: relative; min-height: 120px; max-height: 200px;
+  position: relative; min-height: 220px;
 }
 .article-featured::before {
   content: ''; position: absolute; left: 0; top: 0; bottom: 0;
@@ -359,15 +359,15 @@ nav {
 }
 .article-featured:hover::before { background: var(--feat-color, var(--mustard)); }
 .article-featured:hover { background: var(--bone); }
-.article-featured-img { width: 42%; flex-shrink: 0; overflow: hidden; max-height: 200px; }
+.article-featured-img { flex: 0 0 40%; overflow: hidden; }
 .article-featured-img img {
-  width: 100%; height: 100%; max-height: 200px; object-fit: cover; object-position: center center;
+  width: 100%; height: 100%; object-fit: cover; object-position: center center;
   display: block; transition: transform 0.4s var(--ease);
 }
 .article-featured:hover .article-featured-img img { transform: scale(1.03); }
 .article-featured-content {
-  flex: 1; padding: 28px 24px;
-  display: flex; flex-direction: column; justify-content: space-between;
+  flex: 1; padding: 24px 20px;
+  display: flex; flex-direction: column; justify-content: center;
 }
 .article-featured-source {
   font-family: 'DM Mono', monospace; font-size: 9px;
@@ -415,42 +415,77 @@ nav {
 .article-row:hover .row-title { text-decoration-color: var(--row-accent, var(--mustard)); }
 
 /* Blurred rows visible but gated */
-.theme-col-list .article-row.blurred-row { filter: blur(3px); opacity: 0.6; pointer-events: none; user-select: none; }
+.theme-col-list .article-row.blurred-row { filter: blur(3px); opacity: 0.6; pointer-events: auto; user-select: none; }
 .theme-col-list .article-row.blurred-row.unlocked { filter: none; opacity: 1; pointer-events: auto; user-select: auto; }
 
 /* Scroll-stagger */
 .article-row { opacity: 0; transform: translateY(14px); transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), background 0.15s ease; }
 .article-row.row-visible { opacity: 1; transform: translateY(0); }
 
-/* blur-gate-cta */
-.blur-gate-cta {
-  text-align: center;
-  padding: 12px 16px 16px;
-  background: linear-gradient(to bottom, rgba(250,243,227,0.0) 0%, rgba(250,243,227,0.85) 60%, rgba(250,243,227,1) 100%);
-  position: relative; z-index: 2; margin-top: -40px;
+[data-locked="true"] { cursor: pointer; }
+[data-locked="true"]:hover { opacity: 0.8; }
+
+/* ── UNLOCK MODAL ── */
+.unlock-modal {
+  position: fixed; inset: 0;
+  background: rgba(26,22,18,0.75);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  z-index: 1000; display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
 }
-.blur-gate-text {
+.unlock-modal.active { opacity: 1; pointer-events: all; }
+.unlock-modal-inner {
+  background: #1A1612; border-radius: 8px; padding: 48px 40px;
+  max-width: 460px; width: calc(100% - 40px);
+  position: relative; text-align: center;
+  transform: translateY(12px); transition: transform 0.3s ease;
+}
+.unlock-modal.active .unlock-modal-inner { transform: translateY(0); }
+.unlock-modal-close {
+  position: absolute; top: 16px; right: 16px;
+  background: none; border: none; color: #FAF3E3; opacity: 0.4;
+  font-size: 14px; cursor: pointer; padding: 4px 8px;
+  font-family: 'DM Mono', monospace;
+}
+.unlock-modal-close:hover { opacity: 1; }
+.unlock-eyebrow {
   font-family: 'DM Mono', monospace; font-size: 9px;
-  letter-spacing: 0.12em; text-transform: uppercase; color: #1A1612; opacity: 0.6;
+  letter-spacing: 0.14em; text-transform: uppercase; color: #F5C13D; margin: 0 0 16px;
 }
-.inline-gate-form {
-  display: flex; gap: 6px; margin-top: 10px; justify-content: center;
+.unlock-headline {
+  font-family: 'Fraunces', serif; font-weight: 900; font-size: 28px;
+  line-height: 1.1; color: #FAF3E3; margin: 0 0 12px; letter-spacing: -0.02em;
 }
-.inline-gate-input {
-  height: 36px; padding: 0 12px;
-  font-family: 'Space Grotesk', sans-serif; font-size: 13px;
-  border: 1.5px solid #1A1612; border-radius: 4px;
-  background: #FAF3E3; color: #1A1612; width: 180px; outline: none;
+.unlock-sub {
+  font-family: 'Space Grotesk', sans-serif; font-size: 14px;
+  color: #FAF3E3; opacity: 0.55; margin: 0 0 28px; line-height: 1.6;
 }
-.inline-gate-input:focus { border-color: #F5C13D; }
-.inline-gate-btn {
-  height: 36px; padding: 0 14px;
-  background: #1A1612; color: #FAF3E3;
+.unlock-form-row { display: flex; gap: 8px; }
+.unlock-input {
+  flex: 1; height: 48px; padding: 0 14px;
+  background: rgba(250,243,227,0.08); border: 1.5px solid rgba(250,243,227,0.2);
+  border-radius: 4px; font-family: 'Space Grotesk', sans-serif; font-size: 14px;
+  color: #FAF3E3; outline: none;
+}
+.unlock-input:focus { border-color: #F5C13D; }
+.unlock-input::placeholder { color: rgba(250,243,227,0.3); }
+.unlock-submit {
+  height: 48px; padding: 0 20px; background: #F5C13D; border: none; border-radius: 4px;
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #1A1612; cursor: pointer; white-space: nowrap;
+  transition: background 0.2s ease;
+}
+.unlock-submit:hover { background: #FAF3E3; }
+.unlock-footer-note {
   font-family: 'DM Mono', monospace; font-size: 9px;
   letter-spacing: 0.1em; text-transform: uppercase;
-  border: none; border-radius: 4px; cursor: pointer; white-space: nowrap;
+  color: #FAF3E3; opacity: 0.25; margin: 16px 0 0;
 }
-.inline-gate-btn:hover { background: #F5C13D; color: #1A1612; }
+@media (max-width: 768px) {
+  .unlock-modal-inner { padding: 36px 24px; }
+  .unlock-form-row { flex-direction: column; }
+  .unlock-submit { width: 100%; }
+}
 
 @media (max-width: 860px) {
   .theme-article-grid { grid-template-columns: 1fr; }
@@ -713,42 +748,35 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
             <span class="row-source" style="color:#B8900A">Paul Graham</span>
             <span class="row-title">Is There Such a Thing as Good Taste?</span>
           </a>
-          <div class="blur-gate-cta">
-            <span class="blur-gate-text">Sign up to read all 10 essays</span>
-            <div class="inline-gate-form">
-              <input type="email" class="inline-gate-input" placeholder="your@email.com" />
-              <button class="inline-gate-btn">Unlock →</button>
-            </div>
-          </div>
-          <a class="article-row blurred-row" style="--row-accent:#B8900A" href="https://medium.com/the-year-of-the-looking-glass/on-taste-part-3-d7d9f069f0b2" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#B8900A" href="https://medium.com/the-year-of-the-looking-glass/on-taste-part-3-d7d9f069f0b2" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#B8900A">Julie Zhuo · Medium</span>
             <span class="row-title">On Taste, Part 3: How to Improve Your Taste If It Sucks</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#B8900A" href="https://paulgraham.com/goodart.html" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#B8900A" href="https://paulgraham.com/goodart.html" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#B8900A">Paul Graham</span>
             <span class="row-title">How Art Can Be Good</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#B8900A" href="https://amycoded.substack.com/p/10-articles-about-taste-that-are" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#B8900A" href="https://amycoded.substack.com/p/10-articles-about-taste-that-are" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#B8900A">Amy Coded · Substack</span>
             <span class="row-title">10 Articles About Taste Worth Reading</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#B8900A" href="https://thechangingroom.substack.com/p/the-secret-formula-to-good-taste" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#B8900A" href="https://thechangingroom.substack.com/p/the-secret-formula-to-good-taste" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#B8900A">The Changing Room · Substack</span>
             <span class="row-title">The Secret Formula to Good Taste</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#B8900A" href="https://meettheartdirector.substack.com/p/finding-my-own-aesthetic-after-years" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#B8900A" href="https://meettheartdirector.substack.com/p/finding-my-own-aesthetic-after-years" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#B8900A">Meet the Art Director</span>
             <span class="row-title">Finding My Own Aesthetic</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#B8900A" href="https://goodsurroundings.substack.com/p/the-art-of-personal-taste" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#B8900A" href="https://goodsurroundings.substack.com/p/the-art-of-personal-taste" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#B8900A">Good Surroundings · Substack</span>
             <span class="row-title">The Art of Personal Taste</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#B8900A" href="https://mimyglow.substack.com/p/on-personal-style-taste-and-inspiration" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#B8900A" href="https://mimyglow.substack.com/p/on-personal-style-taste-and-inspiration" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#B8900A">Mimy’s Journal · Substack</span>
             <span class="row-title">On Personal Style, Taste and Inspiration</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#B8900A" href="https://threeoutfits.substack.com/p/the-art-of-good-taste" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#B8900A" href="https://threeoutfits.substack.com/p/the-art-of-good-taste" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#B8900A">Three Outfits · Substack</span>
             <span class="row-title">The Art of Good Taste — An Intro</span>
           </a>
@@ -785,42 +813,35 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
             <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
             <span class="row-title">Childhoods of Exceptional People</span>
           </a>
-          <div class="blur-gate-cta">
-            <span class="blur-gate-text">Sign up to read all 10 essays</span>
-            <div class="inline-gate-form">
-              <input type="email" class="inline-gate-input" placeholder="your@email.com" />
-              <button class="inline-gate-btn">Unlock →</button>
-            </div>
-          </div>
-          <a class="article-row blurred-row" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/good-design" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/good-design" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
             <span class="row-title">Everything That Turned Out Well Followed the Same Design Process</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/search-query" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/search-query" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
             <span class="row-title">A Blog Post is a Long Search Query</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#C04020" href="https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#C04020" href="https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#C04020">Knowledge Lust · Substack</span>
             <span class="row-title">Autodidact Spotlight: The Notebook Czar</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#C04020" href="https://samuelrinko.substack.com/p/12-books-to-become-a-better-learner" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#C04020" href="https://samuelrinko.substack.com/p/12-books-to-become-a-better-learner" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#C04020">Knowledge Lust · Substack</span>
             <span class="row-title">12 Books to Become a Better Learner</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#C04020" href="https://samuelrinko.substack.com/p/my-self-education-plan-for-fall-2025" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#C04020" href="https://samuelrinko.substack.com/p/my-self-education-plan-for-fall-2025" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#C04020">Knowledge Lust · Substack</span>
             <span class="row-title">My Self-Education Plan for 2025</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#C04020" href="https://substack.com/home/post/p-160219815" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#C04020" href="https://substack.com/home/post/p-160219815" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#C04020">Substack</span>
             <span class="row-title">Why School Is Losing</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/how-i-write" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/how-i-write" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
             <span class="row-title">How I Write Essays</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/diaries" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#C04020" href="https://www.henrikkarlsson.xyz/p/diaries" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#C04020">Henrik Karlsson · Substack</span>
             <span class="row-title">When I Accept Myself Just As I Am, I Change</span>
           </a>
@@ -857,42 +878,35 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
             <span class="row-source" style="color:#6E3582">Kevin Kelly</span>
             <span class="row-title">1000 True Fans</span>
           </a>
-          <div class="blur-gate-cta">
-            <span class="blur-gate-text">Sign up to read all 10 essays</span>
-            <div class="inline-gate-form">
-              <input type="email" class="inline-gate-input" placeholder="your@email.com" />
-              <button class="inline-gate-btn">Unlock →</button>
-            </div>
-          </div>
-          <a class="article-row blurred-row" style="--row-accent:#6E3582" href="https://codelikeagirl.substack.com/p/the-magic-of-side-quests" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#6E3582" href="https://codelikeagirl.substack.com/p/the-magic-of-side-quests" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#6E3582">Code Like a Girl · Substack</span>
             <span class="row-title">The Magic of Side Quests</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#6E3582" href="https://paulgraham.com/identity.html" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#6E3582" href="https://paulgraham.com/identity.html" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#6E3582">Paul Graham</span>
             <span class="row-title">Keep Your Identity Small</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#6E3582" href="https://pathlesspath.com" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#6E3582" href="https://pathlesspath.com" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#6E3582">Paul Millerd · Substack</span>
             <span class="row-title">The Pathless Path</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#6E3582" href="https://www.henrikkarlsson.xyz/p/how-i-write" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#6E3582" href="https://www.henrikkarlsson.xyz/p/how-i-write" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#6E3582">Henrik Karlsson · Substack</span>
             <span class="row-title">How I Write Essays</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#6E3582" href="https://www.henrikkarlsson.xyz/p/good-design" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#6E3582" href="https://www.henrikkarlsson.xyz/p/good-design" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#6E3582">Henrik Karlsson · Substack</span>
             <span class="row-title">Everything That Turned Out Well Followed the Same Design Process</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#6E3582" href="https://paulgraham.com/taste.html" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#6E3582" href="https://paulgraham.com/taste.html" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#6E3582">Paul Graham</span>
             <span class="row-title">Taste for Makers</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#6E3582" href="https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#6E3582" href="https://samuelrinko.substack.com/p/autodidact-spotlight-2-parker-settecase" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#6E3582">Knowledge Lust · Substack</span>
             <span class="row-title">Autodidact Spotlight: The Notebook Czar</span>
           </a>
-          <a class="article-row blurred-row" style="--row-accent:#6E3582" href="https://amycoded.substack.com/p/10-articles-about-taste-that-are" target="_blank" rel="noopener noreferrer">
+          <a class="article-row blurred-row" data-locked="true" style="--row-accent:#6E3582" href="https://amycoded.substack.com/p/10-articles-about-taste-that-are" target="_blank" rel="noopener noreferrer">
             <span class="row-source" style="color:#6E3582">Amy Coded · Substack</span>
             <span class="row-title">10 Articles About Taste Worth Reading</span>
           </a>
@@ -1189,8 +1203,8 @@ const OUTER = [
         row.style.userSelect = 'auto';
       }, i * 30);
     });
-    document.querySelectorAll('.blur-gate-cta').forEach(el => el.remove());
   }
+  window.unlock = unlock;
 
   btn.addEventListener('click', async () => {
     const email = input.value.trim();
@@ -1206,33 +1220,6 @@ const OUTER = [
     unlock();
   });
   input.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
-
-  /* Inline gate forms (one per column) */
-  const EMAIL_RE_INLINE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  document.querySelectorAll('.inline-gate-btn').forEach(inlineBtn => {
-    inlineBtn.addEventListener('click', () => {
-      const inlineInput = inlineBtn.previousElementSibling;
-      const email = inlineInput.value.trim();
-      if (!EMAIL_RE_INLINE.test(email)) {
-        inlineInput.style.borderColor = '#FF6B47';
-        setTimeout(() => { inlineInput.style.borderColor = ''; }, 1500);
-        return;
-      }
-      inlineBtn.textContent = 'Unlocking...';
-      inlineBtn.disabled = true;
-      fetch('/api/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      })
-      .then(r => r.json())
-      .then(() => { unlock(); })
-      .catch(() => {
-        inlineBtn.textContent = 'Try again';
-        inlineBtn.disabled = false;
-      });
-    });
-  });
 })();
 
 /* ── SCROLL REVEAL ──────────────────────────────────────────── */
@@ -1329,8 +1316,75 @@ const OUTER = [
     });
   });
 })();
+
+/* ── UNLOCK MODAL ── */
+(function initModal() {
+  const modal = document.getElementById('unlockModal');
+  const closeBtn = document.querySelector('.unlock-modal-close');
+
+  function openModal() {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => { document.getElementById('modalEmailInput').focus(); }, 300);
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.blurred-row').forEach(row => {
+    row.addEventListener('click', openModal);
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  document.getElementById('modalSubmitBtn').addEventListener('click', () => {
+    const input = document.getElementById('modalEmailInput');
+    const btn = document.getElementById('modalSubmitBtn');
+    const email = input.value.trim();
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!EMAIL_RE.test(email)) {
+      input.style.borderColor = '#FF6B47';
+      input.focus();
+      return;
+    }
+    btn.textContent = 'Unlocking...';
+    btn.disabled = true;
+    fetch('/api/newsletter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    })
+    .then(r => r.json())
+    .then(() => { closeModal(); window.unlock && window.unlock(); })
+    .catch(() => { btn.textContent = 'Try again'; btn.disabled = false; });
+  });
+
+  document.getElementById('modalEmailInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('modalSubmitBtn').click();
+  });
+
+  const bottomGate = document.querySelector('.gate-section, #gateSection, .gate-card');
+  if (bottomGate) bottomGate.style.display = 'none';
+})();
 </script>
 
+<div id="unlockModal" class="unlock-modal">
+  <div class="unlock-modal-inner">
+    <button class="unlock-modal-close" aria-label="Close">✕</button>
+    <p class="unlock-eyebrow">— 27 more essays inside</p>
+    <h2 class="unlock-headline">The rest of the Archive<br>is one email away.</h2>
+    <p class="unlock-sub">All three collections. Updated when we find something worth adding.</p>
+    <div class="unlock-form-row">
+      <input type="email" id="modalEmailInput" class="unlock-input" placeholder="your@email.com" autocomplete="email" />
+      <button id="modalSubmitBtn" class="unlock-submit">Unlock →</button>
+    </div>
+    <p class="unlock-footer-note">No spam · Unsubscribe anytime</p>
+  </div>
+</div>
 
 </body>
 </html>
