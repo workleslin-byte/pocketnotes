@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"require\\('puppeteer'\\)\")",
+      "Bash(node scripts/generate-archives-og.js)",
+      "Bash(del \"c:\\\\Users\\\\ksles\\\\OneDrive\\\\Desktop\\\\Projects\\\\pocketnotes parent\\\\Pocketnotes\\\\scripts\\\\generate-archives-og.js\")",
+      "Bash(git add *)",
+      "Bash(git push *)",
+      "Bash(git -C \"c:/Users/ksles/OneDrive/Desktop/Projects/pocketnotes parent/Pocketnotes\" commit -m \"debug: log orbit image states\")",
+      "Bash(git -C \"c:/Users/ksles/OneDrive/Desktop/Projects/pocketnotes parent/Pocketnotes\" status --short)"
+    ]
+  }
+}

@@ -37,6 +37,8 @@
     { "source": "/essays/constraint-as-creative-practice.html", "destination": "/essays/constraint-as-creative-practice", "permanent": true },
     { "source": "/essays/notes-as-identity-the-corebook.html", "destination": "/essays/notes-as-identity-the-corebook", "permanent": true },
     { "source": "/essays/margins-where-great-ideas-live.html", "destination": "/essays/margins-where-great-ideas-live", "permanent": true },
-    { "source": "/essays/idea-parking.html", "destination": "/essays/idea-parking", "permanent": true }
+    { "source": "/essays/idea-parking.html", "destination": "/essays/idea-parking", "permanent": true },
+    { "source": "/index-v2", "destination": "/", "permanent": true },
+    { "source": "/pocket-notebook-scrollstack", "destination": "/", "permanent": true }
   ]
 }
