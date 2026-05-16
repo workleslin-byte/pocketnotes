@@ -98,7 +98,7 @@ async function sendEmail(cleanName, cleanEmail) {
     if (error) {
       console.error('Resend error:', JSON.stringify(error));
     } else {
-      console.log('Resend success:', data.id);
+      if (process.env.NODE_ENV !== 'production') console.log('Resend success:', data.id);
     }
   } catch (err) {
     console.error('Resend send failed:', err.message);
