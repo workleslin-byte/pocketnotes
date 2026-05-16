@@ -5,3 +5,24 @@ __MACOSX/
 Thumbs.db
 node_modules/
 package-lock.json
+remotion/node_modules/
+remotion/out/
+
+# Environment files — never commit
+.env
+.env.local
+.env.development
+.env.development.local
+.env.production
+.env.production.local
+
+# Debug and temporary files
+_patch_*.py
+_patch_*.js
+scripts/generate-*.js
+scripts/regen-*.js
+
+# Sensitive files
+*.pem
+*.key
+*.cert
