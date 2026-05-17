@@ -1302,7 +1302,9 @@ const OUTER = [
     }
     btn.textContent = 'UNLOCKING...';
     btn.disabled = true;
-    try { await fetch('/api/newsletter', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email}) }); } catch(_){}
+    const c = new AbortController();
+    setTimeout(() => c.abort(), 8000);
+    try { await fetch('/api/newsletter', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email}), signal: c.signal }); } catch(_){}
     unlock();
   });
   input.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
@@ -1473,27 +1475,22 @@ const OUTER = [
       }
       submitBtn.textContent = 'Unlocking...';
       submitBtn.disabled = true;
+
+      // Fire-and-forget with 8s timeout — unlock always fires regardless of API result
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 8000);
       fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      })
-      .then(async r => {
-        const data = await r.json();
-        if (!r.ok) throw new Error(data.error || 'Failed');
-        return data;
-      })
-      .then(() => {
-        closeModal();
-        if (typeof window.unlock === 'function') window.unlock();
-        document.querySelectorAll('[data-href]').forEach(row => {
-          row.setAttribute('href', row.dataset.href);
-        });
-      })
-      .catch((err) => {
-        console.error('Newsletter fetch error:', err);
-        submitBtn.textContent = 'Try again';
-        submitBtn.disabled = false;
+        body: JSON.stringify({ email }),
+        signal: controller.signal
+      }).catch(() => {}).finally(() => clearTimeout(timer));
+
+      // Unlock immediately — don't gate the UX on the API call
+      closeModal();
+      if (typeof window.unlock === 'function') window.unlock();
+      document.querySelectorAll('[data-href]').forEach(row => {
+        row.setAttribute('href', row.dataset.href);
       });
     });
 
