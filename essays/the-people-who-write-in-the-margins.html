@@ -506,6 +506,77 @@
   .disqus-section { max-width: var(--max); margin: 4rem auto 0; padding: 0 var(--gut) 2rem; }
   .disqus-section h3 { font-family: 'Fraunces', serif; font-weight: 300; font-size: 1.3rem; margin-bottom: 1.5rem; color: var(--ink); }
 
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    * { cursor: auto !important; }
+    .cursor-dot, .cursor-ring { display: none !important; }
+
+    /* Nav */
+    nav { top: 0.75rem !important; left: 0.75rem !important; right: 0.75rem !important; }
+    .nav-cta { display: none !important; }
+
+    /* Article wrap */
+    .article-wrap { padding-top: 6.5rem !important; padding-bottom: 3rem !important; }
+    .article-inner { padding: 0 1.25rem !important; }
+
+    /* Article header */
+    .article-title { font-size: clamp(2rem, 11vw, 3.2rem) !important; line-height: 0.95 !important; }
+    .article-subtitle { font-size: 1rem !important; padding-left: 1rem !important; }
+    .article-eyebrow { font-size: 0.65rem !important; }
+
+    /* Article body */
+    .article-body { font-size: 1rem !important; line-height: 1.75 !important; }
+    .article-body p { text-align: left !important; hyphens: none !important; margin-bottom: 1.3rem !important; }
+
+    /* Drop cap — scale down */
+    .article-body .opening::first-letter {
+      font-size: 3.5rem !important;
+      line-height: 0.82 !important;
+    }
+
+    /* Pull quotes */
+    .pull-quote {
+      margin: 2rem -1.25rem !important;
+      padding: 1.25rem 1.25rem !important;
+      border-radius: 0 !important;
+    }
+    .pull-quote p { font-size: clamp(1.1rem, 5vw, 1.4rem) !important; }
+
+    /* Images */
+    .article-img { margin: 2rem 0 !important; }
+    .article-img figcaption { font-size: 0.65rem !important; }
+    .img-pair { grid-template-columns: 1fr !important; margin: 2rem 0 !important; }
+
+    /* Subscribe section */
+    .subscribe-section { padding: 3rem 1.25rem !important; }
+    .subscribe-input, .subscribe-btn { width: 100% !important; }
+    .subscribe-form { flex-direction: column !important; gap: 0.75rem !important; }
+    .subscribe-input { min-height: 52px !important; font-size: 16px !important; }
+    .subscribe-btn { min-height: 52px !important; }
+
+    /* Read next */
+    .read-next { padding: 3rem 1.25rem !important; }
+    .read-next-inner { padding: 0 !important; }
+    .read-next-grid { grid-template-columns: 1fr !important; }
+    .read-next-card:hover { transform: none !important; }
+
+    /* Strip */
+    .strip { padding: 3rem 1.25rem !important; margin-top: 3rem !important; }
+    .strip-inner { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+    .strip-button { width: 100% !important; min-height: 52px !important; justify-content: center !important; }
+
+    /* Footer */
+    footer { padding: 40px 1.25rem 24px !important; }
+    .footer-inner { grid-template-columns: 1fr !important; gap: 2rem !important; }
+    .footer-bottom { flex-direction: column !important; gap: 0.5rem !important; }
+
+    /* Back link tap target */
+    .back-link { min-height: 44px !important; display: inline-flex !important; align-items: center !important; }
+    .article-tag { min-height: 40px !important; display: inline-flex !important; align-items: center !important; }
+
+    a, button { -webkit-tap-highlight-color: transparent !important; }
+  }
+
   /* ─── REDUCED MOTION ─────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }

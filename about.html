@@ -741,6 +741,17 @@
     .strip-button:active { background: var(--coral); transform: none; }
     .manifesto-content h3 a:active { color: var(--coral); }
     .ticker { -webkit-overflow-scrolling: touch; }
+
+    /* Nav position on small screens */
+    nav { top: 0.75rem !important; left: 0.75rem !important; right: 0.75rem !important; }
+
+    /* Manifesto essay links — tap target */
+    .essay-link { min-height: 44px !important; display: inline-flex !important; align-items: center !important; }
+
+    /* Reveal — snappier on mobile */
+    .reveal { transition-duration: 0.35s !important; }
+
+    a, button { -webkit-tap-highlight-color: transparent !important; }
   }
 
   /* ─── REVEAL ─────────────────────────────── */

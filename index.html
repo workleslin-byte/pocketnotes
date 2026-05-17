@@ -786,7 +786,10 @@
     /* Global */
     * { cursor: auto !important; }
     .cursor-dot, .cursor-ring { display: none !important; }
-    body { font-size: 15px; line-height: 1.75; }
+    body { font-size: 15px; line-height: 1.75; overflow-x: hidden; }
+
+    /* Nav — tighter pill on mobile */
+    nav { top: 0.75rem !important; left: 0.75rem !important; right: 0.75rem !important; }
 
     /* All sections: 60px top/bottom, 20px sides */
     .hero { padding: 7rem 20px 3rem; }
@@ -905,9 +908,33 @@
     .reveal-delay-1 { transition-delay: 0.08s; }
     .reveal-delay-2 { transition-delay: 0.16s; }
     .reveal-delay-3 { transition-delay: 0.24s; }
+
+    /* ─── MOBILE HERO CTA ─── */
+    .mobile-hero-cta {
+      display: flex;
+      padding: 0 20px 32px;
+      background: var(--cream);
+    }
+    .mobile-hero-cta a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 52px;
+      background: var(--mustard);
+      color: var(--ink);
+      text-decoration: none;
+      border-radius: 999px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 500;
+    }
   }
 
   .scroll-cue { display: none; }
+  .mobile-hero-cta { display: none; }
 
   /* ─── REDUCED MOTION ─────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
@@ -1048,6 +1075,10 @@
     </svg>
   </div>
 </section>
+
+<div class="mobile-hero-cta" aria-hidden="false">
+  <a href="/shop">Carry the method ↗</a>
+</div>
 
 <!-- ─── MARQUEE ─────────────────────────────────── -->
 <div class="marquee" aria-hidden="true">

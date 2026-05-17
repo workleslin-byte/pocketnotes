@@ -271,7 +271,146 @@ nav {
   border-bottom: 1px solid currentColor; padding-bottom: 1px;
 }
 
-@media (max-width: 768px) { .orbit-outer { display: none !important; } }
+@media (max-width: 768px) {
+  /* ── cursor ── */
+  * { cursor: auto !important; }
+  .cursor-dot, .cursor-ring { display: none !important; }
+
+  /* ── orbit: outer hidden, inner reflowed as grid ── */
+  .orbit-outer { display: none !important; }
+
+  /* MOBILE: collapse the hero to natural height */
+  .hero {
+    height: auto !important;
+    min-height: 0 !important;
+    padding-top: 7rem;
+    padding-bottom: 2rem;
+  }
+  .hero-title { font-size: clamp(3.5rem, 18vw, 5rem) !important; }
+  .hero-subhead { font-size: 0.95rem !important; max-width: 100% !important; }
+  .hero-scroll-label, .hero-chevron { display: none !important; }
+  .hero-rule { margin: 16px auto !important; }
+
+  /* MOBILE: neutralise orbit absolute positioning — show as a flex grid */
+  .orbit-stage {
+    position: static !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    padding: 1rem 1rem 0.5rem !important;
+    height: auto !important;
+  }
+  .orbit-inner {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    width: calc(33.333% - 8px) !important;
+    max-width: 100px !important;
+    height: 120px !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+    border-radius: 6px !important;
+    z-index: auto !important;
+  }
+  .orbit-inner .card-back { display: none !important; }
+
+  /* ── collections header ── */
+  .sec-header { padding: 48px 1.25rem 0 !important; }
+  .sec-title { font-size: clamp(2rem, 10vw, 3rem) !important; }
+  .sec-sub { font-size: 0.9rem !important; }
+
+  /* Offset anchored sections so sticky nav doesn't clip headings */
+  .theme-block { scroll-margin-top: 80px; }
+
+  /* ── theme block heads ── */
+  .theme-block-head {
+    padding: 1.75rem 1.25rem !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+  }
+  .theme-block-name { font-size: clamp(2rem, 9vw, 2.8rem) !important; }
+  .theme-block-desc { font-size: 0.88rem !important; max-width: 100% !important; }
+  .theme-block-head-right { align-self: flex-start !important; }
+  .theme-block-count { min-height: 40px !important; display: inline-flex !important; align-items: center !important; font-size: 0.72rem !important; }
+  .theme-block-bar { display: none !important; }
+
+  /* ── article grid: stack featured + list ── */
+  .theme-article-grid { grid-template-columns: 1fr !important; }
+
+  /* ── featured card ── */
+  .article-featured {
+    flex-direction: column !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--paper) !important;
+    min-height: 0 !important;
+  }
+  .article-featured-img {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    height: 200px !important;
+  }
+  .article-featured-content { padding: 1.25rem !important; }
+  .article-featured-title { font-size: 1.25rem !important; }
+  .article-featured-cta { min-height: 44px !important; display: inline-flex !important; align-items: center !important; padding: 0.5rem 0 !important; }
+
+  /* ── article rows ── */
+  .article-row {
+    padding: 14px 1.25rem !important;
+    min-height: 52px !important;
+  }
+  .row-title { font-size: 0.95rem !important; }
+  .row-source { font-size: 8px !important; }
+
+  /* ── gate section ── */
+  .gate-section { padding: 0 1.25rem 60px !important; }
+  .gate-card {
+    padding: 36px 20px 28px !important;
+    text-align: center !important;
+  }
+  .gate-headline { font-size: 1.5rem !important; line-height: 1.15 !important; }
+  .gate-sub { font-size: 0.9rem !important; margin-bottom: 20px !important; }
+  #gateEmail {
+    min-height: 52px !important;
+    font-size: 16px !important;
+    padding: 0.75rem 1rem !important;
+    width: 100% !important;
+  }
+  #gateBtn {
+    width: 100% !important;
+    min-height: 52px !important;
+    font-size: 0.82rem !important;
+    border-radius: 6px !important;
+    margin-top: 8px !important;
+  }
+
+  /* ── archives footer CTA ── */
+  .archives-cta { padding: 36px 1.25rem 48px !important; }
+
+  /* ── footer ── */
+  footer { padding: 40px 1.25rem 24px !important; }
+  .footer-inner { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  .footer-bottom { flex-direction: column !important; gap: 0.5rem !important; }
+
+  /* ── unlock modal ── */
+  .unlock-modal-inner { padding: 36px 20px !important; }
+  .unlock-form-row { flex-direction: column !important; }
+  .unlock-input { min-height: 52px !important; font-size: 16px !important; }
+  .unlock-submit { width: 100% !important; min-height: 52px !important; }
+
+  /* ── reveal animation — snappier on mobile ── */
+  .reveal {
+    transition-duration: 0.35s !important;
+    transition-delay: 0ms !important;
+  }
+
+  /* ── touch: tap target floors ── */
+  a, button { -webkit-tap-highlight-color: transparent !important; }
+}
 
 /* ════════════════════════════════════════
    SECTION 2 — COLLECTIONS
@@ -634,18 +773,174 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
 .footer-bottom { border-top: 1px solid rgba(241,231,206,0.15); padding-top: 1.4rem; display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone); opacity: 0.5; flex-wrap: wrap; gap: 0.5rem; }
 
 /* ════════════════════════════════════════
-   MOBILE — ACCORDION
+   MOBILE — COLLECTIONS
 ════════════════════════════════════════ */
 @media (max-width: 768px) {
-  .theme-grid { grid-template-columns: 1fr; border-radius: 8px; }
-  .theme-col { border-right: none; border-bottom: 1.5px solid var(--ink); }
-  .theme-col:last-child { border-bottom: none; }
-  .theme-col-head { cursor: pointer; display: flex; align-items: flex-start; gap: 12px; }
-  .theme-col-head-main { flex: 1; }
-  .col-chevron { font-size: 14px; margin-top: 4px; flex-shrink: 0; transition: transform 0.3s var(--ease); }
-  .theme-col.expanded .col-chevron { transform: rotate(180deg); }
-  .theme-col-list { display: none; }
-  .theme-col.expanded .theme-col-list { display: flex; }
+  /* ── ORBIT: neutralise JS absolute positioning ── */
+  #orbitStage {
+    position: relative !important;
+    height: auto !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 1rem 1rem 0 !important;
+  }
+  .orbit-card {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    width: 90px !important;
+    height: 108px !important;
+    flex: 0 0 90px !important;
+  }
+  .orbit-outer { display: none !important; }
+
+  /* ── HERO: collapse dead vertical space ── */
+  .hero {
+    height: auto !important;
+    min-height: 100svh !important;
+    padding-bottom: 2rem !important;
+  }
+  .hero-center {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    padding: 5.5rem 1.25rem 1.5rem !important;
+    text-align: center !important;
+  }
+  .hero-title {
+    font-size: clamp(56px, 14vw, 80px) !important;
+    line-height: 0.9 !important;
+  }
+  .hero-subhead { max-width: 100% !important; font-size: 14px !important; }
+
+  /* ── COLLECTIONS: make article rows visible ── */
+  /* Remove display:none — rows must be in flow so IntersectionObserver can fire */
+  .theme-col-list {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Article rows: ensure visible state reachable */
+  .article-row {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  .article-row.row-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
+  /* Theme block head: stack vertically */
+  .theme-block-head {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    padding: 24px 1.25rem !important;
+  }
+  .theme-block-name { font-size: clamp(28px, 9vw, 44px) !important; }
+  .theme-block-desc { font-size: 14px !important; max-width: 100% !important; }
+  .theme-block-head-right { align-self: flex-start !important; }
+
+  /* Article grid: single column */
+  .theme-article-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Featured article: stack image above content */
+  .article-featured {
+    flex-direction: column !important;
+    min-height: auto !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--paper) !important;
+  }
+  .article-featured-img {
+    flex: none !important;
+    width: 100% !important;
+    height: 200px !important;
+  }
+  .article-featured-content { padding: 20px 1.25rem !important; }
+  .article-featured-title { font-size: 20px !important; }
+
+  /* Standard rows */
+  .article-row { padding: 16px 1.25rem 15px !important; }
+  .row-title { font-size: 15px !important; }
+
+  /* Blurred rows: visible but blurred — tap to unlock */
+  .article-row.blurred-row {
+    filter: blur(3px) !important;
+    opacity: 0.7 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    position: relative !important;
+  }
+  /* "Tap to unlock" label overlaid on each blurred row */
+  .article-row.blurred-row::after {
+    content: 'Tap to unlock ↗';
+    position: absolute !important;
+    inset: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-family: 'DM Mono', monospace !important;
+    font-size: 9px !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    color: var(--ink) !important;
+    background: rgba(250, 243, 227, 0.55) !important;
+    pointer-events: none !important;
+  }
+  .article-row.blurred-row.unlocked {
+    filter: none !important;
+    opacity: 1 !important;
+  }
+  .article-row.blurred-row.unlocked::after {
+    display: none !important;
+  }
+
+  /* Sections */
+  .sec-header { padding: 48px 1.25rem 0 !important; }
+  .sec-title { font-size: clamp(32px, 10vw, 50px) !important; }
+  .collections-inner { margin-top: 32px !important; }
+
+  /* Gate section: hidden by JS on both desktop and mobile — JS does this at runtime */
+  /* Do NOT hide with CSS here — let JS control it so unlock() can show it if needed */
+
+  /* Unlock modal: mobile-optimised */
+  .unlock-modal-inner { padding: 36px 20px !important; max-width: calc(100% - 32px) !important; }
+  .unlock-form-row { flex-direction: column !important; gap: 10px !important; }
+  .unlock-input {
+    height: 52px !important;
+    font-size: 16px !important;
+    width: 100% !important;
+  }
+  .unlock-submit {
+    width: 100% !important;
+    height: 52px !important;
+    font-size: 11px !important;
+    touch-action: manipulation !important;
+  }
+  .unlock-modal-close {
+    touch-action: manipulation !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+  .unlock-headline { font-size: 24px !important; }
+
+  /* Footer */
+  .footer-inner { grid-template-columns: 1fr 1fr !important; gap: 2rem !important; }
+
+  /* Nav */
+  nav { top: 0.75rem !important; left: 0.75rem !important; right: 0.75rem !important; padding: 0.65rem 1rem !important; }
+  .nav-hamburger { min-width: 44px !important; min-height: 44px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+  .nav-cta { display: none !important; }
 }
 
 /* ════════════════════════════════════════
@@ -1018,6 +1313,7 @@ const OUTER = [
 /* ── ORBITAL ANIMATION ──────────────────────────────────────── */
 
 (function initOrbits() {
+  if (window.innerWidth <= 768) return;
   const stage = document.getElementById('orbitStage');
   const mob   = () => window.innerWidth < 768;
 
@@ -1136,6 +1432,10 @@ const OUTER = [
   }
 
   function frame(now) {
+    if (mob()) {
+      // On mobile: cards are static via CSS, skip all JS positioning
+      return;
+    }
     const el = now - t0;
     const cx = window.innerWidth / 2;
     const cy = window.innerHeight / 2;
@@ -1176,7 +1476,17 @@ const OUTER = [
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
+
 })();
+
+function resetOrbitForMobile() {
+  if (window.innerWidth > 768) return;
+  document.querySelectorAll('.orbit-card').forEach(card => {
+    card.style.cssText = '';
+  });
+}
+resetOrbitForMobile();
+window.addEventListener('resize', resetOrbitForMobile, { passive: true });
 
 /* ── GATE ──────────────────────────────────────────────────── */
 
@@ -1253,6 +1563,12 @@ const OUTER = [
   }, { threshold: 0.05 });
   document.querySelectorAll('.theme-col-list').forEach(list => rowObs.observe(list));
 
+  // Safety: on mobile, force-reveal rows that may have been missed
+  if (window.innerWidth <= 768) {
+    document.querySelectorAll('.article-row').forEach((row, i) => {
+      setTimeout(() => row.classList.add('row-visible'), 80 + i * 40);
+    });
+  }
 
 })();
 
