@@ -776,30 +776,7 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
    MOBILE — COLLECTIONS
 ════════════════════════════════════════ */
 @media (max-width: 768px) {
-  /* ── ORBIT: neutralise JS absolute positioning ── */
-  #orbitStage {
-    position: relative !important;
-    height: auto !important;
-    min-height: 0 !important;
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 8px !important;
-    padding: 1rem 1rem 0 !important;
-  }
-  .orbit-card {
-    position: relative !important;
-    left: auto !important;
-    top: auto !important;
-    transform: none !important;
-    animation: none !important;
-    opacity: 1 !important;
-    width: 90px !important;
-    height: 108px !important;
-    flex: 0 0 90px !important;
-    overflow: hidden !important;
-  }
+  /* ── ORBIT: hide outer ring on mobile — inner ring animates at scaled-down radius ── */
   .orbit-outer { display: none !important; }
 
   /* ── HERO: collapse dead vertical space ── */
@@ -1471,20 +1448,10 @@ const OUTER = [
     }
     requestAnimationFrame(frame);
   }
-  // Cards are built and in the DOM — on mobile CSS handles layout, skip animation
-  if (mob()) return;
   requestAnimationFrame(frame);
 
 })();
 
-function resetOrbitForMobile() {
-  if (window.innerWidth > 768) return;
-  document.querySelectorAll('.orbit-card').forEach(card => {
-    card.style.cssText = '';
-  });
-}
-resetOrbitForMobile();
-window.addEventListener('resize', resetOrbitForMobile, { passive: true });
 
 /* ── GATE ──────────────────────────────────────────────────── */
 
