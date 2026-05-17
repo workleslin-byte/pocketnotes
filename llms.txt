@@ -12,31 +12,41 @@
 - Mission: A capture device for fast thinkers
 
 ## Pages
-- Homepage: https://www.pocketnotes.in
-- Shop: https://www.pocketnotes.in/shop
-- About: https://www.pocketnotes.in/about
-- Essays: https://www.pocketnotes.in/essays
+- Homepage: https://pocketnotes.in
+- Shop: https://pocketnotes.in/shop
+- About: https://pocketnotes.in/about
+- Essays: https://pocketnotes.in/essays
 
 ## Essays
-- https://www.pocketnotes.in/essays/the-people-who-write-in-the-margins
-- https://www.pocketnotes.in/essays/the-page-is-a-tool
-- https://www.pocketnotes.in/essays/constraint-sharpens
-- https://www.pocketnotes.in/essays/catch-first-edit-later
-- https://www.pocketnotes.in/essays/the-method-beats-the-mood
-- https://www.pocketnotes.in/essays/the-grid-page-and-the-wandering-thought
-- https://www.pocketnotes.in/essays/the-index-method
-- https://www.pocketnotes.in/essays/two-lines-every-day
-- https://www.pocketnotes.in/essays/why-your-notebook-should-never-be-organised
-- https://www.pocketnotes.in/essays/attention-is-physical
-- https://www.pocketnotes.in/essays/born-of-necessity
-- https://www.pocketnotes.in/essays/we-dont-compete-with-notebooks
-- https://www.pocketnotes.in/essays/notebooks-of-ancient-singers
-- https://www.pocketnotes.in/essays/margins-where-great-ideas-live
-- https://www.pocketnotes.in/essays/the-roman-wax-tablet
-- https://www.pocketnotes.in/essays/idea-parking
-- https://www.pocketnotes.in/essays/constraint-as-creative-practice
-- https://www.pocketnotes.in/essays/the-first-page-rule
-- https://www.pocketnotes.in/essays/notes-as-identity-the-corebook
+- https://pocketnotes.in/essays/the-people-who-write-in-the-margins
+- https://pocketnotes.in/essays/the-page-is-a-tool
+- https://pocketnotes.in/essays/constraint-sharpens
+- https://pocketnotes.in/essays/catch-first-edit-later
+- https://pocketnotes.in/essays/the-method-beats-the-mood
+- https://pocketnotes.in/essays/the-grid-page-and-the-wandering-thought
+- https://pocketnotes.in/essays/the-index-method
+- https://pocketnotes.in/essays/two-lines-every-day
+- https://pocketnotes.in/essays/why-your-notebook-should-never-be-organised
+- https://pocketnotes.in/essays/attention-is-physical
+- https://pocketnotes.in/essays/born-of-necessity
+- https://pocketnotes.in/essays/we-dont-compete-with-notebooks
+- https://pocketnotes.in/essays/notebooks-of-ancient-singers
+- https://pocketnotes.in/essays/margins-where-great-ideas-live
+- https://pocketnotes.in/essays/the-roman-wax-tablet
+- https://pocketnotes.in/essays/idea-parking
+- https://pocketnotes.in/essays/constraint-as-creative-practice
+- https://pocketnotes.in/essays/the-first-page-rule
+- https://pocketnotes.in/essays/notes-as-identity-the-corebook
+
+## Key Pages
+
+- [Pocket Notes Shop](https://pocketnotes.in/shop): A6 grid notebooks — Founder's 500 Series and Flow Series, ₹249, made in India.
+- [Essays on Notebooks](https://pocketnotes.in/essays): 20 essays on the history and practice of notebook keeping.
+- [The People Who Write in the Margins](https://pocketnotes.in/essays/the-people-who-write-in-the-margins): History of marginalia from Coleridge to medieval monks.
+- [The Index Method](https://pocketnotes.in/essays/the-index-method): How to never lose a thought using a notebook index.
+- [The Roman Wax Tablet](https://pocketnotes.in/essays/the-roman-wax-tablet): The original portable notebook, from antiquity.
+- [Notebooks of Ancient Singers](https://pocketnotes.in/essays/notebooks-of-ancient-singers): How oral traditions used memory as a notebook.
+- [About Pocket Notes](https://pocketnotes.in/about): Why we make small notebooks. What we think the page is for.
 
 ## Brand voice
 Sharp, direct, literary. No productivity clichés.

@@ -1,4 +1,28 @@
 User-agent: *
 Allow: /
+Disallow: /product/
+Disallow: /feed/
+Disallow: /?wc-ajax=
 
-Sitemap: https://www.pocketnotes.in/sitemap.xml
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+Sitemap: https://pocketnotes.in/sitemap.xml
