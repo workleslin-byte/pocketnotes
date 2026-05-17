@@ -668,7 +668,21 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
   .theme-block-desc { font-size: 14px !important; max-width: 100% !important; }
   .theme-block-head-right { align-self: flex-start !important; }
   .theme-block-count { min-height: 40px !important; display: inline-flex !important; align-items: center !important; font-size: 0.72rem !important; }
-  .theme-block-bar { display: none !important; }
+
+  /* Mobile accent bar — transform vertical bar into horizontal bottom border */
+  .theme-block-bar {
+    width: 100% !important;
+    height: 3px !important;
+    border-radius: 0 !important;
+    margin-top: 16px !important;
+    flex-shrink: 0 !important;
+    align-self: stretch !important;
+  }
+  .theme-block-head {
+    border-bottom: none !important;
+    padding-bottom: 24px !important;
+    position: relative !important;
+  }
 
   /* article grid */
   .theme-article-grid { grid-template-columns: 1fr !important; }
@@ -764,7 +778,7 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
   <div class="hero-center">
     <p class="hero-eyebrow">Pocket Notes · Curated Reading</p>
     <h1 class="hero-title">Archives</h1>
-    <p class="hero-subhead">The internet's best writing on taste, learning, and building your own path.</p>
+    <p class="hero-subhead">Ideas worth sitting with. Curated for the intellectually restless.</p>
     <div class="hero-rule"></div>
     <p class="hero-scroll-label">Scroll to Explore</p>
     <div class="hero-chevron">
@@ -781,9 +795,9 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
 <section class="collections" id="collections">
 
   <div class="sec-header reveal">
-    <p class="sec-kicker">Three curated collections</p>
-    <h2 class="sec-title">The Reading List.</h2>
-    <p class="sec-sub">Thirty essays on three ideas worth sitting with. Free to browse — subscribe to read all thirty.</p>
+    <p class="sec-kicker">Curated collections</p>
+    <h2 class="sec-title">The Reading Room.</h2>
+    <p class="sec-sub">Ideas worth sitting with. One email joins the reading room.</p>
   </div>
 
   <div class="collections-inner" style="margin-top:56px">
@@ -992,8 +1006,8 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
 <div class="gate-section" id="gateSection">
   <div class="gate-blur" id="gateBlur">
     <div class="gate-card reveal" id="gateCard">
-      <p class="gate-eyebrow">— 27 More Essays Inside</p>
-      <h3 class="gate-headline">The rest of the Archive<br>is one email away.</h3>
+      <p class="gate-eyebrow">— Join the reading room</p>
+      <h3 class="gate-headline">The rest of the reading room<br>is one email away.</h3>
       <p class="gate-sub">Two more complete collections. Updated when we find something worth adding. No spam.</p>
 
       <div id="gateForm">
@@ -1400,8 +1414,8 @@ const OUTER = [
 <div id="unlockModal" class="unlock-modal">
   <div class="unlock-modal-inner">
     <button class="unlock-modal-close" aria-label="Close">✕</button>
-    <p class="unlock-eyebrow">— 27 more essays inside</p>
-    <h2 class="unlock-headline">The rest of the Archive<br>is one email away.</h2>
+    <p class="unlock-eyebrow">— Join the reading room</p>
+    <h2 class="unlock-headline">The rest of the reading room<br>is one email away.</h2>
     <p class="unlock-sub">All three collections. Updated when we find something worth adding.</p>
     <div class="unlock-form-row">
       <input type="email" id="modalEmailInput" class="unlock-input" placeholder="your@email.com" autocomplete="email" />
