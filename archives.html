@@ -1314,9 +1314,8 @@ const OUTER = [
 /* ── ORBITAL ANIMATION ──────────────────────────────────────── */
 
 (function initOrbits() {
-  if (window.innerWidth <= 768) return;
   const stage = document.getElementById('orbitStage');
-  const mob   = () => window.innerWidth < 768;
+  const mob   = () => window.innerWidth <= 768;
 
   function makeCard(d, w, h) {
     const wrap = document.createElement('div');
@@ -1433,10 +1432,6 @@ const OUTER = [
   }
 
   function frame(now) {
-    if (mob()) {
-      // On mobile: cards are static via CSS, skip all JS positioning
-      return;
-    }
     const el = now - t0;
     const cx = window.innerWidth / 2;
     const cy = window.innerHeight / 2;
@@ -1476,6 +1471,8 @@ const OUTER = [
     }
     requestAnimationFrame(frame);
   }
+  // Cards are built and in the DOM — on mobile CSS handles layout, skip animation
+  if (mob()) return;
   requestAnimationFrame(frame);
 
 })();
