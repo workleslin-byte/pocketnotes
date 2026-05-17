@@ -1292,7 +1292,7 @@ const OUTER = [
   }
   window.unlock = unlock;
 
-  btn.addEventListener('click', async () => {
+  btn.addEventListener('click', () => {
     const email = input.value.trim();
     if (!email || !email.includes('@')) {
       input.style.borderColor = '#FF6B47';
@@ -1304,7 +1304,7 @@ const OUTER = [
     btn.disabled = true;
     const c = new AbortController();
     setTimeout(() => c.abort(), 8000);
-    try { await fetch('/api/newsletter', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email}), signal: c.signal }); } catch(_){}
+    fetch('/api/newsletter', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email}), signal: c.signal }).catch(() => {});
     unlock();
   });
   input.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
