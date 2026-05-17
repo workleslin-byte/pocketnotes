@@ -1273,19 +1273,23 @@ const OUTER = [
   const locked  = document.querySelectorAll('.article-row.locked');
 
   function unlock() {
-    form.style.display = 'none';
-    success.style.display = 'block';
-    setTimeout(() => {
-      blur.style.opacity = '0';
-      locked.forEach(r => r.classList.add('unlocked'));
-      setTimeout(() => { blur.style.display = 'none'; }, 820);
-    }, 600);
+    if (form) form.style.display = 'none';
+    if (success) success.style.display = 'block';
+    if (blur) {
+      setTimeout(() => {
+        blur.style.opacity = '0';
+        locked.forEach(r => r.classList.add('unlocked'));
+        setTimeout(() => { blur.style.display = 'none'; }, 820);
+      }, 600);
+    }
     document.querySelectorAll('.blurred-row').forEach((row, i) => {
       setTimeout(() => {
+        row.classList.add('unlocked');
         row.style.filter = 'none';
         row.style.opacity = '1';
         row.style.pointerEvents = 'auto';
         row.style.userSelect = 'auto';
+        row.style.cursor = 'pointer';
         if (row.dataset.href) row.setAttribute('href', row.dataset.href);
       }, i * 30);
     });
@@ -1432,7 +1436,12 @@ const OUTER = [
   const modal = document.getElementById('unlockModal');
   if (!modal) { console.error('Modal not found'); return; }
 
+  let isUnlocked = false;
+
   function openModal() {
+    if (isUnlocked) return;
+    const sb = document.getElementById('modalSubmitBtn');
+    if (sb) { sb.textContent = 'Unlock →'; sb.disabled = false; }
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
     setTimeout(() => {
@@ -1476,22 +1485,27 @@ const OUTER = [
       submitBtn.textContent = 'Unlocking...';
       submitBtn.disabled = true;
 
-      // Fire-and-forget with 8s timeout — unlock always fires regardless of API result
+      // Fire-and-forget — email captured in background, never blocks UX
       const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 8000);
+      setTimeout(() => controller.abort(), 8000);
       fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
         signal: controller.signal
-      }).catch(() => {}).finally(() => clearTimeout(timer));
+      }).catch(() => {});
 
-      // Unlock immediately — don't gate the UX on the API call
-      closeModal();
+      // Step 1: unlock rows immediately — before closing modal
+      isUnlocked = true;
       if (typeof window.unlock === 'function') window.unlock();
+
+      // Step 2: restore href on all blurred rows
       document.querySelectorAll('[data-href]').forEach(row => {
         row.setAttribute('href', row.dataset.href);
       });
+
+      // Step 3: close modal after a beat so unlock animation settles
+      setTimeout(() => closeModal(), 320);
     });
 
     document.getElementById('modalEmailInput').addEventListener('keydown', (e) => {
