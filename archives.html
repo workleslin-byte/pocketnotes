@@ -740,6 +740,14 @@ footer { background: var(--ink); color: var(--cream); padding: 4rem var(--gut) 2
   .reveal, .article-row, .index-item-wrap { opacity: 1 !important; transform: none !important; }
 }
 </style>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYV54KY1F1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZYV54KY1F1');
+</script>
 </head>
 <body>
 
@@ -1444,6 +1452,7 @@ const OUTER = [
     if (sb) { sb.textContent = 'Unlock →'; sb.disabled = false; }
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    gtag('event', 'gate_modal_opened', {event_category: 'archives', event_label: 'blurred_row_click'});
     setTimeout(() => {
       const input = document.getElementById('modalEmailInput');
       if (input) input.focus();
@@ -1497,6 +1506,7 @@ const OUTER = [
 
       // Step 1: unlock rows immediately — before closing modal
       isUnlocked = true;
+      gtag('event', 'newsletter_signup', {event_category: 'conversion', event_label: 'archives_gate'});
       if (typeof window.unlock === 'function') window.unlock();
 
       // Step 2: restore href on all blurred rows
