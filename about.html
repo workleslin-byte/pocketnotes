@@ -810,7 +810,7 @@
     <li><a href="/essays">Essays</a></li>
     <li><a href="/archives">Archives</a></li>
   </ul>
-  <a href="/shop" class="nav-cta">Carry the method ↗</a>
+  <a href="/shop" class="nav-cta" id="aboutNavCta">Carry the method ↗</a>
   <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -1094,7 +1094,7 @@
   <div class="strip-content">
     <h2 class="strip-title">Begin your<br><em>Corebook.</em></h2>
     <div class="strip-action">
-      <a href="/shop" class="strip-button">
+      <a href="/shop" class="strip-button" id="aboutStripCta">
         Visit the shop
         <span class="arrow">↗</span>
       </a>
@@ -1180,6 +1180,49 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ── Helper ──
+  function fire(name, props) {
+    try { posthog.capture(name, props || {}); } catch(e) {}
+    try { gtag('event', name, props || {}); } catch(e) {}
+  }
+
+  // ── Nav CTA ──
+  const aboutNavCta = document.getElementById('aboutNavCta');
+  if (aboutNavCta) {
+    aboutNavCta.addEventListener('click', () => {
+      fire('shop_cta_clicked', { source: 'nav', page: 'about' });
+    });
+  }
+
+  // ── Strip CTA ──
+  const aboutStripCta = document.getElementById('aboutStripCta');
+  if (aboutStripCta) {
+    aboutStripCta.addEventListener('click', () => {
+      fire('shop_cta_clicked', { source: 'strip', page: 'about' });
+    });
+  }
+
+  // ── Scroll depth (25 / 50 / 75 / 90%) ──
+  (function() {
+    const thresholds = [25, 50, 75, 90];
+    const fired = new Set();
+    function getDepth() {
+      const scrolled = window.scrollY + window.innerHeight;
+      const total    = document.documentElement.scrollHeight;
+      return Math.round((scrolled / total) * 100);
+    }
+    window.addEventListener('scroll', () => {
+      const depth = getDepth();
+      thresholds.forEach(t => {
+        if (!fired.has(t) && depth >= t) {
+          fired.add(t);
+          fire('scroll_depth', { percent: t, page: 'about' });
+        }
+      });
+    }, { passive: true });
+  })();
+
 </script>
 
 </body>
