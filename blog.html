@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -850,6 +850,30 @@
     letter-spacing: -0.01em;
   }
 
+  .post-view-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    opacity: 0.45;
+    margin-bottom: 0.5rem;
+  }
+  .post-view-count svg {
+    width: 11px; height: 11px;
+    stroke: currentColor; fill: none;
+    stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+    flex-shrink: 0;
+  }
+  .post-view-shimmer {
+    display: inline-block; width: 22px; height: 2px;
+    background: var(--ink); opacity: 0.2; border-radius: 1px;
+    animation: pvshimmer 1.1s ease-in-out infinite; vertical-align: middle;
+  }
+  @keyframes pvshimmer { 0%,100%{opacity:0.1;} 50%{opacity:0.28;} }
+
   .post.large { grid-column: span 7; }
   .post.large .post-img { aspect-ratio: 16/10; }
   .post.large .post-title { font-size: 2.4rem; }
@@ -1339,6 +1363,7 @@
         </svg>
       </div>
       <p class="post-meta">Technique · 5 min read</p>
+      <p class="post-view-count"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span class="pvc-num"><span class="post-view-shimmer"></span></span></p>
       <h3 class="post-title">The Index Method: how to never lose a thought again</h3>
     </a>
 
@@ -1362,6 +1387,7 @@
         </svg>
       </div>
       <p class="post-meta">History · 8 min read</p>
+      <p class="post-view-count"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span class="pvc-num"><span class="post-view-shimmer"></span></span></p>
       <h3 class="post-title">Notebooks of ancient singers</h3>
     </a>
 
@@ -1377,6 +1403,7 @@
         </svg>
       </div>
       <p class="post-meta">Philosophy · 6 min</p>
+      <p class="post-view-count"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span class="pvc-num"><span class="post-view-shimmer"></span></span></p>
       <h3 class="post-title">Why your notebook should never be "organised"</h3>
     </a>
 
@@ -1402,6 +1429,7 @@
         </svg>
       </div>
       <p class="post-meta">Technique · 4 min</p>
+      <p class="post-view-count"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span class="pvc-num"><span class="post-view-shimmer"></span></span></p>
       <h3 class="post-title">The grid page and the wandering thought</h3>
     </a>
 
@@ -1427,6 +1455,7 @@
         </svg>
       </div>
       <p class="post-meta">History · 10 min</p>
+      <p class="post-view-count"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span class="pvc-num"><span class="post-view-shimmer"></span></span></p>
       <h3 class="post-title">The Roman wax tablet, ancestor to all of this</h3>
     </a>
 
@@ -1448,6 +1477,7 @@
         </svg>
       </div>
       <p class="post-meta">Ritual · 4 min</p>
+      <p class="post-view-count"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span class="pvc-num"><span class="post-view-shimmer"></span></span></p>
       <h3 class="post-title">Two lines, every day: the smallest reliable habit</h3>
     </a>
 
@@ -1467,6 +1497,7 @@
         </svg>
       </div>
       <p class="post-meta">Method · 5 min</p>
+      <p class="post-view-count"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span class="pvc-num"><span class="post-view-shimmer"></span></span></p>
       <h3 class="post-title">The First-Page Rule: start ugly, start honest</h3>
     </a>
 
@@ -1485,6 +1516,7 @@
         </svg>
       </div>
       <p class="post-meta">Philosophy · 7 min</p>
+      <p class="post-view-count"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span class="pvc-num"><span class="post-view-shimmer"></span></span></p>
       <h3 class="post-title">Constraint as creative practice: a brief defense</h3>
     </a>
 
@@ -1502,6 +1534,7 @@
         </svg>
       </div>
       <p class="post-meta">Founder · 9 min</p>
+      <p class="post-view-count"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span class="pvc-num"><span class="post-view-shimmer"></span></span></p>
       <h3 class="post-title">Notes as identity: the case for a Corebook</h3>
     </a>
 
@@ -1529,6 +1562,7 @@
         </svg>
       </div>
       <p class="post-meta">History · 6 min</p>
+      <p class="post-view-count"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span class="pvc-num"><span class="post-view-shimmer"></span></span></p>
       <h3 class="post-title">Margins: where great ideas actually live</h3>
     </a>
 
@@ -1552,6 +1586,7 @@
         </svg>
       </div>
       <p class="post-meta">Method · 5 min</p>
+      <p class="post-view-count"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span class="pvc-num"><span class="post-view-shimmer"></span></span></p>
       <h3 class="post-title">Idea parking: how to remember without organizing</h3>
     </a>
 
@@ -1829,6 +1864,20 @@
         }
       });
     }, { passive: true });
+  })();
+
+  /* ── Essay view counts ── */
+  (function() {
+    var cards = document.querySelectorAll('[data-slug] .pvc-num');
+    if (!cards.length) return;
+    cards.forEach(function(el) {
+      var slug = el.closest('[data-slug]').dataset.slug;
+      if (!slug) return;
+      fetch('/api/view?slug=' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(d) { el.textContent = d.count + ' reads'; })
+        .catch(function() { el.textContent = ''; });
+    });
   })();
 
 </script>
