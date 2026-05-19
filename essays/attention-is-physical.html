@@ -220,6 +220,45 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
     a, button { -webkit-tap-highlight-color: transparent !important; }
   }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}html{scroll-behavior:auto}}
+/* ── View counter ── */
+.essay-view-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  opacity: 0.55;
+  cursor: default;
+  transition: opacity 0.2s ease;
+  user-select: none;
+}
+.essay-view-count:hover { opacity: 0.9; }
+.essay-view-count svg {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+.view-shimmer {
+  display: inline-block;
+  width: 28px;
+  height: 2px;
+  background: var(--ink);
+  opacity: 0.15;
+  border-radius: 1px;
+  animation: vshimmer 1.1s ease-in-out infinite;
+  vertical-align: middle;
+}
+@keyframes vshimmer {
+  0%, 100% { opacity: 0.1; }
+  50%       { opacity: 0.28; }
+}
 </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYV54KY1F1"></script>
@@ -395,6 +434,13 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
   <div class="footer-bottom">
     <span>© 2026 Pocket Notes</span>
     <span>Small Books, Big Ideas · Made in India</span>
+  <span class="essay-view-count" id="essayViewCount" aria-label="reads">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+    <circle cx="12" cy="12" r="3"/>
+  </svg>
+  <span id="viewCountNum"><span class="view-shimmer"></span></span>
+</span>
   </div>
 </footer>
 
@@ -421,6 +467,35 @@ document.getElementById('subscribeForm').addEventListener('submit',async functio
 });
 var disqus_config=function(){this.page.url='https://pocketnotes.in/essays/attention-is-physical';this.page.identifier='attention-is-physical';};
 (function(){var d=document,s=d.createElement('script');s.src='https://pocketnotes.disqus.com/embed.js';s.setAttribute('data-timestamp',+new Date());(d.head||d.body).appendChild(s);})();
+
+/* ── View counter ── */
+(function() {
+  var slug = 'attention-is-physical';
+  var sessionKey = 'viewed:' + slug;
+  var numEl = document.getElementById('viewCountNum');
+  if (!numEl) return;
+
+  function showCount(n) {
+    numEl.textContent = n + ' reads';
+  }
+
+  var alreadySeen = sessionStorage.getItem(sessionKey);
+
+  if (alreadySeen) {
+    fetch('/api/view?slug=' + slug)
+      .then(function(r) { return r.json(); })
+      .then(function(d) { showCount(d.count); })
+      .catch(function() { numEl.textContent = ''; });
+  } else {
+    fetch('/api/view?slug=' + slug, { method: 'POST' })
+      .then(function(r) { return r.json(); })
+      .then(function(d) {
+        sessionStorage.setItem(sessionKey, '1');
+        showCount(d.count);
+      })
+      .catch(function() { numEl.textContent = ''; });
+  }
+})();
 </script>
 </body>
 </html>
