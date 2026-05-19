@@ -441,7 +441,7 @@ document.getElementById('subscribeForm').addEventListener('submit',async functio
   const email=document.getElementById('emailInput').value.trim();
   const note=document.getElementById('subscribeNote');
   if(!email)return;
-  note.textContent='Subscribing…';
+  note.textContent='Subscribing&hellip;';
   try{
     const res=await fetch('https://api.sender.net/v2/subscribers',{method:'POST',headers:{'Authorization':'Bearer re_NP3s5B3g_7JY5EdCtREKWRnF2uPA1Gisf','Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({email})});
     document.getElementById('subscribeForm').style.display='none';

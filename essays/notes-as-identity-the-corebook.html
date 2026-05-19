@@ -611,7 +611,7 @@ document.getElementById('subscribeForm').addEventListener('submit', async functi
   const email = document.getElementById('emailInput').value.trim();
   const msg = document.getElementById('subscribeMsg');
   if (!email) return;
-  msg.textContent = 'Subscribing…';
+  msg.textContent = 'Subscribing&hellip;';
   try {
     const res = await fetch('https://api.sender.net/v2/subscribers', {
       method: 'POST',
