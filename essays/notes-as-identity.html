@@ -90,6 +90,7 @@ h1 em{font-style:italic;color:var(--ink-soft)}
 .essay-body blockquote p{font-family:'Fraunces',serif;font-style:italic;font-size:1.1rem;color:var(--ink-soft);margin:0 0 .5rem}
 .essay-body blockquote cite{font-size:.75rem;font-family:'DM Mono',monospace;color:var(--ink-soft);letter-spacing:.05em}
 .essay-end{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--bone);font-size:.75rem;color:var(--ink-soft);font-family:'DM Mono',monospace;letter-spacing:.05em}
+
 .subscribe-section{background:var(--plum);color:#fff;padding:5rem var(--gut);text-align:center}
 .subscribe-section h2{font-family:'Fraunces',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:300;margin-bottom:.75rem;letter-spacing:-.02em}
 .subscribe-section p{font-size:.95rem;opacity:.8;margin-bottom:2rem;max-width:420px;margin-left:auto;margin-right:auto}
@@ -249,6 +250,95 @@ footer{background:var(--olive);color:rgba(250,243,227,.7);padding:3rem var(--gut
 <div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
 
+<div class="nav-mobile-menu" id="navMobileMenu" role="dialog" aria-label="Navigation menu">
+  <a href="/">Home</a>
+  <a href="/about">About</a>
+  <a href="/shop">Shop</a>
+  <a href="/essays">Essays</a>
+  <a href="/archives">Archives</a>
+</div>
+<nav aria-label="Main navigation">
+  <a href="/" class="nav-logo"><span class="nav-logo-dot" aria-hidden="true"></span><span>Pocket Notes</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/shop">Shop</a></li>
+    <li><a href="/essays" class="active">Essays</a></li>
+    <li><a href="/archives">Archives</a></li>
+  </ul>
+  <a href="/shop" class="nav-cta">Carry the method &nearr;</a>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main class="article-wrap">
+  <div class="essay-eyebrow">
+    <span class="essay-tag">Method</span>
+    <span class="essay-tag">Identity</span>
+    <span class="essay-meta">4 min read &nbsp;&middot;&nbsp; May 2026</span>
+  </div>
+  <h1>Notes as <em>Identity</em></h1>
+  <p class="essay-subtitle">The Corebook is not a journal. It is a record of where you stood &mdash; what you believed, what puzzled you, what you were willing to bet on. It is the closest thing to a compass you will ever carry.</p>
+
+  <article class="essay-body">
+    <p>Three years ago, you thought a particular idea was wrong. You can't remember why. The thinking is gone &mdash; dissolved into whatever happened next. You know you changed your mind, but you can't reconstruct the argument, can't locate the moment, can't tell whether the shift was earned or just the slow erosion of not bothering to hold the position anymore.</p>
+
+    <p>This is not a memory problem. It's a notation problem.</p>
+
+    <p>The people who seem to have unusually coherent views &mdash; who can explain not just what they think but how they got there, who can say "I used to believe X, and here is exactly why that changed" &mdash; tend to share one habit. They wrote it down. Not their conclusions. Their positions. Their current working model of a thing, with the date attached.</p>
+
+    <p>Sontag kept what she called a journal but functioned more like a ledger of intellectual positions. What she was reading, what she was trying to figure out, where she had landed so far. She wasn't narrating her life. She was locating herself in her own thinking.</p>
+
+    <blockquote>
+      <p>"I want to do everything. I want to be every thing. And I'm not afraid of burning out."</p>
+      <cite>&mdash; Susan Sontag, Journals</cite>
+    </blockquote>
+
+    <p>The notebook she reached for wasn't beautiful or organised. It was just consistent. Always there, always the same kind. The uniformity made the content navigable. When she needed to know what she had thought in 1966, she knew where to look.</p>
+
+    <p>This is what a Corebook is &mdash; not a diary, not a productivity system, not a sketchbook. It is your primary record of intellectual position. What you currently believe. What you are still unsettled about. What you tried and why it didn't hold.</p>
+
+    <p>The format almost doesn't matter, as long as you keep returning to the same one. Because identity &mdash; not personality, but intellectual identity, the shape of how you actually reason &mdash; is not something you feel in the moment. It's something you reconstruct by reading what you wrote.</p>
+
+    <p>Read your notes from two years ago and you will find someone who is recognisably you but not entirely you. Same interests, different weights. Same vocabulary, different conclusions. The gap between that person and this person is your actual intellectual history. It is more honest than any résumé. It is harder to fake.</p>
+
+    <p>The A6 notebook is not sentimentally chosen for this. It is practically chosen. You will carry it. Because it fits in a pocket, it will be with you when the position forms &mdash; when the idea arrives, still warm, before the noise of elaboration starts. A notebook left on a desk is only consulted after the fact. A notebook in your pocket is consulted during.</p>
+
+    <p>And during is when it matters. Not when you sit down to write, but when the thought crosses your path and you are standing somewhere inconvenient and the light is bad and you have maybe forty seconds before the moment passes. That is when the Corebook earns its name.</p>
+
+    <p>Write the position. Not the story around it. Not the three paragraphs of context. Just the position: what you believe, today, and what made you believe it. Five words or fifty, it doesn't matter. The record exists. The compass needle has a fixed point.</p>
+
+    <p>Later, when you've changed your mind &mdash; and you will &mdash; you can go back and read who you were when the idea first arrived. That person is worth knowing. You can't meet them again, but you can read their notes.</p>
+  </article>
+  <div class="essay-end">&mdash; Pocket Notes, May 2026</div>
+</main>
+
+<section class="subscribe-section">
+  <h2>Essays on how writers work</h2>
+  <p>New essays, no filler. Drop your email and we'll send them straight through.</p>
+  <form class="subscribe-form" id="subscribeForm">
+    <input type="email" id="emailInput" placeholder="your@email.com" required/>
+    <button type="submit">Subscribe</button>
+  </form>
+  <p class="subscribe-msg" id="subscribeMsg"></p>
+</section>
+
+<section class="read-next">
+  <h3>Read next</h3>
+  <div class="read-next-grid">
+    <a class="read-next-card" href="/essays/catch-first-edit-later">
+      <svg class="card-thumb" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="200" fill="#F1E7CE"/>
+        <rect x="60" y="50" width="180" height="8" rx="2" fill="#ECE0BE"/>
+        <rect x="60" y="68" width="140" height="8" rx="2" fill="#ECE0BE"/>
+        <rect x="60" y="86" width="160" height="8" rx="2" fill="#ECE0BE"/>
+        <circle cx="80" cy="140" r="24" fill="#FF6B47" opacity=".7"/>
+        <rect x="110" y="128" width="130" height="6" rx="2" fill="#3D342A" opacity=".4"/>
+        <rect x="110" y="142" width="100" height="6" rx="2" fill="#3D342A" opacity=".3"/>
+      </svg>
+      <div class="card-body">
+        <div class="card-tag">Method</div>
         <div class="card-title">Catch First, Edit Later</div>
       </div>
     </a>
@@ -345,9 +435,6 @@ document.getElementById('subscribeForm').addEventListener('submit', async functi
     msg.textContent = 'Something went wrong. Try again.';
   }
 });
-
-// Disqus
-
 /* ── View counter ── */
 (function() {
   var slug = 'notes-as-identity';
