@@ -1227,11 +1227,6 @@
     line-height: 1.5;
     opacity: 0.6;
     font-style: italic;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
   }
   .ec-foot {
     font-family: 'DM Mono', monospace;
@@ -1266,7 +1261,7 @@
   }
   .essays-index.is-list .essay-card:hover { transform: translateX(4px); box-shadow: none; background: var(--bone); border-left-color: var(--cat-color, var(--coral)); }
   .essays-index.is-list .ec-img { width: 96px; height: 72px; aspect-ratio: unset; border-radius: 7px; margin-bottom: 0; flex-shrink: 0; }
-  .essays-index.is-list .ec-cat { display: flex; margin-bottom: 0.25rem; }
+  .essays-index.is-list .ec-cat { display: none; }
   .essays-index.is-list .ec-main { flex: 1; min-width: 0; }
   .essays-index.is-list .ec-sub { display: block; -webkit-line-clamp: unset; line-clamp: unset; overflow: visible; margin-top: 0.3rem; font-size: 0.83rem; }
   .essays-index.is-list .ec-title { font-size: 1rem; margin-bottom: 0.15rem; }
@@ -1286,6 +1281,27 @@
     .essay-grid { grid-template-columns: 1fr; }
     .essays-top-row { flex-direction: column; align-items: stretch; }
     .view-toggle { align-self: flex-end; }
+  }
+  @media (max-width: 768px) {
+    .essays-controls { padding: 1.5rem 1.25rem; }
+    .essays-index { padding: 0 1.25rem 4rem; }
+    .cat-group { margin-bottom: 2rem; }
+    .essay-card {
+      display: flex !important; flex-direction: row !important;
+      align-items: flex-start !important; gap: 0.9rem !important;
+      padding: 1rem 0 !important;
+      border-bottom: 1px solid rgba(26,26,26,0.08) !important;
+      border-left: none !important; border-top: none !important; border-right: none !important;
+      border-radius: 0 !important; box-shadow: none !important;
+      background: transparent !important; transform: none !important;
+    }
+    .essay-card:hover { transform: none !important; box-shadow: none !important; background: transparent !important; }
+    .ec-img { width: 80px !important; height: 60px !important; aspect-ratio: unset !important; border-radius: 8px !important; margin-bottom: 0 !important; flex-shrink: 0 !important; }
+    .ec-cat { display: none !important; }
+    .ec-title { font-size: 0.97rem !important; line-height: 1.25 !important; margin-bottom: 0.15rem !important; }
+    .ec-sub { display: block !important; overflow: visible !important; font-size: 0.8rem !important; margin-top: 0.15rem !important; }
+    .ec-foot { flex-direction: row !important; flex-wrap: wrap !important; align-self: auto !important; min-width: unset !important; margin-top: 0.4rem !important; }
+    .ec-arrow { display: none !important; }
   }
 </style>
 <!-- Google Analytics 4 -->
