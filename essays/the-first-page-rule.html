@@ -92,14 +92,7 @@ h1{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3rem);font-weight:300;l
 h1 em{font-style:italic;color:var(--ink-soft)}
 .essay-subtitle{font-family:'Fraunces',serif;font-size:1.15rem;font-style:italic;font-weight:300;color:var(--ink-soft);border-left:3px solid var(--mustard);padding-left:1rem;margin-bottom:3rem;line-height:1.5}
 .essay-body p{font-size:1.05rem;line-height:1.8;margin-bottom:1.5rem;color:var(--ink);text-align:justify;hyphens:auto}
-.drop-cap{float:left;font-family:'Fraunces',serif;font-weight:900;font-size:5.2rem;line-height:0.72;margin-right:6px;margin-top:8px;color:var(--coral,#FF6B47)}
-@media(max-width:768px){.drop-cap{font-size:4rem;line-height:0.75;margin-right:4px}}
-.reading-bar{position:fixed;top:0;left:0;width:0%;height:2px;background:var(--mustard,#F5C13D);z-index:999;transition:width 0.1s linear}
-.pull-quote{margin:2.5rem 0;padding:1.5rem 0 1.5rem 1.5rem;border-left:3px solid var(--mustard,#F5C13D);font-family:'Fraunces',serif;font-style:italic;font-weight:700;font-size:1.4rem;line-height:1.35;color:var(--ink,#1A1612);quotes:none}
-@media(max-width:768px){.pull-quote{font-size:1.15rem;padding:1rem 0 1rem 1rem}}
-.essay-with-margin{position:relative}
-@media(min-width:1100px){.margin-note{position:absolute;right:-180px;width:160px;font-family:'DM Mono',monospace;font-size:10px;line-height:1.5;letter-spacing:0.04em;color:var(--ink,#1A1612);opacity:0.4;font-style:italic;transform:rotate(-1deg)}}
-@media(max-width:1099px){.margin-note{display:none}}
+.essay-body p:first-of-type::first-letter{font-family:'Fraunces',serif;font-size:3.5rem;font-weight:400;line-height:.85;float:left;margin-right:.1em;margin-top:.05em;color:var(--ink)}
 .essay-body a{color:var(--coral);border-bottom:1px solid var(--mustard);text-decoration:none;transition:color .2s,border-color .2s}
 .essay-body a:hover{color:var(--ink);border-color:var(--coral)}
 .essay-body em{font-style:italic}
@@ -121,9 +114,7 @@ h1 em{font-style:italic;color:var(--ink-soft)}
 .subscribe-btn:hover{background:var(--coral);color:var(--cream)}
 .subscribe-note{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;margin-top:1.4rem;opacity:0.5}
 @media(max-width:600px){.subscribe-form{flex-direction:column}.subscribe-input,.subscribe-btn{width:100%}}
-.disqus-wrap{max-width:var(--max);margin:0 auto;padding:4rem var(--gut) 2rem}
-.disqus-label{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:2rem;display:flex;align-items:center;gap:0.6rem}
-.disqus-label::before{content:'';width:28px;height:1px;background:var(--ink-soft);opacity:0.5}
+
 .read-next{padding:5rem var(--gut);background:var(--bone)}
 .read-next-inner{max-width:900px;margin:0 auto}
 .read-next-label{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:2.5rem;display:flex;align-items:center;gap:0.6rem}
@@ -278,7 +269,6 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
 </script>
 </head>
 <body>
-<div class="reading-bar" id="readingBar"></div>
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
@@ -307,53 +297,31 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
   <div class="essay-eyebrow">
     <span class="essay-tag">Practice</span>
     <span class="essay-tag" style="background:var(--coral);color:#fff">Method</span>
-    <span class="essay-meta">4 min read &nbsp;&middot;&nbsp; May 2026</span>
+    <span class="essay-meta">5 min read &nbsp;&middot;&nbsp; May 2026</span>
   </div>
-  <h1>The Page Is a <em>Tool</em></h1>
-  <p class="essay-subtitle">The notebook that looks used is not the notebook that failed. It is the only notebook that worked.</p>
+  <h1>The First <em>Page Rule</em></h1>
+  <p class="essay-subtitle">The notebook that feels too good to use stays empty. Ruin the first page immediately. Write something bad on it. What you free is everything that comes after.</p>
 
-  <article class="essay-body essay-with-margin">
-    <p><span class="drop-cap">A</span> carpenter&rsquo;s bench gets marked up. The wood is scored, the surface stained, the corners rounded by years of use. Nobody looks at a good workbench and wishes it were cleaner. The marks are the record. The marks are the point.</p>
+  <article class="essay-body">
+    <p>The notebook that feels too good to use stays empty. It sits on the shelf, acquiring the particular guilt of objects that were purchased with intention and then carefully avoided. The cover is still clean. The spine has never cracked. The first page is still blank, because the first page has to be right, and nothing has been right enough yet.</p>
 
-    <p>A notebook works the same way. The one that has been carried in a pocket, written in on trains, opened mid-conversation to catch something before it disappears &mdash; that notebook is doing its job. The pristine one on the shelf, waiting for thoughts worthy of its pages, is not a kept thing. It is a cancelled one.</p>
+    <p>This is not a storage problem. It is a ritual problem. And the fix is simple, immediate, and slightly violent.</p>
 
-    <p>This is harder to accept than it sounds. There is something in us that wants the notebook to be a destination rather than a device. We buy a good one &mdash; heavy paper, clean cover, grid pages &mdash; and then we hesitate. The thought has to be important enough. The handwriting has to be legible. We want to use it well, and using it well starts to mean using it less, until the notebook has been protected right out of its purpose.</p>
+    <p>Ruin the first page immediately.</p>
 
-    <p>The hesitation has a specific mechanism, and understanding it requires going back to what writing actually does to a thought.</p>
+    <p>Write something bad on it. Write your name in ugly handwriting. Write the date and the weather and a sentence about what you had for breakfast. Write &ldquo;this notebook is now ruined&rdquo; and sign it. What you free, in doing this, is everything that comes after.</p>
 
-    <p>In 1981, Linda Flower and John R. Hayes published &ldquo;A Cognitive Process Theory of Writing&rdquo; in <em>College Composition and Communication</em> &mdash; a study that dismantled the assumption that writing records thinking. Their argument, built from close observation of writers working through problems aloud, was that the composing process is recursive at every level. Generating an idea, organising it, and revising it are not stages that happen in sequence before the pen touches paper. They happen simultaneously, inside the act of writing itself. You do not write what you think. The thinking is the writing. Remove the writing and you have not preserved the thought at clean altitude &mdash; you have stopped it mid-formation.</p>
-    <span class="margin-note">Flower &amp; Hayes, 1981.</span>
+    <p>The perfection of the blank page is not a feature. It is a trap. The page has no opinion about what you write on it. The page does not care. Only you care, and the caring is getting in the way of the writing, which is the only thing the page was ever for.</p>
 
-    <p>This is what the pristine notebook disrupts. By treating the page as a record of completed thinking, it withholds the page from the only work it can actually do.</p>
+    <p>There is a reason writers talk about the first draft as something to be survived rather than constructed. The first draft is almost always bad. This is not a failure of the writer; it is the nature of first drafts. They exist to get the material out of the head and onto the surface where it can be worked with. The same is true of the first page of a notebook. Its job is not to be good. Its job is to exist, so that the second page can exist, and the third, and the one, weeks from now, where you write something that surprises you.</p>
 
-    <p>The research on this is blunt. In 2014, Pam Mueller of Princeton and Daniel Oppenheimer of UCLA ran three experiments comparing students who took notes by hand against students who typed on laptops &mdash; with the laptops&rsquo; internet disabled, so distraction could not account for the difference. The laptop users wrote more. Significantly more, often close to verbatim transcription of what they heard. The handwriters wrote less, and when tested on conceptual understanding of the same material, they outperformed the laptop group by a measurable margin. Mueller and Oppenheimer called this the encoding hypothesis: because the hand cannot keep pace with speech, the writer is forced to decide, in real time, what matters &mdash; and that act of deciding is itself a cognitive engagement with the material that typing, by its speed, allows the writer to skip entirely.</p>
-    <span class="margin-note">Mueller &amp; Oppenheimer, <em>Psychological Science</em>, Vol. 25, No. 6.</span>
+    <p>The notebook that feels too good to use is the notebook that will never be used. And the notebook that is never used is not a beautiful object. It is a small, expensive failure.</p>
 
-    <p>The laptop user&rsquo;s notes are more complete. They are also less understood, because understanding was never required to produce them.</p>
-
-    <p>Darwin understood this without the vocabulary for it. In Notebook B, kept between 1837 and 1838, he drew a rough branching diagram above the words &ldquo;I think&rdquo; &mdash; a sketch made fast, corrections visible, the page already carrying prior jottings on unrelated observations. The diagram was working surface, not presentation. Scholars at the Darwin Correspondence Project at Cambridge have spent decades with his notebooks and point consistently to the same pattern: the productive pages are the ones where Darwin is clearly unsure, where speculation sits beside raw observation, where a line from one entry reaches back to contradict something written three pages earlier. The famous diagram did not emerge from a mind that had finished thinking. It emerged from a hand that had not stopped writing.</p>
-
-    <blockquote class="pull-quote">The chaos on those pages was not something Darwin tolerated on the way to clarity. The chaos was where the clarity came from.</blockquote>
-
-    <p>Seneca saw the same thing from a different angle. Writing to Lucilius in the first century, he advised keeping something for the memory to work on &mdash; <em>aliquid in recessu habeat</em> &mdash; and the Latin is precise in a way translations often soften. <em>Recessu</em> is not storage. It is a recess, a withdrawal, a place the mind goes back to. The notebook in Seneca&rsquo;s conception was material for return, not retrieval. The difference between those two words is the difference between a filing cabinet and a conversation.</p>
-
-    <p>What ends up on the page, in this model, is not a thought that was had. It is a thought that was made. These are related but not the same thing, and the gap between them is where most ideas either develop or die.</p>
-
-    <p>Treat the page accordingly. Write messily if that is what thinking looks like. Cross things out. Write in the margins. Draw an arrow from a sentence on page four to a sentence on page eleven. A hammer does not store the nail &mdash; it drives it, and the wood remembers. Use the notebook the same way: as a working surface, not a display case, not a record of your best thinking, but the place where thinking becomes best.</p>
-
-    <p>The instinct to protect a good notebook &mdash; to keep it clean, to save the first page for something worth the paper &mdash; is not precious. It is just wrong about what the paper is for.</p>
-
-    <p>The notebook that looks used is not the notebook that failed.</p>
-
-    <p>It is the only notebook that worked.</p>
+    <p>Ruin it. Start there.</p>
   </article>
   <div class="essay-end">&mdash; Pocket Notes, May 2026</div>
 </main>
 
-<div class="disqus-wrap">
-  <p class="disqus-label">Discussion</p>
-  <div id="disqus_thread"></div>
-</div>
 
 <section class="subscribe-section">
   <div class="subscribe-inner">
@@ -414,7 +382,7 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
 
 <section class="strip">
   <div class="strip-inner">
-    <h2 class="strip-title">Marked pages.<br><em>Working notebook.</em></h2>
+    <h2 class="strip-title">The notebook that<br><em>gets used.</em></h2>
     <div class="strip-action">
       <a href="/shop" class="strip-button">See the notebooks &nearr;</a>
       <p class="strip-note">A6 &middot; 5mm grid &middot; Made in India</p>
@@ -453,8 +421,6 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
 </footer>
 
 <script>
-const bar=document.getElementById('readingBar');
-if(bar){window.addEventListener('scroll',()=>{const total=document.body.scrollHeight-window.innerHeight;bar.style.width=Math.min((window.scrollY/total)*100,100)+'%';},{passive:true});}
 const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
@@ -475,9 +441,6 @@ document.getElementById('subscribeForm').addEventListener('submit',async functio
     note.style.opacity='1';note.style.fontFamily="'Fraunces',serif";note.style.fontStyle='italic';note.style.fontSize='1.1rem';note.style.color=res.ok?'var(--mustard)':'var(--coral)';
   }catch{document.getElementById('subscribeForm').style.display='none';note.textContent='Something went wrong. Try again.';note.style.opacity='1';}
 });
-var disqus_config=function(){this.page.url='https://pocketnotes.in/essays/the-first-page-rule';this.page.identifier='the-first-page-rule';};
-(function(){var d=document,s=d.createElement('script');s.src='https://pocketnotes.disqus.com/embed.js';s.setAttribute('data-timestamp',+new Date());(d.head||d.body).appendChild(s);})();
-
 /* ── View counter ── */
 (function() {
   var slug = 'the-first-page-rule';

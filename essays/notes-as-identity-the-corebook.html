@@ -256,11 +256,6 @@
   .footer-col a { color: var(--bone); text-decoration: none; font-size: 0.9rem; opacity: 0.75; transition: color .2s, opacity .2s; cursor: none; }
   .footer-col a:hover { color: var(--mustard); opacity: 1; }
   .footer-bottom { border-top: 1px solid rgba(241,231,206,0.15); padding-top: 1.4rem; display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone); opacity: 0.5; flex-wrap: wrap; gap: 0.5rem; }
-
-  /* DISQUS */
-  .disqus-section { max-width: var(--max); margin: 4rem auto 0; padding: 0 var(--gut) 2rem; }
-  .disqus-section h3 { font-family: 'Fraunces', serif; font-weight: 300; font-size: 1.3rem; margin-bottom: 1.5rem; color: var(--ink); }
-
   
   /* ── MOBILE ── */
   @media (max-width: 768px) {
@@ -390,109 +385,6 @@
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<div class="nav-mobile-menu" id="navMobileMenu" role="dialog" aria-label="Navigation menu">
-  <a href="/">Home</a>
-  <a href="/about">About</a>
-  <a href="/shop">Shop</a>
-  <a href="/essays">Essays</a>
-  <a href="/archives">Archives</a>
-</div>
-
-<nav>
-  <a href="/" class="nav-logo"><span class="nav-logo-dot"></span><span>Pocket Notes</span></a>
-  <ul class="nav-links">
-    <li><a href="/">Home</a></li>
-    <li><a href="/about">About</a></li>
-    <li><a href="/shop">Shop</a></li>
-    <li><a href="/essays" class="active">Essays</a></li>
-    <li><a href="/archives">Archives</a></li>
-  </ul>
-  <a href="/shop" class="nav-cta">Carry the method &nearr;</a>
-  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<main class="article-wrap">
-  <div class="article-inner">
-
-    <a href="/essays" class="back-link">&larr; All essays</a>
-
-    <header>
-      <p class="article-eyebrow">
-        <span class="tag">Identity</span>
-        <span class="sep">&middot;</span>
-        <span class="tag" style="background:var(--plum);color:#fff;">Culture</span>
-        <span class="sep">&middot;</span>
-        <span>5 min read</span>
-        <span class="sep">&middot;</span>
-        <span>May 2026</span>
-&middot; <span class="essay-view-count" id="essayViewCount" aria-label="reads"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span id="viewCountNum"><span class="view-shimmer"></span></span></span>
-      </p>
-
-      <h1 class="article-title">Notes as Identity:<br><em>The Corebook</em></h1>
-
-      <p class="article-subtitle">Sylvia Plath's journals were a record of herself becoming. Kafka's notebooks were where he processed being alive. Sontag's were a compass she consulted daily. Each of them was building the same thing: the most honest autobiography ever written.</p>
-    </header>
-
-    <hr class="article-rule"/>
-
-    <article class="article-body">
-
-      <p class="opening">Sylvia Plath began keeping a journal at eleven years old. She kept one, in various forms, for the rest of her life. <strong>The journals were not diaries in the sense of recording events</strong> &mdash; she was not interested in what happened. She was interested in what she thought about what happened, and what she thought about what she thought, and the difference between who she appeared to be and who she suspected she actually was. The journals were the space where she could be both, honestly.</p>
-
-      <p>Reading them is unsettling in the way that reading a very good novel is unsettling &mdash; you recognise something. Not the specific circumstances, which were hers entirely, but the process: the mind circling a problem it cannot yet name, returning to it from different angles across weeks and months, finally arriving somewhere that is not a resolution but at least <em>a position</em>.</p>
-
-      <div class="pull-quote">
-        <p>"I think I write because there is some hurt I am trying to heal, some knot of uncertainty I am trying to unravel, some story I have to tell and will not stop asking to be told."</p>
-        <span class="attr">&mdash; Sylvia Plath, <em>Journals</em></span>
-      </div>
-
-      <p>Kafka kept notebooks he never intended anyone to read. He asked his friend Max Brod to burn them after his death. Brod did not, which is why we have the novels and the stories and the diaries and the letters &mdash; and why we know that Kafka wrote in his notebook the night before and the night after his first serious tuberculosis haemorrhage, as though <em>the process of writing were independent of whether he was physically capable of sustaining it</em>.</p>
-
-      <p><strong>The notebooks were not output.</strong> They were somewhere between input and processing &mdash; the place where he took the raw material of experience and did something to it before it became fiction, or became nothing. They were where he was most completely himself, which is to say, most completely uncertain, most completely honest about the uncertainty.</p>
-
-      <div class="section-break">✦ ✦ ✦</div>
-
-      <p><a href="/essays/notes-as-identity">Sontag's journals</a>, published after her death, reveal a different function. She used hers as an intellectual compass &mdash; lists of books to read, aphorisms she was developing, positions she was trying on. She tracked her thinking as a scientist tracks an experiment: what was the hypothesis, what happened when she tested it, what does that mean for the next hypothesis. The journals allowed her to hold multiple contradictory positions simultaneously and watch which ones survived contact with more thinking.</p>
-
-      <p>What all three of these writers had in common is that they treated the notebook as a <strong>primary document</strong>, not a secondary one. The notebook was not the place where they stored ideas before expressing them properly elsewhere. It was the place where the thinking happened. The published work &mdash; the poems, the novels, the essays &mdash; was the secondary document: refined, edited, shaped for a reader. The notebook was the primary document: unrefined, unedited, shaped for no one.</p>
-
-      <p>This distinction matters. <a href="/essays/why-your-notebook-should-never-be-organised">A notebook kept for an audience is a different kind of notebook</a> than a notebook kept for yourself. The audience-aware notebook performs. It selects. It edits before it writes. The private notebook does not have to. It can contain the thought before you know what you think about it, which is the only time a notebook is genuinely useful.</p>
-
-      <p>The Corebook &mdash; whatever form your <a href="/shop">primary notebook</a> takes &mdash; is yours in a way that almost nothing else is. It contains the thinking you did not intend to keep, the positions you held briefly, the questions you asked without expecting answers. Over time, it accumulates something that functions as <strong>an intellectual autobiography</strong>, more honest than any CV or public statement of intent, because it was written without one eye on the record.</p>
-
-      <p>Keep it. Fill it without performance. The person who reads it years from now &mdash; even if that person is only you &mdash; will be grateful for the honesty of it.</p>
-
-    </article>
-
-    <div class="article-end">
-      <div class="article-tags">
-        <a class="article-tag" href="/essays">Identity</a>
-        <a class="article-tag" href="/essays">Culture</a>
-        <a class="article-tag" href="/essays">Writing</a>
-      </div>
-    </div>
-
-  </div>
-</main>
-
-<section class="disqus-section">
-  <h3>Discussion</h3>
-  <div id="disqus_thread"></div>
-</section>
-
-<section class="subscribe-section">
-  <div class="subscribe-inner">
-    <p class="subscribe-eyebrow">From the notebook</p>
-    <h2 class="subscribe-title">Essays on how<br><em>writers work</em></h2>
-    <p class="subscribe-blurb">New essays on writing, thinking, and the tools that hold it together. No filler, no schedule &mdash; just the good stuff.</p>
-    <form class="subscribe-form" id="subscribeForm">
-      <input class="subscribe-input" type="email" id="emailInput" placeholder="your@email.com" required/>
-      <button class="subscribe-btn" type="submit">Subscribe</button>
-    </form>
-    <p class="subscribe-note" id="subscribeMsg">&nbsp;</p>
-  </div>
 </section>
 
 <section class="read-next">
@@ -635,16 +527,6 @@ document.getElementById('subscribeForm').addEventListener('submit', async functi
 });
 
 // Disqus
-var disqus_config = function() {
-  this.page.url = 'https://pocketnotes.in/essays/notes-as-identity-the-corebook';
-  this.page.identifier = 'notes-as-identity-the-corebook';
-};
-(function() {
-  var d = document, s = d.createElement('script');
-  s.src = 'https://pocketnotes.disqus.com/embed.js';
-  s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-})();
 
 /* ── View counter ── */
 (function() {

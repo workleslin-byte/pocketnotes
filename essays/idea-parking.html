@@ -113,9 +113,7 @@ h1 em{font-style:italic;color:var(--ink-soft)}
 .subscribe-btn:hover{background:var(--coral);color:var(--cream)}
 .subscribe-note{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;margin-top:1.4rem;opacity:0.5}
 @media(max-width:600px){.subscribe-form{flex-direction:column}.subscribe-input,.subscribe-btn{width:100%}}
-.disqus-wrap{max-width:var(--max);margin:0 auto;padding:4rem var(--gut) 2rem}
-.disqus-label{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:2rem;display:flex;align-items:center;gap:0.6rem}
-.disqus-label::before{content:'';width:28px;height:1px;background:var(--ink-soft);opacity:0.5}
+
 .read-next{padding:5rem var(--gut);background:var(--bone)}
 .read-next-inner{max-width:900px;margin:0 auto}
 .read-next-label{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:2.5rem;display:flex;align-items:center;gap:0.6rem}
@@ -330,10 +328,6 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
   <div class="essay-end">&mdash; Pocket Notes, May 2026</div>
 </main>
 
-<div class="disqus-wrap">
-  <p class="disqus-label">Discussion</p>
-  <div id="disqus_thread"></div>
-</div>
 
 <section class="subscribe-section">
   <div class="subscribe-inner">
@@ -450,9 +444,6 @@ document.getElementById('subscribeForm').addEventListener('submit',async functio
     note.style.opacity='1';note.style.fontFamily="'Fraunces',serif";note.style.fontStyle='italic';note.style.fontSize='1.1rem';note.style.color=res.ok?'var(--mustard)':'var(--coral)';
   }catch{document.getElementById('subscribeForm').style.display='none';note.textContent='Something went wrong. Try again.';note.style.opacity='1';}
 });
-var disqus_config=function(){this.page.url='https://pocketnotes.in/essays/idea-parking';this.page.identifier='idea-parking';};
-(function(){var d=document,s=d.createElement('script');s.src='https://pocketnotes.disqus.com/embed.js';s.setAttribute('data-timestamp',+new Date());(d.head||d.body).appendChild(s);})();
-
 /* ── View counter ── */
 (function() {
   var slug = 'idea-parking';
