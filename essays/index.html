@@ -173,6 +173,57 @@
     html { scroll-behavior: auto; }
   }
 
+  /* ─── ESSAYS CONTROLS + INDEX ─────────────────────────────── */
+  .essays-controls { padding: 2.5rem var(--gut); background: var(--bone); border-top: 1px solid rgba(26,26,26,0.1); border-bottom: 1px solid rgba(26,26,26,0.1); }
+  .essays-controls-inner { max-width: var(--max); margin: 0 auto; }
+  .essays-top-row { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; }
+  .essays-search { flex: 1; min-width: 200px; padding: 0.75rem 1.2rem; border-radius: 999px; border: 1.5px solid rgba(26,26,26,0.2); background: var(--cream); color: var(--ink); font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; outline: none; cursor: none; transition: border-color .2s, box-shadow .2s; }
+  .essays-search:focus { border-color: var(--coral); box-shadow: 0 0 0 3px rgba(255,107,71,0.15); }
+  .essays-search::placeholder { opacity: 0.45; }
+  .view-toggle { display: flex; gap: 0.3rem; background: rgba(26,26,26,0.08); border-radius: 999px; padding: 0.3rem; flex-shrink: 0; }
+  .view-btn { background: none; border: none; width: 36px; height: 36px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: none; color: var(--ink); opacity: 0.45; transition: background .2s, opacity .2s; }
+  .view-btn.is-active { background: var(--ink); color: var(--cream); opacity: 1; }
+  .view-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+  .essays-filter-row { display: flex; gap: 0.45rem; flex-wrap: wrap; align-items: center; }
+  .essays-filter-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.45; margin-right: 0.3rem; }
+  .filter-pill { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.4rem 0.85rem; border-radius: 999px; border: 1.5px solid rgba(26,26,26,0.18); background: transparent; color: var(--ink); cursor: none; transition: background .2s, color .2s, border-color .2s; }
+  .filter-pill:hover { border-color: var(--ink); background: rgba(26,26,26,0.05); }
+  .filter-pill.is-active { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+  .essays-count { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.45; margin-top: 0.8rem; }
+  .essays-index { padding: 4rem var(--gut); min-height: 380px; }
+  .essays-index-inner { max-width: var(--max); margin: 0 auto; }
+  .essays-empty { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.2rem; opacity: 0.45; padding: 5rem 0; text-align: center; }
+  .cat-group { margin-bottom: 3.5rem; }
+  .cat-group-title { font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.7rem; }
+  .cat-group-title::after { content: ''; flex: 1; height: 1px; background: rgba(26,26,26,0.12); }
+  .cat-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .essay-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; }
+  .essay-card { text-decoration: none; color: var(--ink); display: flex !important; flex-direction: column !important; gap: 0.5rem; border: 1.5px solid rgba(26,26,26,0.11) !important; border-radius: 14px !important; padding: 1.4rem !important; cursor: none; background: var(--cream); transition: transform .3s cubic-bezier(.22,1,.36,1), border-color .2s, box-shadow .2s; transform: none !important; }
+  .essay-card:hover { transform: translateY(-6px) !important; border-color: var(--coral) !important; box-shadow: 0 10px 28px rgba(26,26,26,0.08) !important; }
+  .ec-cat { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; display: flex; align-items: center; gap: 0.45rem; opacity: 0.7; }
+  .ec-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .ec-main { flex: 1; }
+  .ec-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.25rem; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
+  .ec-sub { font-size: 0.88rem; line-height: 1.55; opacity: 0.6; font-style: italic; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .ec-foot { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.45; display: flex; align-items: center; gap: 0.5rem; margin-top: 0.3rem; flex-wrap: wrap; }
+  .essay-card:hover .ec-foot { opacity: 0.75; }
+  .ec-arrow { margin-left: auto; font-size: 0.85rem; opacity: 0; transition: opacity .2s, transform .2s; }
+  .essay-card:hover .ec-arrow { opacity: 1; transform: translate(2px,-2px); }
+  .essay-vc { display: inline-flex; align-items: center; gap: 3px; }
+  .essay-vc svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  /* List view */
+  .essays-index.is-list .essay-grid { display: flex; flex-direction: column; gap: 0; }
+  .essays-index.is-list .essay-card { flex-direction: row !important; align-items: center; gap: 1rem; border-radius: 0 8px 8px 0 !important; border-left: 3px solid var(--cat-color, var(--coral)) !important; border-right: none !important; border-top: none !important; border-bottom: 1px solid rgba(26,26,26,0.07) !important; padding: 0.9rem 1.2rem !important; transition: background .2s, transform .2s; }
+  .essays-index.is-list .essay-card:hover { transform: translateX(4px) !important; box-shadow: none !important; background: var(--bone); border-color: var(--cat-color, var(--coral)) !important; }
+  .essays-index.is-list .ec-cat { display: none; }
+  .essays-index.is-list .ec-main { flex: 1; min-width: 0; }
+  .essays-index.is-list .ec-sub { display: none; }
+  .essays-index.is-list .ec-title { font-size: 1.05rem; margin-bottom: 0; }
+  .essays-index.is-list .ec-arrow { opacity: 0.35; transform: none; margin-left: 0; }
+  .essays-index.is-list .essay-card:hover .ec-arrow { opacity: 1; transform: translate(2px,-2px); }
+  @media (max-width: 900px) { .essay-grid { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 560px) { .essay-grid { grid-template-columns: 1fr; } .essays-top-row { flex-direction: column; align-items: stretch; } .view-toggle { align-self: flex-end; } }
+
   /* &#x2500;&#x2500; MOBILE &#x2500;&#x2500; */
   @media (max-width: 768px) {
     * { cursor: auto !important; }
@@ -303,7 +354,42 @@
   <p class="page-desc">On the practice of writing things down &mdash; how people think, catch ideas, and compound them over time. New writing whenever there's something worth saying.</p>
 </div>
 
-<div class="featured-wrap">
+<section class="essays-controls" id="essays">
+  <div class="essays-controls-inner">
+    <div class="essays-top-row">
+      <input type="search" class="essays-search" id="essaysSearch" placeholder="Search 20 essays…" aria-label="Search essays" autocomplete="off">
+      <div class="view-toggle" role="group" aria-label="View mode">
+        <button class="view-btn is-active" id="viewGridBtn" title="Grid view">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </button>
+        <button class="view-btn" id="viewListBtn" title="List view">
+          <svg viewBox="0 0 24 24"><line x1="9" y1="6" x2="21" y2="6"/><line x1="9" y1="12" x2="21" y2="12"/><line x1="9" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="essays-filter-row">
+      <span class="essays-filter-label">Browse</span>
+      <button class="filter-pill is-active" data-cat="all">All</button>
+      <button class="filter-pill" data-cat="Method">Method</button>
+      <button class="filter-pill" data-cat="History">History</button>
+      <button class="filter-pill" data-cat="Culture">Culture</button>
+      <button class="filter-pill" data-cat="Practice">Practice</button>
+      <button class="filter-pill" data-cat="Habit">Habit</button>
+      <button class="filter-pill" data-cat="Design">Design</button>
+      <button class="filter-pill" data-cat="Identity">Identity</button>
+      <button class="filter-pill" data-cat="Thinking">Thinking</button>
+    </div>
+    <p class="essays-count" id="essaysCount">20 essays</p>
+  </div>
+</section>
+
+<section class="essays-index is-grid" id="essaysIndex">
+  <div class="essays-index-inner" id="essaysContainer"></div>
+  <p class="essays-empty" id="essaysEmpty" style="display:none">No essays match that search.</p>
+</section>
+
+<!-- old featured + grid (hidden) -->
+<div class="featured-wrap" style="display:none" aria-hidden="true">
   <a href="/essays/the-people-who-write-in-the-margins" class="featured-card">
     <div class="featured-img" style="background:var(--coral);">
       <svg width="100%" height="100%" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
@@ -345,7 +431,7 @@
   </a>
 </div>
 
-<div class="essays-section">
+<div class="essays-section" style="display:none" aria-hidden="true">
   <p class="essays-section-label">All essays</p>
   <div class="essays-grid">
 
@@ -741,6 +827,108 @@ document.querySelectorAll('a, button').forEach(el => {
   el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
   el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
 });
+
+// ── Essays index ──
+const ESSAYS = [
+  {slug:'attention-is-physical',    title:'Attention Is Physical',                         category:'Practice', subtitle:'The phone is designed to take attention away. The page is designed to hold it. That difference is not metaphorical. It is architectural.',                                                   readTime:'4 min'},
+  {slug:'born-of-necessity',        title:'Born of Necessity',                             category:'Design',   subtitle:'The best tools disappear into use. The notebook that fits in your pocket was never designed to impress anyone. It was designed to always be there.',                                       readTime:'4 min'},
+  {slug:'catch-first-edit-later',   title:'Catch First. Edit Later.',                      category:'Method',   subtitle:"The first line is rarely the right one. It only matters that it's caught. Editing without a draft is editing nothing.",                                                                   readTime:'4 min'},
+  {slug:'constraint-as-creative-practice', title:'Constraint as Creative Practice',        category:'Method',   subtitle:'Georges Perec wrote a 300-page novel without using the letter E. The haiku poets had seventeen syllables. The limit is not the obstacle. The limit is the mechanism.',                  readTime:'5 min'},
+  {slug:'constraint-sharpens',      title:'Constraint Sharpens',                           category:'Method',   subtitle:'A small page forces choice. Every word earns its space. On why brevity is the practice — not the limitation.',                                                                             readTime:'4 min'},
+  {slug:'idea-parking',             title:'Idea Parking',                                  category:'Method',   subtitle:"The skill is not developing the idea on the spot. The skill is leaving it somewhere safe so you can come back when you have the time. That distinction separates the writers who finish things from the ones who don't.", readTime:'4 min'},
+  {slug:'margins-where-great-ideas-live', title:'Margins Where Great Ideas Live',          category:'Culture',  subtitle:"Darwin annotated everything he read. Newton filled the margins of other people's books with what would become calculus. The sideways thought has always been the one that changed things.", readTime:'5 min'},
+  {slug:'notebooks-of-ancient-singers', title:'Notebooks of Ancient Singers',              category:'History',  subtitle:"Before paper, Homeric bards held twenty-four books of the Iliad in memory. When writing arrived, it didn't kill memory. It extended it outward.",                                       readTime:'5 min'},
+  {slug:'notes-as-identity-the-corebook', title:'Notes as Identity: The Corebook',         category:'Identity', subtitle:"Sylvia Plath's journals were a record of herself becoming. Kafka's notebooks were where he processed being alive. Each of them was building the same thing: the most honest autobiography ever written.", readTime:'5 min'},
+  {slug:'notes-as-identity',        title:'Notes as Identity',                             category:'Method',   subtitle:'The Corebook is not a journal. It is a record of where you stood — what you believed, what puzzled you, what you were willing to bet on. It is the closest thing to a compass you will ever carry.', readTime:'4 min'},
+  {slug:'the-first-page-rule',      title:'The First-Page Rule',                           category:'Practice', subtitle:'The notebook that feels too good to use stays empty. Ruin the first page immediately. Write something bad on it. What you free is everything that comes after.',                           readTime:'8 min'},
+  {slug:'the-grid-page-and-the-wandering-thought', title:'The Grid Page and the Wandering Thought', category:'History', subtitle:'Graph paper came from eighteenth-century French surveying offices. It found its way into notebooks because it turned out to be the most neutral surface a thinking person could write on.', readTime:'5 min'},
+  {slug:'the-index-method',         title:'The Index Method',                              category:'Method',   subtitle:'Niklas Luhmann wrote 90,000 index cards over forty years and used them to produce 70 books. What you can retrieve is what you actually own.',                                             readTime:'5 min'},
+  {slug:'the-method-beats-the-mood',title:'The Method Beats the Mood',                     category:'Habit',    subtitle:'Two lines, every day. The smallest reliable habit beats the loudest one. On showing up before you feel like it.',                                                                          readTime:'4 min'},
+  {slug:'the-page-is-a-tool',       title:'The Page Is a Tool',                            category:'Method',   subtitle:'The notebook that looks used is not the notebook that failed. It is the only notebook that worked.',                                                                                       readTime:'5 min'},
+  {slug:'the-people-who-write-in-the-margins', title:'The People Who Write in the Margins', category:'History', subtitle:'A gossipy tour of history\'s most brazen readers — Coleridge, Fermat, a medieval monk with strong opinions. What their scribbles teach us about thinking.',                             readTime:'11 min'},
+  {slug:'the-roman-wax-tablet',     title:'The Roman Wax Tablet',                          category:'History',  subtitle:'Cicero prepared his speeches on it. Caesar sent dispatches on it. Pliny the Elder used one while bathing. The tabula cerata was the pocket notebook of the ancient world.',              readTime:'5 min'},
+  {slug:'two-lines-every-day',      title:'Two Lines Every Day',                           category:'Habit',    subtitle:"You will not write a page every morning. But two lines — one observation, one question, one thing that happened — that you can do. And it compounds.",                                   readTime:'4 min'},
+  {slug:'we-dont-compete-with-notebooks', title:"We Don't Compete With Notebooks",         category:'Thinking', subtitle:"The real competition is the back of a receipt, the notes app you never open again, and the thing you were going to remember but didn't.",                                                readTime:'4 min'},
+  {slug:'why-your-notebook-should-never-be-organised', title:'Why Your Notebook Should Never Be Organised', category:'Culture', subtitle:"Leonardo's notebooks mixed hydraulics with shopping lists. Darwin's journals were famous for their productive chaos. The mess is not the problem. The mess is the method.", readTime:'4 min'},
+];
+const CAT_COLORS = { Method:'#FF6B47', History:'#6E3582', Culture:'#8FB89C', Practice:'#5BA8C9', Habit:'#F5C13D', Design:'#F26A8D', Identity:'#4A5238', Thinking:'#1A1A1A' };
+const CAT_ORDER = ['Method','History','Culture','Practice','Habit','Design','Identity','Thinking'];
+const essayState = { query:'', cat:'all', view: sessionStorage.getItem('pn-essays-view') || 'grid' };
+
+function scoreEssay(e, tokens) {
+  const tl = e.title.toLowerCase(), sl = e.subtitle.toLowerCase();
+  return tokens.reduce((s, t) => s + (tl.includes(t) ? 3 : 0) + (sl.includes(t) ? 1 : 0), 0);
+}
+function eyeSVG() { return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>'; }
+function buildCard(e) {
+  const color = CAT_COLORS[e.category] || '#1A1A1A';
+  return `<a href="/essays/${e.slug}" class="essay-card" style="--cat-color:${color}" data-slug="${e.slug}">
+    <div class="ec-cat"><span class="ec-dot" style="background:${color}"></span>${e.category}</div>
+    <div class="ec-main"><h3 class="ec-title">${e.title}</h3><p class="ec-sub">${e.subtitle}</p></div>
+    <div class="ec-foot"><span>${e.readTime}</span><span class="essay-vc" data-slug="${e.slug}">${eyeSVG()}<span class="view-card-shimmer"></span></span><span class="ec-arrow">↗</span></div>
+  </a>`;
+}
+function renderEssays() {
+  const container = document.getElementById('essaysContainer');
+  const emptyMsg  = document.getElementById('essaysEmpty');
+  const countEl   = document.getElementById('essaysCount');
+  const indexEl   = document.getElementById('essaysIndex');
+  indexEl.className = 'essays-index ' + (essayState.view === 'list' ? 'is-list' : 'is-grid');
+  const tokens = essayState.query.toLowerCase().split(/\s+/).filter(Boolean);
+  let pool = essayState.cat !== 'all' ? ESSAYS.filter(e => e.category === essayState.cat) : ESSAYS.slice();
+  if (tokens.length) {
+    const scored = pool.map(e => [e, scoreEssay(e, tokens)]).filter(x => x[1] > 0);
+    scored.sort((a, b) => b[1] - a[1]);
+    pool = scored.map(x => x[0]);
+  }
+  countEl.textContent = pool.length + (pool.length === 1 ? ' essay' : ' essays');
+  if (!pool.length) { container.innerHTML = ''; emptyMsg.style.display = ''; return; }
+  emptyMsg.style.display = 'none';
+  const grouped = essayState.cat === 'all' && !tokens.length;
+  let html = '';
+  if (grouped) {
+    CAT_ORDER.forEach(cat => {
+      const essays = pool.filter(e => e.category === cat);
+      if (!essays.length) return;
+      const color = CAT_COLORS[cat] || '#1A1A1A';
+      html += `<div class="cat-group"><div class="cat-group-title"><span class="cat-dot" style="background:${color}"></span>${cat} <span style="opacity:.4;font-size:.7rem;font-weight:400">(${essays.length})</span></div><div class="essay-grid">${essays.map(buildCard).join('')}</div></div>`;
+    });
+  } else { html = `<div class="essay-grid">${pool.map(buildCard).join('')}</div>`; }
+  container.innerHTML = html;
+  container.querySelectorAll('a').forEach(el => {
+    el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+  });
+  container.querySelectorAll('.essay-vc[data-slug]').forEach(span => {
+    fetch('/api/view?slug=' + span.getAttribute('data-slug'))
+      .then(r => r.json())
+      .then(d => { const s = span.querySelector('.view-card-shimmer'); if (s) s.remove(); span.insertAdjacentText('beforeend', d.count + ' reads'); })
+      .catch(() => { const s = span.querySelector('.view-card-shimmer'); if (s) s.remove(); });
+  });
+}
+let searchDebounce;
+document.getElementById('essaysSearch').addEventListener('input', function() {
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(() => { essayState.query = this.value.trim(); renderEssays(); }, 200);
+});
+document.querySelectorAll('.filter-pill').forEach(pill => {
+  pill.addEventListener('click', function() {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('is-active'));
+    this.classList.add('is-active');
+    essayState.cat = this.dataset.cat;
+    renderEssays();
+  });
+});
+document.getElementById('viewGridBtn').addEventListener('click', function() {
+  essayState.view = 'grid'; sessionStorage.setItem('pn-essays-view','grid');
+  this.classList.add('is-active'); document.getElementById('viewListBtn').classList.remove('is-active'); renderEssays();
+});
+document.getElementById('viewListBtn').addEventListener('click', function() {
+  essayState.view = 'list'; sessionStorage.setItem('pn-essays-view','list');
+  this.classList.add('is-active'); document.getElementById('viewGridBtn').classList.remove('is-active'); renderEssays();
+});
+if (essayState.view === 'list') { document.getElementById('viewListBtn').classList.add('is-active'); document.getElementById('viewGridBtn').classList.remove('is-active'); }
+renderEssays();
 
 // Hamburger
 const hamburger = document.getElementById('navHamburger');
