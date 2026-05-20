@@ -198,13 +198,18 @@
   .cat-group-title::after { content: ''; flex: 1; height: 1px; background: rgba(26,26,26,0.12); }
   .cat-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
   .essay-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; }
-  .essay-card { text-decoration: none; color: var(--ink); display: flex !important; flex-direction: column !important; gap: 0.5rem; border: 1.5px solid rgba(26,26,26,0.11) !important; border-radius: 14px !important; padding: 1.4rem !important; cursor: none; background: var(--cream); transition: transform .3s cubic-bezier(.22,1,.36,1), border-color .2s, box-shadow .2s; transform: none !important; }
-  .essay-card:hover { transform: translateY(-6px) !important; border-color: var(--coral) !important; box-shadow: 0 10px 28px rgba(26,26,26,0.08) !important; }
+  /* Card image */
+  .ec-img { aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; background: var(--cat-color, var(--coral)); flex-shrink: 0; margin-bottom: 0.6rem; }
+  .ec-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s cubic-bezier(.22,1,.36,1); }
+  .essay-card:hover .ec-img img { transform: scale(1.04); }
+  /* Card */
+  .essay-card { text-decoration: none; color: var(--ink); display: flex !important; flex-direction: column !important; gap: 0.4rem; border: 1.5px solid rgba(26,26,26,0.11) !important; border-radius: 14px !important; padding: 1.2rem !important; cursor: none; background: var(--cream); transition: transform .3s cubic-bezier(.22,1,.36,1), border-color .2s, box-shadow .2s; transform: none !important; }
+  .essay-card:hover { transform: translateY(-6px) !important; border-color: var(--cat-color, var(--coral)) !important; box-shadow: 0 10px 28px rgba(26,26,26,0.08) !important; }
   .ec-cat { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; display: flex; align-items: center; gap: 0.45rem; opacity: 0.7; }
   .ec-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .ec-main { flex: 1; }
-  .ec-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.25rem; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
-  .ec-sub { font-size: 0.88rem; line-height: 1.55; opacity: 0.6; font-style: italic; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .ec-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.2rem; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 0.4rem; }
+  .ec-sub { font-size: 0.85rem; line-height: 1.5; opacity: 0.6; font-style: italic; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .ec-foot { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.45; display: flex; align-items: center; gap: 0.5rem; margin-top: 0.3rem; flex-wrap: wrap; }
   .essay-card:hover .ec-foot { opacity: 0.75; }
   .ec-arrow { margin-left: auto; font-size: 0.85rem; opacity: 0; transition: opacity .2s, transform .2s; }
@@ -213,15 +218,21 @@
   .essay-vc svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
   /* List view */
   .essays-index.is-list .essay-grid { display: flex; flex-direction: column; gap: 0; }
-  .essays-index.is-list .essay-card { flex-direction: row !important; align-items: center; gap: 1rem; border-radius: 0 8px 8px 0 !important; border-left: 3px solid var(--cat-color, var(--coral)) !important; border-right: none !important; border-top: none !important; border-bottom: 1px solid rgba(26,26,26,0.07) !important; padding: 0.9rem 1.2rem !important; transition: background .2s, transform .2s; }
-  .essays-index.is-list .essay-card:hover { transform: translateX(4px) !important; box-shadow: none !important; background: var(--bone); border-color: var(--cat-color, var(--coral)) !important; }
-  .essays-index.is-list .ec-cat { display: none; }
+  .essays-index.is-list .essay-card { flex-direction: row !important; align-items: flex-start !important; gap: 1.1rem; border-radius: 0 10px 10px 0 !important; border-left: 3px solid var(--cat-color, var(--coral)) !important; border-right: none !important; border-top: none !important; border-bottom: 1px solid rgba(26,26,26,0.07) !important; padding: 1rem 1.2rem !important; transition: background .2s, transform .2s; }
+  .essays-index.is-list .essay-card:hover { transform: translateX(4px) !important; box-shadow: none !important; background: var(--bone); border-left-color: var(--cat-color, var(--coral)) !important; }
+  .essays-index.is-list .ec-img { width: 96px; height: 72px; aspect-ratio: unset; border-radius: 7px; margin-bottom: 0; flex-shrink: 0; }
+  .essays-index.is-list .ec-cat { display: flex !important; margin-bottom: 0.25rem; }
   .essays-index.is-list .ec-main { flex: 1; min-width: 0; }
-  .essays-index.is-list .ec-sub { display: none; }
-  .essays-index.is-list .ec-title { font-size: 1.05rem; margin-bottom: 0; }
-  .essays-index.is-list .ec-arrow { opacity: 0.35; transform: none; margin-left: 0; }
+  .essays-index.is-list .ec-sub { display: block !important; -webkit-line-clamp: unset; line-clamp: unset; overflow: visible; margin-top: 0.3rem; font-size: 0.83rem; }
+  .essays-index.is-list .ec-title { font-size: 1rem; margin-bottom: 0.15rem; }
+  .essays-index.is-list .ec-foot { flex-direction: column; align-items: flex-end; justify-content: space-between; flex-shrink: 0; min-width: 72px; align-self: stretch; margin-top: 0; gap: 0.3rem; }
+  .essays-index.is-list .ec-arrow { margin-left: 0; opacity: 0.35; transform: none; margin-top: auto; }
   .essays-index.is-list .essay-card:hover .ec-arrow { opacity: 1; transform: translate(2px,-2px); }
   @media (max-width: 900px) { .essay-grid { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 700px) {
+    .essays-index.is-list .ec-img { width: 72px; height: 54px; }
+    .essays-index.is-list .ec-foot { min-width: 56px; }
+  }
   @media (max-width: 560px) { .essay-grid { grid-template-columns: 1fr; } .essays-top-row { flex-direction: column; align-items: stretch; } .view-toggle { align-self: flex-end; } }
 
   /* &#x2500;&#x2500; MOBILE &#x2500;&#x2500; */
@@ -862,7 +873,9 @@ function scoreEssay(e, tokens) {
 function eyeSVG() { return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>'; }
 function buildCard(e) {
   const color = CAT_COLORS[e.category] || '#1A1A1A';
+  const imgSrc = `/assets/images/og/${e.slug}.jpg`;
   return `<a href="/essays/${e.slug}" class="essay-card" style="--cat-color:${color}" data-slug="${e.slug}">
+    <div class="ec-img"><img src="${imgSrc}" alt="" loading="lazy" onerror="this.style.opacity='0'"></div>
     <div class="ec-cat"><span class="ec-dot" style="background:${color}"></span>${e.category}</div>
     <div class="ec-main"><h3 class="ec-title">${e.title}</h3><p class="ec-sub">${e.subtitle}</p></div>
     <div class="ec-foot"><span>${e.readTime}</span><span class="essay-vc" data-slug="${e.slug}">${eyeSVG()}<span class="view-card-shimmer"></span></span><span class="ec-arrow">↗</span></div>
