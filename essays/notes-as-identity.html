@@ -78,12 +78,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:1.25rem var(--gut);d
 .mobile-overlay.open{display:flex}
 .mobile-overlay a{font-family:'Fraunces',serif;font-size:2rem;color:var(--ink);text-decoration:none}
 .article-wrap{max-width:var(--max);margin:0 auto;padding:7rem var(--gut) 4rem}
-.essay-eyebrow{display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.article-eyebrow{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:1.8rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.article-eyebrow .tag{background:var(--mustard);color:var(--ink);padding:0.2rem 0.7rem;border-radius:999px;font-size:0.68rem;font-weight:500}
+.article-eyebrow .sep{opacity:0.35}
 .essay-tag{font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;background:var(--plum);color:#fff;padding:.25rem .65rem;border-radius:2px}
-.essay-meta{font-size:.75rem;color:var(--ink-soft);font-family:'DM Mono',monospace}
-h1{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3rem);font-weight:300;line-height:1.15;letter-spacing:-.02em;margin-bottom:1.25rem;color:var(--ink)}
-h1 em{font-style:italic;color:var(--coral)}
-.essay-subtitle{font-family:'Fraunces',serif;font-size:1.15rem;font-style:italic;font-weight:300;color:var(--ink-soft);border-left:3px solid var(--mustard);padding-left:1rem;margin-bottom:3rem;line-height:1.5}
+.article-title{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2.6rem,7vw,4.8rem);line-height:0.95;letter-spacing:-0.04em;margin-bottom:1.4rem}
+.article-title em{font-style:italic;font-weight:400;color:var(--coral)}
+.article-subtitle{font-family:'Fraunces',serif;font-size:clamp(1.15rem,2.2vw,1.5rem);font-style:italic;font-weight:300;color:var(--ink-soft);line-height:1.45;margin-bottom:2.5rem;border-left:3px solid var(--mustard);padding-left:1.2rem}
+.article-rule{border:none;border-top:1.5px solid var(--ink);margin:2.5rem 0;opacity:0.15}
 .essay-body p{font-size:1.05rem;line-height:1.8;margin-bottom:1.5rem;color:var(--ink)}
 .essay-body p:first-of-type::first-letter{font-family:'Fraunces',serif;font-size:3.5rem;font-weight:400;line-height:.85;float:left;margin-right:.1em;margin-top:.05em;color:var(--ink)}
 .essay-body blockquote{border-left:3px solid var(--mustard);padding:1rem 1.25rem;margin:2.5rem 0;background:var(--bone);border-radius:0 4px 4px 0}
@@ -273,14 +275,27 @@ footer{background:var(--olive);color:rgba(250,243,227,.7);padding:3rem var(--gut
 </nav>
 
 <main class="article-wrap">
-  <div class="essay-eyebrow">
-    <span class="essay-tag">Method</span>
-    <span class="essay-tag">Identity</span>
-    <span class="essay-meta">4 min read &nbsp;&middot;&nbsp; May 2026</span>
-    <span class="essay-view-count" id="essayViewCount" aria-label="reads"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span id="viewCountNum"><span class="view-shimmer"></span></span></span>
-  </div>
-  <h1>Notes as <em>Identity</em></h1>
-  <p class="essay-subtitle">The Corebook is not a journal. It is a record of where you stood &mdash; what you believed, what puzzled you, what you were willing to bet on. It is the closest thing to a compass you will ever carry.</p>
+  <div class="article-inner">
+
+    <a href="/essays" class="back-link">&larr; All essays</a>
+
+    <header>
+      <p class="article-eyebrow">
+        <span class="tag">Method</span>
+        <span class="tag" style="background:var(--plum);color:var(--ink)">Identity</span>
+        <span class="sep">&middot;</span>
+        <span>4 min read</span>
+        <span class="sep">&middot;</span>
+        <span>May 2026</span>
+&middot; <span class="essay-view-count" id="essayViewCount" aria-label="reads"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span id="viewCountNum"><span class="view-shimmer"></span></span></span>
+      </p>
+
+      <h1 class="article-title">Notes as <em>Identity</em></h1>
+
+      <p class="article-subtitle">The Corebook is not a journal. It is a record of where you stood &mdash; what you believed, what puzzled you, what you were willing to bet on. It is the closest thing to a compass you will ever carry.</p>
+    </header>
+
+    <hr class="article-rule">
 
   <article class="essay-body">
     <p>Three years ago, you thought a particular idea was wrong. You can't remember why. The thinking is gone &mdash; dissolved into whatever happened next. You know you changed your mind, but you can't reconstruct the argument, can't locate the moment, can't tell whether the shift was earned or just the slow erosion of not bothering to hold the position anymore.</p>
@@ -313,6 +328,7 @@ footer{background:var(--olive);color:rgba(250,243,227,.7);padding:3rem var(--gut
     <p>Later, when you've changed your mind &mdash; and you will &mdash; you can go back and read who you were when the idea first arrived. That person is worth knowing. You can't meet them again, but you can read their notes.</p>
   </article>
   <div class="essay-end">&mdash; Pocket Notes, May 2026</div>
+  </div><!-- /article-inner -->
 </main>
 
 <section class="subscribe-section">

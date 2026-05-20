@@ -75,13 +75,16 @@ nav{position:fixed;top:1.5rem;left:1.5rem;right:1.5rem;z-index:200;display:flex;
 .nav-links a:hover,.nav-links a.active{color:var(--mustard)}
 .nav-cta{background:var(--mustard);color:var(--ink);padding:0.5rem 1.2rem;border-radius:999px;text-decoration:none;text-transform:uppercase;font-weight:500;transition:background .25s var(--ease);cursor:none}
 .nav-cta:hover{background:var(--coral);color:var(--cream)}
-.article-wrap{max-width:var(--max);margin:0 auto;padding:9rem var(--gut) 6rem}
-.essay-eyebrow{display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.article-wrap{padding-top:9rem;padding-bottom:6rem}
+.article-inner{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+.article-eyebrow{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:1.8rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.article-eyebrow .tag{background:var(--mustard);color:var(--ink);padding:0.2rem 0.7rem;border-radius:999px;font-size:0.68rem;font-weight:500}
+.article-eyebrow .sep{opacity:0.35}
 .essay-tag{font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;background:var(--coral);color:#fff;padding:.25rem .65rem;border-radius:999px}
-.essay-meta{font-size:.75rem;color:var(--ink-soft);font-family:'DM Mono',monospace}
-h1{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3rem);font-weight:300;line-height:1.15;letter-spacing:-.02em;margin-bottom:1.25rem;color:var(--ink)}
-h1 em{font-style:italic;color:var(--coral)}
-.essay-subtitle{font-family:'Fraunces',serif;font-size:1.15rem;font-style:italic;font-weight:300;color:var(--ink-soft);border-left:3px solid var(--mustard);padding-left:1rem;margin-bottom:3rem;line-height:1.5}
+.article-title{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2.6rem,7vw,4.8rem);line-height:0.95;letter-spacing:-0.04em;margin-bottom:1.4rem}
+.article-title em{font-style:italic;font-weight:400;color:var(--coral)}
+.article-subtitle{font-family:'Fraunces',serif;font-size:clamp(1.15rem,2.2vw,1.5rem);font-style:italic;font-weight:300;color:var(--ink-soft);line-height:1.45;margin-bottom:2.5rem;border-left:3px solid var(--mustard);padding-left:1.2rem}
+.article-rule{border:none;border-top:1.5px solid var(--ink);margin:2.5rem 0;opacity:0.15}
 .essay-body p{font-size:1.05rem;line-height:1.8;margin-bottom:1.5rem;color:var(--ink);text-align:justify;hyphens:auto}
 .drop-cap{float:left;font-family:'Fraunces',serif;font-weight:900;font-size:5.2rem;line-height:0.72;margin-right:6px;margin-top:8px;color:var(--coral,#FF6B47)}
 @media(max-width:768px){.drop-cap{font-size:4rem;line-height:0.75;margin-right:4px}}
@@ -327,14 +330,27 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
 </nav>
 
 <main class="article-wrap">
-  <div class="essay-eyebrow">
-    <span class="essay-tag">Culture</span>
-    <span class="essay-tag" style="background:var(--sky);color:var(--ink)">Practice</span>
-    <span class="essay-meta">4 min read &nbsp;&middot;&nbsp; May 2026</span>
-    <span class="essay-view-count" id="essayViewCount" aria-label="reads"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span id="viewCountNum"><span class="view-shimmer"></span></span></span>
-  </div>
-  <h1>Why Your Notebook Should <em>Never Be Organised</em></h1>
-  <p class="essay-subtitle">Leonardo's notebooks mixed hydraulics with shopping lists. Darwin's journals were famous for their productive chaos. Picasso never organised anything. The mess is not the problem. The mess is the method.</p>
+  <div class="article-inner">
+
+    <a href="/essays" class="back-link">&larr; All essays</a>
+
+    <header>
+      <p class="article-eyebrow">
+        <span class="tag">Culture</span>
+        <span class="tag" style="background:var(--sky);color:var(--ink)">Practice</span>
+        <span class="sep">&middot;</span>
+        <span>4 min read</span>
+        <span class="sep">&middot;</span>
+        <span>May 2026</span>
+&middot; <span class="essay-view-count" id="essayViewCount" aria-label="reads"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span id="viewCountNum"><span class="view-shimmer"></span></span></span>
+      </p>
+
+      <h1 class="article-title">Why Your Notebook Should <em>Never Be Organised</em></h1>
+
+      <p class="article-subtitle">Leonardo's notebooks mixed hydraulics with shopping lists. Darwin's journals were famous for their productive chaos. Picasso never organised anything. The mess is not the problem. The mess is the method.</p>
+    </header>
+
+    <hr class="article-rule">
 
   <article class="essay-body essay-with-margin">
     <p><span class="drop-cap">L</span>ook at a page from Leonardo da Vinci's notebooks and you will find, on the same surface, a diagram of a water wheel, a note about the price of crimson cloth, three studies of a horse's leg from different angles, and a sketch of a crossbow. There is no order. There is no system of notation that separates engineering from commerce from art from anatomy. There is just the page, and on it, everything that was in Leonardo's head that day.</p>
@@ -379,6 +395,7 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
   </article>
   <div class="essay-end">&mdash; Pocket Notes, May 2026</div>
 
+  </div><!-- /article-inner -->
 </main>
 
 <!-- ── SHARE BLOCK ── -->
