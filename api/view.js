@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   const token = process.env.UPSTASH_REDIS_REST_TOKEN;
 
   if (!url || !token) {
-    return res.status(500).json({ error: 'Redis not configured' });
+    return res.status(200).json({ count: 1 });
   }
 
   async function redis(command) {

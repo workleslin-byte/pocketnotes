@@ -467,7 +467,7 @@ document.getElementById('subscribeForm').addEventListener('submit',async functio
     fetch('/api/view?slug=' + slug)
       .then(function(r) { return r.json(); })
       .then(function(d) { showCount(d.count); })
-      .catch(function() { numEl.textContent = ''; });
+      .catch(function() { numEl.textContent = '—'; });
   } else {
     fetch('/api/view?slug=' + slug, { method: 'POST' })
       .then(function(r) { return r.json(); })
@@ -475,7 +475,7 @@ document.getElementById('subscribeForm').addEventListener('submit',async functio
         sessionStorage.setItem(sessionKey, '1');
         showCount(d.count);
       })
-      .catch(function() { numEl.textContent = ''; });
+      .catch(function() { numEl.textContent = '—'; });
   }
 })();
 </script>

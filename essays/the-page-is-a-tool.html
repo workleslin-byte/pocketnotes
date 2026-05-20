@@ -104,7 +104,7 @@
   .pull-quote{margin:3rem 0;padding:1.8rem 2rem;border-left:4px solid var(--mustard);background:var(--bone);border-radius:0 12px 12px 0}
   .pull-quote p{font-family:'Fraunces',serif;font-style:italic;font-size:clamp(1.2rem,2.5vw,1.6rem);line-height:1.45;color:var(--ink);margin-bottom:0!important}
   .pull-quote .attr{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft);margin-top:0.9rem;display:block;font-style:normal}
-  .section-break{text-align:center;margin:3.5rem 0;color:var(--mustard);font-size:1.2rem;letter-spacing:0.4em;opacity:0.8}
+  .section-break{display:block;text-align:center;margin:3.5rem 0;color:var(--mustard);font-size:1.2rem;letter-spacing:0.4em;opacity:0.8}
   .article-end{margin-top:4rem;padding-top:2rem;border-top:1.5px solid rgba(26,22,18,0.15)}
   .article-tags{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:2rem}
   .article-tag{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.8rem;border:1.5px solid var(--ink);border-radius:999px;color:var(--ink-soft);text-decoration:none;cursor:none;transition:background .2s var(--ease),color .2s var(--ease)}
@@ -562,7 +562,7 @@
     fetch('/api/view?slug=' + slug)
       .then(function(r) { return r.json(); })
       .then(function(d) { showCount(d.count); })
-      .catch(function() { numEl.textContent = ''; });
+      .catch(function() { numEl.textContent = '—'; });
   } else {
     fetch('/api/view?slug=' + slug, { method: 'POST' })
       .then(function(r) { return r.json(); })
@@ -570,7 +570,7 @@
         sessionStorage.setItem(sessionKey, '1');
         showCount(d.count);
       })
-      .catch(function() { numEl.textContent = ''; });
+      .catch(function() { numEl.textContent = '—'; });
   }
 })();
 </script>
