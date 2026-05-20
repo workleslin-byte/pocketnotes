@@ -75,6 +75,8 @@ nav{position:fixed;top:1.5rem;left:1.5rem;right:1.5rem;z-index:200;display:flex;
 .nav-links a:hover,.nav-links a.active{color:var(--mustard)}
 .nav-cta{background:var(--mustard);color:var(--ink);padding:0.5rem 1.2rem;border-radius:999px;text-decoration:none;text-transform:uppercase;font-weight:500;transition:background .25s var(--ease);cursor:none}
 .nav-cta:hover{background:var(--coral);color:var(--cream)}
+.back-link{display:block;font-family:'DM Mono',monospace;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;cursor:none;transition:color .2s var(--ease);margin-bottom:3rem}
+.back-link:hover{color:var(--coral)}
 .article-wrap{padding-top:9rem;padding-bottom:6rem}
 .article-inner{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
 .article-eyebrow{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:1.8rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
@@ -85,7 +87,7 @@ nav{position:fixed;top:1.5rem;left:1.5rem;right:1.5rem;z-index:200;display:flex;
 .article-title em{font-style:italic;font-weight:400;color:var(--coral)}
 .article-subtitle{font-family:'Fraunces',serif;font-size:clamp(1.15rem,2.2vw,1.5rem);font-style:italic;font-weight:300;color:var(--ink-soft);line-height:1.45;margin-bottom:2.5rem;border-left:3px solid var(--mustard);padding-left:1.2rem}
 .article-rule{border:none;border-top:1.5px solid var(--ink);margin:2.5rem 0;opacity:0.15}
-.essay-body p{font-size:1.05rem;line-height:1.8;margin-bottom:1.5rem;color:var(--ink);text-align:justify;hyphens:auto}
+.article-body p{font-size:1.05rem;line-height:1.8;margin-bottom:1.5rem;color:var(--ink);text-align:justify;hyphens:auto}
 .drop-cap{float:left;font-family:'Fraunces',serif;font-weight:900;font-size:5.2rem;line-height:0.72;margin-right:6px;margin-top:8px;color:var(--coral,#FF6B47)}
 @media(max-width:768px){.drop-cap{font-size:4rem;line-height:0.75;margin-right:4px}}
 .reading-bar{position:fixed;top:0;left:0;width:0%;height:2px;background:var(--mustard,#F5C13D);z-index:999;transition:width 0.1s linear}
@@ -113,12 +115,12 @@ nav{position:fixed;top:1.5rem;left:1.5rem;right:1.5rem;z-index:200;display:flex;
 .essay-figure.portrait img{max-height:480px;width:auto;max-width:100%;display:block;margin:0 auto}
 .essay-caption{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--ink,#1A1612);opacity:0.5;margin-top:10px;line-height:1.6;text-align:center}
 @media(max-width:768px){.essay-figure.size-mid,.essay-figure.size-small{width:100%;float:none;margin-left:0;margin-right:0}.essay-figure.size-full img,.essay-figure.size-mid img{max-height:360px}.essay-figure.size-small img{max-height:280px}.essay-figure.portrait img{max-height:360px}}
-.essay-body a{color:var(--coral);border-bottom:1px solid var(--mustard);text-decoration:none;transition:color .2s,border-color .2s}
-.essay-body a:hover{color:var(--ink);border-color:var(--coral)}
-.essay-body em{font-style:italic}
-.essay-body blockquote{border-left:3px solid var(--mustard);padding:1rem 1.25rem;margin:2.5rem 0;background:var(--bone);border-radius:0 4px 4px 0}
-.essay-body blockquote p{font-family:'Fraunces',serif;font-style:italic;font-size:1.1rem;color:var(--ink-soft);margin:0 0 .5rem;text-align:left;hyphens:none}
-.essay-body blockquote cite{font-size:.75rem;font-family:'DM Mono',monospace;color:var(--ink-soft);letter-spacing:.05em}
+.article-body a{color:var(--coral);border-bottom:1px solid var(--mustard);text-decoration:none;transition:color .2s,border-color .2s}
+.article-body a:hover{color:var(--ink);border-color:var(--coral)}
+.article-body em{font-style:italic}
+.article-body blockquote{border-left:3px solid var(--mustard);padding:1rem 1.25rem;margin:2.5rem 0;background:var(--bone);border-radius:0 4px 4px 0}
+.article-body blockquote p{font-family:'Fraunces',serif;font-style:italic;font-size:1.1rem;color:var(--ink-soft);margin:0 0 .5rem;text-align:left;hyphens:none}
+.article-body blockquote cite{font-size:.75rem;font-family:'DM Mono',monospace;color:var(--ink-soft);letter-spacing:.05em}
 .essay-end{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--bone);font-size:.75rem;color:var(--ink-soft);font-family:'DM Mono',monospace;letter-spacing:.05em}
 .subscribe-section{background:var(--plum);color:var(--cream);padding:5rem var(--gut);position:relative;overflow:hidden}
 .subscribe-inner{max-width:600px;margin:0 auto;text-align:center}
@@ -352,7 +354,7 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
 
     <hr class="article-rule">
 
-  <article class="essay-body essay-with-margin">
+  <article class="article-body essay-with-margin">
     <p><span class="drop-cap">L</span>ook at a page from Leonardo da Vinci's notebooks and you will find, on the same surface, a diagram of a water wheel, a note about the price of crimson cloth, three studies of a horse's leg from different angles, and a sketch of a crossbow. There is no order. There is no system of notation that separates engineering from commerce from art from anatomy. There is just the page, and on it, everything that was in Leonardo's head that day.</p>
 
     <figure class="essay-figure size-full">
