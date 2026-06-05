@@ -117,7 +117,7 @@ export default async function handler(req, res) {
         audienceId,
         unsubscribed: false,
       });
-      console.log('Resend contact:', JSON.stringify(r));
+      if (process.env.NODE_ENV !== 'production') console.log('Resend contact:', JSON.stringify(r));
     }
 
     return res.status(200).json({ success: true });

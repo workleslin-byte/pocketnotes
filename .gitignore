@@ -26,3 +26,4 @@ scripts/regen-*.js
 *.pem
 *.key
 *.cert
+.env*

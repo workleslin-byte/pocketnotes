@@ -500,15 +500,46 @@ threeoutfits.substack.compthe-art-of-good-taste.jpg
 
 ---
 
+## 11. SESSION LOG — 2026-06-05
+
+### Full-site audit + fixes executed
+
+**PRIORITY 1 — Analytics blind spots (all done)**
+
+- **Fix 1A:** Added `posthog.init()` to all 20 individual essay HTML files in `essays/`. Inserted the exact snippet from `essays/index.html` immediately before `</head>` in each file. Anchor: `gtag('config', 'G-ZYV54KY1F1');\n</script>\n</head>`. Verified: grep for `posthog.init` returns 21 matches (20 essays + index.html).
+- **Fix 1B:** Added same `posthog.init()` to `archives.html` before `</head>`. The `posthog.capture()` calls were already present; init was missing. Now wired.
+- **Fix 1C:** Guarded `console.log('Resend contact:', JSON.stringify(r))` in `api/newsletter.js` (line 120) with `if (process.env.NODE_ENV !== 'production')`. Same pattern as `api/waitlist.js`.
+
+**PRIORITY 2 — Data correctness**
+
+- **Fix 2A:** Fixed `constraint-as-creative-practice` category in `essays/index.html` ESSAYS array. Was `'Method'`, now `'Culture'`. Matches the first `<span class="tag">` in the essay file.
+
+**PRIORITY 3 — vercel.json cleanup**
+
+- **Fix 3A:** Removed dead `/blog` entry from `rewrites` array in `vercel.json`. The `/blog → /essays` redirect (permanent: true) in the `redirects` array takes precedence anyway; the rewrite was never firing. Rewrites array now starts with `/product/:path*`.
+
+**PRIORITY 4 — Repo hygiene**
+
+- **Fix 4A:** Deleted `blog.html` from repo root. File was an orphan — never served under any live URL. Had wrong tokens (`--ink: #1A1A1A`), wrong nav, missing OG tags, no PostHog.
+- **Fix 4B:** Debug block from commit `cf48acb` (`setTimeout` orbit image logging) was NOT present in `archives.html` — already removed in a prior session. No action needed; BUILD_LOG entry was stale.
+- **Fix 4C:** Removed `/brand` entry from `sitemap.xml`. Brand book is an internal reference page and should not be indexed. Sitemap now has 25 URLs (5 core pages + 20 essays).
+- **Fix 4D:** Deleted orphan files `blog.html` (done in 4A), `index-v2.html` (was already gone), and `pocket-notebook-bold.html.bak`. All three confirmed absent via `Test-Path`.
+
+**api/newsletter.js status correction:** BUILD_LOG previously said this file did not exist. It does exist and was created in a prior session. The archives gate is wired to `/api/newsletter` which calls `resend.contacts.create()` and adds to the newsletter audience.
+
+**vercel.json status corrections:**
+- `/archives.html → /archives` redirect IS present (was listed as missing in BUILD_LOG — already fixed in a prior session).
+- `/blog` was in BOTH rewrites and redirects — rewrite now removed.
+
+---
+
 ## OUTSTANDING ISSUES SUMMARY
 
 | Priority | Issue | File | Fix |
 |----------|-------|------|-----|
-| HIGH | `api/newsletter.js` does not exist — archives gate silently fails on server | — | Create `api/newsletter.js` (subscribe to Sender/Resend) |
-| HIGH | Debug `console.log` still in archives.html (lines 1219–1228) | archives.html | Remove the setTimeout debug block |
-| MED | `console.log('ENV CHECK:')` in waitlist.js fires on every submission in production | api/waitlist.js | Remove or guard with `process.env.NODE_ENV !== 'production'` |
-| MED | No 301 redirect for `/archives.html → /archives` in vercel.json | vercel.json | Add redirect entry |
-| MED | Two duplicate asset folders: `assets/images/og/` (essay OGs) and `assets/og/` (archives tile OGs) — confusing naming | — | Consider consolidating or documenting the split |
-| LOW | `overflow: hidden` on `.card-face` cancels `transform-style: preserve-3d` in some browsers — card flip may not work in Safari | archives.html | Remove overflow:hidden from card-face, clip via border-radius on card-inner instead |
-| LOW | `index-v2.html` is an orphan file — not linked anywhere | index-v2.html | Delete or integrate |
-| LOW | `notes-as-identity.html` and `notes-as-identity-the-corebook.html` both exist — possible duplicate | essays/ | Audit and consolidate |
+| MED | Two asset folders: `assets/images/og/` (essay OGs) and `assets/og/` (archives tile OGs) — confusing naming | — | Consider consolidating or documenting the split |
+| LOW | `overflow: hidden` on `.card-face` cancels `transform-style: preserve-3d` in some browsers | archives.html | Remove overflow:hidden from card-face, clip via border-radius on card-inner instead |
+| LOW | `notes-as-identity.html` and `notes-as-identity-the-corebook.html` both exist — two distinct essays confirmed | essays/ | No action needed — they are different essays |
+| — | Razorpay KYC | — | Not started |
+| — | Email nurture sequences 2–4 | Resend | Copy written, not built |
+| — | `/library` page | — | Not built |

@@ -21,7 +21,6 @@
     }
   ],
   "rewrites": [
-    { "source": "/blog", "destination": "/essays" },
     { "source": "/product/:path*", "destination": "/api/gone" },
     { "source": "/feed", "destination": "/api/gone" },
     { "source": "/feed/", "destination": "/api/gone" },
