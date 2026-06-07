@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -949,394 +949,567 @@
     html { scroll-behavior: auto; }
   }
 
-  /* ─── ACT 1 — HOOK ─────────────────────────────── */
+  /* ─── PHASE 2 — PHILOSOPHY SCROLL ──────────────── */
+
+  /* Act 1 — Hook */
   .act-hook {
-    min-height: 100vh;
-    background: var(--ink);
-    color: var(--cream);
-    padding: 10rem var(--gut) 6rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
+    background: var(--cream);
+    padding: 9rem var(--gut) 7rem;
+    border-bottom: 1px solid var(--bone);
   }
-  .act-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--bone);
-    opacity: 0.6;
-    margin-bottom: 2rem;
+  .act-inner {
+    max-width: var(--max);
+    margin: 0 auto;
   }
-  .act-headline {
+  .act-q {
     font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
     font-weight: 900;
-    font-size: clamp(2.8rem, 7vw, 6rem);
+    font-size: clamp(3rem, 6vw, 5.5rem);
     line-height: 1.0;
-    letter-spacing: -0.04em;
-    color: var(--cream);
-    max-width: 820px;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    max-width: 760px;
     margin-bottom: 3.5rem;
   }
-  .act-headline em { font-style: italic; font-weight: 400; color: var(--mustard); }
-  .choice-buttons { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 4rem; }
+  .choice-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
   .choice-btn {
     font-family: 'DM Mono', monospace;
-    font-size: 0.82rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--cream);
-    background: transparent;
-    border: 1px solid rgba(250,243,227,0.2);
-    border-radius: 999px;
-    padding: 0.75rem 1.8rem;
-    cursor: none;
-    position: relative;
-    overflow: hidden;
-    transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
-  }
-  .choice-btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--mustard);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.35s var(--ease);
-    z-index: 0;
-  }
-  .choice-btn:hover, .choice-btn.selected { border-color: var(--mustard); color: var(--ink); }
-  .choice-btn:hover::before, .choice-btn.selected::before { transform: scaleX(1); }
-  .choice-btn span { position: relative; z-index: 1; }
-  .scroll-cue-act {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    opacity: 0;
-    transition: opacity 0.6s var(--ease);
-    pointer-events: none;
-  }
-  .scroll-cue-act.visible { opacity: 1; }
-  .scroll-cue-act-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--bone);
-    opacity: 0.5;
-  }
-  .scroll-cue-line { width: 1px; height: 0; background: var(--mustard); }
-  .scroll-cue-act.visible .scroll-cue-line { animation: scueLine 1.4s var(--ease) forwards; }
-  @keyframes scueLine { to { height: 40px; opacity: 0.7; } }
-
-  /* ─── ACT 2 — SCIENCE ─────────────────────────────── */
-  .act-science { background: var(--ink); color: var(--cream); }
-  .science-panel {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 8rem var(--gut);
-  }
-  .science-inner { max-width: 800px; margin: 0 auto; }
-  .stat-number {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: clamp(5rem, 18vw, 16rem);
-    line-height: 0.85;
-    color: var(--mustard);
-    letter-spacing: -0.04em;
-    display: inline-block;
-    margin-bottom: 0.5rem;
-  }
-  .stat-unit {
-    display: block;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--bone);
-    opacity: 0.5;
-    margin-bottom: 2.5rem;
-  }
-  .stat-headline {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(1.6rem, 3.5vw, 2.8rem);
-    font-weight: 700;
-    font-style: italic;
-    color: var(--cream);
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    margin-bottom: 1.2rem;
-  }
-  .stat-body {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 15px;
-    color: var(--bone);
-    opacity: 0.55;
-    line-height: 1.75;
-    max-width: 560px;
-  }
-  .scribble-svg { display: block; margin-top: 6px; overflow: visible; }
-  .scribble-path { stroke-dasharray: 300; stroke-dashoffset: 300; }
-  .reveal.in .scribble-path { animation: drawScribble 1.2s var(--ease) 0.3s forwards; }
-  @keyframes drawScribble { to { stroke-dashoffset: 0; } }
-
-  /* ─── ACT 3 — THINKERS ─────────────────────────────── */
-  .act-thinkers-intro {
-    min-height: 60vh;
-    background: var(--ink);
-    color: var(--cream);
-    padding: 8rem var(--gut);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .act-thinkers { background: var(--cream); }
-  .thinker-card {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    overflow: hidden;
-  }
-  .thinker-text {
-    padding: 5rem var(--gut) 5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: var(--cream);
-    color: var(--ink);
-  }
-  .thinker-card.dark .thinker-text { background: var(--olive); color: var(--cream); }
-  .thinker-counter {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--ink-soft);
-    opacity: 0.5;
+    background: transparent;
+    border: 1px solid rgba(26,22,18,0.2);
+    border-radius: 999px;
+    padding: 0.75rem 1.75rem;
+    cursor: none;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .choice-btn.selected,
+  .choice-btn:hover {
+    background: var(--ink);
+    color: var(--cream);
+    border-color: var(--ink);
+  }
+
+  /* Act 2 — Science Scrollytelling */
+  .act-science {
+    background: var(--cream);
+    border-bottom: 1px solid var(--bone);
+  }
+  .science-layout {
+    display: grid;
+    grid-template-columns: 45fr 55fr;
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+  .science-steps {
+    padding: 8rem var(--gut) 8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 30vh;
+    padding-bottom: 45vh;
+  }
+  .science-step {
+    max-width: 460px;
+    opacity: 0.22;
+    transition: opacity 0.5s var(--ease);
+  }
+  .science-step.active { opacity: 1; }
+  .step-source {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.45;
     margin-bottom: 1rem;
-  }
-  .thinker-card.dark .thinker-counter { color: var(--bone); opacity: 0.5; }
-  .card-number {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: clamp(3.5rem, 10vw, 8rem);
-    line-height: 0.9;
-    color: var(--mustard);
-    letter-spacing: -0.04em;
-    margin-bottom: 0.3rem;
-  }
-  .card-unit {
     display: block;
+  }
+  .step-body {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1rem, 1.6vw, 1.3rem);
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+  .science-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid var(--bone);
+    overflow: hidden;
+  }
+  .science-display {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .science-stat {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+    pointer-events: none;
+  }
+  .science-stat.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .sci-num {
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-size: clamp(5rem, 13vw, 12rem);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+  }
+  .sci-unit {
+    font-size: 0.45em;
+    letter-spacing: -0.01em;
+    color: var(--mustard);
+    vertical-align: baseline;
+  }
+  .sci-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.35;
+    margin-top: 1.75rem;
+    text-align: center;
+    max-width: 220px;
+    line-height: 1.8;
+  }
+
+  /* Act 3 — Thinkers */
+  .act-thinkers {
+    background: var(--cream);
+    border-bottom: 1px solid var(--bone);
+    padding-top: 7rem;
+    padding-bottom: 5rem;
+    overflow: hidden;
+  }
+  .thinkers-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: end;
+    padding: 0 var(--gut) 4rem;
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+  .thinker-headline {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+  }
+  .thinker-sub {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    opacity: 0.65;
+    max-width: 380px;
+  }
+  .thinker-track-wrap {
+    position: relative;
+    padding: 0 var(--gut);
+  }
+  .thinker-track {
+    display: flex;
+    gap: 2px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .thinker-track::-webkit-scrollbar { display: none; }
+  .thinker-card {
+    flex: 0 0 300px;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--bone);
+    border-radius: 2px;
+    overflow: hidden;
+    transition: transform 0.2s var(--ease);
+  }
+  .thinker-card:hover { transform: translateY(-3px); }
+  .tc-color {
+    height: 200px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .tc-mono {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+  }
+  .tc-text {
+    padding: 1.5rem 1.5rem 1.75rem;
+    background: var(--cream);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .tc-name {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--ink-soft);
     opacity: 0.55;
-    margin-bottom: 1.8rem;
+    margin-bottom: 2px;
   }
-  .thinker-card.dark .card-unit { color: var(--bone); }
-  .thinker-name {
+  .tc-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.07em;
+    color: var(--ink-soft);
+    opacity: 0.35;
+    margin-bottom: 1rem;
+  }
+  .tc-stat {
     font-family: 'Fraunces', serif;
-    font-size: clamp(1.4rem, 2.5vw, 2rem);
-    font-weight: 700;
-    margin-bottom: 0.3rem;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
     color: var(--ink);
+    margin-bottom: 4px;
   }
-  .thinker-card.dark .thinker-name { color: var(--cream); }
-  .thinker-date {
+  .tc-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.4;
+    margin-bottom: 1.1rem;
+  }
+  .tc-body {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    opacity: 0.7;
+    flex: 1;
+  }
+  .thinker-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 1.25rem;
+    opacity: 0.35;
+  }
+  .th-label {
     font-family: 'DM Mono', monospace;
     font-size: 9px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--mustard);
-    opacity: 0.8;
-    margin-bottom: 1.2rem;
+    color: var(--ink);
   }
-  .thinker-body {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--ink-soft);
-    max-width: 420px;
-  }
-  .thinker-card.dark .thinker-body { color: var(--bone); }
-  .thinker-body em { font-style: italic; font-weight: 500; color: var(--ink); }
-  .thinker-card.dark .thinker-body em { color: var(--cream); }
-  .card-annotation {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 13px;
-    color: var(--coral);
-    transform: rotate(-1.5deg);
-    display: inline-block;
-    border-bottom: 1px solid var(--coral);
-    padding-bottom: 2px;
-    margin-top: 1.5rem;
-    opacity: 0;
-    transition: opacity 0.4s var(--ease) 0.5s;
-  }
-  .reveal.in .card-annotation { opacity: 1; }
-  .thinker-img {
-    overflow: hidden;
-    position: relative;
-    min-height: 500px;
-  }
-  .thinker-img::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(26,22,18,0.2), transparent 60%);
-    pointer-events: none;
-  }
-  .thinker-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transform: scale(1);
-    transition: transform 6s ease;
-  }
-  .thinker-card.reveal.in .thinker-img img { transform: scale(1.04); }
+  .th-arrow { font-size: 13px; color: var(--ink); }
 
-  /* ─── ACT 4 — COMPARISON ─────────────────────────────── */
+  /* Act 4 — Comparison */
   .act-comparison {
-    min-height: 100vh;
-    background: var(--plum);
-    color: var(--cream);
+    background: var(--cream);
     padding: 8rem var(--gut);
+    border-bottom: 1px solid var(--bone);
   }
-  .act-comparison .act-inner { max-width: var(--max); margin: 0 auto; }
-  .comparison-headline {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: clamp(2.2rem, 5vw, 4.5rem);
-    line-height: 1.1;
-    letter-spacing: -0.04em;
-    color: var(--cream);
+  .act-comparison-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .comp-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.4;
+    display: block;
     margin-bottom: 1.5rem;
-    max-width: 900px;
   }
-  #userAnswerDisplay { font-style: italic; color: var(--mustard); }
-  .comparison-deck {
+  .comp-headline {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  #userAnswerDisplay {
+    font-style: italic;
+    color: var(--mustard);
+  }
+  .comp-sub {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 15px;
-    color: var(--bone);
-    opacity: 0.65;
-    line-height: 1.75;
-    max-width: 600px;
+    color: var(--ink-soft);
+    opacity: 0.5;
     margin-bottom: 4rem;
   }
-  .bars { display: flex; flex-direction: column; gap: 1.8rem; margin-bottom: 3rem; }
-  .bar-row { display: grid; grid-template-columns: 140px 1fr auto; gap: 1.5rem; align-items: center; }
-  .bar-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
-  .bar-label strong { display: block; color: var(--cream); margin-bottom: 2px; }
-  .bar-label span { color: var(--bone); opacity: 0.5; font-size: 9px; }
-  .bar-track { height: 6px; background: rgba(250,243,227,0.1); border-radius: 999px; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 999px; width: 0; transition: width 1.4s var(--ease); }
-  .reveal.in .bar-fill { width: var(--target-w); }
-  .bars.reveal.in .bar-row:nth-child(2) .bar-fill { transition-delay: 0.12s; }
-  .bars.reveal.in .bar-row:nth-child(3) .bar-fill { transition-delay: 0.24s; }
-  .bars.reveal.in .bar-row:nth-child(4) .bar-fill { transition-delay: 0.36s; }
-  .bar-value { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em; color: var(--bone); opacity: 0.65; white-space: nowrap; text-align: right; }
-  .comparison-quote {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 16px;
-    color: var(--bone);
-    opacity: 0.6;
-    border-left: 2px solid var(--mustard);
-    padding-left: 20px;
-    max-width: 600px;
-    line-height: 1.7;
+  .comp-stack {
+    border-top: 1px solid var(--bone);
+    margin-bottom: 4rem;
   }
-
-  /* ─── ACT 5 — FORMAT ─────────────────────────────── */
-  .act-format { min-height: 100vh; background: var(--bone); color: var(--ink); padding: 8rem var(--gut); }
-  .format-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: var(--max); margin: 0 auto; }
-  .format-headline {
+  .comp-row {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    align-items: baseline;
+    gap: 2rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--bone);
+  }
+  .comp-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.55;
+  }
+  .comp-num {
     font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
     font-weight: 900;
-    font-size: clamp(2.2rem, 4.5vw, 4rem);
-    line-height: 1.05;
-    letter-spacing: -0.04em;
-    margin-bottom: 1.5rem;
-    margin-top: 1rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    line-height: 1;
   }
-  .format-headline em { font-style: italic; font-weight: 400; color: var(--plum); }
-  .format-body { font-family: 'Space Grotesk', sans-serif; font-size: 15px; line-height: 1.75; color: var(--ink-soft); max-width: 440px; margin-bottom: 2.5rem; }
-  .dimension-wrap { margin-bottom: 2.5rem; }
-  .dimension-label-top { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); opacity: 0.5; margin-bottom: 10px; }
-  .dimension-outer { position: relative; display: inline-block; }
-  .notebook-box {
-    position: relative;
-    width: 180px;
-    height: 252px;
-    border: 2px solid var(--ink);
-    border-radius: 4px;
-    background: var(--paper);
-    box-shadow: 5px 5px 0 var(--ink);
-    overflow: hidden;
-  }
-  .notebook-spine { position: absolute; top: 0; left: 0; bottom: 0; width: 14px; background: var(--mustard); border-right: 1.5px solid var(--ink); }
-  .notebook-grid {
-    position: absolute;
-    inset: 0;
-    left: 14px;
-    background-image: linear-gradient(rgba(26,22,18,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(26,22,18,0.07) 1px, transparent 1px);
-    background-size: 18px 18px;
-    background-position: 6px 8px;
-  }
-  .dim-label-bottom { display: block; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; color: var(--ink-soft); opacity: 0.5; margin-top: 6px; }
-  .dim-label-side { position: absolute; right: -30px; top: 50%; transform: translateY(-50%) rotate(90deg); font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; color: var(--ink-soft); opacity: 0.5; white-space: nowrap; }
-  .name-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .name-pill {
+  [data-scale="large"]  .comp-num { font-size: clamp(2.8rem, 6.5vw, 5.5rem); }
+  [data-scale="medium"] .comp-num { font-size: clamp(2rem, 4vw, 3.5rem); }
+  [data-scale="small"]  .comp-num { font-size: clamp(1.4rem, 2.5vw, 2.2rem); }
+  [data-scale="tiny"]   .comp-num { font-size: clamp(1rem, 1.5vw, 1.4rem); }
+  .comp-you { color: var(--mustard); }
+  .comp-detail {
     font-family: 'DM Mono', monospace;
     font-size: 9px;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
-    border: 1px solid rgba(26,22,18,0.2);
-    border-radius: 999px;
-    padding: 6px 12px;
     color: var(--ink-soft);
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+    opacity: 0.35;
+    text-align: right;
   }
-  .reveal.in .name-pill { opacity: 1; transform: translateY(0); }
-  .name-pills .name-pill:nth-child(1) { transition-delay: 0.00s; }
-  .name-pills .name-pill:nth-child(2) { transition-delay: 0.08s; }
-  .name-pills .name-pill:nth-child(3) { transition-delay: 0.16s; }
-  .name-pills .name-pill:nth-child(4) { transition-delay: 0.24s; }
-  .name-pills .name-pill:nth-child(5) { transition-delay: 0.32s; }
-  .name-pills .name-pill:nth-child(6) { transition-delay: 0.40s; }
-  .name-pills .name-pill:nth-child(7) { transition-delay: 0.48s; }
-  .format-right { display: flex; flex-direction: column; align-items: center; }
-  .format-img { width: 100%; border-radius: 16px; overflow: hidden; border: 1.5px solid var(--ink); }
-  .format-img img { width: 100%; height: auto; display: block; }
-  .format-caption { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); opacity: 0.4; text-align: center; margin-top: 10px; }
+  .comp-close {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    opacity: 0.6;
+    border-left: 2px solid var(--mustard);
+    padding-left: 1.5rem;
+    max-width: 540px;
+  }
 
-  /* ─── MOBILE — PHILOSOPHY SCROLL ─────────────────────────────── */
+  /* Act 5 — Format */
+  .act-format {
+    background: var(--cream);
+    padding: 8rem var(--gut);
+  }
+  .format-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+  .format-h {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 1.2rem;
+    margin-top: 0.75rem;
+  }
+  .format-body {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    opacity: 0.68;
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+  }
+  .format-spec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.35;
+    display: block;
+    margin-bottom: 1.25rem;
+  }
+  .nb-diagram {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 28px;
+    padding-right: 36px;
+  }
+  .nb-body {
+    width: 168px;
+    height: 236px;
+    border: 1.5px solid var(--ink);
+    border-radius: 2px;
+    background: var(--paper);
+    box-shadow: 4px 4px 0 var(--ink);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+  }
+  .nb-spine {
+    width: 14px;
+    height: 100%;
+    background: var(--mustard);
+    border-right: 1.5px solid var(--ink);
+    flex-shrink: 0;
+  }
+  .nb-dots {
+    position: absolute;
+    top: 10px;
+    left: 22px;
+    right: 6px;
+    bottom: 10px;
+    background-image: radial-gradient(circle, rgba(26,22,18,0.18) 1px, transparent 1px);
+    background-size: 11px 11px;
+  }
+  .nb-dim-w {
+    position: absolute;
+    bottom: 6px;
+    left: 0;
+    width: 168px;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    opacity: 0.35;
+  }
+  .nb-dim-h {
+    position: absolute;
+    right: 6px;
+    top: 0;
+    height: 236px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nb-dim-h span {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    opacity: 0.35;
+    transform: rotate(90deg);
+    white-space: nowrap;
+    display: block;
+  }
+  .timeline-block {
+    background: var(--bone);
+    border-radius: 2px;
+    padding: 2.5rem;
+  }
+  .timeline-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.45;
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+  .tl-row {
+    display: grid;
+    grid-template-columns: 55px 1fr;
+    gap: 1.5rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid rgba(26,22,18,0.07);
+    align-items: baseline;
+  }
+  .tl-row:last-child { border-bottom: none; }
+  .tl-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    opacity: 0.35;
+  }
+  .tl-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .tl-highlight .tl-year { opacity: 0.85; color: var(--mustard); }
+  .tl-highlight .tl-name { font-weight: 600; }
+
+  /* Mobile */
   @media (max-width: 768px) {
-    .act-hook { padding: 6rem 20px 4rem; }
-    .act-headline { font-size: clamp(2.2rem, 10vw, 3.2rem); }
-    .choice-buttons { flex-direction: column; gap: 0.75rem; }
-    .science-panel { padding: 5rem 20px; }
-    .stat-number { font-size: clamp(4rem, 16vw, 7rem); }
-    .act-thinkers-intro { padding: 5rem 20px; }
-    .thinker-card { grid-template-columns: 1fr; }
-    .thinker-img { order: -1; min-height: 260px; }
-    .thinker-text { order: 1; padding: 2.5rem 20px; }
-    .card-number { font-size: clamp(3rem, 12vw, 5rem); }
+    .act-hook { padding: 5rem 20px 4rem; }
+    .act-q { font-size: clamp(2.4rem, 9vw, 3.5rem); }
+
+    .science-layout { display: flex; flex-direction: column; }
+    .science-sticky {
+      order: -1;
+      position: relative;
+      height: auto;
+      min-height: 220px;
+      border-left: none;
+      border-bottom: 1px solid var(--bone);
+      padding: 3rem 20px;
+    }
+    .science-display { position: relative; height: 220px; }
+    .science-steps { padding: 3rem 20px; gap: 3rem; padding-bottom: 3rem; }
+    .sci-num { font-size: clamp(4rem, 18vw, 7rem); }
+
+    .thinkers-header { grid-template-columns: 1fr; gap: 1rem; padding: 0 20px 2.5rem; }
+    .thinker-track-wrap { padding: 0 20px; }
+    .thinker-card { flex: 0 0 260px; }
+
     .act-comparison { padding: 5rem 20px; }
-    .bar-row { grid-template-columns: 80px 1fr 60px; gap: 0.6rem; }
-    .bar-value { font-size: 9px; }
+    .comp-row { grid-template-columns: 90px 1fr; gap: 1rem; }
+    .comp-detail { display: none; }
+    [data-scale="large"]  .comp-num { font-size: clamp(2.5rem, 10vw, 4rem); }
+    [data-scale="medium"] .comp-num { font-size: clamp(1.8rem, 7vw, 3rem); }
+    [data-scale="small"]  .comp-num { font-size: clamp(1.3rem, 5vw, 2rem); }
+    [data-scale="tiny"]   .comp-num { font-size: clamp(0.95rem, 3.5vw, 1.4rem); }
+
     .act-format { padding: 5rem 20px; }
-    .format-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .format-layout { grid-template-columns: 1fr; gap: 3rem; }
     .format-right { align-items: flex-start; }
   }
 </style>
@@ -1506,251 +1679,254 @@
 
 <!-- ─── ACT 1 — HOOK ──────────────────────────────── -->
 <section class="act-hook" id="act-hook">
-  <p class="act-eyebrow reveal">A capture device for fast thinkers</p>
-  <h2 class="act-headline reveal">How many thoughts did you lose <em>today?</em></h2>
-  <div class="choice-buttons">
-    <button class="choice-btn" data-answer="few"><span>A few</span></button>
-    <button class="choice-btn selected" data-answer="many"><span>Too many</span></button>
-    <button class="choice-btn" data-answer="stopped"><span>I stopped counting</span></button>
-  </div>
-  <div class="scroll-cue-act" id="scrollCue">
-    <span class="scroll-cue-act-label">Scroll to continue</span>
-    <div class="scroll-cue-line" aria-hidden="true"></div>
-  </div>
-</section>
-
-<!-- ─── ACT 2 — SCIENCE ───────────────────────────── -->
-<section class="act-science" id="act-science">
-
-  <div class="science-panel">
-    <div class="science-inner reveal">
-      <div class="stat-number">70,000</div>
-      <span class="stat-unit">thoughts per day — average human</span>
-      <p class="stat-headline">Your mind is a machine that never stops.</p>
-      <p class="stat-body">Cognitive scientists estimate we generate roughly 70,000 thoughts between waking and sleeping. Most leave without trace.</p>
-    </div>
-  </div>
-
-  <div class="science-panel">
-    <div class="science-inner reveal">
-      <div class="stat-number">30s
-        <svg class="scribble-svg" width="120" height="18" viewBox="0 0 120 18" fill="none" aria-hidden="true">
-          <path class="scribble-path" d="M2 12 Q15 4 28 12 T55 10 T82 12 T110 8 T118 12" style="stroke:var(--coral)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <span class="stat-unit">duration of short-term memory · Peterson &amp; Peterson, 1959</span>
-      <p class="stat-headline">A thought lives for thirty seconds.</p>
-      <p class="stat-body">Without rehearsal or physical capture, a new thought displaces the last one from working memory in under half a minute.</p>
-    </div>
-  </div>
-
-  <div class="science-panel">
-    <div class="science-inner reveal">
-      <div class="stat-number">4</div>
-      <span class="stat-unit">items working memory holds · George Miller, 1956</span>
-      <p class="stat-headline">Your brain is not storage. It is a workspace.</p>
-      <p class="stat-body">Working memory holds four things simultaneously. One notification, one distraction, one call — and the thought you were building is gone.</p>
-    </div>
-  </div>
-
-  <div class="science-panel">
-    <div class="science-inner reveal">
-      <div class="stat-number">0</div>
-      <span class="stat-unit">thoughts recovered — after a single interruption</span>
-      <p class="stat-headline">The only way to save a thought is to write it down.</p>
-      <p class="stat-body">There is no other method. Not mental notes. Not voice memos you will never play. A pen on paper is the only thing faster than forgetting.</p>
-    </div>
-  </div>
-
-</section>
-
-<!-- ─── ACT 3 — THINKERS ──────────────────────────── -->
-<section class="act-thinkers-intro">
-  <div class="reveal">
-    <p class="act-eyebrow">The record</p>
-    <h2 class="act-headline">Every serious thinker you can name solved this <em>the same way.</em></h2>
-    <p class="stat-body" style="color:var(--bone);opacity:0.7;margin-top:1.5rem;">Before the published argument, before the breakthrough — there was a small book. Carried on the body. Written daily. The format was always pocket-sized.</p>
-  </div>
-</section>
-
-<section class="act-thinkers" id="act-thinkers">
-
-  <article class="thinker-card reveal">
-    <div class="thinker-text">
-      <div class="thinker-counter">01 / 07</div>
-      <div class="card-number" data-target="13000">13,000</div>
-      <span class="card-unit">pages — surviving today</span>
-      <h3 class="thinker-name">Leonardo da Vinci</h3>
-      <div class="thinker-date">c. 1487</div>
-      <p class="thinker-body">Walking, he'd spot the angle of a bird's wing, the geometry of a water current. By the time he reached a table, it was gone. He tied notebooks to his belt. <em>3.5 by 2.5 inches.</em> Anatomy, engineering, flight — on the same page.</p>
-      <span class="card-annotation">same size as your pocket</span>
-    </div>
-    <div class="thinker-img">
-      <img src="/assets/images/20251114_2240_Elegant%20Pocket%20Notebooks_remix_01ka1nd1dhea6808actayw9cka.png" alt="Three black Pocket Notes notebooks on a desk" loading="lazy">
-    </div>
-  </article>
-
-  <article class="thinker-card dark reveal">
-    <div class="thinker-img">
-      <img src="/assets/images/20251030_1932_Pocket%20Notebook%20Mockup_remix_01k8tppm8yfq28j97esxh2vyk5.png" alt="Single Pocket Notes notebook mockup" loading="lazy">
-    </div>
-    <div class="thinker-text">
-      <div class="thinker-counter">02 / 07</div>
-      <div class="card-number">Waste book</div>
-      <span class="card-unit">what Newton called it — c. 1664</span>
-      <h3 class="thinker-name">Isaac Newton</h3>
-      <div class="thinker-date">c. 1664</div>
-      <p class="thinker-body">He needed somewhere for thoughts that weren't ready yet — half-formed, wrong in places, worth keeping. He called it a wastebook. <em>Calculus lived there before it had a name.</em></p>
-      <span class="card-annotation">wrong on purpose. still worth keeping.</span>
-    </div>
-  </article>
-
-  <article class="thinker-card reveal">
-    <div class="thinker-text">
-      <div class="thinker-counter">03 / 07</div>
-      <div class="card-number" data-target="15">15</div>
-      <span class="card-unit">field notebooks — Beagle voyage, 1831–36</span>
-      <h3 class="thinker-name">Charles Darwin</h3>
-      <div class="thinker-date">1831</div>
-      <p class="thinker-body">On the Beagle, observations came faster than conclusions. He kept 15 field notebooks — species, geology, raw data with no thesis yet. <em>Notebook B, 1837: the first drawing of the evolutionary tree.</em> Drawn for himself, not for publication.</p>
-      <span class="card-annotation">the idea arrived before the argument</span>
-    </div>
-    <div class="thinker-img">
-      <img src="/assets/images/20251114_2249_Creative%20Desk%20Workspace_remix_01ka1nybjyey7v99rak5pjysk6.png" alt="Notebooks on a desk with laptop" loading="lazy">
-    </div>
-  </article>
-
-  <article class="thinker-card dark reveal">
-    <div class="thinker-img">
-      <img src="/assets/images/IMG_7393.JPG" alt="Hand holding three Pocket Notes notebooks" loading="lazy">
-    </div>
-    <div class="thinker-text">
-      <div class="thinker-counter">04 / 07</div>
-      <div class="card-number" data-target="90000">90,000</div>
-      <span class="card-unit">cards — 6 per day for 46 years</span>
-      <h3 class="thinker-name">Niklas Luhmann</h3>
-      <div class="thinker-date">1952–1998</div>
-      <p class="thinker-body">He read faster than he could use what he read. Each idea got a card. Each card linked to others. 90,000 notes over 46 years. 600 published works. <em>He called it his communication partner.</em></p>
-      <span class="card-annotation">6 notes/day. compounded.</span>
-    </div>
-  </article>
-
-  <article class="thinker-card reveal">
-    <div class="thinker-text">
-      <div class="thinker-counter">05 / 07</div>
-      <div class="card-number" data-target="2500">2,500</div>
-      <span class="card-unit">pocket notebooks — 200 pages each</span>
-      <h3 class="thinker-name">Thomas Edison</h3>
-      <div class="thinker-date">1871</div>
-      <p class="thinker-body">His team kept redoing work they'd already done. He mandated notebooks for every person at Menlo Park. <em>2,500 pocket notebooks, 200 pages each,</em> across his career. Written to think, not to archive.</p>
-      <span class="card-annotation">he made it compulsory</span>
-    </div>
-    <div class="thinker-img">
-      <img src="/assets/images/20251031_0204_Pocket%20Notebook%20Mockup_remix_01k8vd4wmpef9bgprv1wb3pcr1.png" alt="Notebook mockup on surface" loading="lazy">
-    </div>
-  </article>
-
-  <article class="thinker-card dark reveal">
-    <div class="thinker-img">
-      <img src="/assets/images/20251030_1932_Pocket%20Notebook%20Mockup_remix_01k8tppm8xf3msdvq4z9et5z4p.png" alt="Single Pocket Notes notebook mockup alternate" loading="lazy">
-    </div>
-    <div class="thinker-text">
-      <div class="thinker-counter">06 / 07</div>
-      <div class="card-number">40+</div>
-      <span class="card-unit">pocket notebooks — started age 19</span>
-      <h3 class="thinker-name">Mark Twain</h3>
-      <div class="thinker-date">1855</div>
-      <p class="thinker-body">He started because he couldn't remember job instructions. 40 notebooks followed — observations, dirty jokes, invention ideas, the lines that became books. He said <em>if he didn't write it down immediately, he'd forget it.</em></p>
-      <span class="card-annotation">started for a job. never stopped.</span>
-    </div>
-  </article>
-
-  <article class="thinker-card reveal">
-    <div class="thinker-text">
-      <div class="thinker-counter">07 / 07</div>
-      <div class="card-number" data-target="30">30</div>
-      <span class="card-unit">notebooks — 1915 to four days before her death</span>
-      <h3 class="thinker-name">Virginia Woolf</h3>
-      <div class="thinker-date">1915–1941</div>
-      <p class="thinker-body">15 minutes a day. No audience. <em>"The habit of writing thus for my own eye only is good practice. It loosens the ligaments."</em> 30 notebooks. Nearly 2,000 published diary pages. The novels ran alongside them on a parallel track.</p>
-      <span class="card-annotation">for no one. which is why it worked.</span>
-    </div>
-    <div class="thinker-img">
-      <img src="/assets/images/IMG_7405.JPG" alt="Multiple notebooks spread on glass table" loading="lazy">
-    </div>
-  </article>
-
-</section>
-
-<!-- ─── ACT 4 — COMPARISON ────────────────────────── -->
-<section class="act-comparison" id="act-comparison">
   <div class="act-inner">
-    <h2 class="comparison-headline reveal">You said <span id="userAnswerDisplay">you lose thoughts every day.</span><br>Here is what daily catching builds.</h2>
-    <p class="comparison-deck reveal">Luhmann averaged 6 notes a day. Not 60. Not a hundred. Six. Over 46 years that became 90,000 cards and 600 published works. The number that matters is whether you start.</p>
-
-    <div class="bars reveal">
-      <div class="bar-row">
-        <div class="bar-label"><strong style="color:var(--mustard)">Luhmann</strong><span>6/day · 46 yrs</span></div>
-        <div class="bar-track"><div class="bar-fill" style="background:var(--mustard);--target-w:100%"></div></div>
-        <div class="bar-value">90,000</div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label"><strong>Edison</strong><span>career total</span></div>
-        <div class="bar-track"><div class="bar-fill" style="background:var(--coral);--target-w:68%"></div></div>
-        <div class="bar-value">2,500 books</div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label"><strong>Da Vinci</strong><span>pages surviving</span></div>
-        <div class="bar-track"><div class="bar-fill" style="background:var(--sage);--target-w:14%"></div></div>
-        <div class="bar-value">13,000</div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label"><strong>You</strong><span>2 notes/day · 1 yr</span></div>
-        <div class="bar-track"><div class="bar-fill" style="background:var(--pink);--target-w:1%"></div></div>
-        <div class="bar-value">730</div>
-      </div>
+    <h2 class="act-q">How many thoughts did you lose today?</h2>
+    <div class="choice-row">
+      <button class="choice-btn" data-answer="few">A few</button>
+      <button class="choice-btn selected" data-answer="many">Too many</button>
+      <button class="choice-btn" data-answer="stopped">I stopped counting</button>
     </div>
-
-    <blockquote class="comparison-quote reveal">730 thoughts that exist instead of vanishing. That is what one year of daily catching looks like. The format has to be frictionless because the habit has to be daily.</blockquote>
   </div>
 </section>
 
-<!-- ─── ACT 5 — FORMAT ────────────────────────────── -->
-<section class="act-format" id="act-format">
-  <div class="format-grid">
-    <div class="format-left reveal">
-      <p class="section-label">The format</p>
-      <h2 class="format-headline">The notebook he carried was smaller than <em>your hand.</em></h2>
-      <p class="format-body">Da Vinci's notebooks measured 3.5 by 2.5 inches — smaller than most phones today. The constraint was the point. Small enough that there was no excuse not to carry it. This size has not changed because the problem has not changed.</p>
+<!-- ─── ACT 2 — SCIENCE ──────────────────────────── -->
+<section class="act-science" id="act-science">
+  <div class="science-layout">
 
-      <div class="dimension-wrap">
-        <p class="dimension-label-top">Actual size · A6 · 105 × 148 mm</p>
-        <div class="dimension-outer">
-          <div class="notebook-box">
-            <div class="notebook-spine"></div>
-            <div class="notebook-grid"></div>
-          </div>
-          <span class="dim-label-bottom">105 mm</span>
-          <span class="dim-label-side">148 mm</span>
+    <div class="science-steps">
+      <div class="science-step active" data-step="0">
+        <span class="step-source">Neuroscience · avg. human brain</span>
+        <p class="step-body">Your mind generates roughly 70,000 thoughts between waking and sleeping. Most never get written. Most never get used. Most disappear without trace.</p>
+      </div>
+      <div class="science-step" data-step="1">
+        <span class="step-source">Peterson &amp; Peterson, 1959</span>
+        <p class="step-body">Short-term memory lasts 30 seconds without active rehearsal. A thought arrives. Another one arrives. The first one is already gone before you reach a pen.</p>
+      </div>
+      <div class="science-step" data-step="2">
+        <span class="step-source">George Miller, 1956</span>
+        <p class="step-body">Working memory holds four items at once. One notification. One ambient worry. One half-finished sentence. That is full capacity. Your ideas compete for the last slot.</p>
+      </div>
+      <div class="science-step" data-step="3">
+        <span class="step-source">Cognitive psychology, consensus</span>
+        <p class="step-body">After a single interruption, the thought you were building does not return. Not in reduced form. Not later. The only reliable capture mechanism is writing it down the moment it appears.</p>
+      </div>
+    </div>
+
+    <div class="science-sticky">
+      <div class="science-display" id="scienceDisplay">
+        <div class="science-stat active" data-idx="0">
+          <div class="sci-num">70,000</div>
+          <div class="sci-label">thoughts · per day</div>
+        </div>
+        <div class="science-stat" data-idx="1">
+          <div class="sci-num">30<span class="sci-unit">s</span></div>
+          <div class="sci-label">short-term memory · without rehearsal</div>
+        </div>
+        <div class="science-stat" data-idx="2">
+          <div class="sci-num">4</div>
+          <div class="sci-label">items · working memory capacity</div>
+        </div>
+        <div class="science-stat" data-idx="3">
+          <div class="sci-num">0</div>
+          <div class="sci-label">thoughts recovered · after interruption</div>
         </div>
       </div>
-
-      <div class="name-pills reveal">
-        <span class="name-pill">Da Vinci · 1487</span>
-        <span class="name-pill">Newton · 1664</span>
-        <span class="name-pill">Darwin · 1831</span>
-        <span class="name-pill">Twain · 1855</span>
-        <span class="name-pill">Edison · 1871</span>
-        <span class="name-pill">Woolf · 1915</span>
-        <span class="name-pill">Pocket Notes · 2026</span>
-      </div>
     </div>
 
-    <div class="format-right reveal">
-      <div class="format-img">
-        <img src="/assets/images/IMG_7393.JPG" alt="Hand holding Pocket Notes notebooks showing physical scale" loading="lazy">
+  </div>
+</section>
+
+<!-- ─── ACT 3 — THINKERS ─────────────────────────── -->
+<section class="act-thinkers" id="act-thinkers">
+  <div class="thinkers-header">
+    <h2 class="thinker-headline reveal">Every serious thinker you can name solved this the same way.</h2>
+    <p class="thinker-sub reveal">Before the published argument, before the breakthrough, there was a small book. Carried on the body. Written daily.</p>
+  </div>
+  <div class="thinker-track-wrap">
+    <div class="thinker-track">
+
+      <article class="thinker-card">
+        <div class="tc-color" style="background:var(--mustard)">
+          <svg class="tc-mono" viewBox="0 0 200 200" aria-hidden="true">
+            <text x="50%" y="62%" text-anchor="middle" dominant-baseline="middle"
+              font-family="Fraunces, serif" font-weight="900" font-size="160" fill="rgba(26,22,18,0.12)">L</text>
+          </svg>
+        </div>
+        <div class="tc-text">
+          <span class="tc-name">Da Vinci</span>
+          <span class="tc-year">c. 1487</span>
+          <div class="tc-stat">13,000</div>
+          <span class="tc-stat-label">notebook pages surviving today</span>
+          <p class="tc-body">Notebooks tied to his belt. 3.5 by 2.5 inches. Anatomy, engineering, and the mechanics of flight on the same page.</p>
+        </div>
+      </article>
+
+      <article class="thinker-card">
+        <div class="tc-color" style="background:var(--ink)">
+          <svg class="tc-mono" viewBox="0 0 200 200" aria-hidden="true">
+            <text x="50%" y="62%" text-anchor="middle" dominant-baseline="middle"
+              font-family="Fraunces, serif" font-weight="900" font-size="160" fill="rgba(250,243,227,0.12)">N</text>
+          </svg>
+        </div>
+        <div class="tc-text">
+          <span class="tc-name">Newton</span>
+          <span class="tc-year">c. 1664</span>
+          <div class="tc-stat">Waste<br>Book</div>
+          <span class="tc-stat-label">what he called it</span>
+          <p class="tc-body">He needed a place for thoughts that were not ready yet. Calculus lived there before it had a name or a proof.</p>
+        </div>
+      </article>
+
+      <article class="thinker-card">
+        <div class="tc-color" style="background:var(--sage)">
+          <svg class="tc-mono" viewBox="0 0 200 200" aria-hidden="true">
+            <text x="50%" y="62%" text-anchor="middle" dominant-baseline="middle"
+              font-family="Fraunces, serif" font-weight="900" font-size="160" fill="rgba(26,22,18,0.12)">C</text>
+          </svg>
+        </div>
+        <div class="tc-text">
+          <span class="tc-name">Darwin</span>
+          <span class="tc-year">1831</span>
+          <div class="tc-stat">15</div>
+          <span class="tc-stat-label">field notebooks on the Beagle</span>
+          <p class="tc-body">Notebook B, 1837: the first sketch of the evolutionary tree. Drawn for himself, not for publication, not yet ready to share.</p>
+        </div>
+      </article>
+
+      <article class="thinker-card">
+        <div class="tc-color" style="background:var(--plum)">
+          <svg class="tc-mono" viewBox="0 0 200 200" aria-hidden="true">
+            <text x="50%" y="62%" text-anchor="middle" dominant-baseline="middle"
+              font-family="Fraunces, serif" font-weight="900" font-size="160" fill="rgba(250,243,227,0.12)">N</text>
+          </svg>
+        </div>
+        <div class="tc-text">
+          <span class="tc-name">Luhmann</span>
+          <span class="tc-year">1952 to 1998</span>
+          <div class="tc-stat">90,000</div>
+          <span class="tc-stat-label">cards over 46 years</span>
+          <p class="tc-body">6 per day. 600 published works. He called it his communication partner and credited it for his output.</p>
+        </div>
+      </article>
+
+      <article class="thinker-card">
+        <div class="tc-color" style="background:var(--coral)">
+          <svg class="tc-mono" viewBox="0 0 200 200" aria-hidden="true">
+            <text x="50%" y="62%" text-anchor="middle" dominant-baseline="middle"
+              font-family="Fraunces, serif" font-weight="900" font-size="160" fill="rgba(26,22,18,0.12)">T</text>
+          </svg>
+        </div>
+        <div class="tc-text">
+          <span class="tc-name">Edison</span>
+          <span class="tc-year">1871</span>
+          <div class="tc-stat">2,500</div>
+          <span class="tc-stat-label">pocket notebooks archived</span>
+          <p class="tc-body">He required every person at Menlo Park to keep one. Written to think, not to remember. The record was incidental.</p>
+        </div>
+      </article>
+
+      <article class="thinker-card">
+        <div class="tc-color" style="background:var(--sky)">
+          <svg class="tc-mono" viewBox="0 0 200 200" aria-hidden="true">
+            <text x="50%" y="62%" text-anchor="middle" dominant-baseline="middle"
+              font-family="Fraunces, serif" font-weight="900" font-size="160" fill="rgba(26,22,18,0.12)">M</text>
+          </svg>
+        </div>
+        <div class="tc-text">
+          <span class="tc-name">Twain</span>
+          <span class="tc-year">1855</span>
+          <div class="tc-stat">40+</div>
+          <span class="tc-stat-label">notebooks, starting at age 19</span>
+          <p class="tc-body">He started because he could not keep job instructions in his head. The 40 notebooks that followed became the material for his books.</p>
+        </div>
+      </article>
+
+      <article class="thinker-card">
+        <div class="tc-color" style="background:var(--pink)">
+          <svg class="tc-mono" viewBox="0 0 200 200" aria-hidden="true">
+            <text x="50%" y="62%" text-anchor="middle" dominant-baseline="middle"
+              font-family="Fraunces, serif" font-weight="900" font-size="160" fill="rgba(26,22,18,0.12)">V</text>
+          </svg>
+        </div>
+        <div class="tc-text">
+          <span class="tc-name">Woolf</span>
+          <span class="tc-year">1915 to 1941</span>
+          <div class="tc-stat">30</div>
+          <span class="tc-stat-label">diary volumes, written daily</span>
+          <p class="tc-body">15 minutes a day, written for no one. "The habit of writing thus for my own eye only is good practice. It loosens the ligaments."</p>
+        </div>
+      </article>
+
+    </div>
+    <div class="thinker-hint" aria-hidden="true">
+      <span class="th-label">7 thinkers</span>
+      <span class="th-arrow">&#8594;</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ACT 4 — COMPARISON ───────────────────────── -->
+<section class="act-comparison" id="act-comparison">
+  <div class="act-comparison-inner">
+    <span class="comp-label">The compound effect</span>
+    <h2 class="comp-headline reveal">You said <span id="userAnswerDisplay">you lose thoughts every day.</span></h2>
+    <p class="comp-sub reveal">Here is what daily catching builds across a working life.</p>
+    <div class="comp-stack reveal">
+      <div class="comp-row" data-scale="large">
+        <span class="comp-name">Luhmann</span>
+        <span class="comp-num">90,000</span>
+        <span class="comp-detail">6 per day · 46 years</span>
       </div>
-      <p class="format-caption">Founders Series · Flow Series · A6 · Made in India</p>
+      <div class="comp-row" data-scale="medium">
+        <span class="comp-name">Da Vinci</span>
+        <span class="comp-num">13,000</span>
+        <span class="comp-detail">pages surviving</span>
+      </div>
+      <div class="comp-row" data-scale="small">
+        <span class="comp-name">Edison</span>
+        <span class="comp-num">2,500</span>
+        <span class="comp-detail">pocket notebooks</span>
+      </div>
+      <div class="comp-row" data-scale="tiny">
+        <span class="comp-name">You</span>
+        <span class="comp-num comp-you">730</span>
+        <span class="comp-detail">2 per day · year one</span>
+      </div>
+    </div>
+    <p class="comp-close reveal">730 thoughts that exist instead of vanishing. That is what one year of daily catching looks like. The format has to be frictionless because the habit has to be daily.</p>
+  </div>
+</section>
+
+<!-- ─── ACT 5 — FORMAT ───────────────────────────── -->
+<section class="act-format" id="act-format">
+  <div class="format-layout">
+    <div class="format-left reveal">
+      <p class="section-label">The format</p>
+      <h2 class="format-h">The notebook he carried was smaller than your hand.</h2>
+      <p class="format-body">Da Vinci's notebooks were 3.5 by 2.5 inches. Smaller than most phones today. The constraint was the point. Small enough that there was no excuse not to carry it. This size has not changed because the problem has not changed.</p>
+      <span class="format-spec-label">A6 · 105 x 148 mm · actual proportion</span>
+      <div class="nb-diagram">
+        <div class="nb-body">
+          <div class="nb-spine"></div>
+          <div class="nb-dots"></div>
+        </div>
+        <div class="nb-dim-w">105 mm</div>
+        <div class="nb-dim-h"><span>148 mm</span></div>
+      </div>
+    </div>
+    <div class="format-right reveal">
+      <div class="timeline-block">
+        <span class="timeline-label">Every generation. Same format.</span>
+        <div class="timeline">
+          <div class="tl-row"><span class="tl-year">1487</span><span class="tl-name">Leonardo da Vinci</span></div>
+          <div class="tl-row"><span class="tl-year">1664</span><span class="tl-name">Isaac Newton</span></div>
+          <div class="tl-row"><span class="tl-year">1831</span><span class="tl-name">Charles Darwin</span></div>
+          <div class="tl-row"><span class="tl-year">1855</span><span class="tl-name">Mark Twain</span></div>
+          <div class="tl-row"><span class="tl-year">1871</span><span class="tl-name">Thomas Edison</span></div>
+          <div class="tl-row"><span class="tl-year">1915</span><span class="tl-name">Virginia Woolf</span></div>
+          <div class="tl-row tl-highlight"><span class="tl-year">2026</span><span class="tl-name">Pocket Notes</span></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1974,21 +2150,9 @@
   var pb = document.getElementById('progressBar');
   if (pb) {
     window.addEventListener('scroll', function() {
-      var st = window.scrollY || document.documentElement.scrollTop;
-      var dh = document.documentElement.scrollHeight - window.innerHeight;
-      pb.style.width = dh > 0 ? (st / dh * 100) + '%' : '0%';
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      pb.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
     }, { passive: true });
-  }
-
-  /* Scroll cue — show after 2s, hide on first scroll */
-  var cue = document.getElementById('scrollCue');
-  if (cue) {
-    var t = setTimeout(function() { cue.classList.add('visible'); }, 2000);
-    window.addEventListener('scroll', function hide() {
-      clearTimeout(t);
-      cue.classList.remove('visible');
-      window.removeEventListener('scroll', hide);
-    }, { passive: true, once: true });
   }
 
   /* Choice buttons */
@@ -2008,28 +2172,26 @@
     });
   });
 
-  /* Count-up — ease-out quartic, 1200 ms */
-  function countUp(el, target, dur) {
-    var s = performance.now();
-    (function frame(now) {
-      var p = Math.min((now - s) / dur, 1);
-      var e = 1 - Math.pow(1 - p, 4);
-      el.textContent = Math.round(e * target).toLocaleString('en-IN');
-      if (p < 1) requestAnimationFrame(frame);
-    })(s);
+  /* Science scrollytelling — step activation */
+  var sciSteps = document.querySelectorAll('.science-step');
+  var sciStats = document.querySelectorAll('.science-stat');
+
+  if (sciSteps.length && sciStats.length) {
+    var stepIO = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          var idx = parseInt(e.target.dataset.step, 10);
+          sciSteps.forEach(function(s) { s.classList.remove('active'); });
+          sciStats.forEach(function(s) { s.classList.remove('active'); });
+          e.target.classList.add('active');
+          var stat = document.querySelector('.science-stat[data-idx="' + idx + '"]');
+          if (stat) stat.classList.add('active');
+        }
+      });
+    }, { threshold: 0.45, rootMargin: '-15% 0px -15% 0px' });
+
+    sciSteps.forEach(function(step) { stepIO.observe(step); });
   }
-
-  var countIO = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) {
-        var num = e.target.querySelector('.card-number[data-target]');
-        if (num) countUp(num, parseInt(num.dataset.target, 10), 1200);
-        countIO.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('.thinker-card').forEach(function(c) { countIO.observe(c); });
 
 })();
 </script>
