@@ -948,6 +948,397 @@
     .marquee-track { animation: none; }
     html { scroll-behavior: auto; }
   }
+
+  /* ─── ACT 1 — HOOK ─────────────────────────────── */
+  .act-hook {
+    min-height: 100vh;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 10rem var(--gut) 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  .act-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.6;
+    margin-bottom: 2rem;
+  }
+  .act-headline {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    color: var(--cream);
+    max-width: 820px;
+    margin-bottom: 3.5rem;
+  }
+  .act-headline em { font-style: italic; font-weight: 400; color: var(--mustard); }
+  .choice-buttons { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 4rem; }
+  .choice-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: transparent;
+    border: 1px solid rgba(250,243,227,0.2);
+    border-radius: 999px;
+    padding: 0.75rem 1.8rem;
+    cursor: none;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+  }
+  .choice-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--mustard);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease);
+    z-index: 0;
+  }
+  .choice-btn:hover, .choice-btn.selected { border-color: var(--mustard); color: var(--ink); }
+  .choice-btn:hover::before, .choice-btn.selected::before { transform: scaleX(1); }
+  .choice-btn span { position: relative; z-index: 1; }
+  .scroll-cue-act {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.6s var(--ease);
+    pointer-events: none;
+  }
+  .scroll-cue-act.visible { opacity: 1; }
+  .scroll-cue-act-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.5;
+  }
+  .scroll-cue-line { width: 1px; height: 0; background: var(--mustard); }
+  .scroll-cue-act.visible .scroll-cue-line { animation: scueLine 1.4s var(--ease) forwards; }
+  @keyframes scueLine { to { height: 40px; opacity: 0.7; } }
+
+  /* ─── ACT 2 — SCIENCE ─────────────────────────────── */
+  .act-science { background: var(--ink); color: var(--cream); }
+  .science-panel {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem var(--gut);
+  }
+  .science-inner { max-width: 800px; margin: 0 auto; }
+  .stat-number {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(5rem, 18vw, 16rem);
+    line-height: 0.85;
+    color: var(--mustard);
+    letter-spacing: -0.04em;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+  .stat-unit {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.5;
+    margin-bottom: 2.5rem;
+  }
+  .stat-headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    font-style: italic;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+  }
+  .stat-body {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    color: var(--bone);
+    opacity: 0.55;
+    line-height: 1.75;
+    max-width: 560px;
+  }
+  .scribble-svg { display: block; margin-top: 6px; overflow: visible; }
+  .scribble-path { stroke-dasharray: 300; stroke-dashoffset: 300; }
+  .reveal.in .scribble-path { animation: drawScribble 1.2s var(--ease) 0.3s forwards; }
+  @keyframes drawScribble { to { stroke-dashoffset: 0; } }
+
+  /* ─── ACT 3 — THINKERS ─────────────────────────────── */
+  .act-thinkers-intro {
+    min-height: 60vh;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 8rem var(--gut);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .act-thinkers { background: var(--cream); }
+  .thinker-card {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+  .thinker-text {
+    padding: 5rem var(--gut) 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--cream);
+    color: var(--ink);
+  }
+  .thinker-card.dark .thinker-text { background: var(--olive); color: var(--cream); }
+  .thinker-counter {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.5;
+    margin-bottom: 1rem;
+  }
+  .thinker-card.dark .thinker-counter { color: var(--bone); opacity: 0.5; }
+  .card-number {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    line-height: 0.9;
+    color: var(--mustard);
+    letter-spacing: -0.04em;
+    margin-bottom: 0.3rem;
+  }
+  .card-unit {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.55;
+    margin-bottom: 1.8rem;
+  }
+  .thinker-card.dark .card-unit { color: var(--bone); }
+  .thinker-name {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: var(--ink);
+  }
+  .thinker-card.dark .thinker-name { color: var(--cream); }
+  .thinker-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mustard);
+    opacity: 0.8;
+    margin-bottom: 1.2rem;
+  }
+  .thinker-body {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 420px;
+  }
+  .thinker-card.dark .thinker-body { color: var(--bone); }
+  .thinker-body em { font-style: italic; font-weight: 500; color: var(--ink); }
+  .thinker-card.dark .thinker-body em { color: var(--cream); }
+  .card-annotation {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--coral);
+    transform: rotate(-1.5deg);
+    display: inline-block;
+    border-bottom: 1px solid var(--coral);
+    padding-bottom: 2px;
+    margin-top: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.4s var(--ease) 0.5s;
+  }
+  .reveal.in .card-annotation { opacity: 1; }
+  .thinker-img {
+    overflow: hidden;
+    position: relative;
+    min-height: 500px;
+  }
+  .thinker-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(26,22,18,0.2), transparent 60%);
+    pointer-events: none;
+  }
+  .thinker-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1);
+    transition: transform 6s ease;
+  }
+  .thinker-card.reveal.in .thinker-img img { transform: scale(1.04); }
+
+  /* ─── ACT 4 — COMPARISON ─────────────────────────────── */
+  .act-comparison {
+    min-height: 100vh;
+    background: var(--plum);
+    color: var(--cream);
+    padding: 8rem var(--gut);
+  }
+  .act-comparison .act-inner { max-width: var(--max); margin: 0 auto; }
+  .comparison-headline {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+    max-width: 900px;
+  }
+  #userAnswerDisplay { font-style: italic; color: var(--mustard); }
+  .comparison-deck {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    color: var(--bone);
+    opacity: 0.65;
+    line-height: 1.75;
+    max-width: 600px;
+    margin-bottom: 4rem;
+  }
+  .bars { display: flex; flex-direction: column; gap: 1.8rem; margin-bottom: 3rem; }
+  .bar-row { display: grid; grid-template-columns: 140px 1fr auto; gap: 1.5rem; align-items: center; }
+  .bar-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .bar-label strong { display: block; color: var(--cream); margin-bottom: 2px; }
+  .bar-label span { color: var(--bone); opacity: 0.5; font-size: 9px; }
+  .bar-track { height: 6px; background: rgba(250,243,227,0.1); border-radius: 999px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 999px; width: 0; transition: width 1.4s var(--ease); }
+  .reveal.in .bar-fill { width: var(--target-w); }
+  .bars.reveal.in .bar-row:nth-child(2) .bar-fill { transition-delay: 0.12s; }
+  .bars.reveal.in .bar-row:nth-child(3) .bar-fill { transition-delay: 0.24s; }
+  .bars.reveal.in .bar-row:nth-child(4) .bar-fill { transition-delay: 0.36s; }
+  .bar-value { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em; color: var(--bone); opacity: 0.65; white-space: nowrap; text-align: right; }
+  .comparison-quote {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--bone);
+    opacity: 0.6;
+    border-left: 2px solid var(--mustard);
+    padding-left: 20px;
+    max-width: 600px;
+    line-height: 1.7;
+  }
+
+  /* ─── ACT 5 — FORMAT ─────────────────────────────── */
+  .act-format { min-height: 100vh; background: var(--bone); color: var(--ink); padding: 8rem var(--gut); }
+  .format-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: var(--max); margin: 0 auto; }
+  .format-headline {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(2.2rem, 4.5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+  }
+  .format-headline em { font-style: italic; font-weight: 400; color: var(--plum); }
+  .format-body { font-family: 'Space Grotesk', sans-serif; font-size: 15px; line-height: 1.75; color: var(--ink-soft); max-width: 440px; margin-bottom: 2.5rem; }
+  .dimension-wrap { margin-bottom: 2.5rem; }
+  .dimension-label-top { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); opacity: 0.5; margin-bottom: 10px; }
+  .dimension-outer { position: relative; display: inline-block; }
+  .notebook-box {
+    position: relative;
+    width: 180px;
+    height: 252px;
+    border: 2px solid var(--ink);
+    border-radius: 4px;
+    background: var(--paper);
+    box-shadow: 5px 5px 0 var(--ink);
+    overflow: hidden;
+  }
+  .notebook-spine { position: absolute; top: 0; left: 0; bottom: 0; width: 14px; background: var(--mustard); border-right: 1.5px solid var(--ink); }
+  .notebook-grid {
+    position: absolute;
+    inset: 0;
+    left: 14px;
+    background-image: linear-gradient(rgba(26,22,18,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(26,22,18,0.07) 1px, transparent 1px);
+    background-size: 18px 18px;
+    background-position: 6px 8px;
+  }
+  .dim-label-bottom { display: block; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; color: var(--ink-soft); opacity: 0.5; margin-top: 6px; }
+  .dim-label-side { position: absolute; right: -30px; top: 50%; transform: translateY(-50%) rotate(90deg); font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; color: var(--ink-soft); opacity: 0.5; white-space: nowrap; }
+  .name-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .name-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid rgba(26,22,18,0.2);
+    border-radius: 999px;
+    padding: 6px 12px;
+    color: var(--ink-soft);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+  .reveal.in .name-pill { opacity: 1; transform: translateY(0); }
+  .name-pills .name-pill:nth-child(1) { transition-delay: 0.00s; }
+  .name-pills .name-pill:nth-child(2) { transition-delay: 0.08s; }
+  .name-pills .name-pill:nth-child(3) { transition-delay: 0.16s; }
+  .name-pills .name-pill:nth-child(4) { transition-delay: 0.24s; }
+  .name-pills .name-pill:nth-child(5) { transition-delay: 0.32s; }
+  .name-pills .name-pill:nth-child(6) { transition-delay: 0.40s; }
+  .name-pills .name-pill:nth-child(7) { transition-delay: 0.48s; }
+  .format-right { display: flex; flex-direction: column; align-items: center; }
+  .format-img { width: 100%; border-radius: 16px; overflow: hidden; border: 1.5px solid var(--ink); }
+  .format-img img { width: 100%; height: auto; display: block; }
+  .format-caption { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); opacity: 0.4; text-align: center; margin-top: 10px; }
+
+  /* ─── MOBILE — PHILOSOPHY SCROLL ─────────────────────────────── */
+  @media (max-width: 768px) {
+    .act-hook { padding: 6rem 20px 4rem; }
+    .act-headline { font-size: clamp(2.2rem, 10vw, 3.2rem); }
+    .choice-buttons { flex-direction: column; gap: 0.75rem; }
+    .science-panel { padding: 5rem 20px; }
+    .stat-number { font-size: clamp(4rem, 16vw, 7rem); }
+    .act-thinkers-intro { padding: 5rem 20px; }
+    .thinker-card { grid-template-columns: 1fr; }
+    .thinker-img { order: -1; min-height: 260px; }
+    .thinker-text { order: 1; padding: 2.5rem 20px; }
+    .card-number { font-size: clamp(3rem, 12vw, 5rem); }
+    .act-comparison { padding: 5rem 20px; }
+    .bar-row { grid-template-columns: 80px 1fr 60px; gap: 0.6rem; }
+    .bar-value { font-size: 9px; }
+    .act-format { padding: 5rem 20px; }
+    .format-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .format-right { align-items: flex-start; }
+  }
 </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYV54KY1F1"></script>
@@ -969,6 +1360,7 @@
 </script>
 </head>
 <body>
+<div id="progressBar" style="position:fixed;top:0;left:0;height:2px;width:0%;background:var(--mustard);z-index:9998;transition:width 0.1s linear;pointer-events:none;"></div>
 
 <!-- Cursor: dot + ring (original version) -->
 <div class="cursor-dot" id="cursorDot"></div>
@@ -1112,75 +1504,253 @@
   </div>
 </div>
 
-<!-- ─── PRODUCTS ────────────────────────────────── -->
-<section class="products" id="shop">
-  <div class="section-inner">
-    <div class="section-head reveal">
-      <div>
-        <p class="section-label"><b>The artifacts</b></p>
-        <h2 class="section-title">Two series.<br><em>One method.</em></h2>
+<!-- ─── ACT 1 — HOOK ──────────────────────────────── -->
+<section class="act-hook" id="act-hook">
+  <p class="act-eyebrow reveal">A capture device for fast thinkers</p>
+  <h2 class="act-headline reveal">How many thoughts did you lose <em>today?</em></h2>
+  <div class="choice-buttons">
+    <button class="choice-btn" data-answer="few"><span>A few</span></button>
+    <button class="choice-btn selected" data-answer="many"><span>Too many</span></button>
+    <button class="choice-btn" data-answer="stopped"><span>I stopped counting</span></button>
+  </div>
+  <div class="scroll-cue-act" id="scrollCue">
+    <span class="scroll-cue-act-label">Scroll to continue</span>
+    <div class="scroll-cue-line" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ─── ACT 2 — SCIENCE ───────────────────────────── -->
+<section class="act-science" id="act-science">
+
+  <div class="science-panel">
+    <div class="science-inner reveal">
+      <div class="stat-number">70,000</div>
+      <span class="stat-unit">thoughts per day — average human</span>
+      <p class="stat-headline">Your mind is a machine that never stops.</p>
+      <p class="stat-body">Cognitive scientists estimate we generate roughly 70,000 thoughts between waking and sleeping. Most leave without trace.</p>
+    </div>
+  </div>
+
+  <div class="science-panel">
+    <div class="science-inner reveal">
+      <div class="stat-number">30s
+        <svg class="scribble-svg" width="120" height="18" viewBox="0 0 120 18" fill="none" aria-hidden="true">
+          <path class="scribble-path" d="M2 12 Q15 4 28 12 T55 10 T82 12 T110 8 T118 12" style="stroke:var(--coral)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
       </div>
-      <p class="section-aside">A6, 64 pages, staple-bound, faint grid on cream paper. Not a planner. Not a journal. A tool for people who already write.</p>
+      <span class="stat-unit">duration of short-term memory · Peterson &amp; Peterson, 1959</span>
+      <p class="stat-headline">A thought lives for thirty seconds.</p>
+      <p class="stat-body">Without rehearsal or physical capture, a new thought displaces the last one from working memory in under half a minute.</p>
+    </div>
+  </div>
+
+  <div class="science-panel">
+    <div class="science-inner reveal">
+      <div class="stat-number">4</div>
+      <span class="stat-unit">items working memory holds · George Miller, 1956</span>
+      <p class="stat-headline">Your brain is not storage. It is a workspace.</p>
+      <p class="stat-body">Working memory holds four things simultaneously. One notification, one distraction, one call — and the thought you were building is gone.</p>
+    </div>
+  </div>
+
+  <div class="science-panel">
+    <div class="science-inner reveal">
+      <div class="stat-number">0</div>
+      <span class="stat-unit">thoughts recovered — after a single interruption</span>
+      <p class="stat-headline">The only way to save a thought is to write it down.</p>
+      <p class="stat-body">There is no other method. Not mental notes. Not voice memos you will never play. A pen on paper is the only thing faster than forgetting.</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ─── ACT 3 — THINKERS ──────────────────────────── -->
+<section class="act-thinkers-intro">
+  <div class="reveal">
+    <p class="act-eyebrow">The record</p>
+    <h2 class="act-headline">Every serious thinker you can name solved this <em>the same way.</em></h2>
+    <p class="stat-body" style="color:var(--bone);opacity:0.7;margin-top:1.5rem;">Before the published argument, before the breakthrough — there was a small book. Carried on the body. Written daily. The format was always pocket-sized.</p>
+  </div>
+</section>
+
+<section class="act-thinkers" id="act-thinkers">
+
+  <article class="thinker-card reveal">
+    <div class="thinker-text">
+      <div class="thinker-counter">01 / 07</div>
+      <div class="card-number" data-target="13000">13,000</div>
+      <span class="card-unit">pages — surviving today</span>
+      <h3 class="thinker-name">Leonardo da Vinci</h3>
+      <div class="thinker-date">c. 1487</div>
+      <p class="thinker-body">Walking, he'd spot the angle of a bird's wing, the geometry of a water current. By the time he reached a table, it was gone. He tied notebooks to his belt. <em>3.5 by 2.5 inches.</em> Anatomy, engineering, flight — on the same page.</p>
+      <span class="card-annotation">same size as your pocket</span>
+    </div>
+    <div class="thinker-img">
+      <img src="/assets/images/20251114_2240_Elegant%20Pocket%20Notebooks_remix_01ka1nd1dhea6808actayw9cka.png" alt="Three black Pocket Notes notebooks on a desk" loading="lazy">
+    </div>
+  </article>
+
+  <article class="thinker-card dark reveal">
+    <div class="thinker-img">
+      <img src="/assets/images/20251030_1932_Pocket%20Notebook%20Mockup_remix_01k8tppm8yfq28j97esxh2vyk5.png" alt="Single Pocket Notes notebook mockup" loading="lazy">
+    </div>
+    <div class="thinker-text">
+      <div class="thinker-counter">02 / 07</div>
+      <div class="card-number">Waste book</div>
+      <span class="card-unit">what Newton called it — c. 1664</span>
+      <h3 class="thinker-name">Isaac Newton</h3>
+      <div class="thinker-date">c. 1664</div>
+      <p class="thinker-body">He needed somewhere for thoughts that weren't ready yet — half-formed, wrong in places, worth keeping. He called it a wastebook. <em>Calculus lived there before it had a name.</em></p>
+      <span class="card-annotation">wrong on purpose. still worth keeping.</span>
+    </div>
+  </article>
+
+  <article class="thinker-card reveal">
+    <div class="thinker-text">
+      <div class="thinker-counter">03 / 07</div>
+      <div class="card-number" data-target="15">15</div>
+      <span class="card-unit">field notebooks — Beagle voyage, 1831–36</span>
+      <h3 class="thinker-name">Charles Darwin</h3>
+      <div class="thinker-date">1831</div>
+      <p class="thinker-body">On the Beagle, observations came faster than conclusions. He kept 15 field notebooks — species, geology, raw data with no thesis yet. <em>Notebook B, 1837: the first drawing of the evolutionary tree.</em> Drawn for himself, not for publication.</p>
+      <span class="card-annotation">the idea arrived before the argument</span>
+    </div>
+    <div class="thinker-img">
+      <img src="/assets/images/20251114_2249_Creative%20Desk%20Workspace_remix_01ka1nybjyey7v99rak5pjysk6.png" alt="Notebooks on a desk with laptop" loading="lazy">
+    </div>
+  </article>
+
+  <article class="thinker-card dark reveal">
+    <div class="thinker-img">
+      <img src="/assets/images/IMG_7393.JPG" alt="Hand holding three Pocket Notes notebooks" loading="lazy">
+    </div>
+    <div class="thinker-text">
+      <div class="thinker-counter">04 / 07</div>
+      <div class="card-number" data-target="90000">90,000</div>
+      <span class="card-unit">cards — 6 per day for 46 years</span>
+      <h3 class="thinker-name">Niklas Luhmann</h3>
+      <div class="thinker-date">1952–1998</div>
+      <p class="thinker-body">He read faster than he could use what he read. Each idea got a card. Each card linked to others. 90,000 notes over 46 years. 600 published works. <em>He called it his communication partner.</em></p>
+      <span class="card-annotation">6 notes/day. compounded.</span>
+    </div>
+  </article>
+
+  <article class="thinker-card reveal">
+    <div class="thinker-text">
+      <div class="thinker-counter">05 / 07</div>
+      <div class="card-number" data-target="2500">2,500</div>
+      <span class="card-unit">pocket notebooks — 200 pages each</span>
+      <h3 class="thinker-name">Thomas Edison</h3>
+      <div class="thinker-date">1871</div>
+      <p class="thinker-body">His team kept redoing work they'd already done. He mandated notebooks for every person at Menlo Park. <em>2,500 pocket notebooks, 200 pages each,</em> across his career. Written to think, not to archive.</p>
+      <span class="card-annotation">he made it compulsory</span>
+    </div>
+    <div class="thinker-img">
+      <img src="/assets/images/20251031_0204_Pocket%20Notebook%20Mockup_remix_01k8vd4wmpef9bgprv1wb3pcr1.png" alt="Notebook mockup on surface" loading="lazy">
+    </div>
+  </article>
+
+  <article class="thinker-card dark reveal">
+    <div class="thinker-img">
+      <img src="/assets/images/20251030_1932_Pocket%20Notebook%20Mockup_remix_01k8tppm8xf3msdvq4z9et5z4p.png" alt="Single Pocket Notes notebook mockup alternate" loading="lazy">
+    </div>
+    <div class="thinker-text">
+      <div class="thinker-counter">06 / 07</div>
+      <div class="card-number">40+</div>
+      <span class="card-unit">pocket notebooks — started age 19</span>
+      <h3 class="thinker-name">Mark Twain</h3>
+      <div class="thinker-date">1855</div>
+      <p class="thinker-body">He started because he couldn't remember job instructions. 40 notebooks followed — observations, dirty jokes, invention ideas, the lines that became books. He said <em>if he didn't write it down immediately, he'd forget it.</em></p>
+      <span class="card-annotation">started for a job. never stopped.</span>
+    </div>
+  </article>
+
+  <article class="thinker-card reveal">
+    <div class="thinker-text">
+      <div class="thinker-counter">07 / 07</div>
+      <div class="card-number" data-target="30">30</div>
+      <span class="card-unit">notebooks — 1915 to four days before her death</span>
+      <h3 class="thinker-name">Virginia Woolf</h3>
+      <div class="thinker-date">1915–1941</div>
+      <p class="thinker-body">15 minutes a day. No audience. <em>"The habit of writing thus for my own eye only is good practice. It loosens the ligaments."</em> 30 notebooks. Nearly 2,000 published diary pages. The novels ran alongside them on a parallel track.</p>
+      <span class="card-annotation">for no one. which is why it worked.</span>
+    </div>
+    <div class="thinker-img">
+      <img src="/assets/images/IMG_7405.JPG" alt="Multiple notebooks spread on glass table" loading="lazy">
+    </div>
+  </article>
+
+</section>
+
+<!-- ─── ACT 4 — COMPARISON ────────────────────────── -->
+<section class="act-comparison" id="act-comparison">
+  <div class="act-inner">
+    <h2 class="comparison-headline reveal">You said <span id="userAnswerDisplay">you lose thoughts every day.</span><br>Here is what daily catching builds.</h2>
+    <p class="comparison-deck reveal">Luhmann averaged 6 notes a day. Not 60. Not a hundred. Six. Over 46 years that became 90,000 cards and 600 published works. The number that matters is whether you start.</p>
+
+    <div class="bars reveal">
+      <div class="bar-row">
+        <div class="bar-label"><strong style="color:var(--mustard)">Luhmann</strong><span>6/day · 46 yrs</span></div>
+        <div class="bar-track"><div class="bar-fill" style="background:var(--mustard);--target-w:100%"></div></div>
+        <div class="bar-value">90,000</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><strong>Edison</strong><span>career total</span></div>
+        <div class="bar-track"><div class="bar-fill" style="background:var(--coral);--target-w:68%"></div></div>
+        <div class="bar-value">2,500 books</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><strong>Da Vinci</strong><span>pages surviving</span></div>
+        <div class="bar-track"><div class="bar-fill" style="background:var(--sage);--target-w:14%"></div></div>
+        <div class="bar-value">13,000</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><strong>You</strong><span>2 notes/day · 1 yr</span></div>
+        <div class="bar-track"><div class="bar-fill" style="background:var(--pink);--target-w:1%"></div></div>
+        <div class="bar-value">730</div>
+      </div>
     </div>
 
-    <div class="product-row">
+    <blockquote class="comparison-quote reveal">730 thoughts that exist instead of vanishing. That is what one year of daily catching looks like. The format has to be frictionless because the habit has to be daily.</blockquote>
+  </div>
+</section>
 
-      <!-- 500 Series -->
-      <a href="/shop" class="product reveal">
-        <div class="product-frame f1">
-          <span class="product-tag">Bestseller</span>
-          <svg width="216" height="264" viewBox="0 0 180 220" xmlns="http://www.w3.org/2000/svg">
-            <rect x="30" y="20" width="120" height="180" rx="5" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
-            <rect x="30" y="20" width="22" height="180" fill="#FF6B47" stroke="#1A1612" stroke-width="3"/>
-            <g stroke="#1A1612" stroke-width="0.8" opacity="0.2">
-              <line x1="62" y1="50"  x2="140" y2="50"/>
-              <line x1="62" y1="68"  x2="140" y2="68"/>
-              <line x1="62" y1="86"  x2="140" y2="86"/>
-              <line x1="62" y1="104" x2="140" y2="104"/>
-              <line x1="80"  y1="40" x2="80"  y2="120"/>
-              <line x1="100" y1="40" x2="100" y2="120"/>
-              <line x1="120" y1="40" x2="120" y2="120"/>
-            </g>
-            <circle cx="72" cy="148" r="6" fill="#1A1612"/>
-            <circle cx="108" cy="148" r="6" fill="#1A1612"/>
-            <circle cx="73" cy="146" r="2" fill="#FAF3E3"/>
-            <circle cx="109" cy="146" r="2" fill="#FAF3E3"/>
-            <path d="M66 162 Q90 176 114 162" stroke="#1A1612" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <circle cx="58" cy="155" r="5" fill="#FF6B47" opacity="0.5"/>
-            <circle cx="122" cy="155" r="5" fill="#FF6B47" opacity="0.5"/>
-          </svg>
-        </div>
-        <div class="product-info">
-          <span class="product-name">Founder's <em>500</em></span>
-          <span class="product-price">₹249</span>
-        </div>
-        <p class="product-desc">A6, 64 pages, faint grid, staple-bound. For drafts, lists, half-formed lines. The notebook you reach for without thinking.</p>
-      </a>
+<!-- ─── ACT 5 — FORMAT ────────────────────────────── -->
+<section class="act-format" id="act-format">
+  <div class="format-grid">
+    <div class="format-left reveal">
+      <p class="section-label">The format</p>
+      <h2 class="format-headline">The notebook he carried was smaller than <em>your hand.</em></h2>
+      <p class="format-body">Da Vinci's notebooks measured 3.5 by 2.5 inches — smaller than most phones today. The constraint was the point. Small enough that there was no excuse not to carry it. This size has not changed because the problem has not changed.</p>
 
-      <!-- Flow Series -->
-      <a href="/shop" class="product reveal">
-        <div class="product-frame f2">
-          <span class="product-tag">New</span>
-          <svg width="192" height="264" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
-            <rect x="40" y="20" width="80" height="180" rx="4" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
-            <line x1="52" y1="20" x2="52" y2="200" stroke="#1A1612" stroke-width="1" opacity="0.3"/>
-            <line x1="40" y1="120" x2="120" y2="120" stroke="#1A1612" stroke-width="3"/>
-            <ellipse cx="40" cy="120" rx="3" ry="6" fill="#1A1612"/>
-            <ellipse cx="120" cy="120" rx="3" ry="6" fill="#1A1612"/>
-            <rect x="62" y="50" width="36" height="3" fill="#1A1612"/>
-            <rect x="67" y="60" width="26" height="2" fill="#1A1612" opacity="0.5"/>
-            <path d="M55 143 Q70 138 85 146 T115 143" stroke="#1A1612" stroke-width="1.5" fill="none" opacity="0.4"/>
-            <path d="M55 158 Q70 153 85 161 T115 158" stroke="#1A1612" stroke-width="1.5" fill="none" opacity="0.4"/>
-            <path d="M55 173 Q70 168 85 176 T100 173" stroke="#1A1612" stroke-width="1.5" fill="none" opacity="0.4"/>
-          </svg>
+      <div class="dimension-wrap">
+        <p class="dimension-label-top">Actual size · A6 · 105 × 148 mm</p>
+        <div class="dimension-outer">
+          <div class="notebook-box">
+            <div class="notebook-spine"></div>
+            <div class="notebook-grid"></div>
+          </div>
+          <span class="dim-label-bottom">105 mm</span>
+          <span class="dim-label-side">148 mm</span>
         </div>
-        <div class="product-info">
-          <span class="product-name">Flow <em>Series</em></span>
-          <span class="product-price">₹249</span>
-        </div>
-        <p class="product-desc">A6, 64 pages, faint grid, staple-bound. Train rides. Cafés. The five minutes between calls. Treat it as a draftbook, not a keepsake.</p>
-      </a>
+      </div>
 
+      <div class="name-pills reveal">
+        <span class="name-pill">Da Vinci · 1487</span>
+        <span class="name-pill">Newton · 1664</span>
+        <span class="name-pill">Darwin · 1831</span>
+        <span class="name-pill">Twain · 1855</span>
+        <span class="name-pill">Edison · 1871</span>
+        <span class="name-pill">Woolf · 1915</span>
+        <span class="name-pill">Pocket Notes · 2026</span>
+      </div>
+    </div>
+
+    <div class="format-right reveal">
+      <div class="format-img">
+        <img src="/assets/images/IMG_7393.JPG" alt="Hand holding Pocket Notes notebooks showing physical scale" loading="lazy">
+      </div>
+      <p class="format-caption">Founders Series · Flow Series · A6 · Made in India</p>
     </div>
   </div>
 </section>
@@ -1245,134 +1815,6 @@
   </div>
 </section>
 
-<!-- ─── WRITING ─────────────────────────────────── -->
-<section class="writing" id="writing">
-  <div class="section-inner">
-    <div class="section-head reveal">
-      <div>
-        <p class="section-label"><b>Field notes</b></p>
-        <h2 class="section-title">Methods, rituals,<br><em>quiet philosophy.</em></h2>
-      </div>
-      <p class="section-aside">Essays on the practice of catching ideas, clarifying them, and compounding them over time. New writing whenever there's something worth saying.</p>
-    </div>
-
-    <div class="writing-grid">
-
-      <a href="/essays/the-people-who-write-in-the-margins" class="post large reveal">
-        <div class="post-img bg-coral">
-          <svg width="80%" height="80%" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
-            <rect x="80" y="40" width="240" height="170" rx="6" fill="#FAF3E3" stroke="#1A1612" stroke-width="4"/>
-            <rect x="80" y="40" width="35" height="170" fill="#F5C13D" stroke="#1A1612" stroke-width="4"/>
-            <text x="220" y="75" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="20" fill="#1A1612">INDEX</text>
-            <line x1="140" y1="90" x2="290" y2="90" stroke="#1A1612" stroke-width="1.5"/>
-            <g stroke="#1A1612" stroke-width="1.5" opacity="0.6">
-              <line x1="140" y1="110" x2="280" y2="110"/>
-              <line x1="140" y1="125" x2="270" y2="125"/>
-              <line x1="140" y1="140" x2="290" y2="140"/>
-              <line x1="140" y1="155" x2="260" y2="155"/>
-              <line x1="140" y1="170" x2="285" y2="170"/>
-              <line x1="140" y1="185" x2="275" y2="185"/>
-            </g>
-            <circle cx="135" cy="110" r="3" fill="#1A1612"/>
-            <circle cx="135" cy="125" r="3" fill="#1A1612"/>
-            <circle cx="135" cy="140" r="3" fill="#1A1612"/>
-            <circle cx="135" cy="155" r="3" fill="#1A1612"/>
-            <circle cx="135" cy="170" r="3" fill="#1A1612"/>
-          </svg>
-        </div>
-        <p class="post-meta">History · 11 min read</p>
-        <h3 class="post-title">The people who write in the margins</h3>
-      </a>
-
-      <a href="/essays/the-index-method" class="post medium reveal">
-        <div class="post-img bg-sage">
-          <svg width="70%" height="70%" viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="150" cy="60" r="28" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
-            <path d="M122 88 L122 160 Q122 180 150 180 Q178 180 178 160 L178 88 Z" fill="#6E3582" stroke="#1A1612" stroke-width="3"/>
-            <ellipse cx="150" cy="68" rx="6" ry="9" fill="#1A1612"/>
-            <g fill="#F5C13D" stroke="#1A1612" stroke-width="2.5">
-              <circle cx="60" cy="50" r="8"/>
-              <line x1="68" y1="50" x2="68" y2="20" stroke-width="2.5"/>
-              <circle cx="240" cy="80" r="8"/>
-              <line x1="248" y1="80" x2="248" y2="50"/>
-              <circle cx="65" cy="120" r="8"/>
-              <line x1="73" y1="120" x2="73" y2="90"/>
-            </g>
-          </svg>
-        </div>
-        <p class="post-meta">Technique · 5 min read</p>
-        <h3 class="post-title">The Index Method: how to never lose a thought again</h3>
-      </a>
-
-      <a href="/essays/notebooks-of-ancient-singers" class="post small reveal">
-        <div class="post-img bg-mustard">
-          <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path d="M30 60 Q80 30 150 80 T180 60" stroke="#1A1612" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <path d="M30 100 Q70 70 130 110 T180 100" stroke="#FF6B47" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <path d="M30 140 Q90 110 140 150 T180 140" stroke="#1A1612" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <circle cx="50" cy="170" r="6" fill="#FF6B47" stroke="#1A1612" stroke-width="2"/>
-            <circle cx="100" cy="40" r="4" fill="#1A1612"/>
-            <path d="M150 30 L160 20 L170 30 L160 40 Z" fill="#5BA8C9" stroke="#1A1612" stroke-width="2"/>
-          </svg>
-        </div>
-        <p class="post-meta">History · 8 min read</p>
-        <h3 class="post-title">Notebooks of ancient singers</h3>
-      </a>
-
-      <a href="/essays/the-grid-page-and-the-wandering-thought" class="post small reveal">
-        <div class="post-img bg-sky">
-          <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <g stroke="#FAF3E3" stroke-width="1.5" opacity="0.6">
-              <line x1="20" y1="40" x2="180" y2="40"/>
-              <line x1="20" y1="80" x2="180" y2="80"/>
-              <line x1="20" y1="120" x2="180" y2="120"/>
-              <line x1="20" y1="160" x2="180" y2="160"/>
-              <line x1="40" y1="20" x2="40" y2="180"/>
-              <line x1="80" y1="20" x2="80" y2="180"/>
-              <line x1="120" y1="20" x2="120" y2="180"/>
-              <line x1="160" y1="20" x2="160" y2="180"/>
-            </g>
-            <circle cx="100" cy="100" r="50" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
-            <polygon points="100,60 110,100 100,90 90,100" fill="#FF6B47" stroke="#1A1612" stroke-width="2"/>
-            <polygon points="100,140 110,100 100,110 90,100" fill="#1A1612"/>
-            <circle cx="100" cy="100" r="4" fill="#1A1612"/>
-          </svg>
-        </div>
-        <p class="post-meta">Technique · 4 min</p>
-        <h3 class="post-title">The grid page and the wandering thought</h3>
-      </a>
-
-      <a href="/essays/the-roman-wax-tablet" class="post small reveal">
-        <div class="post-img bg-pink">
-          <svg width="70%" height="70%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <rect x="30" y="50" width="140" height="100" rx="4" fill="#6E3582" stroke="#1A1612" stroke-width="3"/>
-            <rect x="40" y="60" width="120" height="80" fill="#F5C13D" stroke="#1A1612" stroke-width="2"/>
-            <g stroke="#1A1612" stroke-width="1.8" opacity="0.7">
-              <line x1="50" y1="80" x2="80" y2="80"/>
-              <line x1="85" y1="80" x2="100" y2="80"/>
-              <line x1="105" y1="80" x2="140" y2="80"/>
-              <line x1="50" y1="95" x2="95" y2="95"/>
-              <line x1="100" y1="95" x2="150" y2="95"/>
-              <line x1="50" y1="110" x2="120" y2="110"/>
-              <line x1="50" y1="125" x2="90" y2="125"/>
-            </g>
-            <line x1="155" y1="40" x2="190" y2="20" stroke="#1A1612" stroke-width="3" stroke-linecap="round"/>
-            <circle cx="190" cy="20" r="4" fill="#FF6B47" stroke="#1A1612" stroke-width="2"/>
-          </svg>
-        </div>
-        <p class="post-meta">History · 10 min</p>
-        <h3 class="post-title">The Roman wax tablet, ancestor to all of this</h3>
-      </a>
-
-    </div>
-
-    <div style="text-align:center; margin-top:3.5rem;">
-      <a href="/essays" class="strip-button" style="display:inline-flex; align-items:center; gap:0.7rem; background:var(--ink); color:var(--cream); text-decoration:none; padding:1.1rem 2rem; border-radius:999px; font-family:'DM Mono',monospace; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.08em; cursor:none; transition:background .25s var(--ease);">
-        All essays <span>↗</span>
-      </a>
-    </div>
-  </div>
-</section>
 
 <!-- ─── CTA STRIP ──────────────────────────────── -->
 <section class="strip" id="contact">
@@ -1523,6 +1965,73 @@
 
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
   }
+</script>
+
+<script>
+(function() {
+
+  /* Progress bar */
+  var pb = document.getElementById('progressBar');
+  if (pb) {
+    window.addEventListener('scroll', function() {
+      var st = window.scrollY || document.documentElement.scrollTop;
+      var dh = document.documentElement.scrollHeight - window.innerHeight;
+      pb.style.width = dh > 0 ? (st / dh * 100) + '%' : '0%';
+    }, { passive: true });
+  }
+
+  /* Scroll cue — show after 2s, hide on first scroll */
+  var cue = document.getElementById('scrollCue');
+  if (cue) {
+    var t = setTimeout(function() { cue.classList.add('visible'); }, 2000);
+    window.addEventListener('scroll', function hide() {
+      clearTimeout(t);
+      cue.classList.remove('visible');
+      window.removeEventListener('scroll', hide);
+    }, { passive: true, once: true });
+  }
+
+  /* Choice buttons */
+  var userAnswer = 'many';
+  var display = document.getElementById('userAnswerDisplay');
+  var map = {
+    few:     'you lose a few thoughts every day.',
+    many:    'you lose thoughts every day.',
+    stopped: 'you stopped counting lost thoughts.'
+  };
+  document.querySelectorAll('.choice-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      userAnswer = btn.dataset.answer;
+      document.querySelectorAll('.choice-btn').forEach(function(b) { b.classList.remove('selected'); });
+      btn.classList.add('selected');
+      if (display) display.textContent = map[userAnswer] || map.many;
+    });
+  });
+
+  /* Count-up — ease-out quartic, 1200 ms */
+  function countUp(el, target, dur) {
+    var s = performance.now();
+    (function frame(now) {
+      var p = Math.min((now - s) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 4);
+      el.textContent = Math.round(e * target).toLocaleString('en-IN');
+      if (p < 1) requestAnimationFrame(frame);
+    })(s);
+  }
+
+  var countIO = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        var num = e.target.querySelector('.card-number[data-target]');
+        if (num) countUp(num, parseInt(num.dataset.target, 10), 1200);
+        countIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.thinker-card').forEach(function(c) { countIO.observe(c); });
+
+})();
 </script>
 
 </body>
