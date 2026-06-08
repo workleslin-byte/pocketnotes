@@ -1063,9 +1063,9 @@
     padding-bottom: 45vh;
   }
   .science-step {
-    max-width: 460px;
-    opacity: 0.18;
-    transition: opacity 0.5s var(--ease);
+    max-width: 480px;
+    opacity: 0.32;
+    transition: opacity 0.75s var(--ease);
   }
   .science-step.active { opacity: 1; }
   .step-source {
@@ -1080,8 +1080,8 @@
   }
   .step-body {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(1rem, 1.6vw, 1.3rem);
-    line-height: 1.7;
+    font-size: clamp(1.1rem, 1.7vw, 1.35rem);
+    line-height: 1.75;
     color: var(--ink-soft);
   }
   .science-sticky {
@@ -1091,7 +1091,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--ink);
+    background: var(--paper);
     border-left: 1px solid rgba(26,22,18,0.12);
     overflow: hidden;
   }
@@ -1112,7 +1112,7 @@
     justify-content: center;
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+    transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
     pointer-events: none;
   }
   .science-stat.active {
@@ -1127,13 +1127,13 @@
     font-size: clamp(5rem, 13vw, 12rem);
     line-height: 0.85;
     letter-spacing: -0.04em;
-    color: var(--cream);
+    color: var(--ink);
   }
   .sci-num.zero { color: var(--coral); }
   .sci-unit {
     font-size: 0.45em;
     letter-spacing: -0.01em;
-    color: var(--mustard);
+    color: var(--coral);
     vertical-align: baseline;
   }
   .sci-label {
@@ -1141,8 +1141,8 @@
     font-size: 9px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--bone);
-    opacity: 0.55;
+    color: var(--ink-soft);
+    opacity: 0.5;
     margin-top: 1.75rem;
     text-align: center;
     max-width: 220px;
@@ -1152,7 +1152,7 @@
     font-family: 'Space Grotesk', sans-serif;
     font-size: clamp(0.85rem, 1.4vw, 1.05rem);
     line-height: 1.55;
-    color: var(--bone);
+    color: var(--ink-soft);
     opacity: 0.65;
     max-width: 26ch;
     text-align: center;
@@ -1172,8 +1172,8 @@
     font-size: 8.5px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--bone);
-    opacity: 0.28;
+    color: var(--ink-soft);
+    opacity: 0.3;
     margin-top: 1rem;
     text-align: center;
     position: relative;
@@ -1185,7 +1185,8 @@
     font-weight: 400;
     font-size: clamp(0.9rem, 1.3vw, 1.1rem);
     line-height: 1.4;
-    color: var(--mustard);
+    color: var(--ink-soft);
+    opacity: 0.7;
     max-width: 22ch;
     text-align: center;
     margin-top: 1rem;
@@ -1569,7 +1570,7 @@
     counter-increment: sci-step;
     border-left: 2px solid rgba(26,22,18,0.1);
     padding-left: 1.5rem;
-    transition: border-color 0.5s var(--ease), opacity 0.5s var(--ease);
+    transition: border-color 0.75s var(--ease), opacity 0.75s var(--ease);
   }
   .science-step.active { border-left-color: var(--mustard); }
   .science-step::before {
@@ -1613,10 +1614,10 @@
   .sci-mark svg {
     width: 320px;
     height: 320px;
-    opacity: 0.12;
+    opacity: 0.08;
     transition: opacity 0.6s var(--ease);
   }
-  .science-stat.active .sci-mark svg { opacity: 0.22; }
+  .science-stat.active .sci-mark svg { opacity: 0.16; }
   .sci-num, .sci-label, .sci-unit { position: relative; z-index: 1; }
 
   /* Mobile */
@@ -1882,36 +1883,6 @@
         <p class="step-body step-reveal">After a single interruption, the thought you were building does not return. Not in reduced form. Not later. The only reliable capture mechanism is writing it down the moment it appears.</p>
       </div>
 
-      <div class="science-step" data-step="4">
-        <span class="step-source">Leonardo da Vinci · c. 1487</span>
-        <span class="step-name">Da Vinci</span>
-        <p class="step-body step-reveal">Notebooks tied to his belt. Anatomy, engineering, and the mechanics of flight on the same page. Whoever you think he was, the notebooks made him that.</p>
-      </div>
-
-      <div class="science-step" data-step="5">
-        <span class="step-source">Isaac Newton · c. 1664</span>
-        <span class="step-name">Newton</span>
-        <p class="step-body step-reveal">He called it his Waste Book. A place for thoughts that were not ready yet. Calculus lived there before it had a name or a proof.</p>
-      </div>
-
-      <div class="science-step" data-step="6">
-        <span class="step-source">Niklas Luhmann · 1952 to 1998</span>
-        <span class="step-name">Luhmann</span>
-        <p class="step-body step-reveal">Six cards per day, every day, for 46 years. 600 published works. He called it his communication partner and credited it entirely for his output.</p>
-      </div>
-
-      <div class="science-step" data-step="7">
-        <span class="step-source">Thomas Edison · 1871</span>
-        <span class="step-name">Edison</span>
-        <p class="step-body step-reveal">He required every person at Menlo Park to keep one. Written to think, not to remember. The record was incidental. The thinking was the point.</p>
-      </div>
-
-      <div class="science-step" data-step="8">
-        <span class="step-source">Virginia Woolf · 1915 to 1941</span>
-        <span class="step-name">Woolf</span>
-        <p class="step-body step-reveal">15 minutes a day, written for no one. "The habit of writing thus for my own eye only is good practice. It loosens the ligaments." Thirty volumes.</p>
-      </div>
-
     </div>
 
     <div class="science-sticky">
@@ -1920,19 +1891,19 @@
         <div class="science-stat active" data-idx="0">
           <div class="sci-mark" aria-hidden="true">
             <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="160" cy="160" r="70" fill="none" stroke="#FAF3E3" stroke-width="1.5" stroke-dasharray="3 6"/>
-              <circle cx="160" cy="160" r="110" fill="none" stroke="#FAF3E3" stroke-width="1" stroke-dasharray="2 9"/>
-              <circle cx="160" cy="160" r="148" fill="none" stroke="#FAF3E3" stroke-width="0.7" stroke-dasharray="1 13"/>
+              <circle cx="160" cy="160" r="70" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.5" stroke-dasharray="3 6"/>
+              <circle cx="160" cy="160" r="110" fill="none" stroke="rgba(26,22,18,0.08)" stroke-width="1" stroke-dasharray="2 9"/>
+              <circle cx="160" cy="160" r="148" fill="none" stroke="rgba(26,22,18,0.05)" stroke-width="0.7" stroke-dasharray="1 13"/>
             </svg>
           </div>
           <div class="sci-num">70,000</div>
           <div class="sci-label">thoughts · per day</div>
           <p class="sci-secondary">Researchers estimate fewer than 1% are captured in any form.</p>
           <svg class="sci-visual" viewBox="0 0 280 48" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0" y="16" width="280" height="16" rx="2" fill="rgba(250,243,227,0.06)"/>
+            <rect x="0" y="16" width="280" height="16" rx="2" fill="rgba(26,22,18,0.06)"/>
             <rect x="0" y="16" width="2.8" height="16" rx="2" fill="var(--mustard)"/>
-            <text x="0" y="44" font-family="DM Mono, monospace" font-size="8" fill="rgba(250,243,227,0.3)" letter-spacing="1">1% captured</text>
-            <text x="220" y="44" font-family="DM Mono, monospace" font-size="8" fill="rgba(250,243,227,0.3)" letter-spacing="1">99% lost</text>
+            <text x="0" y="44" font-family="DM Mono, monospace" font-size="8" fill="rgba(26,22,18,0.3)" letter-spacing="1">1% captured</text>
+            <text x="220" y="44" font-family="DM Mono, monospace" font-size="8" fill="rgba(26,22,18,0.3)" letter-spacing="1">99% lost</text>
           </svg>
           <span class="sci-source-line">Neuroscience · avg. human brain · est. 70,000 thoughts/day</span>
           <p class="sci-reframe">The mind produces more than it can hold.</p>
@@ -1941,19 +1912,19 @@
         <div class="science-stat" data-idx="1">
           <div class="sci-mark" aria-hidden="true">
             <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
-              <path d="M160 55 A105 105 0 0 1 265 160" fill="none" stroke="#FAF3E3" stroke-width="1.5" stroke-dasharray="3 6"/>
-              <path d="M160 45 A115 115 0 0 1 275 160" fill="none" stroke="#FAF3E3" stroke-width="0.8" stroke-dasharray="2 10"/>
-              <circle cx="160" cy="160" r="5" fill="#FAF3E3" opacity="0.25"/>
+              <path d="M160 55 A105 105 0 0 1 265 160" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.5" stroke-dasharray="3 6"/>
+              <path d="M160 45 A115 115 0 0 1 275 160" fill="none" stroke="rgba(26,22,18,0.07)" stroke-width="0.8" stroke-dasharray="2 10"/>
+              <circle cx="160" cy="160" r="5" fill="rgba(26,22,18,0.2)"/>
             </svg>
           </div>
           <div class="sci-num">30<span class="sci-unit">s</span></div>
           <div class="sci-label">short-term memory · without rehearsal</div>
           <p class="sci-secondary">A new thought arrives every 1.2 seconds on average. Most displace the previous one.</p>
           <svg class="sci-visual" viewBox="0 0 280 60" xmlns="http://www.w3.org/2000/svg">
-            <line x1="0" y1="30" x2="280" y2="30" stroke="rgba(250,243,227,0.08)" stroke-width="1"/>
+            <line x1="0" y1="30" x2="280" y2="30" stroke="rgba(26,22,18,0.08)" stroke-width="1"/>
             <rect x="0" y="20" width="30" height="20" rx="2" fill="var(--mustard)" opacity="0.9"/>
-            <text x="35" y="34" font-family="DM Mono, monospace" font-size="8" fill="rgba(250,243,227,0.35)" letter-spacing="1">30s window</text>
-            <text x="0" y="52" font-family="DM Mono, monospace" font-size="8" fill="rgba(250,243,227,0.25)" letter-spacing="1">then gone</text>
+            <text x="35" y="34" font-family="DM Mono, monospace" font-size="8" fill="rgba(26,22,18,0.35)" letter-spacing="1">30s window</text>
+            <text x="0" y="52" font-family="DM Mono, monospace" font-size="8" fill="rgba(26,22,18,0.25)" letter-spacing="1">then gone</text>
           </svg>
           <span class="sci-source-line">Peterson &amp; Peterson · 1959 · Journal of Experimental Psychology</span>
           <p class="sci-reframe">Not laziness. Physics.</p>
@@ -1962,10 +1933,10 @@
         <div class="science-stat" data-idx="2">
           <div class="sci-mark" aria-hidden="true">
             <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
-              <rect x="100" y="100" width="52" height="52" fill="none" stroke="#FAF3E3" stroke-width="1.2" stroke-dasharray="3 5"/>
-              <rect x="168" y="100" width="52" height="52" fill="none" stroke="#FAF3E3" stroke-width="1.2" stroke-dasharray="3 5"/>
-              <rect x="100" y="168" width="52" height="52" fill="none" stroke="#FAF3E3" stroke-width="1.2" stroke-dasharray="3 5"/>
-              <rect x="168" y="168" width="52" height="52" fill="none" stroke="#FAF3E3" stroke-width="1.2" stroke-dasharray="3 5"/>
+              <rect x="100" y="100" width="52" height="52" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.2" stroke-dasharray="3 5"/>
+              <rect x="168" y="100" width="52" height="52" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.2" stroke-dasharray="3 5"/>
+              <rect x="100" y="168" width="52" height="52" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.2" stroke-dasharray="3 5"/>
+              <rect x="168" y="168" width="52" height="52" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.2" stroke-dasharray="3 5"/>
             </svg>
           </div>
           <div class="sci-num">4</div>
@@ -1975,11 +1946,11 @@
             <rect x="0" y="8" width="60" height="24" rx="3" fill="var(--mustard)" opacity="0.85"/>
             <rect x="68" y="8" width="60" height="24" rx="3" fill="var(--mustard)" opacity="0.85"/>
             <rect x="136" y="8" width="60" height="24" rx="3" fill="var(--mustard)" opacity="0.85"/>
-            <rect x="204" y="8" width="60" height="24" rx="3" fill="rgba(250,243,227,0.1)" stroke="rgba(250,243,227,0.15)" stroke-width="1"/>
+            <rect x="204" y="8" width="60" height="24" rx="3" fill="rgba(26,22,18,0.06)" stroke="rgba(26,22,18,0.15)" stroke-width="1"/>
             <text x="30" y="24" font-family="DM Mono, monospace" font-size="9" fill="#1A1612" text-anchor="middle">1</text>
             <text x="98" y="24" font-family="DM Mono, monospace" font-size="9" fill="#1A1612" text-anchor="middle">2</text>
             <text x="166" y="24" font-family="DM Mono, monospace" font-size="9" fill="#1A1612" text-anchor="middle">3</text>
-            <text x="234" y="24" font-family="DM Mono, monospace" font-size="9" fill="rgba(250,243,227,0.2)" text-anchor="middle">4</text>
+            <text x="234" y="24" font-family="DM Mono, monospace" font-size="9" fill="rgba(26,22,18,0.2)" text-anchor="middle">4</text>
           </svg>
           <span class="sci-source-line">George Miller · 1956 · Psychological Review · "The magical number seven"</span>
           <p class="sci-reframe">Your idea is competing for the last slot.</p>
@@ -1988,9 +1959,9 @@
         <div class="science-stat" data-idx="3">
           <div class="sci-mark" aria-hidden="true">
             <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="160" cy="160" r="95" fill="none" stroke="#FAF3E3" stroke-width="1.2" stroke-dasharray="3 6"/>
-              <line x1="90" y1="90" x2="230" y2="230" stroke="#FAF3E3" stroke-width="1" stroke-dasharray="4 6"/>
-              <line x1="230" y1="90" x2="90" y2="230" stroke="#FAF3E3" stroke-width="1" stroke-dasharray="4 6"/>
+              <circle cx="160" cy="160" r="95" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.2" stroke-dasharray="3 6"/>
+              <line x1="90" y1="90" x2="230" y2="230" stroke="rgba(26,22,18,0.08)" stroke-width="1" stroke-dasharray="4 6"/>
+              <line x1="230" y1="90" x2="90" y2="230" stroke="rgba(26,22,18,0.08)" stroke-width="1" stroke-dasharray="4 6"/>
             </svg>
           </div>
           <div class="sci-num zero">0</div>
@@ -1998,97 +1969,12 @@
           <p class="sci-secondary">After a single interruption it takes 23 minutes and 15 seconds on average to return to the original task.</p>
           <svg class="sci-visual" viewBox="0 0 280 48" xmlns="http://www.w3.org/2000/svg">
             <circle cx="20" cy="24" r="10" fill="var(--coral)" opacity="0.85"/>
-            <line x1="34" y1="24" x2="260" y2="24" stroke="rgba(250,243,227,0.08)" stroke-width="1" stroke-dasharray="4 4"/>
-            <text x="36" y="20" font-family="DM Mono, monospace" font-size="8" fill="rgba(250,243,227,0.3)" letter-spacing="1">interruption</text>
-            <text x="36" y="34" font-family="DM Mono, monospace" font-size="8" fill="rgba(250,243,227,0.3)" letter-spacing="1">23m 15s to return</text>
+            <line x1="34" y1="24" x2="260" y2="24" stroke="rgba(26,22,18,0.08)" stroke-width="1" stroke-dasharray="4 4"/>
+            <text x="36" y="20" font-family="DM Mono, monospace" font-size="8" fill="rgba(26,22,18,0.3)" letter-spacing="1">interruption</text>
+            <text x="36" y="34" font-family="DM Mono, monospace" font-size="8" fill="rgba(26,22,18,0.3)" letter-spacing="1">23m 15s to return</text>
           </svg>
           <span class="sci-source-line">Gloria Mark · UC Irvine · "The Cost of Interrupted Work" · CHI 2008</span>
           <p class="sci-reframe">Writing it down takes 4 seconds. Losing it costs 23 minutes.</p>
-        </div>
-
-        <div class="science-stat" data-idx="4">
-          <div class="sci-mark" aria-hidden="true">
-            <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
-              <line x1="160" y1="48" x2="160" y2="272" stroke="#FAF3E3" stroke-width="1" stroke-dasharray="3 7"/>
-              <line x1="48" y1="160" x2="272" y2="160" stroke="#FAF3E3" stroke-width="1" stroke-dasharray="3 7"/>
-              <line x1="88" y1="88" x2="232" y2="232" stroke="#FAF3E3" stroke-width="0.7" stroke-dasharray="2 10"/>
-              <line x1="232" y1="88" x2="88" y2="232" stroke="#FAF3E3" stroke-width="0.7" stroke-dasharray="2 10"/>
-              <circle cx="160" cy="160" r="5" fill="#FAF3E3" opacity="0.35"/>
-            </svg>
-          </div>
-          <div class="sci-num">13,000</div>
-          <div class="sci-label">pages · Da Vinci's notebooks</div>
-          <p class="sci-secondary">He wrote in mirror-script from right to left — not for secrecy, but to avoid left-hand smudging mid-thought.</p>
-          <span class="sci-source-line">Royal Collection Trust · 13,000 pages surviving · c. 1487–1519</span>
-          <p class="sci-reframe">The constraint of the belt-size notebook was the point.</p>
-        </div>
-
-        <div class="science-stat" data-idx="5">
-          <div class="sci-mark" aria-hidden="true">
-            <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
-              <line x1="160" y1="48" x2="160" y2="272" stroke="#FAF3E3" stroke-width="1" stroke-dasharray="3 7"/>
-              <line x1="48" y1="160" x2="272" y2="160" stroke="#FAF3E3" stroke-width="1" stroke-dasharray="3 7"/>
-              <line x1="88" y1="88" x2="232" y2="232" stroke="#FAF3E3" stroke-width="0.7" stroke-dasharray="2 10"/>
-              <line x1="232" y1="88" x2="88" y2="232" stroke="#FAF3E3" stroke-width="0.7" stroke-dasharray="2 10"/>
-              <circle cx="160" cy="160" r="5" fill="#FAF3E3" opacity="0.35"/>
-            </svg>
-          </div>
-          <div class="sci-num text">Waste<br>Book</div>
-          <div class="sci-label">Newton's name for it</div>
-          <p class="sci-secondary">Oxford University taught commonplacing — the practice of keeping such books — for 50 years before Newton used one.</p>
-          <span class="sci-source-line">Cambridge University Library · Newton's Trinity Notebook · c. 1664</span>
-          <p class="sci-reframe">Calculus had no name yet. The wastebook held it anyway.</p>
-        </div>
-
-        <div class="science-stat" data-idx="6">
-          <div class="sci-mark" aria-hidden="true">
-            <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
-              <line x1="160" y1="48" x2="160" y2="272" stroke="#FAF3E3" stroke-width="1" stroke-dasharray="3 7"/>
-              <line x1="48" y1="160" x2="272" y2="160" stroke="#FAF3E3" stroke-width="1" stroke-dasharray="3 7"/>
-              <line x1="88" y1="88" x2="232" y2="232" stroke="#FAF3E3" stroke-width="0.7" stroke-dasharray="2 10"/>
-              <line x1="232" y1="88" x2="88" y2="232" stroke="#FAF3E3" stroke-width="0.7" stroke-dasharray="2 10"/>
-              <circle cx="160" cy="160" r="5" fill="#FAF3E3" opacity="0.35"/>
-            </svg>
-          </div>
-          <div class="sci-num">90,000</div>
-          <div class="sci-label">cards · Luhmann · 46 years</div>
-          <p class="sci-secondary">6 cards per day. Every day. For 46 years. He never tried to write more — the daily constraint was the system.</p>
-          <span class="sci-source-line">Niklas Luhmann · Zettelkasten · Bielefeld University · 1952–1998</span>
-          <p class="sci-reframe">The output was not the goal. The daily practice was.</p>
-        </div>
-
-        <div class="science-stat" data-idx="7">
-          <div class="sci-mark" aria-hidden="true">
-            <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
-              <line x1="160" y1="48" x2="160" y2="272" stroke="#FAF3E3" stroke-width="1" stroke-dasharray="3 7"/>
-              <line x1="48" y1="160" x2="272" y2="160" stroke="#FAF3E3" stroke-width="1" stroke-dasharray="3 7"/>
-              <line x1="88" y1="88" x2="232" y2="232" stroke="#FAF3E3" stroke-width="0.7" stroke-dasharray="2 10"/>
-              <line x1="232" y1="88" x2="88" y2="232" stroke="#FAF3E3" stroke-width="0.7" stroke-dasharray="2 10"/>
-              <circle cx="160" cy="160" r="5" fill="#FAF3E3" opacity="0.35"/>
-            </svg>
-          </div>
-          <div class="sci-num">2,500</div>
-          <div class="sci-label">notebooks · Edison archived</div>
-          <p class="sci-secondary">He mandated the habit for every employee at Menlo Park. The notebook was not optional. It was operational procedure.</p>
-          <span class="sci-source-line">Edison Papers · Rutgers University · 2,500 notebooks documented · 1871–1931</span>
-          <p class="sci-reframe">The record was incidental. The thinking was the point.</p>
-        </div>
-
-        <div class="science-stat" data-idx="8">
-          <div class="sci-mark" aria-hidden="true">
-            <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
-              <line x1="160" y1="48" x2="160" y2="272" stroke="#FAF3E3" stroke-width="1" stroke-dasharray="3 7"/>
-              <line x1="48" y1="160" x2="272" y2="160" stroke="#FAF3E3" stroke-width="1" stroke-dasharray="3 7"/>
-              <line x1="88" y1="88" x2="232" y2="232" stroke="#FAF3E3" stroke-width="0.7" stroke-dasharray="2 10"/>
-              <line x1="232" y1="88" x2="88" y2="232" stroke="#FAF3E3" stroke-width="0.7" stroke-dasharray="2 10"/>
-              <circle cx="160" cy="160" r="5" fill="#FAF3E3" opacity="0.35"/>
-            </svg>
-          </div>
-          <div class="sci-num">30</div>
-          <div class="sci-label">diary volumes · Woolf · daily</div>
-          <p class="sci-secondary">15 minutes daily, no audience, no editing. "It loosens the ligaments." The novels were written alongside the diaries, not instead of them.</p>
-          <span class="sci-source-line">Berg Collection · New York Public Library · 30 volumes · 1915–1941</span>
-          <p class="sci-reframe">For no one. Which is why it worked.</p>
         </div>
 
       </div>
