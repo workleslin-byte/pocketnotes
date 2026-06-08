@@ -958,7 +958,7 @@
     display: flex;
     align-items: center;
     padding: 9rem var(--gut) 7rem;
-    border-bottom: 1px solid rgba(250,243,227,0.07);
+    border-bottom: 1px solid rgba(250,243,227,0.15);
     position: relative;
     overflow: hidden;
   }
@@ -966,7 +966,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 70% 55% at 85% 42%, rgba(245,193,61,0.05) 0%, transparent 65%);
+    background: radial-gradient(ellipse 70% 55% at 85% 42%, rgba(245,193,61,0.12) 0%, transparent 65%);
     pointer-events: none;
   }
   .act-inner {
@@ -1009,12 +1009,45 @@
     color: var(--ink);
     border-color: var(--cream);
   }
+  .hook-cue {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+  .hook-cue.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .hook-cue-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(250,243,227,0.3);
+  }
+  .hook-cue-arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 1.5px solid rgba(250,243,227,0.25);
+    border-bottom: 1.5px solid rgba(250,243,227,0.25);
+    transform: rotate(45deg);
+    animation: hookBounce 1.4s var(--ease) infinite;
+  }
+  @keyframes hookBounce {
+    0%, 100% { transform: rotate(45deg) translateY(0); }
+    50% { transform: rotate(45deg) translateY(5px); }
+  }
 
   /* Act 2 — Science: dark, monumental numbers */
   .act-science {
     background: var(--ink);
-    border-top: 1px solid rgba(250,243,227,0.07);
-    border-bottom: 1px solid rgba(250,243,227,0.07);
+    border-top: 1px solid rgba(250,243,227,0.15);
+    border-bottom: 1px solid rgba(250,243,227,0.15);
   }
   .science-layout {
     display: grid;
@@ -1108,18 +1141,29 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--bone);
-    opacity: 0.3;
+    opacity: 0.45;
     margin-top: 1.75rem;
     text-align: center;
     max-width: 220px;
     line-height: 1.8;
   }
+  /* Per-thinker accent colors */
+  .science-stat[data-idx="4"] .sci-num { color: var(--coral); }
+  .science-stat[data-idx="5"] .sci-num { color: var(--mustard); }
+  .science-stat[data-idx="6"] .sci-num { color: var(--mustard); }
+  .science-stat[data-idx="7"] .sci-num { color: var(--coral); }
+  .science-stat[data-idx="8"] .sci-num { color: var(--plum); }
+  .science-step[data-step="4"] .step-name { color: var(--coral); }
+  .science-step[data-step="5"] .step-name { color: var(--mustard); }
+  .science-step[data-step="6"] .step-name { color: var(--mustard); }
+  .science-step[data-step="7"] .step-name { color: var(--coral); }
+  .science-step[data-step="8"] .step-name { color: var(--plum); }
 
   /* Act 3 — Thinkers: dark section, editorial index cards */
   .act-thinkers {
     background: var(--ink);
-    border-top: 1px solid rgba(250,243,227,0.07);
-    border-bottom: 1px solid rgba(250,243,227,0.07);
+    border-top: 1px solid rgba(250,243,227,0.15);
+    border-bottom: 1px solid rgba(250,243,227,0.15);
     padding-top: 7rem;
     padding-bottom: 5rem;
     overflow: hidden;
@@ -1252,8 +1296,8 @@
   .act-comparison {
     background: var(--ink);
     padding: 8rem var(--gut);
-    border-top: 1px solid rgba(250,243,227,0.07);
-    border-bottom: 1px solid rgba(250,243,227,0.07);
+    border-top: 1px solid rgba(250,243,227,0.15);
+    border-bottom: 1px solid rgba(250,243,227,0.15);
   }
   .act-comparison-inner {
     max-width: 760px;
@@ -1270,13 +1314,17 @@
     margin-bottom: 1.5rem;
   }
   .comp-headline {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
     font-weight: 700;
     font-size: clamp(1.6rem, 2.8vw, 2.2rem);
     line-height: 1.25;
     color: var(--cream);
     margin-bottom: 0.5rem;
   }
+  .comp-mustard .comp-num { color: var(--mustard); }
+  .comp-coral .comp-num { color: var(--coral); }
+  .comp-sage .comp-num { color: var(--sage); }
   #userAnswerDisplay {
     font-style: italic;
     color: var(--mustard);
@@ -1356,7 +1404,8 @@
     margin: 0 auto;
   }
   .format-h {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
     font-weight: 700;
     font-size: clamp(1.8rem, 3vw, 2.6rem);
     line-height: 1.1;
@@ -1553,10 +1602,10 @@
   .sci-mark svg {
     width: 320px;
     height: 320px;
-    opacity: 0.05;
+    opacity: 0.12;
     transition: opacity 0.6s var(--ease);
   }
-  .science-stat.active .sci-mark svg { opacity: 0.1; }
+  .science-stat.active .sci-mark svg { opacity: 0.22; }
   .sci-num, .sci-label, .sci-unit { position: relative; z-index: 1; }
 
   /* Mobile */
@@ -1768,6 +1817,10 @@
       <button class="choice-btn selected" data-answer="many">Too many</button>
       <button class="choice-btn" data-answer="stopped">I stopped counting</button>
     </div>
+    <div class="hook-cue" id="hookCue" aria-hidden="true">
+      <span class="hook-cue-label">The science of why</span>
+      <div class="hook-cue-arrow"></div>
+    </div>
   </div>
 </section>
 
@@ -1964,17 +2017,17 @@
     <h2 class="comp-headline reveal">You said <span id="userAnswerDisplay">you lose thoughts every day.</span></h2>
     <p class="comp-sub reveal">Here is what daily catching builds across a working life.</p>
     <div class="comp-stack reveal">
-      <div class="comp-row" data-scale="large">
+      <div class="comp-row comp-mustard" data-scale="large">
         <span class="comp-name">Luhmann</span>
         <span class="comp-num">90,000</span>
         <span class="comp-detail">6 per day · 46 years</span>
       </div>
-      <div class="comp-row" data-scale="medium">
+      <div class="comp-row comp-coral" data-scale="medium">
         <span class="comp-name">Da Vinci</span>
         <span class="comp-num">13,000</span>
         <span class="comp-detail">pages surviving</span>
       </div>
-      <div class="comp-row" data-scale="small">
+      <div class="comp-row comp-sage" data-scale="small">
         <span class="comp-name">Edison</span>
         <span class="comp-num">2,500</span>
         <span class="comp-detail">pocket notebooks</span>
@@ -2264,6 +2317,8 @@
       document.querySelectorAll('.choice-btn').forEach(function(b) { b.classList.remove('selected'); });
       btn.classList.add('selected');
       if (display) display.textContent = map[userAnswer] || map.many;
+      var cue = document.getElementById('hookCue');
+      if (cue) cue.classList.add('visible');
     });
   });
 
@@ -2283,7 +2338,7 @@
           if (stat) stat.classList.add('active');
         }
       });
-    }, { threshold: 0.45, rootMargin: '-15% 0px -15% 0px' });
+    }, { threshold: 0.3, rootMargin: '-10% 0px -10% 0px' });
 
     sciSteps.forEach(function(step) { stepIO.observe(step); });
   }
