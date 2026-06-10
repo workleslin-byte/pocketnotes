@@ -1759,117 +1759,97 @@
 
   /* ─── POCKET TEST ──────────────────────────────────── */
   .pocket-test { padding: 8rem var(--gut); background: var(--bone); position: relative; }
-  .pt-layout {
-    display: grid;
-    grid-template-columns: 52fr 48fr;
-    gap: 4rem;
-    align-items: start;
-    margin-top: 3.5rem;
-  }
-  .pt-label {
-    display: block;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: rgba(26,22,18,0.42);
-    margin-bottom: 0.65rem;
-  }
+  .pt-stage--hidden { display: none; }
+
+  /* Stage 1: input */
+  .pt-input-wrap { margin-top: 3rem; max-width: 52rem; }
   .pt-textarea {
     width: 100%;
-    min-height: 14rem;
+    min-height: 8rem;
     resize: none;
-    border: 1.5px solid rgba(26,22,18,0.18);
-    border-left: 3px solid transparent;
-    border-radius: 6px;
-    background: var(--paper);
+    border: none;
+    border-bottom: 2px solid rgba(26,22,18,0.16);
+    border-radius: 0;
+    background: transparent;
     font-family: 'Fraunces', serif;
-    font-size: clamp(1rem, 1.2vw, 1.1rem);
+    font-size: clamp(1.1rem, 1.6vw, 1.35rem);
     font-weight: 400;
     color: var(--ink);
-    padding: 1.3rem 1.5rem;
-    line-height: 1.75;
+    padding: 0.9rem 0 1rem;
+    line-height: 1.7;
     outline: none;
-    transition: border-color 0.25s ease, border-left-color 0.25s ease, box-shadow 0.25s ease;
+    transition: border-color 0.3s ease;
     box-sizing: border-box;
     display: block;
+    caret-color: var(--mustard);
   }
   .pt-textarea::placeholder { color: rgba(26,22,18,0.28); font-style: italic; }
-  .pt-textarea:focus {
-    border-color: rgba(26,22,18,0.32);
-    border-left-color: var(--mustard);
-    box-shadow: 0 2px 16px rgba(26,22,18,0.05);
-  }
-  .pt-hint { margin-top: 0.7rem; font-size: 0.8rem; color: rgba(26,22,18,0.36); }
+  .pt-textarea:focus { border-bottom-color: var(--mustard); }
 
-  /* Reflow display — character-level animation */
-  .pt-reflow-wrap { display: flex; flex-direction: column; gap: 0.55rem; }
-  .pt-reflow-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: rgba(26,22,18,0.42);
-    font-family: 'Space Grotesk', sans-serif;
-  }
-  .pt-reflow {
-    position: relative;
-    min-height: 7rem;
-    background: var(--paper);
-    border: 1.5px solid rgba(26,22,18,0.13);
-    border-radius: 6px;
-    overflow: hidden;
-    transition: min-height 0.35s ease;
-  }
-  .pt-reflow--empty::before {
-    content: 'Your words appear here';
-    position: absolute;
-    top: 1.1rem;
-    left: 1.3rem;
-    font-family: 'Fraunces', serif;
-    font-size: 1.1rem;
-    font-style: italic;
-    color: rgba(26,22,18,0.20);
-    pointer-events: none;
-  }
-  .pt-char {
-    position: absolute;
-    top: 0; left: 0;
-    font-family: 'Fraunces', serif;
-    font-size: 20px;
-    font-weight: 400;
-    color: var(--ink);
-    line-height: 1;
-    white-space: pre;
-    will-change: transform, opacity;
-    user-select: none;
-    -webkit-user-select: none;
-    transform-origin: center bottom;
-  }
-  .pt-cursor {
-    position: absolute;
-    top: 1.1rem;
-    left: 1.3rem;
-    font-size: 22px;
-    color: var(--mustard);
-    animation: pt-blink 1.1s step-end infinite;
-    line-height: 1;
-    pointer-events: none;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 300;
-  }
-  @keyframes pt-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-  /* Stats + notebook row */
-  .pt-bottom {
-    display: grid;
-    grid-template-columns: 60fr 40fr;
-    gap: 3rem;
-    margin-top: 3.5rem;
+  .pt-controls {
+    display: flex;
     align-items: center;
+    justify-content: space-between;
+    margin-top: 1.2rem;
+    gap: 1.5rem;
   }
-  .pt-stats-row { display: flex; gap: 3rem; align-items: flex-start; }
+  .pt-enter-hint {
+    font-size: 0.8rem;
+    color: rgba(26,22,18,0.38);
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: 0.03em;
+  }
+  .pt-enter-hint kbd {
+    display: inline-block;
+    padding: 0.1em 0.45em;
+    border: 1px solid rgba(26,22,18,0.22);
+    border-radius: 3px;
+    font-size: 0.88em;
+    font-family: inherit;
+    letter-spacing: 0;
+  }
+  .pt-submit {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    background: var(--mustard);
+    border: none;
+    border-radius: 4px;
+    padding: 0.65rem 1.5rem;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    white-space: nowrap;
+  }
+  .pt-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,22,18,0.14); }
+  .pt-submit:active { transform: translateY(0); }
+
+  /* Stage 2: results layout */
+  .pt-result-layout {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 2.5rem;
+  }
+  .pt-nb-wrap { display: flex; flex-direction: column; gap: 0.5rem; }
+  #ptNotebook { display: block; border-radius: 4px; }
+  .pt-notebook-label {
+    font-size: 0.76rem;
+    color: rgba(26,22,18,0.38);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .pt-result-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 228px;
+    gap: 2rem;
+  }
+  .pt-stats-col { display: flex; flex-direction: column; gap: 1.8rem; }
   .pt-stat      { display: flex; flex-direction: column; gap: 0.15rem; }
   .pt-num {
     font-family: 'Fraunces', serif;
@@ -1887,19 +1867,45 @@
     text-transform: uppercase;
     font-family: 'Space Grotesk', sans-serif;
   }
-  .pt-notebook-wrap { display: flex; flex-direction: column; gap: 0.5rem; }
-  #ptNotebook { width: 100%; height: auto; border-radius: 3px; display: block; }
-  .pt-notebook-label {
-    font-size: 0.76rem;
-    color: rgba(26,22,18,0.38);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+  .pt-reset {
+    background: none;
+    border: none;
     font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: rgba(26,22,18,0.45);
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    padding: 0;
+    transition: color 0.2s ease;
+    text-align: left;
   }
+  .pt-reset:hover { color: var(--ink); }
+
+  /* Flight animation layer */
+  .pt-flight {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 9998;
+  }
+  .pt-char {
+    position: absolute;
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--ink);
+    white-space: pre;
+    will-change: transform, opacity;
+    pointer-events: none;
+    transform-origin: center center;
+  }
+
   @media (max-width: 768px) {
-    .pt-layout  { grid-template-columns: 1fr; gap: 2rem; }
-    .pt-bottom  { grid-template-columns: 1fr; gap: 2rem; }
-    .pt-stats-row { gap: 2rem; flex-wrap: wrap; }
+    .pt-result-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .pt-result-right  { min-height: auto; }
+    .pt-controls      { flex-direction: column; align-items: flex-start; gap: 1rem; }
     .pt-stat--hero .pt-num { font-size: clamp(2.4rem, 7vw, 3.2rem); }
   }
 </style>
@@ -2463,58 +2469,63 @@
 <!-- ─── POCKET TEST ─────────────────────────────── -->
 <section class="pocket-test">
   <div class="section-inner">
-    <div class="section-head reveal">
-      <div>
-        <p class="section-label"><b>The pocket test</b></p>
-        <h2 class="section-title">Type a thought.<br><em>Watch it find its place.</em></h2>
-      </div>
-      <p class="section-aside">Every character is placed exactly — no DOM reflow, pure arithmetic. A thought takes 1–3 lines. This notebook holds 64 pages. You do the math.</p>
-    </div>
 
-    <div class="pt-layout">
-      <!-- Left: input -->
-      <div class="pt-left">
-        <label class="pt-label" for="ptTextarea">← Write here</label>
+    <!-- Stage 1: input -->
+    <div class="pt-stage" id="ptStage1">
+      <div class="section-head reveal">
+        <div>
+          <p class="section-label"><b>The pocket test</b></p>
+          <h2 class="section-title">Write the thought<br>you keep <em>forgetting.</em></h2>
+        </div>
+      </div>
+      <div class="pt-input-wrap">
         <textarea
           id="ptTextarea"
           class="pt-textarea"
-          placeholder="A stray idea. A meeting note. The sentence you've been meaning to write down…"
-          maxlength="600"
+          placeholder="Start here…"
+          maxlength="400"
+          rows="4"
         ></textarea>
-        <p class="pt-hint">Each keystroke places a character. Try a full paragraph — watch the reflow.</p>
-      </div>
-
-      <!-- Right: live character reflow display -->
-      <div class="pt-reflow-wrap">
-        <div class="pt-reflow-label">Live in your notebook ↗</div>
-        <div id="ptReflow" class="pt-reflow pt-reflow--empty" aria-live="polite">
-          <span class="pt-cursor" id="ptCursor">|</span>
+        <div class="pt-controls">
+          <span class="pt-enter-hint"><kbd>Enter</kbd> to commit it — <kbd>Shift+Enter</kbd> for new line</span>
+          <button id="ptSubmit" class="pt-submit">Commit it →</button>
         </div>
       </div>
     </div>
 
-    <!-- Stats + notebook -->
-    <div class="pt-bottom">
-      <div class="pt-stats-row">
-        <div class="pt-stat">
-          <span class="pt-num" id="ptLines">1</span>
-          <span class="pt-stat-label">line per thought</span>
-        </div>
-        <div class="pt-stat pt-stat--hero">
-          <span class="pt-num" id="ptThoughts">1,536</span>
-          <span class="pt-stat-label">thoughts like yours fit in 64 pages</span>
-        </div>
-        <div class="pt-stat">
-          <span class="pt-num" id="ptPages">63</span>
-          <span class="pt-stat-label">pages still waiting</span>
+    <!-- Stage 2: results (revealed after animation) -->
+    <div class="pt-stage pt-stage--hidden" id="ptStage2">
+      <div class="section-head">
+        <div>
+          <p class="section-label"><b>Here it lives.</b></p>
+          <h2 class="section-title">Now do the<br><em>math.</em></h2>
         </div>
       </div>
-
-      <div class="pt-notebook-wrap">
-        <canvas id="ptNotebook" aria-hidden="true"></canvas>
-        <p class="pt-notebook-label">A6 · 64 pages · 5 mm grid</p>
+      <div class="pt-result-layout">
+        <div class="pt-nb-wrap">
+          <canvas id="ptNotebook" aria-hidden="true"></canvas>
+          <p class="pt-notebook-label">A6 · 64 pages · 5 mm grid</p>
+        </div>
+        <div class="pt-result-right">
+          <div class="pt-stats-col">
+            <div class="pt-stat">
+              <span class="pt-num" id="ptLines">—</span>
+              <span class="pt-stat-label">lines this thought takes</span>
+            </div>
+            <div class="pt-stat pt-stat--hero">
+              <span class="pt-num" id="ptThoughts">—</span>
+              <span class="pt-stat-label">thoughts like yours fit in 64 pages</span>
+            </div>
+            <div class="pt-stat">
+              <span class="pt-num" id="ptPages">—</span>
+              <span class="pt-stat-label">pages still waiting</span>
+            </div>
+          </div>
+          <button class="pt-reset" id="ptReset">↺ Write another thought</button>
+        </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -2971,126 +2982,52 @@
 </script>
 
 <script>
-/* ─── POCKET TEST: pretext-style character reflow ─────────── */
+/* ─── POCKET TEST: two-stage scatter animation ───────────── */
 ;(function () {
-  var textarea   = document.getElementById('ptTextarea');
-  var reflowEl   = document.getElementById('ptReflow');
-  var cursorEl   = document.getElementById('ptCursor');
-  var elLines    = document.getElementById('ptLines');
-  var elThoughts = document.getElementById('ptThoughts');
-  var elPages    = document.getElementById('ptPages');
-  var nbCanvas   = document.getElementById('ptNotebook');
-  if (!textarea || !reflowEl || !nbCanvas || typeof gsap === 'undefined') return;
+  var stage1    = document.getElementById('ptStage1');
+  var stage2    = document.getElementById('ptStage2');
+  var textarea  = document.getElementById('ptTextarea');
+  var submitBtn = document.getElementById('ptSubmit');
+  var resetBtn  = document.getElementById('ptReset');
+  var elLines   = document.getElementById('ptLines');
+  var elThoughts= document.getElementById('ptThoughts');
+  var elPages   = document.getElementById('ptPages');
+  var nbCanvas  = document.getElementById('ptNotebook');
+  if (!stage1 || !textarea || !nbCanvas || typeof gsap === 'undefined') return;
 
-  /* ── Notebook canvas setup ───────────────────────────── */
-  var DPR = Math.min(window.devicePixelRatio || 1, 2);
-  var NB_W = 260, NB_H = 185;
+  /* ── Canvas setup ────────────────────────────────────── */
+  var DPR  = Math.min(window.devicePixelRatio || 1, 2);
+  var NB_W = 320, NB_H = 228;
   nbCanvas.width  = NB_W * DPR; nbCanvas.height = NB_H * DPR;
   nbCanvas.style.width = NB_W + 'px'; nbCanvas.style.height = NB_H + 'px';
   var nCtx = nbCanvas.getContext('2d'); nCtx.scale(DPR, DPR);
+  var mCtx = document.createElement('canvas').getContext('2d');
 
-  /* ── Shared Canvas 2D measurer (zero DOM reflow) ──────── */
-  var mCtx      = document.createElement('canvas').getContext('2d');
-  var CHAR_FONT = '400 20px Fraunces, serif';
-  var CHAR_LH   = 34;   /* line height px for reflow display */
-  var CHAR_CAP  = 320;  /* max chars animated */
-  var RPAD_X    = 20;   /* reflow display horizontal padding */
-  var RPAD_Y    = 18;   /* reflow display vertical padding */
-
-  /* ── Place characters at exact x/y (pretext technique) ── */
-  function placeChars(text, innerW) {
-    mCtx.font = CHAR_FONT;
-    var result = [], x = 0, lineY = 0;
-    var words = text.replace(/\n+/g, ' ').split(' ');
-    for (var wi = 0; wi < words.length; wi++) {
-      var word = words[wi]; if (!word) continue;
-      var tok  = word + (wi < words.length - 1 ? ' ' : '');
-      var tokW = mCtx.measureText(tok).width;
-      if (x + tokW > innerW && x > 0) { x = 0; lineY += CHAR_LH; }
-      for (var ci = 0; ci < tok.length; ci++) {
-        var cw = mCtx.measureText(tok[ci]).width;
-        result.push({ ch: tok[ci], x: x + RPAD_X, y: lineY + RPAD_Y });
-        x += cw;
-      }
-    }
-    return result;
-  }
-
-  /* ── Span pool ────────────────────────────────────────── */
-  var spans    = [];
-  var widePos  = [], narrPos = [];
-  var breath   = { pct: 0 };
-  var isTyping = false, typingTmr = null;
-
-  function ensureSpans(n) {
-    while (spans.length < n) {
-      var s = document.createElement('span');
-      s.className = 'pt-char';
-      reflowEl.appendChild(s);
-      spans.push(s);
-    }
-    for (var i = n; i < spans.length; i++) {
-      gsap.to(spans[i], { opacity: 0, scale: 0.3, duration: 0.14, overwrite: 'auto' });
-    }
-  }
-
-  function applyBreath(pct) {
-    for (var i = 0; i < Math.min(widePos.length, spans.length); i++) {
-      var wp = widePos[i], np = narrPos[i];
-      if (!wp || !np) continue;
-      gsap.set(spans[i], {
-        x: wp.x + (np.x - wp.x) * pct,
-        y: wp.y + (np.y - wp.y) * pct,
-      });
-    }
-  }
-
-  function refreshHeight() {
-    var maxY = 0;
-    for (var i = 0; i < narrPos.length; i++) maxY = Math.max(maxY, narrPos[i] ? narrPos[i].y : 0);
-    reflowEl.style.minHeight = (maxY ? maxY + CHAR_LH + 20 : 7 * 16) + 'px';
-  }
-
-  /* ── Count stat lines (textarea-accurate) ────────────── */
-  function countStats(text) {
-    var cs   = window.getComputedStyle(textarea);
-    var padX = (parseFloat(cs.paddingLeft)||0) + (parseFloat(cs.paddingRight)||0);
-    var maxW = Math.max(80, textarea.clientWidth - padX);
-    mCtx.font = cs.font || '400 16px Fraunces, serif';
-    var paras = text.split('\n'), total = 0;
-    for (var pi = 0; pi < paras.length; pi++) {
-      if (!paras[pi].trim()) { total++; continue; }
-      var words = paras[pi].split(' '), line = '';
-      for (var wi = 0; wi < words.length; wi++) {
-        var test = line ? line + ' ' + words[wi] : words[wi];
-        if (mCtx.measureText(test).width > maxW && line) { total++; line = words[wi]; } else line = test;
-      }
-      if (line) total++;
-    }
-    return Math.max(1, total);
-  }
-
-  /* ── Notebook canvas: actual micro-text ──────────────── */
+  /* ── Draw notebook pages ─────────────────────────────── */
   function drawNotebook(text) {
     nCtx.clearRect(0, 0, NB_W, NB_H);
-    var PW = 112, PH = 158, GAP = 6, MG = 8, GS = 5;
+    var PW = 143, PH = 200, GAP = 8, MG = 10, GS = 5;
     var ox = (NB_W - (PW * 2 + GAP)) / 2, oy = (NB_H - PH) / 2;
     var ink = 'rgba(26,22,18,';
     for (var p = 0; p < 2; p++) {
       var px = ox + p * (PW + GAP);
-      nCtx.fillStyle = ink+'0.06)'; nCtx.fillRect(px+2, oy+3, PW, PH);
+      nCtx.fillStyle = ink+'0.07)'; nCtx.fillRect(px+2, oy+3, PW, PH);
       nCtx.fillStyle = p === 0 ? '#F1E7CE' : '#FAF3E3'; nCtx.fillRect(px, oy, PW, PH);
       nCtx.strokeStyle = ink+'0.15)'; nCtx.lineWidth = 0.6; nCtx.strokeRect(px, oy, PW, PH);
       var ix = px+MG, iy = oy+MG, iW = PW-MG*2, iH = PH-MG*2;
       nCtx.strokeStyle = ink+'0.08)'; nCtx.lineWidth = 0.35;
-      for (var gy = 0; gy <= iH; gy += GS) { nCtx.beginPath(); nCtx.moveTo(ix,iy+gy); nCtx.lineTo(ix+iW,iy+gy); nCtx.stroke(); }
-      for (var gx = 0; gx <= iW; gx += GS) { nCtx.beginPath(); nCtx.moveTo(ix+gx,iy); nCtx.lineTo(ix+gx,iy+iH); nCtx.stroke(); }
+      for (var gy = 0; gy <= iH; gy += GS) {
+        nCtx.beginPath(); nCtx.moveTo(ix, iy+gy); nCtx.lineTo(ix+iW, iy+gy); nCtx.stroke();
+      }
+      for (var gx = 0; gx <= iW; gx += GS) {
+        nCtx.beginPath(); nCtx.moveTo(ix+gx, iy); nCtx.lineTo(ix+gx, iy+iH); nCtx.stroke();
+      }
       if (p === 0 && text && text.trim()) {
         nCtx.save();
         nCtx.beginPath(); nCtx.rect(ix, iy, iW, iH); nCtx.clip();
-        nCtx.font = '400 5.5px "Space Grotesk", sans-serif';
-        nCtx.fillStyle = ink+'0.52)';
-        var wds = text.replace(/\n/g,' ').split(' '), mx = 0, my = 0;
+        nCtx.font = '400 5.8px "Space Grotesk", sans-serif';
+        nCtx.fillStyle = ink+'0.6)';
+        var wds = text.replace(/\n/g, ' ').split(' '), mx = 0, my = 0;
         for (var wi = 0; wi < wds.length; wi++) {
           var wd = wds[wi]; if (!wd) continue;
           var ww = nCtx.measureText(wd+' ').width;
@@ -3106,83 +3043,174 @@
     nCtx.beginPath(); nCtx.moveTo(ox+PW+GAP, oy+4); nCtx.lineTo(ox+PW+GAP, oy+PH-4); nCtx.stroke();
   }
 
-  /* ── Main update ─────────────────────────────────────── */
-  var TOTAL    = 1536;
-  var statNums = { lines: 1, thoughts: 1536, pages: 63 };
-  var statTw   = null;
-
-  function update() {
-    var text    = textarea.value;
-    var display = text.slice(0, CHAR_CAP);
-    var cw      = Math.max(100, reflowEl.clientWidth - RPAD_X * 2);
-    var prevLen = widePos.length;
-
-    widePos = display.trim() ? placeChars(display, cw) : [];
-    narrPos = display.trim() ? placeChars(display, Math.round(cw * 0.56)) : [];
-
-    ensureSpans(widePos.length);
-
-    var bpct = breath.pct;
-    for (var i = 0; i < widePos.length; i++) {
-      spans[i].textContent = widePos[i].ch;
-      var wp = widePos[i], np = narrPos[i];
-      var tx = wp.x + (np.x - wp.x) * bpct;
-      var ty = wp.y + (np.y - wp.y) * bpct;
-      if (i < prevLen) {
-        gsap.to(spans[i], { x: tx, y: ty, opacity: 1, scale: 1, duration: 0.22, ease: 'power2.out', overwrite: 'auto' });
-      } else {
-        var diff = widePos.length - prevLen;
-        gsap.fromTo(spans[i],
-          { x: tx, y: ty - 14, opacity: 0, scale: 0.4 },
-          { x: tx, y: ty, opacity: 1, scale: 1, duration: 0.2, overwrite: 'auto',
-            delay: diff <= 12 ? (i - prevLen) * 0.024 : 0, ease: 'back.out(1.7)' }
-        );
+  /* ── Count lines using textarea's computed font ──────── */
+  function countLines(text) {
+    var cs   = window.getComputedStyle(textarea);
+    var padX = (parseFloat(cs.paddingLeft)||0) + (parseFloat(cs.paddingRight)||0);
+    var maxW = Math.max(80, textarea.clientWidth - padX);
+    mCtx.font = cs.font || '400 18px Fraunces, serif';
+    var paras = text.split('\n'), total = 0;
+    for (var pi = 0; pi < paras.length; pi++) {
+      if (!paras[pi].trim()) { total++; continue; }
+      var words = paras[pi].split(' '), line = '';
+      for (var wi2 = 0; wi2 < words.length; wi2++) {
+        var test = line ? line + ' ' + words[wi2] : words[wi2];
+        if (mCtx.measureText(test).width > maxW && line) { total++; line = words[wi2]; } else line = test;
       }
+      if (line) total++;
     }
-
-    refreshHeight();
-
-    /* Cursor + empty state */
-    var empty = !display.trim();
-    reflowEl.classList.toggle('pt-reflow--empty', empty);
-    if (cursorEl) cursorEl.style.display = empty ? '' : 'none';
-
-    /* Pause breathing while typing, resume after 900ms idle */
-    isTyping = true;
-    clearTimeout(typingTmr);
-    typingTmr = setTimeout(function () { isTyping = false; }, 900);
-
-    /* Stats */
-    var L        = text.trim() ? countStats(text) : 1;
-    var thoughts = Math.max(1, Math.floor(TOTAL / L));
-    var pages    = Math.max(0, 64 - Math.ceil(L / 24));
-    if (statTw) statTw.kill();
-    statTw = gsap.to(statNums, {
-      lines: L, thoughts: thoughts, pages: pages, duration: 0.55, ease: 'power2.out',
-      onUpdate: function () {
-        elLines.textContent    = Math.round(statNums.lines).toLocaleString();
-        elThoughts.textContent = Math.round(statNums.thoughts).toLocaleString();
-        elPages.textContent    = Math.round(statNums.pages).toLocaleString();
-      }
-    });
-
-    /* Notebook: actual text at micro scale */
-    drawNotebook(text);
+    return Math.max(1, total);
   }
 
-  /* ── Breathing: continuous reflow animation ──────────── */
-  gsap.to(breath, {
-    pct: 1, duration: 2.8, ease: 'sine.inOut',
-    yoyo: true, repeat: -1, repeatDelay: 1.8,
-    onUpdate: function () {
-      if (!isTyping && widePos.length > 0) applyBreath(breath.pct);
+  /* ── Measure char positions in textarea space ────────── */
+  function placeChars(text) {
+    var cs   = window.getComputedStyle(textarea);
+    var padL = parseFloat(cs.paddingLeft) || 0;
+    var padT = parseFloat(cs.paddingTop) || 14;
+    var fs   = parseFloat(cs.fontSize) || 18;
+    var lhRaw= cs.lineHeight;
+    var lh   = (lhRaw === 'normal' || !lhRaw) ? fs * 1.7 : parseFloat(lhRaw);
+    var maxW = Math.max(80, textarea.clientWidth - padL - (parseFloat(cs.paddingRight)||0));
+    mCtx.font = cs.font || ('400 ' + fs + 'px Fraunces, serif');
+    var result = [], cx = 0, lineY = 0;
+    var words  = text.replace(/\n+/g, ' ').split(' ');
+    for (var wi = 0; wi < words.length; wi++) {
+      var word = words[wi]; if (!word) continue;
+      var tok  = word + (wi < words.length - 1 ? ' ' : '');
+      var tokW = mCtx.measureText(tok).width;
+      if (cx + tokW > maxW && cx > 0) { cx = 0; lineY += lh; }
+      for (var ci = 0; ci < tok.length; ci++) {
+        var cw = mCtx.measureText(tok[ci]).width;
+        result.push({ ch: tok[ci], x: cx + padL, y: lineY + padT });
+        cx += cw;
+      }
     }
+    return result;
+  }
+
+  /* ── Commit: scatter → fall ──────────────────────────── */
+  function commitThought() {
+    var text = textarea.value.trim();
+    if (!text) { textarea.focus(); return; }
+
+    drawNotebook(text);
+    gsap.set(nbCanvas, { opacity: 0 });
+
+    var L        = countLines(text);
+    var thoughts = Math.max(1, Math.floor(1536 / L));
+    var pages    = Math.max(0, 64 - Math.ceil(L / 24));
+
+    var animText = text.length > 200 ? text.slice(0, 200) : text;
+    var chars    = placeChars(animText);
+    var taRect   = textarea.getBoundingClientRect();
+
+    var layer = document.createElement('div');
+    layer.className = 'pt-flight';
+    document.body.appendChild(layer);
+
+    var flightSpans = chars.map(function(pos) {
+      var span = document.createElement('span');
+      span.className = 'pt-char';
+      span.textContent = pos.ch;
+      layer.appendChild(span);
+      gsap.set(span, { x: taRect.left + pos.x, y: taRect.top + pos.y });
+      return span;
+    });
+
+    var offsets = flightSpans.map(function() {
+      var a = Math.random() * Math.PI * 2;
+      var d = 50 + Math.random() * 110;
+      return { dx: Math.cos(a) * d, dy: Math.sin(a) * d - 20, rot: (Math.random() - 0.5) * 65 };
+    });
+
+    gsap.set(textarea, { opacity: 0 });
+    gsap.to('#ptStage1 .pt-controls', { opacity: 0, y: -6, duration: 0.22 });
+
+    /* Scatter */
+    gsap.to(flightSpans, {
+      x: function(i) { return taRect.left + chars[i].x + offsets[i].dx; },
+      y: function(i) { return taRect.top  + chars[i].y + offsets[i].dy; },
+      rotation: function(i) { return offsets[i].rot; },
+      duration: 0.38,
+      ease: 'power2.out',
+      stagger: { each: 0.003, from: 'random' },
+    });
+
+    /* After scatter: swap stages, then fall */
+    setTimeout(function() {
+      stage1.style.display = 'none';
+      stage2.classList.remove('pt-stage--hidden');
+      var statsCol   = stage2.querySelector('.pt-stats-col');
+      var resetBtnEl = stage2.querySelector('.pt-reset');
+      gsap.set([stage2, statsCol, resetBtnEl], { opacity: 0 });
+      gsap.set([statsCol, resetBtnEl], { y: 14 });
+
+      requestAnimationFrame(function() {
+        var nbR  = nbCanvas.getBoundingClientRect();
+        var nbCX = nbR.left + nbR.width * 0.28;
+        var nbCY = nbR.top  + nbR.height * 0.5;
+
+        /* Fall into notebook */
+        gsap.to(flightSpans, {
+          x: function() { return nbCX + (Math.random() - 0.5) * 28; },
+          y: function() { return nbCY + (Math.random() - 0.5) * 28; },
+          scale: 0.06,
+          opacity: 0,
+          rotation: 0,
+          duration: 0.48,
+          ease: 'power3.in',
+          stagger: { each: 0.006, from: 'start' },
+        });
+
+        gsap.to(stage2, { opacity: 1, duration: 0.3, delay: 0.05 });
+        gsap.to(nbCanvas, { opacity: 1, duration: 0.55, delay: 0.22 });
+        gsap.to(statsCol,  { opacity: 1, y: 0, duration: 0.5, delay: 0.55 });
+
+        var nums = { lines: 0, thoughts: 0, pages: 0 };
+        gsap.to(nums, {
+          lines: L, thoughts: thoughts, pages: pages,
+          duration: 1.0, ease: 'power2.out', delay: 0.6,
+          onUpdate: function() {
+            elLines.textContent    = Math.round(nums.lines).toLocaleString();
+            elThoughts.textContent = Math.round(nums.thoughts).toLocaleString();
+            elPages.textContent    = Math.round(nums.pages).toLocaleString();
+          }
+        });
+
+        gsap.to(resetBtnEl, { opacity: 1, y: 0, duration: 0.4, delay: 1.2 });
+
+        setTimeout(function() {
+          if (layer.parentNode) layer.parentNode.removeChild(layer);
+        }, 2400);
+      });
+    }, 480);
+  }
+
+  /* ── Reset ───────────────────────────────────────────── */
+  function resetStage() {
+    stage2.classList.add('pt-stage--hidden');
+    stage1.style.display = '';
+    gsap.set(stage1, { opacity: 1 });
+    gsap.set('#ptStage1 .pt-controls', { opacity: 1, y: 0 });
+    gsap.set(textarea, { opacity: 1 });
+    textarea.value = '';
+    textarea.focus();
+    elLines.textContent = '—';
+    elThoughts.textContent = '—';
+    elPages.textContent = '—';
+    drawNotebook('');
+  }
+
+  /* ── Event listeners ─────────────────────────────────── */
+  textarea.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); commitThought(); }
   });
+  submitBtn.addEventListener('click', commitThought);
+  if (resetBtn) resetBtn.addEventListener('click', resetStage);
 
   /* ── Init ────────────────────────────────────────────── */
   drawNotebook('');
-  textarea.addEventListener('input', update);
-  window.addEventListener('resize', function () { if (textarea.value.trim()) update(); });
+  gsap.set(nbCanvas, { opacity: 0 });
 })();
 </script>
 
