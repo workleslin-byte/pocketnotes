@@ -1051,7 +1051,7 @@
   }
   .science-layout {
     display: grid;
-    grid-template-columns: 45fr 55fr;
+    grid-template-columns: 55fr 45fr;
     max-width: var(--max);
     margin: 0 auto;
   }
@@ -1063,8 +1063,8 @@
     padding-bottom: 20vh;
   }
   .science-step {
-    max-width: 480px;
-    opacity: 0.32;
+    max-width: 600px;
+    opacity: 0.28;
     transition: opacity 0.75s var(--ease);
   }
   .science-step.active { opacity: 1; }
@@ -1079,11 +1079,21 @@
     display: block;
   }
   .step-body {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(1.1rem, 1.7vw, 1.35rem);
-    line-height: 1.75;
-    color: var(--ink-soft);
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-size: clamp(1.7rem, 2.6vw, 2.1rem);
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    color: rgba(26,22,18,0.12);
   }
+  .fill-line {
+    display: block;
+    color: rgba(26,22,18,0.12);
+    transition: color 0.55s var(--ease);
+    margin-bottom: 0.1em;
+  }
+  .fill-line.filled { color: var(--ink); }
   .science-sticky {
     position: sticky;
     top: 0;
@@ -1111,7 +1121,7 @@
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
     transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
     pointer-events: none;
   }
@@ -1119,6 +1129,12 @@
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
+  }
+  .science-stat.exiting {
+    opacity: 0;
+    transform: translateY(-24px);
+    transition: opacity 0.42s var(--ease), transform 0.42s var(--ease);
+    pointer-events: none;
   }
   .sci-num {
     font-family: 'Fraunces', serif;
@@ -1682,6 +1698,7 @@
     }
     .science-display { position: relative; height: 220px; }
     .science-steps { padding: 3rem 20px; gap: 3rem; padding-bottom: 3rem; }
+    .step-body { font-size: clamp(1.3rem, 5.5vw, 1.65rem); }
     .sci-num { font-size: clamp(4rem, 18vw, 7rem); }
 
     .thinkers-header { grid-template-columns: 1fr; gap: 1rem; padding: 0 20px 2.5rem; }
@@ -1910,22 +1927,41 @@
 
       <div class="science-step active" data-step="0">
         <span class="step-source">Neuroscience · avg. human brain</span>
-        <p class="step-body step-reveal">Your mind generates roughly 70,000 thoughts between waking and sleeping. Most never get written. Most never get used. Most disappear without trace.</p>
+        <p class="step-body">
+          <span class="fill-line">Your mind generates roughly 70,000 thoughts between waking and sleeping.</span>
+          <span class="fill-line">Most never get written.</span>
+          <span class="fill-line">Most never get used.</span>
+          <span class="fill-line">Most disappear without trace.</span>
+        </p>
       </div>
 
       <div class="science-step" data-step="1">
         <span class="step-source">Peterson &amp; Peterson, 1959</span>
-        <p class="step-body step-reveal">Short-term memory lasts 30 seconds without active rehearsal. A thought arrives. Another arrives. The first is already gone before you reach a pen.</p>
+        <p class="step-body">
+          <span class="fill-line">Short-term memory lasts 30 seconds without active rehearsal.</span>
+          <span class="fill-line">A thought arrives. Another arrives.</span>
+          <span class="fill-line">The first is already gone before you reach a pen.</span>
+        </p>
       </div>
 
       <div class="science-step" data-step="2">
         <span class="step-source">George Miller, 1956</span>
-        <p class="step-body step-reveal">Working memory holds four items at once. One notification. One ambient worry. One half-finished sentence. Full capacity. Your ideas compete for the last slot.</p>
+        <p class="step-body">
+          <span class="fill-line">Working memory holds four items at once.</span>
+          <span class="fill-line">One notification. One ambient worry. One half-finished sentence.</span>
+          <span class="fill-line">Full capacity.</span>
+          <span class="fill-line">Your ideas compete for the last slot.</span>
+        </p>
       </div>
 
       <div class="science-step" data-step="3">
         <span class="step-source">Cognitive psychology, consensus</span>
-        <p class="step-body step-reveal">After a single interruption, the thought you were building does not return. Not in reduced form. Not later. The only reliable capture mechanism is writing it down the moment it appears.</p>
+        <p class="step-body">
+          <span class="fill-line">After a single interruption, the thought you were building does not return.</span>
+          <span class="fill-line">Not in reduced form. Not later.</span>
+          <span class="fill-line">The only reliable capture mechanism</span>
+          <span class="fill-line">is writing it down the moment it appears.</span>
+        </p>
       </div>
 
     </div>
@@ -2447,10 +2483,18 @@
         if (e.isIntersecting) {
           var idx = parseInt(e.target.dataset.step, 10);
           sciSteps.forEach(function(s) { s.classList.remove('active'); });
-          sciStats.forEach(function(s) { s.classList.remove('active'); });
+          sciStats.forEach(function(s) {
+            if (s.classList.contains('active')) {
+              s.classList.add('exiting');
+              s.classList.remove('active');
+              setTimeout(function() { s.classList.remove('exiting'); }, 480);
+            } else {
+              s.classList.remove('exiting');
+            }
+          });
           e.target.classList.add('active');
           var stat = document.querySelector('.science-stat[data-idx="' + idx + '"]');
-          if (stat) stat.classList.add('active');
+          if (stat) requestAnimationFrame(function() { stat.classList.add('active'); });
         }
       });
     }, { threshold: 0.3, rootMargin: '-10% 0px -10% 0px' });
@@ -2458,7 +2502,20 @@
     sciSteps.forEach(function(step) { stepIO.observe(step); });
   }
 
-  /* Text reveal handled by .science-step.active opacity transition — no JS needed */
+  /* Fill-line per-phrase scroll reveal with haptics */
+  var fillLines = document.querySelectorAll('.fill-line');
+  if (fillLines.length) {
+    var fillIO = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('filled');
+          if (navigator.vibrate) navigator.vibrate(8);
+          fillIO.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5, rootMargin: '-15% 0px -35% 0px' });
+    fillLines.forEach(function(el) { fillIO.observe(el); });
+  }
 
 })();
 </script>
