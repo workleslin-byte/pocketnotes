@@ -1827,14 +1827,13 @@
 
   /* Stage 2: results layout */
   .pt-result-layout {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 4rem;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
     margin-top: 2.5rem;
   }
-  .pt-nb-wrap { display: flex; flex-direction: column; gap: 0.5rem; }
-  #ptNotebook { display: block; border-radius: 4px; }
+  .pt-nb-wrap { display: flex; flex-direction: column; gap: 0.55rem; }
+  #ptNotebook { display: block; border-radius: 6px; max-width: 100%; }
   .pt-notebook-label {
     font-size: 0.76rem;
     color: rgba(26,22,18,0.38);
@@ -1842,15 +1841,20 @@
     text-transform: uppercase;
     font-family: 'Space Grotesk', sans-serif;
   }
-  .pt-result-right {
+  .pt-result-meta {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    min-height: 228px;
+    align-items: flex-end;
+    flex-wrap: wrap;
     gap: 2rem;
   }
-  .pt-stats-col { display: flex; flex-direction: column; gap: 1.8rem; }
-  .pt-stat      { display: flex; flex-direction: column; gap: 0.15rem; }
+  .pt-stats-row {
+    display: flex;
+    gap: 4rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .pt-stat  { display: flex; flex-direction: column; gap: 0.15rem; }
   .pt-num {
     font-family: 'Fraunces', serif;
     font-weight: 900;
@@ -1859,7 +1863,7 @@
     line-height: 1;
     font-variant-numeric: tabular-nums;
   }
-  .pt-stat--hero .pt-num { font-size: clamp(2.8rem, 4.5vw, 4rem); }
+  .pt-stat--hero .pt-num { font-size: clamp(2.8rem, 4.5vw, 4rem); color: var(--coral); }
   .pt-stat-label {
     font-size: 0.78rem;
     color: rgba(26,22,18,0.5);
@@ -1903,8 +1907,8 @@
   }
 
   @media (max-width: 768px) {
-    .pt-result-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-    .pt-result-right  { min-height: auto; }
+    .pt-stats-row     { gap: 2rem; }
+    .pt-result-meta   { flex-direction: column; align-items: flex-start; }
     .pt-controls      { flex-direction: column; align-items: flex-start; gap: 1rem; }
     .pt-stat--hero .pt-num { font-size: clamp(2.4rem, 7vw, 3.2rem); }
   }
@@ -2495,19 +2499,13 @@
 
     <!-- Stage 2: results (revealed after animation) -->
     <div class="pt-stage pt-stage--hidden" id="ptStage2">
-      <div class="section-head">
-        <div>
-          <p class="section-label"><b>Here it lives.</b></p>
-          <h2 class="section-title">Now do the<br><em>math.</em></h2>
-        </div>
-      </div>
       <div class="pt-result-layout">
         <div class="pt-nb-wrap">
           <canvas id="ptNotebook" aria-hidden="true"></canvas>
           <p class="pt-notebook-label">A6 · 64 pages · 5 mm grid</p>
         </div>
-        <div class="pt-result-right">
-          <div class="pt-stats-col">
+        <div class="pt-result-meta">
+          <div class="pt-stats-row">
             <div class="pt-stat">
               <span class="pt-num" id="ptLines">—</span>
               <span class="pt-stat-label">lines this thought takes</span>
@@ -2995,52 +2993,61 @@
   var nbCanvas  = document.getElementById('ptNotebook');
   if (!stage1 || !textarea || !nbCanvas || typeof gsap === 'undefined') return;
 
-  /* ── Canvas setup ────────────────────────────────────── */
+  /* ── Canvas setup (resized dynamically on commit) ───────── */
   var DPR  = Math.min(window.devicePixelRatio || 1, 2);
-  var NB_W = 320, NB_H = 228;
+  var NB_W = 700, NB_H = 280;
   nbCanvas.width  = NB_W * DPR; nbCanvas.height = NB_H * DPR;
   nbCanvas.style.width = NB_W + 'px'; nbCanvas.style.height = NB_H + 'px';
   var nCtx = nbCanvas.getContext('2d'); nCtx.scale(DPR, DPR);
   var mCtx = document.createElement('canvas').getContext('2d');
 
-  /* ── Draw notebook pages ─────────────────────────────── */
+  /* ── Draw single open notebook page ─────────────────── */
   function drawNotebook(text) {
     nCtx.clearRect(0, 0, NB_W, NB_H);
-    var PW = 143, PH = 200, GAP = 8, MG = 10, GS = 5;
-    var ox = (NB_W - (PW * 2 + GAP)) / 2, oy = (NB_H - PH) / 2;
+    var MG  = 16, GS = 8, FS = 13, LH = GS * 2;
+    var PW  = NB_W - MG * 2;
+    var PH  = NB_H - MG * 2;
+    var ox  = MG, oy = MG;
     var ink = 'rgba(26,22,18,';
-    for (var p = 0; p < 2; p++) {
-      var px = ox + p * (PW + GAP);
-      nCtx.fillStyle = ink+'0.07)'; nCtx.fillRect(px+2, oy+3, PW, PH);
-      nCtx.fillStyle = p === 0 ? '#F1E7CE' : '#FAF3E3'; nCtx.fillRect(px, oy, PW, PH);
-      nCtx.strokeStyle = ink+'0.15)'; nCtx.lineWidth = 0.6; nCtx.strokeRect(px, oy, PW, PH);
-      var ix = px+MG, iy = oy+MG, iW = PW-MG*2, iH = PH-MG*2;
-      nCtx.strokeStyle = ink+'0.08)'; nCtx.lineWidth = 0.35;
-      for (var gy = 0; gy <= iH; gy += GS) {
-        nCtx.beginPath(); nCtx.moveTo(ix, iy+gy); nCtx.lineTo(ix+iW, iy+gy); nCtx.stroke();
-      }
-      for (var gx = 0; gx <= iW; gx += GS) {
-        nCtx.beginPath(); nCtx.moveTo(ix+gx, iy); nCtx.lineTo(ix+gx, iy+iH); nCtx.stroke();
-      }
-      if (p === 0 && text && text.trim()) {
-        nCtx.save();
-        nCtx.beginPath(); nCtx.rect(ix, iy, iW, iH); nCtx.clip();
-        nCtx.font = '400 5.8px "Space Grotesk", sans-serif';
-        nCtx.fillStyle = ink+'0.6)';
-        var wds = text.replace(/\n/g, ' ').split(' '), mx = 0, my = 0;
-        for (var wi = 0; wi < wds.length; wi++) {
-          var wd = wds[wi]; if (!wd) continue;
-          var ww = nCtx.measureText(wd+' ').width;
-          if (mx + ww > iW && mx > 0) { mx = 0; my += GS; }
-          if (my + GS > iH) break;
-          nCtx.fillText(wd+' ', ix+mx, iy+my+GS-0.5); mx += ww;
-        }
-        nCtx.restore();
-      }
+
+    /* Shadow */
+    nCtx.fillStyle = ink+'0.07)'; nCtx.fillRect(ox+3, oy+4, PW, PH);
+
+    /* Page */
+    nCtx.fillStyle = '#F1E7CE'; nCtx.fillRect(ox, oy, PW, PH);
+    nCtx.strokeStyle = ink+'0.16)'; nCtx.lineWidth = 0.8; nCtx.strokeRect(ox, oy, PW, PH);
+
+    /* Red ruling line (brand coral, left margin) */
+    var bx = ox + 52;
+    nCtx.strokeStyle = 'rgba(255,107,71,0.25)'; nCtx.lineWidth = 1.2;
+    nCtx.beginPath(); nCtx.moveTo(bx, oy+10); nCtx.lineTo(bx, oy+PH-10); nCtx.stroke();
+
+    /* Grid */
+    var ix = ox+MG, iy = oy+MG, iW = PW-MG*2, iH = PH-MG*2;
+    nCtx.strokeStyle = ink+'0.09)'; nCtx.lineWidth = 0.4;
+    for (var gy = 0; gy <= iH; gy += GS) {
+      nCtx.beginPath(); nCtx.moveTo(ix, iy+gy); nCtx.lineTo(ix+iW, iy+gy); nCtx.stroke();
     }
-    nCtx.strokeStyle = ink+'0.18)'; nCtx.lineWidth = 0.8;
-    nCtx.beginPath(); nCtx.moveTo(ox+PW, oy+4); nCtx.lineTo(ox+PW, oy+PH-4); nCtx.stroke();
-    nCtx.beginPath(); nCtx.moveTo(ox+PW+GAP, oy+4); nCtx.lineTo(ox+PW+GAP, oy+PH-4); nCtx.stroke();
+    for (var gx = 0; gx <= iW; gx += GS) {
+      nCtx.beginPath(); nCtx.moveTo(ix+gx, iy); nCtx.lineTo(ix+gx, iy+iH); nCtx.stroke();
+    }
+
+    /* Text */
+    if (text && text.trim()) {
+      nCtx.save();
+      nCtx.beginPath(); nCtx.rect(ix, iy, iW, iH); nCtx.clip();
+      nCtx.font = 'italic 400 ' + FS + 'px "Fraunces", serif';
+      nCtx.fillStyle = ink+'0.78)';
+      var words = text.replace(/\n/g, ' ').split(' '), mx = 0, my = 0;
+      for (var wi = 0; wi < words.length; wi++) {
+        var wd = words[wi]; if (!wd) continue;
+        var ww = nCtx.measureText(wd+' ').width;
+        if (mx + ww > iW && mx > 0) { mx = 0; my += LH; }
+        if (my + LH > iH) break;
+        nCtx.fillText(wd+' ', ix+mx, iy+my+FS+2); mx += ww;
+      }
+      nCtx.restore();
+    }
   }
 
   /* ── Count lines using textarea's computed font ──────── */
@@ -3093,16 +3100,15 @@
     var text = textarea.value.trim();
     if (!text) { textarea.focus(); return; }
 
-    drawNotebook(text);
-    gsap.set(nbCanvas, { opacity: 0 });
-
     var L        = countLines(text);
     var thoughts = Math.max(1, Math.floor(1536 / L));
     var pages    = Math.max(0, 64 - Math.ceil(L / 24));
 
-    var animText = text.length > 200 ? text.slice(0, 200) : text;
-    var chars    = placeChars(animText);
-    var taRect   = textarea.getBoundingClientRect();
+    var animText    = text.length > 200 ? text.slice(0, 200) : text;
+    var chars       = placeChars(animText);
+    var taRect      = textarea.getBoundingClientRect();
+    var statsRow    = stage2.querySelector('.pt-stats-row');
+    var resetBtnEl  = stage2.querySelector('.pt-reset');
 
     var layer = document.createElement('div');
     layer.className = 'pt-flight';
@@ -3136,40 +3142,45 @@
       stagger: { each: 0.003, from: 'random' },
     });
 
-    /* After scatter: swap stages, then fall */
     setTimeout(function() {
       stage1.style.display = 'none';
       stage2.classList.remove('pt-stage--hidden');
-      var statsCol   = stage2.querySelector('.pt-stats-col');
-      var resetBtnEl = stage2.querySelector('.pt-reset');
-      gsap.set([stage2, statsCol, resetBtnEl], { opacity: 0 });
-      gsap.set([statsCol, resetBtnEl], { y: 14 });
+      gsap.set([stage2, statsRow, resetBtnEl], { opacity: 0 });
+      gsap.set([statsRow, resetBtnEl], { y: 14 });
 
       requestAnimationFrame(function() {
+        /* Resize canvas to fill its container at render time */
+        var w = nbCanvas.parentElement.clientWidth || 700;
+        var h = Math.max(200, Math.min(Math.round(w * 0.30), 320));
+        NB_W = w; NB_H = h;
+        nbCanvas.width  = w * DPR; nbCanvas.height = h * DPR;
+        nbCanvas.style.width = w + 'px'; nbCanvas.style.height = h + 'px';
+        nCtx.setTransform(1, 0, 0, 1, 0, 0); nCtx.scale(DPR, DPR);
+        gsap.set(nbCanvas, { opacity: 0 });
+        drawNotebook(text);
+
         var nbR  = nbCanvas.getBoundingClientRect();
-        var nbCX = nbR.left + nbR.width * 0.28;
+        var nbCX = nbR.left + nbR.width  * 0.5;
         var nbCY = nbR.top  + nbR.height * 0.5;
 
-        /* Fall into notebook */
+        /* Fall */
         gsap.to(flightSpans, {
-          x: function() { return nbCX + (Math.random() - 0.5) * 28; },
-          y: function() { return nbCY + (Math.random() - 0.5) * 28; },
-          scale: 0.06,
-          opacity: 0,
-          rotation: 0,
-          duration: 0.48,
-          ease: 'power3.in',
+          x: function() { return nbCX + (Math.random() - 0.5) * 40; },
+          y: function() { return nbCY + (Math.random() - 0.5) * 40; },
+          scale: 0.06, opacity: 0, rotation: 0,
+          duration: 0.48, ease: 'power3.in',
           stagger: { each: 0.006, from: 'start' },
         });
 
-        gsap.to(stage2, { opacity: 1, duration: 0.3, delay: 0.05 });
-        gsap.to(nbCanvas, { opacity: 1, duration: 0.55, delay: 0.22 });
-        gsap.to(statsCol,  { opacity: 1, y: 0, duration: 0.5, delay: 0.55 });
+        gsap.to(stage2,   { opacity: 1, duration: 0.35, delay: 0.05 });
+        gsap.to(nbCanvas, { opacity: 1, duration: 0.55, delay: 0.25 });
+        gsap.to(statsRow, { opacity: 1, y: 0, duration: 0.5, delay: 0.55 });
 
+        /* Count up with spring overshoot */
         var nums = { lines: 0, thoughts: 0, pages: 0 };
         gsap.to(nums, {
           lines: L, thoughts: thoughts, pages: pages,
-          duration: 1.0, ease: 'power2.out', delay: 0.6,
+          duration: 1.1, ease: 'back.out(2)', delay: 0.6,
           onUpdate: function() {
             elLines.textContent    = Math.round(nums.lines).toLocaleString();
             elThoughts.textContent = Math.round(nums.thoughts).toLocaleString();
@@ -3177,11 +3188,11 @@
           }
         });
 
-        gsap.to(resetBtnEl, { opacity: 1, y: 0, duration: 0.4, delay: 1.2 });
+        gsap.to(resetBtnEl, { opacity: 1, y: 0, duration: 0.4, delay: 1.4 });
 
         setTimeout(function() {
           if (layer.parentNode) layer.parentNode.removeChild(layer);
-        }, 2400);
+        }, 2600);
       });
     }, 480);
   }
@@ -3198,7 +3209,6 @@
     elLines.textContent = '—';
     elThoughts.textContent = '—';
     elPages.textContent = '—';
-    drawNotebook('');
   }
 
   /* ── Event listeners ─────────────────────────────────── */
