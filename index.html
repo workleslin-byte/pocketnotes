@@ -951,14 +951,14 @@
 
   /* ─── PHASE 3 — BRAND BOOK ALIGNED ────────────────── */
 
-  /* Act 1 — Hook: dark, direct, no stationery */
+  /* Act 1 — Hook: bone, direct, confrontational */
   .act-hook {
-    background: var(--ink);
+    background: var(--bone);
     min-height: 100vh;
     display: flex;
     align-items: center;
     padding: 9rem var(--gut) 7rem;
-    border-bottom: 1px solid rgba(250,243,227,0.15);
+    border-bottom: 1px solid rgba(26,22,18,0.1);
     position: relative;
     overflow: hidden;
   }
@@ -966,7 +966,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 70% 55% at 85% 42%, rgba(245,193,61,0.12) 0%, transparent 65%);
+    background: radial-gradient(ellipse 60% 50% at 88% 40%, rgba(245,193,61,0.08) 0%, transparent 65%);
     pointer-events: none;
   }
   .act-inner {
@@ -981,7 +981,7 @@
     font-size: clamp(3.2rem, 7vw, 7rem);
     line-height: 0.9;
     letter-spacing: -0.04em;
-    color: var(--cream);
+    color: var(--ink);
     max-width: 780px;
     margin-bottom: 4rem;
   }
@@ -995,9 +995,9 @@
     font-size: 0.72rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(250,243,227,0.42);
+    color: var(--ink-soft);
     background: transparent;
-    border: 1px solid rgba(250,243,227,0.16);
+    border: 1px solid rgba(26,22,18,0.22);
     border-radius: 999px;
     padding: 0.75rem 1.75rem;
     cursor: none;
@@ -1005,9 +1005,9 @@
   }
   .choice-btn.selected,
   .choice-btn:hover {
-    background: var(--cream);
-    color: var(--ink);
-    border-color: var(--cream);
+    background: var(--ink);
+    color: var(--cream);
+    border-color: var(--ink);
   }
   .hook-cue {
     margin-top: 4rem;
@@ -1028,13 +1028,13 @@
     font-size: 9px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(250,243,227,0.3);
+    color: rgba(26,22,18,0.38);
   }
   .hook-cue-arrow {
     width: 20px;
     height: 20px;
-    border-right: 1.5px solid rgba(250,243,227,0.25);
-    border-bottom: 1.5px solid rgba(250,243,227,0.25);
+    border-right: 1.5px solid rgba(26,22,18,0.28);
+    border-bottom: 1.5px solid rgba(26,22,18,0.28);
     transform: rotate(45deg);
     animation: hookBounce 1.4s var(--ease) infinite;
   }
@@ -1059,8 +1059,8 @@
     padding: 8rem var(--gut) 8rem;
     display: flex;
     flex-direction: column;
-    gap: 30vh;
-    padding-bottom: 45vh;
+    gap: 20vh;
+    padding-bottom: 20vh;
   }
   .science-step {
     max-width: 480px;
@@ -1596,7 +1596,7 @@
     margin-bottom: 1.1rem;
   }
   .step-reveal {
-    clip-path: inset(0 0 calc((1 - var(--reveal, 0)) * 100%) 0);
+    /* clip-path removed — opacity transition on .active handles reveal cleanly */
   }
   .sci-num.text {
     font-size: clamp(2.8rem, 6.5vw, 6rem);
@@ -1620,6 +1620,51 @@
   .science-stat.active .sci-mark svg { opacity: 0.16; }
   .sci-num, .sci-label, .sci-unit { position: relative; z-index: 1; }
 
+  /* Act 5 — Spec list */
+  .format-specs { padding-top: 0.5rem; }
+  .spec-list { list-style: none; border-top: 1.5px solid rgba(26,22,18,0.12); }
+  .spec-item {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 1.5rem;
+    padding: 1.35rem 0;
+    border-bottom: 1px solid rgba(26,22,18,0.07);
+    align-items: start;
+  }
+  .spec-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.38;
+    padding-top: 0.3rem;
+    grid-row: 1;
+    grid-column: 1;
+  }
+  .spec-val {
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--ink);
+    grid-row: 1;
+    grid-column: 2;
+  }
+  .spec-note {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    opacity: 0.5;
+    grid-row: 2;
+    grid-column: 2;
+    margin-top: 0.25rem;
+  }
+
   /* Mobile */
   @media (max-width: 768px) {
     .act-hook { padding: 5rem 20px 4rem; min-height: auto; }
@@ -1632,7 +1677,7 @@
       height: auto;
       min-height: 220px;
       border-left: none;
-      border-bottom: 1px solid rgba(250,243,227,0.08);
+      border-bottom: 1px solid rgba(26,22,18,0.1);
       padding: 3rem 20px;
     }
     .science-display { position: relative; height: 220px; }
@@ -2115,20 +2160,35 @@
       </div>
     </div>
     <div class="format-right reveal">
-      <div class="format-photo">
-        <img src="/assets/images/IMG_7393.JPG" alt="Pocket Notes A6 notebooks" loading="lazy">
-      </div>
-      <div class="timeline-block">
-        <span class="timeline-label">Every generation. Same format.</span>
-        <div class="timeline">
-          <div class="tl-row"><span class="tl-year">1487</span><span class="tl-name">Leonardo da Vinci</span></div>
-          <div class="tl-row"><span class="tl-year">1664</span><span class="tl-name">Isaac Newton</span></div>
-          <div class="tl-row"><span class="tl-year">1831</span><span class="tl-name">Charles Darwin</span></div>
-          <div class="tl-row"><span class="tl-year">1855</span><span class="tl-name">Mark Twain</span></div>
-          <div class="tl-row"><span class="tl-year">1871</span><span class="tl-name">Thomas Edison</span></div>
-          <div class="tl-row"><span class="tl-year">1915</span><span class="tl-name">Virginia Woolf</span></div>
-          <div class="tl-row tl-highlight"><span class="tl-year">2026</span><span class="tl-name">Pocket Notes</span></div>
-        </div>
+      <div class="format-specs">
+        <span class="format-spec-label">What's inside</span>
+        <ul class="spec-list">
+          <li class="spec-item">
+            <span class="spec-name">Size</span>
+            <span class="spec-val">A6 · 105 × 148 mm</span>
+            <span class="spec-note">Pocket, not bag. Carried, not filed.</span>
+          </li>
+          <li class="spec-item">
+            <span class="spec-name">Pages</span>
+            <span class="spec-val">64 · lay-flat</span>
+            <span class="spec-note">Enough to fill. Stapled open — no spine fighting back.</span>
+          </li>
+          <li class="spec-item">
+            <span class="spec-name">Grid</span>
+            <span class="spec-val">5 mm squares</span>
+            <span class="spec-note">Holds text and sketches without deciding for you.</span>
+          </li>
+          <li class="spec-item">
+            <span class="spec-name">Paper</span>
+            <span class="spec-val">100 gsm · fountain-pen safe</span>
+            <span class="spec-note">Ink stays. Ghosting doesn't.</span>
+          </li>
+          <li class="spec-item">
+            <span class="spec-name">Series</span>
+            <span class="spec-val">Founder's 500 · Flow Series</span>
+            <span class="spec-note">₹249 each · free shipping on both.</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -2398,22 +2458,7 @@
     sciSteps.forEach(function(step) { stepIO.observe(step); });
   }
 
-  /* Scroll-linked clip-path text reveal */
-  var revealEls = document.querySelectorAll('.step-reveal');
-  if (revealEls.length) {
-    function updateTextReveal() {
-      var vh = window.innerHeight;
-      revealEls.forEach(function(el) {
-        var rect = el.getBoundingClientRect();
-        var start = vh * 0.82;
-        var end   = vh * 0.12;
-        var p = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
-        el.style.setProperty('--reveal', p.toFixed(3));
-      });
-    }
-    window.addEventListener('scroll', updateTextReveal, { passive: true });
-    updateTextReveal();
-  }
+  /* Text reveal handled by .science-step.active opacity transition — no JS needed */
 
 })();
 </script>
