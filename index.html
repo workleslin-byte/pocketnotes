@@ -1827,13 +1827,14 @@
 
   /* Stage 2: results layout */
   .pt-result-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4rem;
+    align-items: start;
     margin-top: 2.5rem;
   }
   .pt-nb-wrap { display: flex; flex-direction: column; gap: 0.55rem; }
-  #ptNotebook { display: block; border-radius: 6px; max-width: 100%; }
+  #ptNotebook { display: block; border-radius: 3px; max-width: 100%; aspect-ratio: 500 / 360; }
   .pt-notebook-label {
     font-size: 0.76rem;
     color: rgba(26,22,18,0.38);
@@ -1843,16 +1844,15 @@
   }
   .pt-result-meta {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
+    min-height: 308px;
     gap: 2rem;
   }
   .pt-stats-row {
     display: flex;
-    gap: 4rem;
-    align-items: flex-start;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 1.8rem;
   }
   .pt-stat  { display: flex; flex-direction: column; gap: 0.15rem; }
   .pt-num {
@@ -1907,8 +1907,8 @@
   }
 
   @media (max-width: 768px) {
-    .pt-stats-row     { gap: 2rem; }
-    .pt-result-meta   { flex-direction: column; align-items: flex-start; }
+    .pt-result-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .pt-result-meta   { min-height: auto; }
     .pt-controls      { flex-direction: column; align-items: flex-start; gap: 1rem; }
     .pt-stat--hero .pt-num { font-size: clamp(2.4rem, 7vw, 3.2rem); }
   }
@@ -2993,61 +2993,61 @@
   var nbCanvas  = document.getElementById('ptNotebook');
   if (!stage1 || !textarea || !nbCanvas || typeof gsap === 'undefined') return;
 
-  /* ── Canvas setup (resized dynamically on commit) ───────── */
+  /* ── Canvas setup ────────────────────────────────────── */
   var DPR  = Math.min(window.devicePixelRatio || 1, 2);
-  var NB_W = 700, NB_H = 280;
+  var NB_W = 500, NB_H = 360;
   nbCanvas.width  = NB_W * DPR; nbCanvas.height = NB_H * DPR;
   nbCanvas.style.width = NB_W + 'px'; nbCanvas.style.height = NB_H + 'px';
   var nCtx = nbCanvas.getContext('2d'); nCtx.scale(DPR, DPR);
   var mCtx = document.createElement('canvas').getContext('2d');
 
-  /* ── Draw single open notebook page ─────────────────── */
+  /* ── Draw open A6 pocket notebook (two pages) ───────── */
   function drawNotebook(text) {
     nCtx.clearRect(0, 0, NB_W, NB_H);
-    var MG  = 16, GS = 8, FS = 13, LH = GS * 2;
-    var PW  = NB_W - MG * 2;
-    var PH  = NB_H - MG * 2;
-    var ox  = MG, oy = MG;
+    /* A6 ratio = 105/148 = 0.709; pages at 218×308 = 0.708 ✓ */
+    var PW = 218, PH = 308, GAP = 8, MG = 12, GS = 7;
+    var ox = (NB_W - (PW * 2 + GAP)) / 2; /* = 28 */
+    var oy = (NB_H - PH) / 2;              /* = 26 */
     var ink = 'rgba(26,22,18,';
 
-    /* Shadow */
-    nCtx.fillStyle = ink+'0.07)'; nCtx.fillRect(ox+3, oy+4, PW, PH);
-
-    /* Page */
-    nCtx.fillStyle = '#F1E7CE'; nCtx.fillRect(ox, oy, PW, PH);
-    nCtx.strokeStyle = ink+'0.16)'; nCtx.lineWidth = 0.8; nCtx.strokeRect(ox, oy, PW, PH);
-
-    /* Red ruling line (brand coral, left margin) */
-    var bx = ox + 52;
-    nCtx.strokeStyle = 'rgba(255,107,71,0.25)'; nCtx.lineWidth = 1.2;
-    nCtx.beginPath(); nCtx.moveTo(bx, oy+10); nCtx.lineTo(bx, oy+PH-10); nCtx.stroke();
-
-    /* Grid */
-    var ix = ox+MG, iy = oy+MG, iW = PW-MG*2, iH = PH-MG*2;
-    nCtx.strokeStyle = ink+'0.09)'; nCtx.lineWidth = 0.4;
-    for (var gy = 0; gy <= iH; gy += GS) {
-      nCtx.beginPath(); nCtx.moveTo(ix, iy+gy); nCtx.lineTo(ix+iW, iy+gy); nCtx.stroke();
-    }
-    for (var gx = 0; gx <= iW; gx += GS) {
-      nCtx.beginPath(); nCtx.moveTo(ix+gx, iy); nCtx.lineTo(ix+gx, iy+iH); nCtx.stroke();
-    }
-
-    /* Text */
-    if (text && text.trim()) {
-      nCtx.save();
-      nCtx.beginPath(); nCtx.rect(ix, iy, iW, iH); nCtx.clip();
-      nCtx.font = 'italic 400 ' + FS + 'px "Fraunces", serif';
-      nCtx.fillStyle = ink+'0.78)';
-      var words = text.replace(/\n/g, ' ').split(' '), mx = 0, my = 0;
-      for (var wi = 0; wi < words.length; wi++) {
-        var wd = words[wi]; if (!wd) continue;
-        var ww = nCtx.measureText(wd+' ').width;
-        if (mx + ww > iW && mx > 0) { mx = 0; my += LH; }
-        if (my + LH > iH) break;
-        nCtx.fillText(wd+' ', ix+mx, iy+my+FS+2); mx += ww;
+    for (var p = 0; p < 2; p++) {
+      var px = ox + p * (PW + GAP);
+      /* Shadow */
+      nCtx.fillStyle = ink+'0.07)'; nCtx.fillRect(px+2, oy+3, PW, PH);
+      /* Page fill */
+      nCtx.fillStyle = p === 0 ? '#F1E7CE' : '#FAF3E3'; nCtx.fillRect(px, oy, PW, PH);
+      /* Border */
+      nCtx.strokeStyle = ink+'0.14)'; nCtx.lineWidth = 0.6; nCtx.strokeRect(px, oy, PW, PH);
+      /* Grid */
+      var ix = px+MG, iy = oy+MG, iW = PW-MG*2, iH = PH-MG*2;
+      nCtx.strokeStyle = ink+'0.08)'; nCtx.lineWidth = 0.35;
+      for (var gy = 0; gy <= iH; gy += GS) {
+        nCtx.beginPath(); nCtx.moveTo(ix, iy+gy); nCtx.lineTo(ix+iW, iy+gy); nCtx.stroke();
       }
-      nCtx.restore();
+      for (var gx = 0; gx <= iW; gx += GS) {
+        nCtx.beginPath(); nCtx.moveTo(ix+gx, iy); nCtx.lineTo(ix+gx, iy+iH); nCtx.stroke();
+      }
+      /* Text on left page only */
+      if (p === 0 && text && text.trim()) {
+        nCtx.save();
+        nCtx.beginPath(); nCtx.rect(ix, iy, iW, iH); nCtx.clip();
+        nCtx.font = 'italic 400 10px "Fraunces", serif';
+        nCtx.fillStyle = ink+'0.75)';
+        var LH = 16, words = text.replace(/\n/g, ' ').split(' '), mx = 0, my = 0;
+        for (var wi = 0; wi < words.length; wi++) {
+          var wd = words[wi]; if (!wd) continue;
+          var ww = nCtx.measureText(wd+' ').width;
+          if (mx + ww > iW && mx > 0) { mx = 0; my += LH; }
+          if (my + LH > iH) break;
+          nCtx.fillText(wd+' ', ix+mx, iy+my+12); mx += ww;
+        }
+        nCtx.restore();
+      }
     }
+    /* Spine */
+    nCtx.strokeStyle = ink+'0.18)'; nCtx.lineWidth = 0.8;
+    nCtx.beginPath(); nCtx.moveTo(ox+PW, oy+4); nCtx.lineTo(ox+PW, oy+PH-4); nCtx.stroke();
+    nCtx.beginPath(); nCtx.moveTo(ox+PW+GAP, oy+4); nCtx.lineTo(ox+PW+GAP, oy+PH-4); nCtx.stroke();
   }
 
   /* ── Count lines using textarea's computed font ──────── */
@@ -3149,18 +3149,12 @@
       gsap.set([statsRow, resetBtnEl], { y: 14 });
 
       requestAnimationFrame(function() {
-        /* Resize canvas to fill its container at render time */
-        var w = nbCanvas.parentElement.clientWidth || 700;
-        var h = Math.max(200, Math.min(Math.round(w * 0.30), 320));
-        NB_W = w; NB_H = h;
-        nbCanvas.width  = w * DPR; nbCanvas.height = h * DPR;
-        nbCanvas.style.width = w + 'px'; nbCanvas.style.height = h + 'px';
-        nCtx.setTransform(1, 0, 0, 1, 0, 0); nCtx.scale(DPR, DPR);
         gsap.set(nbCanvas, { opacity: 0 });
         drawNotebook(text);
 
         var nbR  = nbCanvas.getBoundingClientRect();
-        var nbCX = nbR.left + nbR.width  * 0.5;
+        /* Aim at left page centre: ox=28, PW=218 → x_ratio = (28+109)/500 = 0.274 */
+        var nbCX = nbR.left + nbR.width  * 0.274;
         var nbCY = nbR.top  + nbR.height * 0.5;
 
         /* Fall */
