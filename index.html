@@ -1099,24 +1099,56 @@
     background: var(--paper);
     border-left: 1px solid rgba(26,22,18,0.12);
   }
-  .sci-mark { display: none; }
-  .sci-secondary { display: none; }
-  .sci-visual { display: none; }
   .science-stat {
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
+    align-items: center;
     border: 1px solid rgba(26,22,18,0.10);
     border-radius: 3px;
-    padding: 1.75rem;
+    padding: 2rem 1.75rem;
+  }
+  .sci-mark {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .sci-mark svg { width: 100%; height: 100%; }
+  .sci-secondary {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    opacity: 0.65;
+    max-width: 26ch;
+    text-align: center;
+    margin-top: 1.25rem;
+    position: relative;
+    z-index: 1;
+  }
+  .sci-visual {
+    margin-top: 1.5rem;
+    width: 100%;
+    max-width: 280px;
+    position: relative;
+    z-index: 1;
   }
   .sci-num {
     font-family: 'Fraunces', serif;
     font-optical-sizing: auto;
     font-weight: 900;
-    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-size: clamp(3.5rem, 10vw, 9rem);
     line-height: 0.85;
     letter-spacing: -0.04em;
     color: var(--ink);
+    position: relative;
+    z-index: 1;
   }
   .sci-num.zero { color: var(--coral); }
   .sci-unit {
@@ -1132,8 +1164,12 @@
     text-transform: uppercase;
     color: var(--ink-soft);
     opacity: 0.5;
-    margin-top: 0.85rem;
+    margin-top: 1.75rem;
+    text-align: center;
+    max-width: 220px;
     line-height: 1.8;
+    position: relative;
+    z-index: 1;
   }
   .sci-source-line {
     font-family: 'DM Mono', monospace;
@@ -1142,18 +1178,24 @@
     text-transform: uppercase;
     color: var(--ink-soft);
     opacity: 0.3;
-    margin-top: 0.75rem;
+    margin-top: 1rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
   }
   .sci-reframe {
     font-family: 'Fraunces', serif;
     font-style: italic;
     font-weight: 400;
-    font-size: clamp(0.88rem, 1.2vw, 1rem);
-    line-height: 1.45;
+    font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+    line-height: 1.4;
     color: var(--ink-soft);
-    margin-top: 1.1rem;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(26,22,18,0.08);
+    opacity: 0.7;
+    max-width: 22ch;
+    text-align: center;
+    margin-top: 1rem;
+    position: relative;
+    z-index: 1;
   }
 
   /* Act 3 — Thinkers: cream section, editorial list */
@@ -1637,7 +1679,7 @@
     }
     .science-steps { padding: 3rem 20px; gap: 3rem; }
     .step-body { font-size: clamp(1.3rem, 5.5vw, 1.65rem); }
-    .sci-num { font-size: clamp(2.2rem, 10vw, 3.5rem); }
+    .sci-num { font-size: clamp(2.8rem, 14vw, 5rem); }
 
     .thinkers-header { grid-template-columns: 1fr; gap: 1rem; padding: 0 20px 2.5rem; }
     .thinker-list { padding: 0 20px; }
@@ -2086,24 +2128,71 @@
     <div class="science-right">
 
       <div class="science-stat reveal" data-idx="0">
+        <div class="sci-mark" aria-hidden="true">
+          <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="160" cy="160" r="70" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.5" stroke-dasharray="3 6"/>
+            <circle cx="160" cy="160" r="110" fill="none" stroke="rgba(26,22,18,0.08)" stroke-width="1" stroke-dasharray="2 9"/>
+            <circle cx="160" cy="160" r="148" fill="none" stroke="rgba(26,22,18,0.05)" stroke-width="0.7" stroke-dasharray="1 13"/>
+          </svg>
+        </div>
         <div class="sci-num">70,000</div>
         <div class="sci-label">thoughts · per day</div>
-        <span class="sci-source-line">Neuroscience · avg. human brain · est. 70,000/day</span>
-        <p class="sci-reframe">The mind produces more than it can hold. Researchers estimate fewer than 1% are captured in any form.</p>
+        <p class="sci-secondary">Researchers estimate fewer than 1% are captured in any form.</p>
+        <svg class="sci-visual" viewBox="0 0 280 48" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="16" width="280" height="16" rx="2" fill="rgba(26,22,18,0.06)"/>
+          <rect x="0" y="16" width="2.8" height="16" rx="2" fill="var(--mustard)"/>
+          <text x="0" y="44" font-family="DM Mono, monospace" font-size="8" fill="rgba(26,22,18,0.3)" letter-spacing="1">1% captured</text>
+          <text x="220" y="44" font-family="DM Mono, monospace" font-size="8" fill="rgba(26,22,18,0.3)" letter-spacing="1">99% lost</text>
+        </svg>
+        <span class="sci-source-line">Neuroscience · avg. human brain · est. 70,000 thoughts/day</span>
+        <p class="sci-reframe">The mind produces more than it can hold.</p>
       </div>
 
       <div class="science-stat reveal" data-idx="1">
+        <div class="sci-mark" aria-hidden="true">
+          <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+            <path d="M160 55 A105 105 0 0 1 265 160" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.5" stroke-dasharray="3 6"/>
+            <path d="M160 45 A115 115 0 0 1 275 160" fill="none" stroke="rgba(26,22,18,0.07)" stroke-width="0.8" stroke-dasharray="2 10"/>
+            <circle cx="160" cy="160" r="5" fill="rgba(26,22,18,0.2)"/>
+          </svg>
+        </div>
         <div class="sci-num">30<span class="sci-unit">s</span></div>
         <div class="sci-label">short-term memory · without rehearsal</div>
+        <p class="sci-secondary">A new thought arrives every 1.2 seconds on average. Most displace the previous one.</p>
+        <svg class="sci-visual" viewBox="0 0 280 60" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="30" x2="280" y2="30" stroke="rgba(26,22,18,0.08)" stroke-width="1"/>
+          <rect x="0" y="20" width="30" height="20" rx="2" fill="var(--mustard)" opacity="0.9"/>
+          <text x="35" y="34" font-family="DM Mono, monospace" font-size="8" fill="rgba(26,22,18,0.35)" letter-spacing="1">30s window</text>
+          <text x="0" y="52" font-family="DM Mono, monospace" font-size="8" fill="rgba(26,22,18,0.25)" letter-spacing="1">then gone</text>
+        </svg>
         <span class="sci-source-line">Peterson &amp; Peterson · 1959 · Journal of Experimental Psychology</span>
-        <p class="sci-reframe">Not laziness. Physics. A new thought arrives every 1.2 seconds — most displace the previous one.</p>
+        <p class="sci-reframe">Not laziness. Physics.</p>
       </div>
 
       <div class="science-stat reveal" data-idx="2">
+        <div class="sci-mark" aria-hidden="true">
+          <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+            <rect x="100" y="100" width="52" height="52" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.2" stroke-dasharray="3 5"/>
+            <rect x="168" y="100" width="52" height="52" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.2" stroke-dasharray="3 5"/>
+            <rect x="100" y="168" width="52" height="52" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.2" stroke-dasharray="3 5"/>
+            <rect x="168" y="168" width="52" height="52" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.2" stroke-dasharray="3 5"/>
+          </svg>
+        </div>
         <div class="sci-num">4</div>
         <div class="sci-label">items · working memory capacity</div>
-        <span class="sci-source-line">George Miller · 1956 · Psychological Review</span>
-        <p class="sci-reframe">Your idea is competing for the last slot. One notification drops effective capacity to 2–3.</p>
+        <p class="sci-secondary">One phone notification drops effective capacity to 2-3 items. The thought in slot 4 is the first to go.</p>
+        <svg class="sci-visual" viewBox="0 0 280 40" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="8" width="60" height="24" rx="3" fill="var(--mustard)" opacity="0.85"/>
+          <rect x="68" y="8" width="60" height="24" rx="3" fill="var(--mustard)" opacity="0.85"/>
+          <rect x="136" y="8" width="60" height="24" rx="3" fill="var(--mustard)" opacity="0.85"/>
+          <rect x="204" y="8" width="60" height="24" rx="3" fill="rgba(26,22,18,0.06)" stroke="rgba(26,22,18,0.15)" stroke-width="1"/>
+          <text x="30" y="24" font-family="DM Mono, monospace" font-size="9" fill="#1A1612" text-anchor="middle">1</text>
+          <text x="98" y="24" font-family="DM Mono, monospace" font-size="9" fill="#1A1612" text-anchor="middle">2</text>
+          <text x="166" y="24" font-family="DM Mono, monospace" font-size="9" fill="#1A1612" text-anchor="middle">3</text>
+          <text x="234" y="24" font-family="DM Mono, monospace" font-size="9" fill="rgba(26,22,18,0.2)" text-anchor="middle">4</text>
+        </svg>
+        <span class="sci-source-line">George Miller · 1956 · Psychological Review · "The magical number seven"</span>
+        <p class="sci-reframe">Your idea is competing for the last slot.</p>
       </div>
 
     </div>
@@ -2230,8 +2319,8 @@
   <div class="format-layout">
     <div class="format-left reveal">
       <p class="section-label">The format</p>
-      <h2 class="format-h">The notebook he carried was smaller than your hand.</h2>
-      <p class="format-body">Da Vinci's notebooks were 3.5 by 2.5 inches. Smaller than most phones today. The constraint was the point. Small enough that there was no excuse not to carry it. This size has not changed because the problem has not changed.</p>
+      <h2 class="format-h">All of them. Smaller than your hand.</h2>
+      <p class="format-body">Da Vinci's notebook was 3.5 by 2.5 inches. Newton's. Darwin's. Edison's. Smaller than most phones today. The constraint was the point. Small enough that there was no excuse not to carry it. This size has not changed because the problem has not changed.</p>
       <span class="format-spec-label">A6 · 105 x 148 mm · actual proportion</span>
       <div class="nb-diagram">
         <div class="nb-body">
@@ -2254,7 +2343,7 @@
           <li class="spec-item">
             <span class="spec-name">Pages</span>
             <span class="spec-val">64 · lay-flat</span>
-            <span class="spec-note">Enough to fill. Stapled open — no spine fighting back.</span>
+            <span class="spec-note">Enough to fill. Stapled open, no spine fighting back.</span>
           </li>
           <li class="spec-item">
             <span class="spec-name">Grid</span>
