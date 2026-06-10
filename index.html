@@ -1756,6 +1756,81 @@
   @media (min-width: 769px) { .float { display: none; } }
   /* Lenis: neutralise native smooth-scroll so they don't fight */
   html.lenis-smooth { scroll-behavior: auto !important; }
+
+  /* ─── POCKET TEST ──────────────────────────────────── */
+  .pocket-test {
+    padding: 8rem var(--gut);
+    background: var(--bone);
+    position: relative;
+  }
+  .pt-layout {
+    display: grid;
+    grid-template-columns: 55fr 45fr;
+    gap: 5rem;
+    align-items: start;
+    margin-top: 3.5rem;
+  }
+  .pt-textarea {
+    width: 100%;
+    min-height: 16rem;
+    resize: none;
+    border: 1.5px solid rgba(26,22,18,0.18);
+    border-radius: 6px;
+    background: var(--paper);
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.05rem, 1.3vw, 1.15rem);
+    font-weight: 400;
+    color: var(--ink);
+    padding: 1.4rem 1.6rem;
+    line-height: 1.75;
+    outline: none;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    box-sizing: border-box;
+    display: block;
+  }
+  .pt-textarea::placeholder { color: rgba(26,22,18,0.32); font-style: italic; }
+  .pt-textarea:focus {
+    border-color: rgba(26,22,18,0.45);
+    box-shadow: 0 0 0 3px rgba(26,22,18,0.05);
+  }
+  .pt-hint {
+    margin-top: 0.8rem;
+    font-size: 0.82rem;
+    color: rgba(26,22,18,0.42);
+    letter-spacing: 0.01em;
+  }
+  .pt-right { display: flex; flex-direction: column; gap: 2.5rem; }
+  .pt-stats { display: flex; flex-direction: column; gap: 1.6rem; }
+  .pt-stat  { display: flex; flex-direction: column; gap: 0.15rem; }
+  .pt-num {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    color: var(--ink);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .pt-stat--hero .pt-num { font-size: clamp(2.8rem, 4.5vw, 4rem); }
+  .pt-stat-label {
+    font-size: 0.78rem;
+    color: rgba(26,22,18,0.5);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .pt-notebook-wrap { display: flex; flex-direction: column; gap: 0.5rem; }
+  #ptNotebook { width: 100%; height: auto; border-radius: 3px; display: block; }
+  .pt-notebook-label {
+    font-size: 0.76rem;
+    color: rgba(26,22,18,0.38);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  @media (max-width: 768px) {
+    .pt-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .pt-stat--hero .pt-num { font-size: clamp(2.4rem, 7vw, 3.2rem); }
+  }
 </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYV54KY1F1"></script>
@@ -2314,6 +2389,54 @@
 </section>
 
 
+<!-- ─── POCKET TEST ─────────────────────────────── -->
+<section class="pocket-test">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <div>
+        <p class="section-label"><b>The pocket test</b></p>
+        <h2 class="section-title">Type a thought.<br><em>Watch it multiply.</em></h2>
+      </div>
+      <p class="section-aside">A thought takes 1–3 lines. A pocket notebook holds 64 pages. You do the math.</p>
+    </div>
+
+    <div class="pt-layout">
+      <div class="pt-left">
+        <textarea
+          id="ptTextarea"
+          class="pt-textarea"
+          placeholder="A stray idea. A meeting note. The sentence you've been meaning to write down…"
+          maxlength="600"
+        ></textarea>
+        <p class="pt-hint">Try writing a full paragraph — the notebook might surprise you.</p>
+      </div>
+
+      <div class="pt-right">
+        <div class="pt-stats">
+          <div class="pt-stat">
+            <span class="pt-num" id="ptLines">1</span>
+            <span class="pt-stat-label">line in a pocket page</span>
+          </div>
+          <div class="pt-stat pt-stat--hero">
+            <span class="pt-num" id="ptThoughts">1,536</span>
+            <span class="pt-stat-label">thoughts like yours fit in 64 pages</span>
+          </div>
+          <div class="pt-stat">
+            <span class="pt-num" id="ptPages">63</span>
+            <span class="pt-stat-label">pages still waiting</span>
+          </div>
+        </div>
+
+        <div class="pt-notebook-wrap">
+          <canvas id="ptNotebook" aria-hidden="true"></canvas>
+          <p class="pt-notebook-label">PocketNotes A6 · 64 pages · 5 mm grid</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- ─── CTA STRIP ──────────────────────────────── -->
 <section class="strip" id="contact">
   <div class="strip-deco" aria-hidden="true">
@@ -2762,6 +2885,139 @@
     scrollTrigger: { trigger: '.strip', start: 'top 78%', once: true },
   });
 
+})();
+</script>
+
+<script>
+/* ─── POCKET TEST: Fill Your Notebook ─────────────────────── */
+;(function () {
+  var textarea   = document.getElementById('ptTextarea');
+  var elLines    = document.getElementById('ptLines');
+  var elThoughts = document.getElementById('ptThoughts');
+  var elPages    = document.getElementById('ptPages');
+  var nbCanvas   = document.getElementById('ptNotebook');
+  if (!textarea || !nbCanvas) return;
+
+  /* Canvas — DPR-scaled for crisp grid lines */
+  var DPR = Math.min(window.devicePixelRatio || 1, 2);
+  var NB_W = 260, NB_H = 185;
+  nbCanvas.width  = NB_W * DPR;
+  nbCanvas.height = NB_H * DPR;
+  nbCanvas.style.width  = NB_W + 'px';
+  nbCanvas.style.height = NB_H + 'px';
+  var ctx = nbCanvas.getContext('2d');
+  ctx.scale(DPR, DPR);
+
+  /* Stable pseudo-random line widths — avoids per-frame jitter */
+  var WIDTHS = Array.from({ length: 60 }, function (_, i) {
+    var s = Math.sin(i * 127.1 + 311.7) * 43758.5453;
+    return 0.50 + (s - Math.floor(s)) * 0.38;
+  });
+
+  /* Draw the open notebook spread */
+  function drawNotebook(filledLines) {
+    ctx.clearRect(0, 0, NB_W, NB_H);
+    var PW = 112, PH = 158, GAP = 6, MG = 9, GS = 5;
+    var ox = (NB_W - (PW * 2 + GAP)) / 2;
+    var oy = (NB_H - PH) / 2;
+    var ink = 'rgba(26,22,18,';
+
+    for (var p = 0; p < 2; p++) {
+      var px = ox + p * (PW + GAP);
+
+      ctx.fillStyle = ink + '0.07)';
+      ctx.fillRect(px + 2, oy + 3, PW, PH);
+
+      ctx.fillStyle = p === 0 ? '#F1E7CE' : '#FAF3E3';
+      ctx.fillRect(px, oy, PW, PH);
+
+      ctx.strokeStyle = ink + '0.16)';
+      ctx.lineWidth = 0.6;
+      ctx.strokeRect(px, oy, PW, PH);
+
+      var ix = px + MG, iy = oy + MG;
+      var iW = PW - MG * 2, iH = PH - MG * 2;
+
+      ctx.strokeStyle = ink + '0.085)';
+      ctx.lineWidth = 0.4;
+      for (var gy = 0; gy <= iH; gy += GS) {
+        ctx.beginPath(); ctx.moveTo(ix, iy + gy); ctx.lineTo(ix + iW, iy + gy); ctx.stroke();
+      }
+      for (var gx = 0; gx <= iW; gx += GS) {
+        ctx.beginPath(); ctx.moveTo(ix + gx, iy); ctx.lineTo(ix + gx, iy + iH); ctx.stroke();
+      }
+
+      if (p === 0) {
+        var maxViz = Math.floor(iH / GS);
+        var show   = Math.min(Math.round(filledLines), maxViz);
+        for (var l = 0; l < show; l++) {
+          var lw = WIDTHS[l % WIDTHS.length] * iW;
+          ctx.fillStyle = ink + '0.30)';
+          ctx.fillRect(ix + 2, iy + l * GS + GS - 1.8, lw, 1.6);
+        }
+      }
+    }
+
+    ctx.strokeStyle = ink + '0.20)';
+    ctx.lineWidth = 0.8;
+    ctx.beginPath(); ctx.moveTo(ox + PW, oy + 4); ctx.lineTo(ox + PW, oy + PH - 4); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(ox + PW + GAP, oy + 4); ctx.lineTo(ox + PW + GAP, oy + PH - 4); ctx.stroke();
+  }
+
+  /* Text measurement — Canvas 2D (pretext-style, zero DOM reflow) */
+  var mCtx = document.createElement('canvas').getContext('2d');
+  function countLines(text) {
+    var cs    = window.getComputedStyle(textarea);
+    var padLR = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+    var maxW  = Math.max(100, textarea.clientWidth - padLR);
+    mCtx.font = cs.font || '400 16px Fraunces, serif';
+
+    var paras = text.split('\n');
+    var total = 0;
+    for (var pi = 0; pi < paras.length; pi++) {
+      var para = paras[pi];
+      if (!para.trim()) { total++; continue; }
+      var words = para.split(' ');
+      var line  = '';
+      for (var wi = 0; wi < words.length; wi++) {
+        var test = line ? line + ' ' + words[wi] : words[wi];
+        if (mCtx.measureText(test).width > maxW && line) {
+          total++;
+          line = words[wi];
+        } else {
+          line = test;
+        }
+      }
+      if (line) total++;
+    }
+    return Math.max(1, total);
+  }
+
+  /* GSAP-animated counters */
+  var TOTAL = 1536; /* 64 pages × 24 lines/page */
+  var nums  = { lines: 1, thoughts: 1536, pages: 63, viz: 0 };
+  var tw    = null;
+
+  function update() {
+    var L        = textarea.value.trim() ? countLines(textarea.value) : 1;
+    var thoughts = Math.max(1, Math.floor(TOTAL / L));
+    var pages    = Math.max(0, 64 - Math.ceil(L / 24));
+    if (tw) tw.kill();
+    tw = gsap.to(nums, {
+      lines: L, thoughts: thoughts, pages: pages, viz: L,
+      duration: 0.55, ease: 'power2.out',
+      onUpdate: function () {
+        elLines.textContent    = Math.round(nums.lines).toLocaleString();
+        elThoughts.textContent = Math.round(nums.thoughts).toLocaleString();
+        elPages.textContent    = Math.round(nums.pages).toLocaleString();
+        drawNotebook(nums.viz);
+      }
+    });
+  }
+
+  drawNotebook(0);
+  textarea.addEventListener('input', update);
+  window.addEventListener('resize', function () { if (textarea.value.trim()) update(); });
 })();
 </script>
 
