@@ -1754,6 +1754,8 @@
   #heroCanvas.ready { opacity: 1; }
   .hero > *:not(#heroCanvas) { position: relative; z-index: 1; }
   @media (min-width: 769px) { .float { display: none; } }
+  /* Lenis: neutralise native smooth-scroll so they don't fight */
+  html.lenis-smooth { scroll-behavior: auto !important; }
 </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYV54KY1F1"></script>
@@ -2701,11 +2703,6 @@
     easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
     smooth: true,
   });
-
-  (function lenisRaf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(lenisRaf);
-  })(performance.now());
 
   /* ─── GSAP + SCROLLTRIGGER ───────────────────────────── */
 
