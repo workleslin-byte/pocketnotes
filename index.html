@@ -1054,20 +1054,17 @@
     grid-template-columns: 55fr 45fr;
     max-width: var(--max);
     margin: 0 auto;
+    align-items: start;
   }
   .science-steps {
-    padding: 8rem var(--gut) 8rem;
+    padding: 8rem var(--gut);
     display: flex;
     flex-direction: column;
-    gap: 20vh;
-    padding-bottom: 20vh;
+    gap: 6rem;
   }
   .science-step {
     max-width: 600px;
-    opacity: 0.28;
-    transition: opacity 0.75s var(--ease);
   }
-  .science-step.active { opacity: 1; }
   .step-source {
     font-family: 'DM Mono', monospace;
     font-size: 9.5px;
@@ -1094,53 +1091,29 @@
     margin-bottom: 0.1em;
   }
   .fill-line.filled { color: var(--ink); }
-  .science-sticky {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--paper);
-    border-left: 1px solid rgba(26,22,18,0.12);
-    overflow: hidden;
-  }
-  .science-display {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .science-stat {
-    position: absolute;
-    inset: 0;
+  .science-right {
+    padding: 22rem 2.5rem 8rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
-    pointer-events: none;
+    gap: 6rem;
+    background: var(--paper);
+    border-left: 1px solid rgba(26,22,18,0.12);
   }
-  .science-stat.active {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  .science-stat.exiting {
-    opacity: 0;
-    transform: translateY(-24px);
-    transition: opacity 0.42s var(--ease), transform 0.42s var(--ease);
-    pointer-events: none;
+  .sci-mark { display: none; }
+  .sci-secondary { display: none; }
+  .sci-visual { display: none; }
+  .science-stat {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(26,22,18,0.10);
+    border-radius: 3px;
+    padding: 1.75rem;
   }
   .sci-num {
     font-family: 'Fraunces', serif;
     font-optical-sizing: auto;
     font-weight: 900;
-    font-size: clamp(5rem, 13vw, 12rem);
+    font-size: clamp(2.8rem, 6vw, 5rem);
     line-height: 0.85;
     letter-spacing: -0.04em;
     color: var(--ink);
@@ -1159,29 +1132,8 @@
     text-transform: uppercase;
     color: var(--ink-soft);
     opacity: 0.5;
-    margin-top: 1.75rem;
-    text-align: center;
-    max-width: 220px;
+    margin-top: 0.85rem;
     line-height: 1.8;
-  }
-  .sci-secondary {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(0.85rem, 1.4vw, 1.05rem);
-    line-height: 1.55;
-    color: var(--ink-soft);
-    opacity: 0.65;
-    max-width: 26ch;
-    text-align: center;
-    margin-top: 1.25rem;
-    position: relative;
-    z-index: 1;
-  }
-  .sci-visual {
-    margin-top: 1.5rem;
-    width: 100%;
-    max-width: 280px;
-    position: relative;
-    z-index: 1;
   }
   .sci-source-line {
     font-family: 'DM Mono', monospace;
@@ -1190,24 +1142,18 @@
     text-transform: uppercase;
     color: var(--ink-soft);
     opacity: 0.3;
-    margin-top: 1rem;
-    text-align: center;
-    position: relative;
-    z-index: 1;
+    margin-top: 0.75rem;
   }
   .sci-reframe {
     font-family: 'Fraunces', serif;
     font-style: italic;
     font-weight: 400;
-    font-size: clamp(0.9rem, 1.3vw, 1.1rem);
-    line-height: 1.4;
+    font-size: clamp(0.88rem, 1.2vw, 1rem);
+    line-height: 1.45;
     color: var(--ink-soft);
-    opacity: 0.7;
-    max-width: 22ch;
-    text-align: center;
-    margin-top: 1rem;
-    position: relative;
-    z-index: 1;
+    margin-top: 1.1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(26,22,18,0.08);
   }
 
   /* Act 3 — Thinkers: cream section, editorial list */
@@ -1580,26 +1526,22 @@
   .tl-highlight .tl-year { opacity: 0.85; color: var(--mustard); }
   .tl-highlight .tl-name { font-weight: 600; }
 
-  /* ── Scrollytelling visual layer ──────────────────── */
+  /* ── Science steps — static two-column layout ──────── */
   .science-steps { counter-reset: sci-step; }
   .science-step {
     counter-increment: sci-step;
-    border-left: 2px solid rgba(26,22,18,0.1);
+    border-left: 2px solid rgba(26,22,18,0.12);
     padding-left: 1.5rem;
-    transition: border-color 0.75s var(--ease), opacity 0.75s var(--ease);
   }
-  .science-step.active { border-left-color: var(--mustard); }
   .science-step::before {
     content: counter(sci-step, decimal-leading-zero);
     display: block;
     font-family: 'DM Mono', monospace;
     font-size: 9px;
     letter-spacing: 0.12em;
-    color: rgba(26,22,18,0.2);
+    color: rgba(26,22,18,0.3);
     margin-bottom: 0.85rem;
-    transition: color 0.5s var(--ease);
   }
-  .science-step.active::before { color: rgba(26,22,18,0.5); }
   .step-name {
     font-family: 'Fraunces', serif;
     font-optical-sizing: auto;
@@ -1687,19 +1629,15 @@
     .act-q { font-size: clamp(2.6rem, 9vw, 4rem); }
 
     .science-layout { display: flex; flex-direction: column; }
-    .science-sticky {
-      order: -1;
-      position: relative;
-      height: auto;
-      min-height: 220px;
+    .science-right {
       border-left: none;
-      border-bottom: 1px solid rgba(26,22,18,0.1);
+      border-top: 1px solid rgba(26,22,18,0.1);
       padding: 3rem 20px;
+      gap: 2rem;
     }
-    .science-display { position: relative; height: 220px; }
-    .science-steps { padding: 3rem 20px; gap: 3rem; padding-bottom: 3rem; }
+    .science-steps { padding: 3rem 20px; gap: 3rem; }
     .step-body { font-size: clamp(1.3rem, 5.5vw, 1.65rem); }
-    .sci-num { font-size: clamp(4rem, 18vw, 7rem); }
+    .sci-num { font-size: clamp(2.2rem, 10vw, 3.5rem); }
 
     .thinkers-header { grid-template-columns: 1fr; gap: 1rem; padding: 0 20px 2.5rem; }
     .thinker-list { padding: 0 20px; }
@@ -2104,7 +2042,7 @@
 
     <div class="science-steps">
 
-      <div class="science-step active" data-step="0">
+      <div class="science-step reveal" data-step="0">
         <span class="step-source">Neuroscience · avg. human brain</span>
         <p class="step-body">
           <span class="fill-line">Your mind generates roughly 70,000 thoughts between waking and sleeping.</span>
@@ -2114,7 +2052,7 @@
         </p>
       </div>
 
-      <div class="science-step" data-step="1">
+      <div class="science-step reveal" data-step="1">
         <span class="step-source">Peterson &amp; Peterson, 1959</span>
         <p class="step-body">
           <span class="fill-line">Short-term memory lasts 30 seconds without active rehearsal.</span>
@@ -2123,7 +2061,7 @@
         </p>
       </div>
 
-      <div class="science-step" data-step="2">
+      <div class="science-step reveal" data-step="2">
         <span class="step-source">George Miller, 1956</span>
         <p class="step-body">
           <span class="fill-line">Working memory holds four items at once.</span>
@@ -2133,7 +2071,7 @@
         </p>
       </div>
 
-      <div class="science-step" data-step="3">
+      <div class="science-step reveal" data-step="3">
         <span class="step-source">Cognitive psychology, consensus</span>
         <p class="step-body">
           <span class="fill-line">After a single interruption, the thought you were building does not return.</span>
@@ -2145,99 +2083,29 @@
 
     </div>
 
-    <div class="science-sticky">
-      <div class="science-display" id="scienceDisplay">
+    <div class="science-right">
 
-        <div class="science-stat active" data-idx="0">
-          <div class="sci-mark" aria-hidden="true">
-            <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="160" cy="160" r="70" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.5" stroke-dasharray="3 6"/>
-              <circle cx="160" cy="160" r="110" fill="none" stroke="rgba(26,22,18,0.08)" stroke-width="1" stroke-dasharray="2 9"/>
-              <circle cx="160" cy="160" r="148" fill="none" stroke="rgba(26,22,18,0.05)" stroke-width="0.7" stroke-dasharray="1 13"/>
-            </svg>
-          </div>
-          <div class="sci-num">70,000</div>
-          <div class="sci-label">thoughts · per day</div>
-          <p class="sci-secondary">Researchers estimate fewer than 1% are captured in any form.</p>
-          <svg class="sci-visual" viewBox="0 0 280 48" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0" y="16" width="280" height="16" rx="2" fill="rgba(26,22,18,0.06)"/>
-            <rect x="0" y="16" width="2.8" height="16" rx="2" fill="var(--mustard)"/>
-            <text x="0" y="44" font-family="DM Mono, monospace" font-size="8" fill="rgba(26,22,18,0.3)" letter-spacing="1">1% captured</text>
-            <text x="220" y="44" font-family="DM Mono, monospace" font-size="8" fill="rgba(26,22,18,0.3)" letter-spacing="1">99% lost</text>
-          </svg>
-          <span class="sci-source-line">Neuroscience · avg. human brain · est. 70,000 thoughts/day</span>
-          <p class="sci-reframe">The mind produces more than it can hold.</p>
-        </div>
-
-        <div class="science-stat" data-idx="1">
-          <div class="sci-mark" aria-hidden="true">
-            <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
-              <path d="M160 55 A105 105 0 0 1 265 160" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.5" stroke-dasharray="3 6"/>
-              <path d="M160 45 A115 115 0 0 1 275 160" fill="none" stroke="rgba(26,22,18,0.07)" stroke-width="0.8" stroke-dasharray="2 10"/>
-              <circle cx="160" cy="160" r="5" fill="rgba(26,22,18,0.2)"/>
-            </svg>
-          </div>
-          <div class="sci-num">30<span class="sci-unit">s</span></div>
-          <div class="sci-label">short-term memory · without rehearsal</div>
-          <p class="sci-secondary">A new thought arrives every 1.2 seconds on average. Most displace the previous one.</p>
-          <svg class="sci-visual" viewBox="0 0 280 60" xmlns="http://www.w3.org/2000/svg">
-            <line x1="0" y1="30" x2="280" y2="30" stroke="rgba(26,22,18,0.08)" stroke-width="1"/>
-            <rect x="0" y="20" width="30" height="20" rx="2" fill="var(--mustard)" opacity="0.9"/>
-            <text x="35" y="34" font-family="DM Mono, monospace" font-size="8" fill="rgba(26,22,18,0.35)" letter-spacing="1">30s window</text>
-            <text x="0" y="52" font-family="DM Mono, monospace" font-size="8" fill="rgba(26,22,18,0.25)" letter-spacing="1">then gone</text>
-          </svg>
-          <span class="sci-source-line">Peterson &amp; Peterson · 1959 · Journal of Experimental Psychology</span>
-          <p class="sci-reframe">Not laziness. Physics.</p>
-        </div>
-
-        <div class="science-stat" data-idx="2">
-          <div class="sci-mark" aria-hidden="true">
-            <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
-              <rect x="100" y="100" width="52" height="52" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.2" stroke-dasharray="3 5"/>
-              <rect x="168" y="100" width="52" height="52" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.2" stroke-dasharray="3 5"/>
-              <rect x="100" y="168" width="52" height="52" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.2" stroke-dasharray="3 5"/>
-              <rect x="168" y="168" width="52" height="52" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.2" stroke-dasharray="3 5"/>
-            </svg>
-          </div>
-          <div class="sci-num">4</div>
-          <div class="sci-label">items · working memory capacity</div>
-          <p class="sci-secondary">One phone notification drops effective capacity to 2–3 items. The thought in slot 4 is the first to go.</p>
-          <svg class="sci-visual" viewBox="0 0 280 40" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0" y="8" width="60" height="24" rx="3" fill="var(--mustard)" opacity="0.85"/>
-            <rect x="68" y="8" width="60" height="24" rx="3" fill="var(--mustard)" opacity="0.85"/>
-            <rect x="136" y="8" width="60" height="24" rx="3" fill="var(--mustard)" opacity="0.85"/>
-            <rect x="204" y="8" width="60" height="24" rx="3" fill="rgba(26,22,18,0.06)" stroke="rgba(26,22,18,0.15)" stroke-width="1"/>
-            <text x="30" y="24" font-family="DM Mono, monospace" font-size="9" fill="#1A1612" text-anchor="middle">1</text>
-            <text x="98" y="24" font-family="DM Mono, monospace" font-size="9" fill="#1A1612" text-anchor="middle">2</text>
-            <text x="166" y="24" font-family="DM Mono, monospace" font-size="9" fill="#1A1612" text-anchor="middle">3</text>
-            <text x="234" y="24" font-family="DM Mono, monospace" font-size="9" fill="rgba(26,22,18,0.2)" text-anchor="middle">4</text>
-          </svg>
-          <span class="sci-source-line">George Miller · 1956 · Psychological Review · "The magical number seven"</span>
-          <p class="sci-reframe">Your idea is competing for the last slot.</p>
-        </div>
-
-        <div class="science-stat" data-idx="3">
-          <div class="sci-mark" aria-hidden="true">
-            <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="160" cy="160" r="95" fill="none" stroke="rgba(26,22,18,0.12)" stroke-width="1.2" stroke-dasharray="3 6"/>
-              <line x1="90" y1="90" x2="230" y2="230" stroke="rgba(26,22,18,0.08)" stroke-width="1" stroke-dasharray="4 6"/>
-              <line x1="230" y1="90" x2="90" y2="230" stroke="rgba(26,22,18,0.08)" stroke-width="1" stroke-dasharray="4 6"/>
-            </svg>
-          </div>
-          <div class="sci-num zero">0</div>
-          <div class="sci-label">thoughts recovered · after interruption</div>
-          <p class="sci-secondary">After a single interruption it takes 23 minutes and 15 seconds on average to return to the original task.</p>
-          <svg class="sci-visual" viewBox="0 0 280 48" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="20" cy="24" r="10" fill="var(--coral)" opacity="0.85"/>
-            <line x1="34" y1="24" x2="260" y2="24" stroke="rgba(26,22,18,0.08)" stroke-width="1" stroke-dasharray="4 4"/>
-            <text x="36" y="20" font-family="DM Mono, monospace" font-size="8" fill="rgba(26,22,18,0.3)" letter-spacing="1">interruption</text>
-            <text x="36" y="34" font-family="DM Mono, monospace" font-size="8" fill="rgba(26,22,18,0.3)" letter-spacing="1">23m 15s to return</text>
-          </svg>
-          <span class="sci-source-line">Gloria Mark · UC Irvine · "The Cost of Interrupted Work" · CHI 2008</span>
-          <p class="sci-reframe">Writing it down takes 4 seconds. Losing it costs 23 minutes.</p>
-        </div>
-
+      <div class="science-stat reveal" data-idx="0">
+        <div class="sci-num">70,000</div>
+        <div class="sci-label">thoughts · per day</div>
+        <span class="sci-source-line">Neuroscience · avg. human brain · est. 70,000/day</span>
+        <p class="sci-reframe">The mind produces more than it can hold. Researchers estimate fewer than 1% are captured in any form.</p>
       </div>
+
+      <div class="science-stat reveal" data-idx="1">
+        <div class="sci-num">30<span class="sci-unit">s</span></div>
+        <div class="sci-label">short-term memory · without rehearsal</div>
+        <span class="sci-source-line">Peterson &amp; Peterson · 1959 · Journal of Experimental Psychology</span>
+        <p class="sci-reframe">Not laziness. Physics. A new thought arrives every 1.2 seconds — most displace the previous one.</p>
+      </div>
+
+      <div class="science-stat reveal" data-idx="2">
+        <div class="sci-num">4</div>
+        <div class="sci-label">items · working memory capacity</div>
+        <span class="sci-source-line">George Miller · 1956 · Psychological Review</span>
+        <p class="sci-reframe">Your idea is competing for the last slot. One notification drops effective capacity to 2–3.</p>
+      </div>
+
     </div>
 
   </div>
@@ -2709,35 +2577,6 @@
       if (cue) cue.classList.add('visible');
     });
   });
-
-  /* Science scrollytelling — step activation */
-  var sciSteps = document.querySelectorAll('.science-step');
-  var sciStats = document.querySelectorAll('.science-stat');
-
-  if (sciSteps.length && sciStats.length) {
-    var stepIO = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (e.isIntersecting) {
-          var idx = parseInt(e.target.dataset.step, 10);
-          sciSteps.forEach(function(s) { s.classList.remove('active'); });
-          sciStats.forEach(function(s) {
-            if (s.classList.contains('active')) {
-              s.classList.add('exiting');
-              s.classList.remove('active');
-              setTimeout(function() { s.classList.remove('exiting'); }, 480);
-            } else {
-              s.classList.remove('exiting');
-            }
-          });
-          e.target.classList.add('active');
-          var stat = document.querySelector('.science-stat[data-idx="' + idx + '"]');
-          if (stat) requestAnimationFrame(function() { stat.classList.add('active'); });
-        }
-      });
-    }, { threshold: 0.3, rootMargin: '-10% 0px -10% 0px' });
-
-    sciSteps.forEach(function(step) { stepIO.observe(step); });
-  }
 
   /* Fill-line per-phrase scroll reveal with haptics */
   var fillLines = document.querySelectorAll('.fill-line');
