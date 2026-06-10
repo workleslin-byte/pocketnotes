@@ -1738,6 +1738,22 @@
     .format-layout { grid-template-columns: 1fr; gap: 3rem; }
     .format-photo img { height: 220px; }
   }
+
+  /* ─── HERO CANVAS ──────────────────────────────────── */
+  #heroCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 1.4s ease;
+    pointer-events: none;
+    display: block;
+  }
+  #heroCanvas.ready { opacity: 1; }
+  .hero > *:not(#heroCanvas) { position: relative; z-index: 1; }
+  @media (min-width: 769px) { .float { display: none; } }
 </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYV54KY1F1"></script>
@@ -1757,6 +1773,10 @@
         capture_pageleave: true
     })
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 </head>
 <body>
 <div id="progressBar" style="position:fixed;top:0;left:0;height:2px;width:0%;background:var(--mustard);z-index:9998;transition:width 0.1s linear;pointer-events:none;"></div>
@@ -1795,6 +1815,7 @@
 
 <!-- ─── HERO ────────────────────────────────────── -->
 <section class="hero">
+  <canvas id="heroCanvas" aria-hidden="true"></canvas>
 
   <!-- Floating SVG illustrations (scaled +40%) -->
   <div class="float float-1" aria-hidden="true">
@@ -2516,6 +2537,233 @@
     }, { threshold: 0.5, rootMargin: '-15% 0px -35% 0px' });
     fillLines.forEach(function(el) { fillIO.observe(el); });
   }
+
+})();
+</script>
+
+<script>
+/* ─── CINEMATIC ENHANCEMENTS (desktop ≥769px only) ───────────── */
+;(function () {
+  'use strict';
+
+  if (window.innerWidth <= 768) return;
+
+  /* ─── THREE.JS: ATMOSPHERIC HERO ─────────────────────────── */
+
+  var canvas = document.getElementById('heroCanvas');
+  if (!canvas || typeof THREE === 'undefined') return;
+
+  var renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+    alpha: true,
+    antialias: false,
+    powerPreference: 'low-power',
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+
+  var scene  = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(
+    60, canvas.offsetWidth / canvas.offsetHeight, 0.1, 100
+  );
+  camera.position.z = 5;
+
+  /* Background: aged-paper grain plane at z=-2 */
+  var bgGeo = new THREE.PlaneGeometry(20, 12);
+  var bgMat = new THREE.ShaderMaterial({
+    uniforms: { uTime: { value: 0 } },
+    vertexShader: [
+      'varying vec2 vUv;',
+      'void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}'
+    ].join(''),
+    fragmentShader: [
+      'uniform float uTime;varying vec2 vUv;',
+      'float rand(vec2 co){return fract(sin(dot(co,vec2(12.9898,78.233)))*43758.5453);}',
+      'void main(){',
+      '  vec3 cream=vec3(0.980,0.953,0.890);',
+      '  vec3 bone=vec3(0.945,0.906,0.808);',
+      '  float vig=smoothstep(0.25,0.82,length(vUv-0.5));',
+      '  float grain=(rand(vUv*600.0)*2.0-1.0);',
+      '  float warmth=sin(uTime*0.08)*0.5+0.5;',
+      '  vec3 col=mix(cream,bone,vig*0.35);',
+      '  col+=grain*0.006;col.r+=warmth*0.003;col.b-=warmth*0.0015;',
+      '  gl_FragColor=vec4(clamp(col,0.0,1.0),1.0);',
+      '}'
+    ].join(''),
+    depthWrite: false,
+  });
+  var bgMesh = new THREE.Mesh(bgGeo, bgMat);
+  bgMesh.position.z = -2;
+  scene.add(bgMesh);
+
+  /* Manuscript texture fragments (very low opacity — pure atmosphere) */
+  var loader = new THREE.TextureLoader();
+  var fragUrls = [
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Arundel_MS_263_f001r.jpg/800px-Arundel_MS_263_f001r.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Darwin_-_On_the_Origin_of_Species%2C_1859_-_CUL-DAR185.10.jpg/591px-Darwin_-_On_the_Origin_of_Species%2C_1859_-_CUL-DAR185.10.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/P._Oxy._I_29.jpg/560px-P._Oxy._I_29.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/NewtonsPrincipia.jpg/800px-NewtonsPrincipia.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/KellsFol032vChristEnthroned.jpg/800px-KellsFol032vChristEnthroned.jpg',
+  ];
+  var fragSizes   = [2.2, 1.8, 2.5, 1.6, 2.0];
+  var fragOpacity = [0.065, 0.055, 0.09, 0.07, 0.060];
+  var fragMeshes  = [];
+
+  fragUrls.forEach(function (url, i) {
+    loader.load(url, function (tex) {
+      var geo = new THREE.PlaneGeometry(fragSizes[i], fragSizes[i] * 0.75);
+      var mat = new THREE.MeshBasicMaterial({
+        map: tex, transparent: true, opacity: fragOpacity[i], depthWrite: false,
+      });
+      var mesh = new THREE.Mesh(geo, mat);
+      mesh.position.set(
+        (Math.random() - 0.5) * 7,
+        (Math.random() - 0.5) * 4,
+        -0.5 - Math.random() * 1.0
+      );
+      mesh.rotation.z = (Math.random() - 0.5) * 0.8;
+      scene.add(mesh);
+      fragMeshes.push({ mesh: mesh, idx: i });
+    }, undefined, function () {});
+  });
+
+  /* 600-particle ink drift system */
+  var PC   = 600;
+  var pPos = new Float32Array(PC * 3);
+  for (var i = 0; i < PC; i++) {
+    pPos[i*3]   = (Math.random()-0.5)*12;
+    pPos[i*3+1] = (Math.random()-0.5)*8;
+    pPos[i*3+2] = (Math.random()-0.5)*1.0;
+  }
+  var pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+  var pMat = new THREE.PointsMaterial({
+    color: new THREE.Color('#1A1612'),
+    size: 0.012, transparent: true, opacity: 0.18, sizeAttenuation: true,
+  });
+  scene.add(new THREE.Points(pGeo, pMat));
+
+  /* Mouse parallax */
+  var mX = 0, mY = 0;
+  document.addEventListener('mousemove', function (e) {
+    mX = (e.clientX / window.innerWidth  - 0.5) * 2;
+    mY = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
+
+  /* Render loop */
+  var tick = 0;
+  (function loop() {
+    requestAnimationFrame(loop);
+    tick += 0.016;
+
+    var arr = pGeo.attributes.position.array;
+    for (var j = 0; j < PC; j++) {
+      arr[j*3]   += Math.sin(tick*0.3 + j*0.5) * 0.0004;
+      arr[j*3+1] += Math.cos(tick*0.2 + j*0.7) * 0.0003;
+      if (arr[j*3]   >  6) arr[j*3]   = -6;
+      if (arr[j*3]   < -6) arr[j*3]   =  6;
+      if (arr[j*3+1] >  4) arr[j*3+1] = -4;
+      if (arr[j*3+1] < -4) arr[j*3+1] =  4;
+    }
+    pGeo.attributes.position.needsUpdate = true;
+
+    fragMeshes.forEach(function (f) {
+      f.mesh.position.x += Math.sin(tick*0.08 + f.idx) * 0.0003;
+      f.mesh.position.y += Math.cos(tick*0.06 + f.idx) * 0.0002;
+    });
+
+    bgMat.uniforms.uTime.value = tick;
+
+    camera.position.x += (mX*0.3 - camera.position.x) * 0.04;
+    camera.position.y += (-mY*0.2 - camera.position.y) * 0.04;
+    camera.lookAt(scene.position);
+
+    scene.position.y = window.scrollY * 0.001;
+
+    renderer.render(scene, camera);
+  })();
+
+  requestAnimationFrame(function () { canvas.classList.add('ready'); });
+
+  window.addEventListener('resize', function () {
+    if (window.innerWidth <= 768) return;
+    camera.aspect = canvas.offsetWidth / canvas.offsetHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+  });
+
+  /* ─── LENIS SMOOTH SCROLL ─────────────────────────────── */
+
+  if (typeof Lenis === 'undefined') return;
+
+  var lenis = new Lenis({
+    duration: 1.2,
+    easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+    smooth: true,
+  });
+
+  (function lenisRaf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(lenisRaf);
+  })(performance.now());
+
+  /* ─── GSAP + SCROLLTRIGGER ───────────────────────────── */
+
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+  gsap.ticker.lagSmoothing(0);
+
+  /* Neutralise CSS reveal system — let GSAP own all scroll reveals */
+  document.querySelectorAll('.reveal').forEach(function (el) {
+    el.style.opacity  = '1';
+    el.style.transform = 'none';
+  });
+
+  /* Hero content stagger */
+  gsap.from(['.hero-eyebrow', '.hero-title', '.hero-meta'], {
+    y: 40, opacity: 0, duration: 1.2, ease: 'power3.out', stagger: 0.18,
+    scrollTrigger: { trigger: '.hero', start: 'top 80%', once: true },
+  });
+
+  /* Products */
+  gsap.from('.product', {
+    y: 60, opacity: 0, scale: 0.97, duration: 1.0, ease: 'power2.out', stagger: 0.12,
+    scrollTrigger: { trigger: '.products', start: 'top 78%', once: true },
+  });
+
+  /* Philosophy items */
+  gsap.from('.philo-item', {
+    x: -30, opacity: 0, duration: 0.9, ease: 'power2.out', stagger: 0.1,
+    scrollTrigger: { trigger: '.philosophy', start: 'top 78%', once: true },
+  });
+
+  /* Thinker rows */
+  gsap.from('.thinker-row', {
+    x: 40, opacity: 0, duration: 0.85, ease: 'power2.out', stagger: 0.08,
+    scrollTrigger: { trigger: '.act-thinkers', start: 'top 78%', once: true },
+  });
+
+  /* Comparison rows */
+  gsap.from('.comp-row', {
+    y: 20, opacity: 0, duration: 0.7, ease: 'power1.out', stagger: 0.06,
+    scrollTrigger: { trigger: '.act-comparison', start: 'top 78%', once: true },
+  });
+
+  /* Posts / essays */
+  gsap.from('.post', {
+    y: 50, opacity: 0, rotation: 1, duration: 0.9, ease: 'power2.out', stagger: 0.1,
+    scrollTrigger: { trigger: '.writing', start: 'top 78%', once: true },
+  });
+
+  /* CTA strip */
+  gsap.from(['.strip-title', '.strip-action'], {
+    y: 30, opacity: 0, duration: 0.8, ease: 'power2.out', stagger: 0.12,
+    scrollTrigger: { trigger: '.strip', start: 'top 78%', once: true },
+  });
 
 })();
 </script>
