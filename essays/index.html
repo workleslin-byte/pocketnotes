@@ -477,14 +477,36 @@
     </a>
 
     <a class="essay-card" href="/essays/notes-as-identity">
-      <div class="essay-thumb" style="background:var(--sage);">
+      <div class="essay-thumb" style="background:#2C2A20;">
         <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
-          <rect width="300" height="225" fill="#8FB89C"/>
-          <circle cx="150" cy="112" r="65" fill="none" stroke="#FAF3E3" stroke-width="2" opacity=".4"/>
-          <circle cx="150" cy="112" r="40" fill="none" stroke="#FAF3E3" stroke-width="1.5" opacity=".3"/>
-          <circle cx="150" cy="112" r="16" fill="#FAF3E3" opacity=".25"/>
-          <line x1="150" y1="47" x2="150" y2="177" stroke="#FAF3E3" stroke-width="1" opacity=".3"/>
-          <line x1="85" y1="112" x2="215" y2="112" stroke="#FAF3E3" stroke-width="1" opacity=".3"/>
+          <!-- ground: deep olive -->
+          <rect width="300" height="225" fill="#2C2A20"/>
+          <!-- trajectory curve: the needle's swing toward north (one hand-drawn curve) -->
+          <path d="M152 116 Q193 84 220 66" fill="none" stroke="#FAF3E3" stroke-width="3" stroke-linecap="round"/>
+          <!-- compass dial (rule-of-thirds: lower-left) -->
+          <circle cx="112" cy="140" r="52" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
+          <!-- cardinal ticks -->
+          <g stroke="#1A1612" stroke-width="3" stroke-linecap="round">
+            <line x1="112" y1="98" x2="112" y2="108"/>
+            <line x1="112" y1="172" x2="112" y2="182"/>
+            <line x1="150" y1="140" x2="160" y2="140"/>
+            <line x1="64" y1="140" x2="74" y2="140"/>
+          </g>
+          <!-- face on the object (it is you) -->
+          <circle cx="100" cy="116" r="3.5" fill="#1A1612"/>
+          <circle cx="124" cy="116" r="3.5" fill="#1A1612"/>
+          <!-- needle drawn as a pencil, pointing up-right to north -->
+          <g transform="rotate(-33 112 140)" stroke="#1A1612" stroke-width="3" stroke-linejoin="round">
+            <rect x="84" y="135" width="9" height="10" rx="2" fill="#F5C13D"/>
+            <rect x="93" y="135" width="49" height="10" rx="1" fill="#6E3582"/>
+            <polygon points="142,135 142,145 158,140" fill="#FAF3E3"/>
+          </g>
+          <!-- pivot: signature dot + ring -->
+          <circle cx="112" cy="140" r="8" fill="none" stroke="#1A1612" stroke-width="3"/>
+          <circle cx="112" cy="140" r="3.5" fill="#F5C13D"/>
+          <!-- north-star: what you were willing to bet on -->
+          <polygon points="232,40 237,53 250,58 237,63 232,76 227,63 214,58 227,53" fill="#F5C13D" stroke="#1A1612" stroke-width="3" stroke-linejoin="round"/>
+          <circle cx="256" cy="44" r="3.5" fill="#FF6B47" stroke="#1A1612" stroke-width="3"/>
         </svg>
       </div>
       <p class="essay-meta"><span class="essay-tag">Method</span> &middot; 4 min read</p>

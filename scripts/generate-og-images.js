@@ -26,6 +26,7 @@ const slugs = [
   'constraint-as-creative-practice',
   'the-first-page-rule',
   'notes-as-identity-the-corebook',
+  'notes-as-identity',
 ]
 
 async function generate() {

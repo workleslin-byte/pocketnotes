@@ -42,6 +42,24 @@ REGENERATE after any SVG edit:
    (requires: npm i puppeteer — it is a dev-only dependency)
 ```
 
+### FORMAT REALITY — verified June 2026 (read before regenerating)
+The deployed `assets/images/og/*.jpg` are **inconsistent** and the generator is **stale**:
+- **Canonical good format** = `the-people-who-write-in-the-margins.jpg`: **1200×630, motif centred on a flat category-colour ground, NO text strip.** Match this.
+- Most other on-disk JPGs are old, tiny, uneven card-screenshots (~357×235, 357×251…). They predate the canonical format.
+- `scripts/generate-og-images.js` outputs a **different** look — a bottom title/category text strip — which does **not** match the canonical deployed image. Running it as-is rebuilds **all 19** slugs into that divergent strip format. Do not run it for a one-essay change until the script is reconciled to the motif-only format.
+
+### Rendering one image without the full script (preferred for single-essay reworks)
+Puppeteer is not required — Windows ships Chromium (Edge/Chrome). Render just the one slug at 1200×630, motif-only:
+```bash
+CHROME="/c/Program Files/Google/Chrome/Application/chrome.exe"   # or msedge.exe
+# Build an HTML: 1200x630, body bg = the ground hex, the <svg viewBox="0 0 300 225"> centred at ~720px wide.
+"$CHROME" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
+  --window-size=1200,630 --screenshot="<abs>/og.png" "file:///<abs>/frame.html"
+# Then JPG it (PIL is available):
+python -c "from PIL import Image; Image.open(r'<abs>/og.png').convert('RGB').save('assets/images/og/<slug>.jpg','JPEG',quality=92)"
+```
+Note: Git Bash `/tmp` maps to `C:/Users/<user>/AppData/Local/Temp`; pass Chrome an **absolute Windows** `file:///C:/...` URL or it errors `ERR_FILE_NOT_FOUND`.
+
 **Consequences you must respect:**
 - The artwork lives in `essays/index.html`. That is where you edit. Each new essay needs a matching `.essay-thumb` block added there (and its slug added to the `slugs[]` array in the generator).
 - The SVG is authored at `viewBox="0 0 300 225"` but the OG renders at 1200×630 and the card crops to ~16:9. **Keep the meaningful content inside the central safe area** — roughly the middle 80% horizontally and vertically — so nothing important is cropped in either context.
@@ -213,6 +231,22 @@ TECHNICAL
 [ ] slug present in generator slugs[] and in ESSAYS[]
 [ ] Regenerated the JPG; committed SVG + JPG together
 ```
+
+---
+
+## WORKED EXAMPLES — the four decisions in practice
+
+Keep this list current as thumbnails are reworked. Each entry is the reviewable one-liner from Workflow step 2, plus the resulting design. Use these as precedent so the set stays varied and no two neighbours collide.
+
+### Notes as Identity (`notes-as-identity`, Method)
+- **Essence:** notes are the compass you carry — a fixed record of *where you stood*.
+- **Motif:** a compass made personal — needle drawn as a **pencil**, pivot is the signature **dot+ring**, dial carries a face (the compass is *you*), a **north-star** marks "what you were willing to bet on."
+- **Composition:** rule-of-thirds — compass lower-left, pencil-needle pointing diagonally up-right to the north-star in the opposite third. Replaces the old dead-centre concentric rings.
+- **Colour:** solid olive `#2C2A20` ground — a **deliberate deviation from the category=colour default** (Method would be coral). Chosen because coral/sky/sage grounds had become repetitive across the set; deep olive is barely used and suits the grounded "where you stood" essence. Solid fills that pop on olive: cream dial, plum pencil-needle, mustard north-star + pivot dot + eraser, coral spark, ink strokes/eyes, cream swing-curve.
+- **One curve:** a cream trajectory arc from the needle tip toward the north-star = the swing of orientation.
+- **Why it's distinct:** neighbours use translucent notebooks/rings on common grounds; this is a solid olive compass on rule-of-thirds — different motif, composition, ground, and treatment.
+
+> **Lesson for the set:** category=colour is the *default* for index legibility, but you may override the ground when the common grounds (coral/sky/sage/plum/mustard) have become repetitive. When you deviate, pick a barely-used solid token that fits the essence, and let motif + composition carry the category signal.
 
 ---
 
