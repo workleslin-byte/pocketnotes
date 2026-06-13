@@ -83,14 +83,16 @@ The fix is two moves, applied together:
 
 ## BRAND LAW — non-negotiable (verbatim from `brand/index.html` → Illustration)
 
-Every thumbnail must obey all four:
+Every thumbnail must obey:
 
 1. **3px stroke, every line.** The stroke weight is what makes geometry feel hand-drawn. Never 1px (clinical), never 5px (cartoon). At the 300×225 authoring scale use `stroke-width="3"`.
-2. **Faces on objects.** The notebook has eyes. The object *is* the character. A face gives personality without becoming a mascot. Two dot eyes (and optionally a tiny mouth/brow) on the hero object. Subtle, not cute.
-3. **Warm palette only, solid fills.** Primary fills: cream, mustard, coral. Illustration-only accents: sage, sky, plum, pink. **Never gradients. Never opacity tricks for shading.** If you want a lighter shade, use a different solid token — do not drop opacity.
-4. **Geometry first, then one curve.** Build from rectangles and circles, then add a *single* hand-drawn curve (a swoosh, a loop, an underline, a smile) to soften it. Discipline + warmth in one move.
+2. **Warm palette only, solid fills.** Primary fills: cream, mustard, coral. Illustration-only accents: sage, sky, plum, pink. **Never gradients. Never opacity tricks for shading.** If you want a lighter shade, use a different solid token — do not drop opacity.
+3. **Geometry first, then one curve.** Build from rectangles and circles, then add a *single* hand-drawn curve (a swoosh, a loop, an underline) to soften it. Discipline + warmth in one move.
+4. **Vary the noun — never default to the page/notebook rectangle.** The cream rounded rectangle is the easiest shape to reach for and the fastest road back to sameness. Earn it; don't default to it. See *Motif diversity* in Decision 2.
 
-**Banned outright:** gradients, photoreal imagery, generic/Lucide-style icon sets, smiley-face mascots, stock photography, drop shadows, blur.
+**No faces (retired).** Earlier thumbnails put dot-eyes on the hero object. That device has been retired as repetitive — **do not add eyes or faces.** Personality now comes from the motif choice and the single hand-drawn curve.
+
+**Banned outright:** gradients, photoreal imagery, generic/Lucide-style icon sets, faces/eyes/mascots, stock photography, drop shadows, blur.
 
 **Type, when used as image:** Fraunces (serif) for any display letterform; DM Mono for labels/marginalia. Never set body type into a thumbnail.
 
@@ -110,7 +112,13 @@ Read the essay (or its `subtitle` in the `ESSAYS[]` array as a shortcut). Answer
 The essence drives the motif. Do not default to "a notebook with lines."
 
 ### Decision 2 — Pick the motif (what object/mark is drawn)
-Use the brand motif library (below) when one fits the essence. Invent a new motif when the essence demands it — but build it under brand law (geometry + 3px + face + one curve). The motif is the *noun* of the image.
+Use the brand motif library (below) when one fits the essence. Invent a new motif when the essence demands it — but build it under brand law (geometry + 3px + one curve, no face). The motif is the *noun* of the image.
+
+**Motif diversity — avoid the rectangle trap.** Almost every essay is *about* notebooks/pages, so the cream rounded rectangle is the path of least resistance — and reaching for it every time rebuilds the exact sameness we removed. Defend against it:
+- **Prefer a non-page noun.** Reach for the *instrument, consequence, or metaphor* before the page: a lyre, compass, metronome, magnet, flame, stylus, tally, thread, pointing hand (manicule), portrait frame, numeral.
+- **Budget the rectangle.** Across any run of ~4 adjacent thumbnails, at most one may use a page/notebook/card as the hero. Just drew one? The next must use a different family.
+- **If a page is unavoidable, change the framing.** Go macro (we're *on* the page, edges off-frame), show only a corner/fragment, imply it via the ground colour instead of drawing it, or use a *different* rectangle-family object (phone, wax tablet, pocket, index card, sign) so it doesn't read as "the notebook" again.
+- **Keep the motif ledger** in Worked Examples current — record each thumb's noun so you can see repetition coming before it ships.
 
 ### Decision 3 — Pick the composition archetype (HOW it's arranged)
 **This is the main versatility lever.** The old set was 100% "centred". Rotate through these instead — pick the one that best fits the essay's feeling:
@@ -176,11 +184,7 @@ The dot-and-ring (the site cursor) and the mustard **spine** (the notebook's col
     <rect x="96" y="64" width="20" height="104" rx="3"
           fill="#F5C13D" stroke="#1A1612" stroke-width="3"/>
 
-    <!-- FACE on the object (brand law #2) -->
-    <circle cx="150" cy="104" r="4" fill="#1A1612"/>
-    <circle cx="172" cy="104" r="4" fill="#1A1612"/>
-
-    <!-- ONE hand-drawn curve (brand law #4) -->
+    <!-- ONE hand-drawn curve (brand law #3) -->
     <path d="M148 120 Q161 130 174 120" fill="none"
           stroke="#1A1612" stroke-width="3" stroke-linecap="round"/>
 
@@ -190,7 +194,7 @@ The dot-and-ring (the site cursor) and the mustard **spine** (the notebook's col
 </div>
 ```
 
-Rules in code form: every `stroke-width` is `3`. No `opacity` attributes for shading. Every fill is a brand hex. Compose off-centre when the archetype calls for it.
+Rules in code form: every `stroke-width` is `3`. No `opacity` attributes for shading. No face/eyes. Every fill is a brand hex. Compose off-centre when the archetype calls for it. This skeleton draws a page only as a neutral placeholder — per Brand Law #4, prefer a non-page noun.
 
 ---
 
@@ -200,9 +204,12 @@ Rules in code form: every `stroke-width` is `3`. No `opacity` attributes for sha
 2. Run Decisions 1–4 (essence → motif → composition → colour). State them in one line before drawing, so the choice is reviewable.
 3. Author the SVG under brand law inside the essay's `.essay-thumb` block in `essays/index.html`. For a brand-new essay, add the full hidden `.essay-card` block AND add the slug to `slugs[]` in `scripts/generate-og-images.js` and to `ESSAYS[]` if not present.
 4. Sanity-check against the audit checklist below.
-5. Regenerate: `node scripts/generate-og-images.js`. If puppeteer is missing, tell the user to `npm i puppeteer` (dev-only) — do not silently skip regeneration, because the live card and OG tag both read the JPG, not the SVG.
-6. Confirm the JPG updated in `assets/images/og/<slug>.jpg` and is visually distinct from its neighbours.
-7. Commit both the `index.html` SVG change and the regenerated JPG(s).
+5. Regenerate with the canonical renderer (no puppeteer needed):
+   - one/some: `node scripts/render-thumbs.mjs <slug> [<slug> ...]`
+   - the whole set, in parallel: `node scripts/render-thumbs.mjs --all`
+   It reads the SVG straight from `index.html`, renders motif-only 1200×630 via the system Chrome/Edge, and writes the JPG (overwriting the old one). One file serves both the card thumbnail and the `og:image` preview, so this updates both at once. (The old `scripts/generate-og-images.js` produces a divergent title-strip format — prefer `render-thumbs.mjs`.)
+6. Confirm each JPG updated in `assets/images/og/<slug>.jpg` and is visually distinct from its neighbours.
+7. Commit the `index.html` SVG change(s) and the regenerated JPG(s) together.
 
 When redesigning the whole set for variety, lay out the chosen *archetype + colour* for every essay first as a table, confirm no two neighbours collide, then implement.
 
@@ -214,15 +221,16 @@ When redesigning the whole set for variety, lay out the chosen *archetype + colo
 BRAND LAW
 [ ] Every stroke-width is 3 (no 1px/1.5px clinical lines)
 [ ] Zero opacity-based shading; all fills are solid brand hexes
-[ ] Hero object has a face (eyes; optional mouth/brow)
+[ ] No faces/eyes anywhere (retired)
 [ ] Exactly one hand-drawn curve softens the geometry
 [ ] No gradients, photos, generic icons, mascots, shadows, blur
-[ ] Colours are from the token set; bg matches the essay category
+[ ] Colours are from the token set
 
 VERSATILITY
 [ ] Composition archetype chosen on purpose (not auto-centred)
 [ ] Motif reflects THIS essay's essence (not a default notebook)
-[ ] Differs in motif/composition/colour from adjacent essays
+[ ] Noun is NOT a page/notebook rectangle — or it's the only one in the last ~4 thumbs AND the framing is changed
+[ ] Differs in motif/composition/ground from adjacent essays
 [ ] Signature mark present (mustard spine or dot+ring) to unify the set
 
 TECHNICAL
@@ -237,6 +245,10 @@ TECHNICAL
 ## WORKED EXAMPLES — the four decisions in practice
 
 Keep this list current as thumbnails are reworked. Each entry is the reviewable one-liner from Workflow step 2, plus the resulting design. Use these as precedent so the set stays varied and no two neighbours collide.
+
+> **Note:** the "face on the object" device used in the first June 2026 Method batch has since been **retired** (see Brand Law). Those early entries still mention eyes as a historical record; new thumbnails omit them.
+
+**Motif ledger (nouns used — keep diverse, watch the rectangle budget):** compass, spark+card, sharpened pencil, parked note (card), index cards, worked page · lyre, grid+wandering line, manicule (pointing hand), wax tablet, constraint brackets, margin rule+idea, chaos scribble, magnet, numeral "1", metronome, tally marks, shirt pocket, portrait oval, phone+receipt.
 
 ### Notes as Identity (`notes-as-identity`, Method)
 - **Essence:** notes are the compass you carry — a fixed record of *where you stood*.
@@ -267,7 +279,7 @@ Keep this list current as thumbnails are reworked. Each entry is the reviewable 
 - Do not reach for the old "translucent notebook + lines" formula. It is the thing we are removing.
 - Do not use `opacity` to fake a lighter shade. Switch to a lighter solid token.
 - Do not centre every composition. Rotate archetypes.
-- Do not add a thumbnail without adding the slug to the generator's `slugs[]`, or the JPG will never build.
 - Do not skip regeneration after an SVG edit — the live site reads the JPG, so an un-regenerated change is invisible.
 - Do not introduce a colour outside the brand tokens, or a stroke weight other than 3.
-- Do not turn the face into a mascot. Two dots and a small curve is the ceiling.
+- Do not add faces/eyes — the device is retired.
+- Do not default to the cream page/notebook rectangle. It is the new sameness risk; vary the noun (Brand Law #4, Decision 2).

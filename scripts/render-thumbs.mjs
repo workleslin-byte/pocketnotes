@@ -1,10 +1,12 @@
-// Render essay thumbnails to canonical motif-only OG JPGs (1200x630).
+// Render essay thumbnails to canonical motif-only OG JPGs (1200x630), in parallel.
 //
 // Reads the authored SVG + ground colour straight out of essays/index.html
-// (single source of truth), centres the SVG on the ground at 1200x630 with
-// NO text strip (matching the canonical the-people-who-write-in-the-margins
-// format), screenshots with the system Chrome/Edge (no puppeteer needed),
-// and writes assets/images/og/<slug>.jpg via Python/PIL.
+// (single source of truth — both .essay-thumb cards and the .featured-img),
+// centres the SVG on the ground at 1200x630 with NO text strip (matching the
+// canonical the-people-who-write-in-the-margins format), screenshots with the
+// system Chrome/Edge (no puppeteer), and writes assets/images/og/<slug>.jpg
+// via Python/PIL. One file serves both the card thumbnail and the og:image
+// preview, so writing it updates both at once.
 //
 // Usage:
 //   node scripts/render-thumbs.mjs <slug> [<slug> ...]
@@ -13,14 +15,15 @@
 import fs from 'fs'
 import os from 'os'
 import path from 'path'
-import { execFileSync } from 'child_process'
+import { execFile } from 'child_process'
+import { promisify } from 'util'
 import { fileURLToPath } from 'url'
 
+const pexec = promisify(execFile)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const root = path.join(__dirname, '..')
-const indexPath = path.join(root, 'essays/index.html')
+const html = fs.readFileSync(path.join(root, 'essays/index.html'), 'utf8')
 const outDir = path.join(root, 'assets/images/og')
-const html = fs.readFileSync(indexPath, 'utf8')
 
 const chrome = [
   'C:/Program Files/Google/Chrome/Application/chrome.exe',
@@ -30,17 +33,20 @@ const chrome = [
 ].find(p => fs.existsSync(p))
 if (!chrome) { console.error('No Chrome/Edge found.'); process.exit(1) }
 
-function python(args) {
+async function toJpg(png, jpg) {
   for (const exe of ['python', 'python3', 'py']) {
-    try { execFileSync(exe, args, { stdio: 'ignore' }); return true } catch {}
+    try {
+      await pexec(exe, ['-c', `from PIL import Image;Image.open(r'${png}').convert('RGB').save(r'${jpg}','JPEG',quality=92)`])
+      return true
+    } catch {}
   }
   return false
 }
 
-// Extract { bg, inner } for a slug from its .essay-thumb block.
+// Extract { bg, inner } for a slug — handles both .essay-thumb and .featured-img.
 function extract(slug) {
   const re = new RegExp(
-    `href="/essays/${slug}"[\\s\\S]*?<div class="essay-thumb" style="background:([^;"]+);?\\s*">([\\s\\S]*?)</div>`
+    `href="/essays/${slug}"[\\s\\S]*?<div class="(?:essay-thumb|featured-img)" style="background:([^;"]+);?\\s*">([\\s\\S]*?)</div>`
   )
   const m = html.match(re)
   if (!m) return null
@@ -49,8 +55,7 @@ function extract(slug) {
 
 let slugs = process.argv.slice(2)
 if (slugs[0] === '--all') {
-  slugs = [...html.matchAll(/href="\/essays\/([a-z0-9-]+)"/g)].map(m => m[1])
-  slugs = [...new Set(slugs)]
+  slugs = [...new Set([...html.matchAll(/href="\/essays\/([a-z0-9-]+)"/g)].map(m => m[1]))]
 }
 if (!slugs.length) { console.error('usage: node scripts/render-thumbs.mjs <slug...> | --all'); process.exit(1) }
 
@@ -58,11 +63,10 @@ const tmp = path.join(os.tmpdir(), 'pn-thumbs')
 fs.mkdirSync(tmp, { recursive: true })
 fs.mkdirSync(outDir, { recursive: true })
 
-let ok = 0
-for (const slug of slugs) {
+async function render(slug) {
   const ex = extract(slug)
-  if (!ex) { console.warn('skip (not found):', slug); continue }
-  if (!ex.bg.startsWith('#')) { console.warn(`skip ${slug}: ground is "${ex.bg}", author it as a #hex`); continue }
+  if (!ex) return { slug, ok: false, why: 'not found in index.html' }
+  if (!ex.bg.startsWith('#')) return { slug, ok: false, why: `ground "${ex.bg}" is not a #hex` }
 
   const frame = `<!DOCTYPE html><html><head><meta charset="UTF-8"/>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&display=block" rel="stylesheet">
@@ -75,18 +79,19 @@ body{display:flex;align-items:center;justify-content:center}svg{width:720px;heig
   const jpg = path.join(outDir, `${slug}.jpg`)
   fs.writeFileSync(framePath, frame)
 
-  execFileSync(chrome, [
+  await pexec(chrome, [
     '--headless', '--disable-gpu', '--no-sandbox', '--hide-scrollbars',
     '--force-device-scale-factor=1', '--virtual-time-budget=3000',
     '--window-size=1200,630',
+    `--user-data-dir=${path.join(tmp, 'profile-' + slug)}`,   // unique profile → safe in parallel
     `--screenshot=${png.replace(/\\/g, '/')}`,
     'file:///' + framePath.replace(/\\/g, '/'),
-  ], { stdio: 'ignore' })
+  ])
 
-  if (python(['-c', `from PIL import Image;Image.open(r'${png}').convert('RGB').save(r'${jpg}','JPEG',quality=92)`])) {
-    console.log('OK', slug); ok++
-  } else {
-    console.error('python/PIL missing — cannot write', slug)
-  }
+  const ok = await toJpg(png, jpg)
+  return { slug, ok, why: ok ? '' : 'python/PIL missing' }
 }
-console.log(`\nDone. ${ok}/${slugs.length} rendered to assets/images/og/`)
+
+const results = await Promise.all(slugs.map(render))   // all slugs render concurrently
+for (const r of results) console.log(r.ok ? 'OK  ' + r.slug : 'FAIL ' + r.slug + ' — ' + r.why)
+console.log(`\nDone. ${results.filter(r => r.ok).length}/${results.length} rendered to assets/images/og/`)
