@@ -248,6 +248,17 @@ Keep this list current as thumbnails are reworked. Each entry is the reviewable 
 
 > **Lesson for the set:** category=colour is the *default* for index legibility, but you may override the ground when the common grounds (coral/sky/sage/plum/mustard) have become repetitive. When you deviate, pick a barely-used solid token that fits the essence, and let motif + composition carry the category signal.
 
+### Rest of the Method group (June 2026) — varied grounds + motifs, no two alike
+| Essay | Essence → motif | Composition | Ground |
+|-------|-----------------|-------------|--------|
+| catch-first-edit-later | catch the spark before it cools → coral spark + trail caught by a page (dot+ring = the catch) | diagonal | sky `#5BA8C9` |
+| constraint-sharpens | brevity sharpens → a pencil sharpened to a point + a shaving curl | tilted hero | coral `#FF6B47` |
+| idea-parking | a thought parked to wait → a note card in a parking bay + a Fraunces "P" sign | rule-of-thirds | mustard `#F5C13D` |
+| the-index-method | retrieval via linked cards → fanned index cards + a coral connecting thread | scene/stack | plum `#6E3582` |
+| the-page-is-a-tool | the page worked, not pristine → a used page with marks + a looping arrow | macro (we're on the page) | ink `#1A1612` |
+
+> **Set-building tip:** assign grounds so the category never shows two identical backgrounds adjacent. Across the six Method thumbs the grounds are olive / sky / coral / mustard / plum / ink — all distinct. Each carries the signature spine or dot+ring so the set still reads as one family.
+
 ---
 
 ## WHAT NOT TO DO
