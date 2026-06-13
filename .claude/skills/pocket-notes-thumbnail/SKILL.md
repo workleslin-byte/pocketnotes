@@ -248,7 +248,9 @@ Keep this list current as thumbnails are reworked. Each entry is the reviewable 
 
 > **Note:** the "face on the object" device used in the first June 2026 Method batch has since been **retired** (see Brand Law). Those early entries still mention eyes as a historical record; new thumbnails omit them.
 
-**Motif ledger (nouns used — keep diverse, watch the rectangle budget):** compass, spark+card, sharpened pencil, parked note (card), index cards, worked page · lyre, grid+wandering line, manicule (pointing hand), wax tablet, constraint brackets, margin rule+idea, chaos scribble, magnet, numeral "1", metronome, tally marks, shirt pocket, portrait oval, phone+receipt.
+**Motif ledger (nouns used — keep diverse, watch the rectangle budget):** compass, spark+card, sharpened pencil, parked note (card), index cards, worked page · lyre, grid+wandering line, manicule (pointing hand), wax tablet, constraint brackets, margin rule+idea, chaos scribble, magnet, numeral "1", metronome, tally marks, shirt pocket, portrait oval, phone+receipt · five book-spines on a shelf.
+
+> **Deliberate rectangle exception — Five Notebooks (`five-notebooks`, Method).** When the essay's subject *is* notebooks, spend the rectangle budget on purpose, but defeat sameness another way: five spines in the five brand colours (mustard/coral/sage/sky/plum), varied heights, on a bone shelf — a *collection* framing, not "the cream notebook" again. The tallest (plum = the Corebook) carries the bookmark ribbon + dot+ring so it reads as the climax. This is the sanctioned way to draw notebooks without regressing to the old formula.
 
 ### Notes as Identity (`notes-as-identity`, Method)
 - **Essence:** notes are the compass you carry — a fixed record of *where you stood*.

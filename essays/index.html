@@ -381,7 +381,7 @@
 <section class="essays-controls" id="essays">
   <div class="essays-controls-inner">
     <div class="essays-top-row">
-      <input type="search" class="essays-search" id="essaysSearch" placeholder="Search 20 essays…" aria-label="Search essays" autocomplete="off">
+      <input type="search" class="essays-search" id="essaysSearch" placeholder="Search 21 essays…" aria-label="Search essays" autocomplete="off">
       <div class="view-toggle" role="group" aria-label="View mode">
         <button class="view-btn is-active" id="viewGridBtn" title="Grid view">
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
@@ -403,7 +403,7 @@
       <button class="filter-pill" data-cat="Identity">Identity</button>
       <button class="filter-pill" data-cat="Thinking">Thinking</button>
     </div>
-    <p class="essays-count" id="essaysCount">20 essays</p>
+    <p class="essays-count" id="essaysCount">21 essays</p>
   </div>
 </section>
 
@@ -922,6 +922,35 @@
       <p class="essay-title">The Method Beats the Mood</p>
     </a>
 
+    <a class="essay-card" href="/essays/five-notebooks">
+      <div class="essay-thumb" style="background:#F1E7CE;">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#F1E7CE"/>
+          <!-- shelf -->
+          <line x1="46" y1="183" x2="254" y2="183" stroke="#1A1612" stroke-width="3" stroke-linecap="round"/>
+          <!-- five notebooks, each a different job, each a different colour -->
+          <rect x="64" y="64" width="28" height="118" rx="3" fill="#F5C13D" stroke="#1A1612" stroke-width="3"/>
+          <rect x="100" y="44" width="28" height="138" rx="3" fill="#FF6B47" stroke="#1A1612" stroke-width="3"/>
+          <rect x="136" y="78" width="28" height="104" rx="3" fill="#8FB89C" stroke="#1A1612" stroke-width="3"/>
+          <rect x="172" y="56" width="28" height="126" rx="3" fill="#5BA8C9" stroke="#1A1612" stroke-width="3"/>
+          <rect x="208" y="32" width="28" height="150" rx="3" fill="#6E3582" stroke="#1A1612" stroke-width="3"/>
+          <!-- spine labels -->
+          <g fill="#FAF3E3" stroke="#1A1612" stroke-width="3">
+            <rect x="69" y="92" width="18" height="13" rx="2"/>
+            <rect x="105" y="74" width="18" height="13" rx="2"/>
+            <rect x="141" y="104" width="18" height="13" rx="2"/>
+            <rect x="177" y="84" width="18" height="13" rx="2"/>
+          </g>
+          <!-- the Corebook: bookmark ribbon (one hand-drawn curve) + dot+ring signature -->
+          <path d="M222 40 q9 4 7 16 q-2 9 -9 11" fill="none" stroke="#FF6B47" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="222" cy="90" r="6" fill="none" stroke="#1A1612" stroke-width="3"/>
+          <circle cx="222" cy="90" r="2.5" fill="#F5C13D"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Method</span> &middot; 9 min read</p>
+      <p class="essay-title">Five Notebooks</p>
+    </a>
+
   </div>
 </div>
 
@@ -989,6 +1018,7 @@ const ESSAYS = [
   {slug:'catch-first-edit-later',   title:'Catch First. Edit Later.',                      category:'Method',   subtitle:"The first line is rarely the right one. It only matters that it's caught. Editing without a draft is editing nothing.",                                                                   readTime:'4 min'},
   {slug:'constraint-as-creative-practice', title:'Constraint as Creative Practice',        category:'Culture',   subtitle:'Georges Perec wrote a 300-page novel without using the letter E. The haiku poets had seventeen syllables. The limit is not the obstacle. The limit is the mechanism.',                  readTime:'5 min'},
   {slug:'constraint-sharpens',      title:'Constraint Sharpens',                           category:'Method',   subtitle:'A small page forces choice. Every word earns its space. On why brevity is the practice — not the limitation.',                                                                             readTime:'4 min'},
+  {slug:'five-notebooks',           title:'Five Notebooks Every Thinking Person Should Keep', category:'Method', subtitle:'One notebook forces every kind of thinking into a single container. Five gives each kind the space it actually needs — the commonplace book, the project notebook, the waste book, the daily log, and the Corebook.', readTime:'9 min'},
   {slug:'idea-parking',             title:'Idea Parking',                                  category:'Method',   subtitle:"The skill is not developing the idea on the spot. The skill is leaving it somewhere safe so you can come back when you have the time. That distinction separates the writers who finish things from the ones who don't.", readTime:'4 min'},
   {slug:'margins-where-great-ideas-live', title:'Margins Where Great Ideas Live',          category:'Culture',  subtitle:"Darwin annotated everything he read. Newton filled the margins of other people's books with what would become calculus. The sideways thought has always been the one that changed things.", readTime:'5 min'},
   {slug:'notebooks-of-ancient-singers', title:'Notebooks of Ancient Singers',              category:'History',  subtitle:"Before paper, Homeric bards held twenty-four books of the Iliad in memory. When writing arrived, it didn't kill memory. It extended it outward.",                                       readTime:'5 min'},
