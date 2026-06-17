@@ -313,6 +313,35 @@ Before signing off, verify:
 
 ---
 
+### 15. Register the essay in the index + reconcile the count (do this for EVERY new essay)
+
+A new essay file is not "published" until it is listed in `essays/index.html`. Three edits there, plus a count reconciliation:
+
+1. **ESSAYS[] array** — add an entry (`{slug, title, category, subtitle, readTime}`) in alphabetical-by-slug position. This is what renders the live card.
+2. **Hidden `.essay-card`** — add a block in the hidden grid carrying the `.essay-thumb` SVG (the thumbnail source the renderer reads). Then render the JPG (see the thumbnail skill).
+3. **Read-next links** — point at least one existing essay's read-next at the new piece if relevant.
+
+**Then ALWAYS run the count reconciliation — the count drifts silently otherwise:**
+
+```bash
+# true number of published essays (exclude index.html)
+ls essays/*.html | grep -v '/index.html' | wc -l
+# entries in the ESSAYS[] array — must equal the number above
+grep -c "{slug:'" essays/index.html
+# every hard-coded count string — all must equal that number
+grep -rno "[0-9]\+ essays" --include=*.html .
+# any essay file missing from the array?
+for f in essays/*.html; do b=$(basename "$f" .html); [ "$b" = index ] && continue; grep -q "slug:'$b'" essays/index.html || echo "MISSING: $b"; done
+```
+
+Update **both** hard-coded counts in `essays/index.html` to the true file count:
+- the search placeholder: `placeholder="Search N essays…"`
+- the count line: `<p class="essays-count" id="essaysCount">N essays</p>`
+
+The three numbers — file count, `ESSAYS[]` length, and every `N essays` string — must be identical before committing. (The live count is rendered from `ESSAYS[].length`, so an essay missing from the array is invisible on the index even if its file is reachable by URL.)
+
+---
+
 ## AUDIT REPORT FORMAT
 
 When running a format check, report findings in this structure before making any changes:

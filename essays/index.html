@@ -381,7 +381,7 @@
 <section class="essays-controls" id="essays">
   <div class="essays-controls-inner">
     <div class="essays-top-row">
-      <input type="search" class="essays-search" id="essaysSearch" placeholder="Search 21 essays…" aria-label="Search essays" autocomplete="off">
+      <input type="search" class="essays-search" id="essaysSearch" placeholder="Search 22 essays…" aria-label="Search essays" autocomplete="off">
       <div class="view-toggle" role="group" aria-label="View mode">
         <button class="view-btn is-active" id="viewGridBtn" title="Grid view">
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
@@ -403,7 +403,7 @@
       <button class="filter-pill" data-cat="Identity">Identity</button>
       <button class="filter-pill" data-cat="Thinking">Thinking</button>
     </div>
-    <p class="essays-count" id="essaysCount">21 essays</p>
+    <p class="essays-count" id="essaysCount">22 essays</p>
   </div>
 </section>
 
@@ -951,6 +951,33 @@
       <p class="essay-title">Five Notebooks</p>
     </a>
 
+    <a class="essay-card" href="/essays/the-notebook-next-to-the-laptop">
+      <div class="essay-thumb" style="background:#5BA8C9;">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#5BA8C9"/>
+          <!-- the interrupting thought, captured off the screen into the notebook (one hand-drawn curve) -->
+          <path d="M160 72 Q198 48 228 122" fill="none" stroke="#FF6B47" stroke-width="3" stroke-linecap="round"/>
+          <!-- laptop: cool, busy -->
+          <rect x="54" y="60" width="118" height="80" rx="6" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
+          <g stroke="#1A1612" stroke-width="3" stroke-linecap="round">
+            <line x1="72" y1="84" x2="150" y2="84"/>
+            <line x1="72" y1="100" x2="132" y2="100"/>
+            <line x1="72" y1="116" x2="146" y2="116"/>
+          </g>
+          <circle cx="160" cy="72" r="7" fill="#FF6B47" stroke="#1A1612" stroke-width="3"/>
+          <rect x="44" y="140" width="138" height="12" rx="3" fill="#1A1612" stroke="#1A1612" stroke-width="3"/>
+          <!-- pocket notebook: warm, catches the thought -->
+          <rect x="204" y="94" width="54" height="74" rx="4" fill="#F5C13D" stroke="#1A1612" stroke-width="3"/>
+          <rect x="204" y="94" width="11" height="74" rx="2" fill="#FF6B47" stroke="#1A1612" stroke-width="3"/>
+          <line x1="246" y1="94" x2="246" y2="168" stroke="#1A1612" stroke-width="3"/>
+          <circle cx="230" cy="131" r="7" fill="none" stroke="#1A1612" stroke-width="3"/>
+          <circle cx="230" cy="131" r="3" fill="#FF6B47"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Practice</span> &middot; 8 min read</p>
+      <p class="essay-title">The Notebook Next to the Laptop</p>
+    </a>
+
   </div>
 </div>
 
@@ -1028,6 +1055,7 @@ const ESSAYS = [
   {slug:'the-grid-page-and-the-wandering-thought', title:'The Grid Page and the Wandering Thought', category:'History', subtitle:'Graph paper came from eighteenth-century French surveying offices. It found its way into notebooks because it turned out to be the most neutral surface a thinking person could write on.', readTime:'5 min'},
   {slug:'the-index-method',         title:'The Index Method',                              category:'Method',   subtitle:'Niklas Luhmann wrote 90,000 index cards over forty years and used them to produce 70 books. What you can retrieve is what you actually own.',                                             readTime:'5 min'},
   {slug:'the-method-beats-the-mood',title:'The Method Beats the Mood',                     category:'Habit',    subtitle:'Two lines, every day. The smallest reliable habit beats the loudest one. On showing up before you feel like it.',                                                                          readTime:'4 min'},
+  {slug:'the-notebook-next-to-the-laptop', title:'The Notebook Next to the Laptop',         category:'Practice', subtitle:'It takes 23 minutes to refocus after an interruption. Four notebook methods — each under two minutes — that recover the thinking the laptop destroys.', readTime:'8 min'},
   {slug:'the-page-is-a-tool',       title:'The Page Is a Tool',                            category:'Method',   subtitle:'The notebook that looks used is not the notebook that failed. It is the only notebook that worked.',                                                                                       readTime:'5 min'},
   {slug:'the-people-who-write-in-the-margins', title:'The People Who Write in the Margins', category:'History', subtitle:'A gossipy tour of history\'s most brazen readers — Coleridge, Fermat, a medieval monk with strong opinions. What their scribbles teach us about thinking.',                             readTime:'11 min'},
   {slug:'the-roman-wax-tablet',     title:'The Roman Wax Tablet',                          category:'History',  subtitle:'Cicero prepared his speeches on it. Caesar sent dispatches on it. Pliny the Elder used one while bathing. The tabula cerata was the pocket notebook of the ancient world.',              readTime:'5 min'},
