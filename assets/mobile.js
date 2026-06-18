@@ -1,11 +1,10 @@
 /* ============================================================
    Pocket Notes — shared MOBILE experience layer (behaviour)
-   Builds the bottom action bar, reading progress, sticky mini-
-   header, image lightbox, in-context newsletter prompt, touch
-   ripple, grain, and scroll-reveal. Desktop is untouched: the
-   structural pieces gate on (max-width:768px); ripple gates on
-   coarse pointer; reveal respects prefers-reduced-motion.
-   No dependencies. Fails safe.
+   ONE nav: the top brand pill, reworked for mobile (auto-hide on
+   scroll, normalized full-screen menu that works on old + new
+   essays). Plus reading progress, image lightbox, touch ripple,
+   grain, and scroll-reveal. Desktop untouched. No dependencies.
+   Fails safe.
    ============================================================ */
 (function () {
   "use strict";
@@ -31,93 +30,74 @@
     else doc.addEventListener("DOMContentLoaded", fn);
   }
 
-  /* ---- icons ---- */
-  var IC = {
-    essays: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4H11v15H4.5A1.5 1.5 0 0 1 3 17.5z"/><path d="M21 5.5A1.5 1.5 0 0 0 19.5 4H13v15h6.5a1.5 1.5 0 0 0 1.5-1.5z"/></svg>',
-    shop: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l1 13H5z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>',
-    menu: '<svg viewBox="0 0 24 24" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>'
-  };
-
   /* ============================================================
-     Bottom action bar (mobile, every page)
+     Normalize the mobile menu + hamburger on EVERY page
+     Clones the hamburger to strip any stale per-page listeners,
+     then attaches ONE consistent toggle — so old and new essays
+     behave identically and the leaked-links bug stays fixed.
      ============================================================ */
-  function bottomBar() {
-    if (doc.querySelector(".pn-bottombar")) return;
-    var onEssays = /\/essays/.test(path);
-    var onShop = /\/shop/.test(path);
-    var bar = el("div", "pn-bottombar");
-    bar.setAttribute("role", "navigation");
-    bar.setAttribute("aria-label", "Quick navigation");
-    bar.innerHTML =
-      '<a href="/essays" class="' + (onEssays ? "pn-active" : "") + '">' + IC.essays + "<span>Essays</span></a>" +
-      '<a href="/shop" class="' + (onShop ? "pn-active" : "") + '">' + IC.shop + "<span>Shop</span></a>" +
-      '<button type="button" class="pn-menu-btn">' + IC.menu + "<span>Menu</span></button>";
-    doc.body.appendChild(bar);
-    doc.body.classList.add("pn-has-bar");
-
-    // Menu reuses the existing hamburger/full-screen menu
-    bar.querySelector(".pn-menu-btn").addEventListener("click", function () {
-      var burger = doc.getElementById("navHamburger");
-      if (burger) { burger.click(); return; }
-      var menu = doc.getElementById("navMobileMenu");
-      if (menu) menu.classList.toggle("open");
+  var menu = doc.getElementById("navMobileMenu");
+  function normalizeMenu() {
+    var burger = doc.getElementById("navHamburger");
+    if (!burger || !menu) return;
+    var fresh = burger.cloneNode(true);
+    burger.parentNode.replaceChild(fresh, burger);
+    burger = fresh;
+    function close() {
+      menu.classList.remove("open");
+      burger.classList.remove("open");
+      burger.setAttribute("aria-expanded", "false");
+      doc.body.style.overflow = "";
+    }
+    burger.addEventListener("click", function () {
+      var open = menu.classList.toggle("open");
+      burger.classList.toggle("open", open);
+      burger.setAttribute("aria-expanded", open ? "true" : "false");
+      doc.body.style.overflow = open ? "hidden" : "";
     });
-    return bar;
+    menu.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", close); });
+    doc.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
   }
 
   /* ============================================================
-     Reading progress + sticky mini-header (essays, mobile)
+     Auto-hide the top nav on scroll-down, reveal on scroll-up
+     (recede while reading). Never hide while the menu is open.
      ============================================================ */
-  function readingChrome() {
-    var bar = el("div", "pn-progress");
-    doc.body.appendChild(bar);
-
-    var titleEl = doc.querySelector(".article-title");
-    var title = titleEl ? titleEl.textContent.replace(/\s+/g, " ").trim() : (doc.title || "");
-    var head = el("div", "pn-minihead",
-      '<a class="pn-back" href="/essays" aria-label="All essays">&larr;</a><span class="pn-t"></span>');
-    head.querySelector(".pn-t").textContent = title;
-    doc.body.appendChild(head);
-
-    var titleBottom = 360;
-    function measure() {
-      if (titleEl) titleBottom = titleEl.getBoundingClientRect().bottom + window.scrollY - 8;
-    }
-    measure();
-    window.addEventListener("load", measure);
-    window.addEventListener("resize", measure);
-
-    var docEl = doc.documentElement;
-    function onScroll() {
-      var st = window.scrollY || docEl.scrollTop;
-      var h = docEl.scrollHeight - window.innerHeight;
-      bar.style.width = (h > 0 ? (st / h) * 100 : 0) + "%";
-      head.classList.toggle("show", st > titleBottom);
-    }
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-  }
-
-  /* ============================================================
-     Bottom-bar hide-on-scroll-down / show-on-scroll-up (mobile)
-     ============================================================ */
-  function autoHideBar(bar) {
-    if (!bar) return;
+  function autoHideNav() {
+    var nav = doc.querySelector("nav");
+    if (!nav) return;
     var last = window.scrollY, ticking = false;
     window.addEventListener("scroll", function () {
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(function () {
         var y = window.scrollY;
-        if (y > last + 6 && y > 120) bar.classList.add("pn-hide");
-        else if (y < last - 6) bar.classList.remove("pn-hide");
+        if (menu && menu.classList.contains("open")) { last = y; ticking = false; return; }
+        if (y > last + 6 && y > 120) nav.classList.add("pn-nav-hidden");
+        else if (y < last - 6) nav.classList.remove("pn-nav-hidden");
         last = y; ticking = false;
       });
     }, { passive: true });
   }
 
   /* ============================================================
-     Image lightbox (essays, all widths)
+     Reading progress bar (essays, mobile)
+     ============================================================ */
+  function progress() {
+    var bar = el("div", "pn-progress");
+    doc.body.appendChild(bar);
+    var docEl = doc.documentElement;
+    function onScroll() {
+      var st = window.scrollY || docEl.scrollTop;
+      var h = docEl.scrollHeight - window.innerHeight;
+      bar.style.width = (h > 0 ? (st / h) * 100 : 0) + "%";
+    }
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  /* ============================================================
+     Image lightbox (essays)
      ============================================================ */
   function lightbox() {
     var imgs = doc.querySelectorAll(".article-img img");
@@ -139,51 +119,6 @@
   }
 
   /* ============================================================
-     In-context newsletter prompt (essays, mobile, ~70% scroll)
-     ============================================================ */
-  function subPrompt() {
-    var form = doc.getElementById("subscribeForm");
-    var input = doc.getElementById("emailInput");
-    if (!form) return;
-    var key = "pn-subprompt-dismissed";
-    if (sessionStorage.getItem(key)) return;
-
-    var p = el("div", "pn-subprompt");
-    p.innerHTML =
-      "<p>Essays on how writers actually work — in your inbox.</p>" +
-      '<button class="pn-cta" type="button">Subscribe</button>' +
-      '<button class="pn-x" type="button" aria-label="Dismiss">&times;</button>';
-    doc.body.appendChild(p);
-
-    var shown = false, done = false;
-    function dismiss(remember) {
-      p.classList.remove("show");
-      if (remember) sessionStorage.setItem(key, "1");
-      done = true;
-    }
-    p.querySelector(".pn-x").addEventListener("click", function () { dismiss(true); });
-    p.querySelector(".pn-cta").addEventListener("click", function () {
-      dismiss(true);
-      form.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
-      if (input) setTimeout(function () { input.focus(); }, reduce ? 0 : 500);
-    });
-    // hide once the real form is reached
-    form.addEventListener("focusin", function () { dismiss(true); });
-
-    var docEl = doc.documentElement;
-    window.addEventListener("scroll", function () {
-      if (done) return;
-      var st = window.scrollY, h = docEl.scrollHeight - window.innerHeight;
-      var pct = h > 0 ? st / h : 0;
-      // show after 65%, but hide again if the subscribe form is already on screen
-      var formTop = form.getBoundingClientRect().top;
-      if (!shown && pct > 0.65 && formTop > window.innerHeight) { p.classList.add("show"); shown = true; }
-      else if (shown && formTop < window.innerHeight) { p.classList.remove("show"); }
-      else if (shown && formTop > window.innerHeight && pct > 0.65) { p.classList.add("show"); }
-    }, { passive: true });
-  }
-
-  /* ============================================================
      Grain overlay (mobile) — restore the paper texture cheaply
      ============================================================ */
   function grain() {
@@ -195,7 +130,7 @@
      Touch ripple — the dot+ring, reborn for fingers (coarse pointer)
      ============================================================ */
   function ripple() {
-    var SEL = "a,button,.essay-card,.product,.read-next-card,.article-tag,.filter-pill,.strip-button,.subscribe-btn,.pn-bottombar a,.pn-bottombar button";
+    var SEL = "a,button,.essay-card,.product,.read-next-card,.article-tag,.filter-pill,.strip-button,.subscribe-btn";
     doc.addEventListener("touchstart", function (e) {
       var t = e.target.closest(SEL);
       if (!t) return;
@@ -226,7 +161,6 @@
       });
     }, { rootMargin: "0px 0px -12% 0px", threshold: 0.05 });
     beats.forEach(function (b) { io.observe(b); });
-    // safety: never leave a beat hidden
     setTimeout(function () { beats.forEach(function (b) { b.classList.add("pn-in"); }); }, 2000);
   }
 
@@ -235,16 +169,15 @@
      ============================================================ */
   ready(function () {
     try {
-      if (isMobile || coarse) lightbox(); // keep desktop (custom cursor) untouched
+      normalizeMenu();               // every page — fixes leaked links + consistent menu
+      if (isMobile || coarse) lightbox();
       if (coarse && !reduce) ripple();
       if (isMobile) {
         grain();
-        var bar = bottomBar();
-        autoHideBar(bar);
-        if (isEssay) { readingChrome(); subPrompt(); reveal(); }
+        autoHideNav();
+        if (isEssay) { progress(); reveal(); }
       }
     } catch (err) {
-      // fail safe: make sure nothing stays hidden
       [].forEach.call(doc.querySelectorAll(".pn-reveal"), function (b) { b.classList.add("pn-in"); });
       if (window.console) console.warn("pn mobile layer:", err);
     }
