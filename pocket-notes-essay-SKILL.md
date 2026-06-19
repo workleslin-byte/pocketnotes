@@ -35,6 +35,7 @@ Known references already claimed (update this list as essays are written):
 | The Page Is a Tool | Flower & Hayes 1981, Mueller & Oppenheimer 2014, Darwin Notebook B, Seneca Epistulae Morales Letter II |
 | The First Page Rule | Lamott Bird by Bird 1994, Hemingway 47 endings / Paris Review 1958, Samuelson With Hemingway 1984, Jodi Picoult |
 | Catch First Edit Later | Forster Aspects of the Novel 1927, Graham Greene 500-word notebook / Korda-Acocella New Yorker 1999 |
+| Attention Is Physical | Van der Weel & Van der Meer 2024 (NTNU 256-channel EEG, handwriting vs typing), Gloria Mark *Attention Span* 2023 (47-second attention), Nietzsche / Malling-Hansen writing ball / letter to Köselitz 1882 |
 
 If a reference is in this table, it is off-limits for any new essay. Find an equivalent.
 
