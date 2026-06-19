@@ -249,7 +249,7 @@ If there are no verifiable references, omit the section entirely. Do not fabrica
 
 ### 11. Article-end footer
 
-After the closing `</div>` of `.article-body`, add the `.article-end` block with tag chips:
+After the closing `</div>` of `.article-body`, add the `.article-end` block with tag chips. The dateline goes here. The view counter does NOT go here — it belongs in the eyebrow (see item 14b).
 
 ```html
 <div class="article-end">
@@ -310,6 +310,7 @@ Before signing off, verify:
 | `dateModified` in LD+JSON | `<script type="application/ld+json">` | Must match today's date on any edit |
 | Read time in eyebrow | `<span>N min read</span>` | ~200 words per minute. Recount if copy changed significantly. |
 | Month/year in eyebrow | `<span>June 2026</span>` | Must match publish/update month |
+| View counter in eyebrow | `<span class="essay-view-count" id="essayViewCount" ...>` | Must be in the eyebrow (top), NOT in article-end. Pattern: `<span class="sep">&middot;</span>` then the counter span, after the date. |
 
 ---
 
