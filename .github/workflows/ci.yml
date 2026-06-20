@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  secret-scan:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Gitleaks (working tree)
+        run: |
+          VERSION=8.18.4
+          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}/gitleaks_${VERSION}_linux_x64.tar.gz" | tar -xz gitleaks
+          ./gitleaks detect --no-git --redact --config .gitleaks.toml --verbose
+
+      - name: Guard against client-side secrets
+        run: |
+          fail=0
+          if grep -rnE "Authorization['\"]?[[:space:]]*:[[:space:]]*['\"]Bearer (re_|sk_|sk-|key-)" --include='*.html' --include='*.js' .; then
+            echo "::error::Hardcoded bearer token in client-side file. Move it behind a serverless function."
+            fail=1
+          fi
+          if grep -rnE "api\.sender\.net/v2/subscribers" --include='*.html' .; then
+            echo "::error::Direct Sender API call in client HTML. Use the /api/newsletter serverless function."
+            fail=1
+          fi
+          if [ "$fail" -eq 0 ]; then echo "No client-side secrets found."; fi
+          exit "$fail"
+
+  dependency-audit:
+    name: Dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Generate lockfile
+        run: npm install --package-lock-only
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high

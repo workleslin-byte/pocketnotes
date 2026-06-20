@@ -1,0 +1,13 @@
+{
+  "name": "pocketnotes",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static brand site for pocketnotes.in with Vercel serverless functions in /api.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "resend": "^3.5.0"
+  }
+}

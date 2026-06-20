@@ -11,6 +11,17 @@ function sanitise(str) {
     .slice(0, 200);
 }
 
+function clientIp(req) {
+  // On Vercel x-vercel-forwarded-for / x-real-ip are set by the platform and
+  // cannot be spoofed by the client. The first hop of x-forwarded-for IS
+  // client-controlled, so only fall back to it as a last resort.
+  const trusted = req.headers['x-vercel-forwarded-for'] || req.headers['x-real-ip'];
+  if (trusted) return String(trusted).split(',')[0].trim();
+  const xff = req.headers['x-forwarded-for'];
+  if (xff) return String(xff).split(',')[0].trim();
+  return req.socket?.remoteAddress || 'unknown';
+}
+
 async function checkRateLimit(ip, endpoint) {
   const url = process.env.UPSTASH_REDIS_REST_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -51,21 +62,19 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
   const contentLength = parseInt(req.headers['content-length'] || '0');
   if (contentLength > 2048) {
     return res.status(413).json({ error: 'Request too large' });
   }
 
-  const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim()
-    || req.socket?.remoteAddress
-    || 'unknown';
+  const ip = clientIp(req);
   const allowed = await checkRateLimit(ip, 'newsletter');
   if (!allowed) {
     return res.status(429).json({ error: 'Too many requests. Please try again later.' });
-  }
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
@@ -122,7 +131,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ success: true });
   } catch (err) {
-    console.error('Newsletter error:', err.message);
-    return res.status(500).json({ error: err.message });
+    console.error('Newsletter error:', err);
+    return res.status(500).json({ error: 'Something went wrong. Please try again.' });
   }
 }

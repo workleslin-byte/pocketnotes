@@ -1,3 +1,13 @@
+function clientIp(req) {
+  // x-vercel-forwarded-for / x-real-ip are set by Vercel and cannot be spoofed;
+  // the first hop of x-forwarded-for is client-controlled, so use it last.
+  const trusted = req.headers['x-vercel-forwarded-for'] || req.headers['x-real-ip'];
+  if (trusted) return String(trusted).split(',')[0].trim();
+  const xff = req.headers['x-forwarded-for'];
+  if (xff) return String(xff).split(',')[0].trim();
+  return req.socket?.remoteAddress || 'unknown';
+}
+
 export default async function handler(req, res) {
   const { slug } = req.query;
 
@@ -20,17 +30,34 @@ export default async function handler(req, res) {
     return r.json();
   }
 
+  res.setHeader('Cache-Control', 'no-store');
+
   if (req.method === 'GET') {
     const data = await redis(`GET/${key}`);
     const count = parseInt(data.result, 10) || 1;
-    res.setHeader('Cache-Control', 'no-store');
     return res.status(200).json({ count });
   }
 
   if (req.method === 'POST') {
-    const data = await redis(`INCR/${key}`);
+    // De-duplicate increments per IP+slug so the public "reads" count can't be
+    // trivially inflated by repeated POSTs. Only the first POST from a given IP
+    // within the window increments the real counter; the rest just read it.
+    const ip = clientIp(req);
+    const seenKey = encodeURIComponent(`viewseen:${slug}:${ip}`);
+    let shouldIncrement = true;
+    try {
+      const seen = await redis(`INCR/${seenKey}`);
+      if (seen.result === 1) {
+        await redis(`EXPIRE/${seenKey}/21600`); // 6h window
+      } else {
+        shouldIncrement = false;
+      }
+    } catch {
+      // On limiter failure, fall through and count the view (fail open).
+    }
+
+    const data = await redis(shouldIncrement ? `INCR/${key}` : `GET/${key}`);
     const count = parseInt(data.result, 10) || 1;
-    res.setHeader('Cache-Control', 'no-store');
     return res.status(200).json({ count });
   }
 

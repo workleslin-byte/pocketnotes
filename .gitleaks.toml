@@ -1,0 +1,18 @@
+title = "pocketnotes gitleaks config"
+
+# Start from gitleaks' built-in rule set, then narrow with an allowlist.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Known-public values and intentionally-local secret files."
+paths = [
+  # .env* files are gitignored and only ever exist locally; they are the
+  # legitimate home for secrets, so don't flag them on local --no-git scans.
+  '''\.env.*''',
+  '''package-lock\.json''',
+]
+regexes = [
+  # PostHog project API keys (phc_...) are PUBLIC, client-side keys by design.
+  '''phc_[A-Za-z0-9]{30,}''',
+]

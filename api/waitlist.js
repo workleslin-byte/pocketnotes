@@ -1,6 +1,17 @@
 import { Resend } from 'resend';
+import { randomUUID } from 'node:crypto';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+function clientIp(req) {
+  // x-vercel-forwarded-for / x-real-ip are set by Vercel and cannot be spoofed;
+  // the first hop of x-forwarded-for is client-controlled, so use it last.
+  const trusted = req.headers['x-vercel-forwarded-for'] || req.headers['x-real-ip'];
+  if (trusted) return String(trusted).split(',')[0].trim();
+  const xff = req.headers['x-forwarded-for'];
+  if (xff) return String(xff).split(',')[0].trim();
+  return req.socket?.remoteAddress || 'unknown';
+}
 
 function sanitise(str) {
   if (typeof str !== 'string') return '';
@@ -78,7 +89,7 @@ async function checkDuplicate(email) {
 }
 
 async function kvSet(name, email, city, product_interest) {
-  const key = `waitlist:${Date.now()}`;
+  const key = `waitlist:${Date.now()}-${randomUUID()}`;
   const value = JSON.stringify({ name, email, city, product_interest, timestamp: new Date().toISOString() });
   await kvFetch(`/set/${key}/${encodeURIComponent(value)}`);
 }
@@ -114,21 +125,19 @@ export default async function handler(req, res) {
     return;
   }
 
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
   const contentLength = parseInt(req.headers['content-length'] || '0');
   if (contentLength > 2048) {
     return res.status(413).json({ error: 'Request too large' });
   }
 
-  const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim()
-    || req.socket?.remoteAddress
-    || 'unknown';
+  const ip = clientIp(req);
   const allowed = await checkRateLimit(ip, 'waitlist');
   if (!allowed) {
     return res.status(429).json({ error: 'Too many requests. Please try again later.' });
-  }
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   const raw = req.body || {};

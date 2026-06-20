@@ -469,7 +469,7 @@ document.getElementById('subscribeForm').addEventListener('submit',async functio
   if(!email)return;
   note.textContent='Subscribing&hellip;';
   try{
-    const res=await fetch('https://api.sender.net/v2/subscribers',{method:'POST',headers:{'Authorization':'Bearer re_NP3s5B3g_7JY5EdCtREKWRnF2uPA1Gisf','Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({email})});
+    const res=await fetch('/api/newsletter',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({email})});
     document.getElementById('subscribeForm').style.display='none';
     note.textContent=res.ok?'Noted. The newsletter will arrive in your inbox.':'Something went wrong. Try again.';
     note.style.opacity='1';note.style.fontFamily="'Fraunces',serif";note.style.fontStyle='italic';note.style.fontSize='1.1rem';note.style.color=res.ok?'var(--mustard)':'var(--coral)';

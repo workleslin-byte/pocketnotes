@@ -1025,10 +1025,9 @@
     if (!email) return;
     msg.textContent = 'Subscribing&hellip;';
     try {
-      const res = await fetch('https://api.sender.net/v2/subscribers', {
+      const res = await fetch('/api/newsletter', {
         method: 'POST',
         headers: {
-          'Authorization': 'Bearer re_NP3s5B3g_7JY5EdCtREKWRnF2uPA1Gisf',
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
