@@ -4,9 +4,9 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>The Index Method &mdash; Pocket Notes</title>
-<meta name="description" content="Niklas Luhmann wrote 90,000 index cards and used them to produce 70 books. Ryder Carroll invented the Bullet Journal around an index. On why numbering and indexing is the only retrieval system that actually works."/>
+<meta name="description" content="Luhmann, Locke, Bush and Ryder Carroll all built an index. On why deciding what to index, and what connects to what, is the thinking itself &mdash; not the filing that comes after."/>
 <meta property="og:title" content="The Index Method &mdash; Pocket Notes"/>
-<meta property="og:description" content="Niklas Luhmann wrote 90,000 index cards and used them to produce 70 books. Ryder Carroll invented the Bullet Journal around an index. On why numbering and indexing is the only retrieval system that actually works."/>
+<meta property="og:description" content="Luhmann, Locke, Bush and Ryder Carroll all built an index. On why deciding what to index, and what connects to what, is the thinking itself &mdash; not the filing that comes after."/>
 <meta property="og:url" content="https://pocketnotes.in/essays/the-index-method"/>
 <meta property="og:type" content="article"/>
 <meta property="og:site_name" content="Pocket Notes"/>
@@ -16,7 +16,7 @@
 <meta name="twitter:image" content="https://pocketnotes.in/assets/images/og/the-index-method.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="The Index Method &mdash; Pocket Notes"/>
-<meta name="twitter:description" content="Niklas Luhmann wrote 90,000 index cards and used them to produce 70 books. Ryder Carroll invented the Bullet Journal around an index. On why numbering and indexing is the only retrieval system that actually works."/>
+<meta name="twitter:description" content="Luhmann, Locke, Bush and Ryder Carroll all built an index. On why deciding what to index, and what connects to what, is the thinking itself &mdash; not the filing that comes after."/>
 <link rel="canonical" href="https://pocketnotes.in/essays/the-index-method"/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='8' y='4' width='18' height='24' rx='2' fill='%23FAF3E3' stroke='%231A1612' stroke-width='2.5'/%3E%3Crect x='6' y='4' width='4' height='24' fill='%23F5C13D' stroke='%231A1612' stroke-width='2.5'/%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -28,7 +28,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "The Index Method",
-  "description": "Niklas Luhmann wrote 90,000 index cards and used them to produce 70 books. On why indexing is the only retrieval system that actually works.",
+  "description": "Niklas Luhmann, John Locke, Vannevar Bush, and Ryder Carroll all built an index. On why the act of indexing is the thinking itself, not the filing that comes after.",
   "datePublished": "2026-05-01",
   "author": {
     "@type": "Person",
@@ -41,7 +41,9 @@
   },
   "mainEntityOfPage": "https://pocketnotes.in/essays/the-index-method",
   "image": "https://pocketnotes.in/assets/images/og/the-index-method.jpg",
-  "dateModified": "2026-05-01"
+  "dateModified": "2026-06-24",
+  "wordCount": "1150",
+  "keywords": ["index method","Zettelkasten","Niklas Luhmann","John Locke","commonplace book","Vannevar Bush","memex","Bullet Journal","Ryder Carroll","note-taking"]
 }
 </script>
 <style>
@@ -49,7 +51,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 html,body{overflow-x:hidden}
-body{background:var(--cream);color:var(--ink);font-family:'Space Grotesk',sans-serif;font-weight:300;line-height:1.6;min-height:100vh;cursor:none}
+body{background:var(--cream);color:var(--ink);font-family:'Space Grotesk',sans-serif;font-size:18px;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;cursor:none}
 ::selection{background:var(--mustard);color:var(--ink)}
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.045;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .cursor-dot,.cursor-ring{position:fixed;pointer-events:none;z-index:10000;border-radius:50%;transform:translate(-50%,-50%)}
@@ -88,14 +90,22 @@ nav{position:fixed;top:1.5rem;left:1.5rem;right:1.5rem;z-index:200;display:flex;
 .article-title em{font-style:italic;font-weight:400;color:var(--coral)}
 .article-subtitle{font-family:'Fraunces',serif;font-size:clamp(1.15rem,2.2vw,1.5rem);font-style:italic;font-weight:300;color:var(--ink-soft);line-height:1.45;margin-bottom:2.5rem;border-left:3px solid var(--mustard);padding-left:1.2rem}
 .article-rule{border:none;border-top:1.5px solid var(--ink);margin:2.5rem 0;opacity:0.15}
-.article-body p{font-size:1.05rem;line-height:1.8;margin-bottom:1.5rem;color:var(--ink);text-align:justify;hyphens:auto}
-.article-body p:first-of-type::first-letter{font-family:'Fraunces',serif;font-size:3.5rem;font-weight:400;line-height:.85;float:left;margin-right:.1em;margin-top:.05em;color:var(--ink)}
+.article-body{font-size:1.05rem;line-height:1.8;color:var(--ink)}
+.article-body p{margin-bottom:1.6rem;color:var(--ink);text-align:justify;hyphens:auto}
+.article-body .opening::first-letter{font-family:'Fraunces',serif;font-weight:900;font-size:5.2rem;line-height:0.82;float:left;margin-right:0.1em;margin-top:0.05em;color:var(--coral)}
 .article-body a{color:var(--coral);border-bottom:1px solid var(--mustard);text-decoration:none;transition:color .2s,border-color .2s}
 .article-body a:hover{color:var(--ink);border-color:var(--coral)}
 .article-body blockquote{border-left:3px solid var(--mustard);padding:1rem 1.25rem;margin:2.5rem 0;background:var(--bone);border-radius:0 4px 4px 0}
 .article-body blockquote p{font-family:'Fraunces',serif;font-style:italic;font-size:1.1rem;color:var(--ink-soft);margin:0 0 .5rem;text-align:left;hyphens:none}
 .article-body blockquote cite{font-size:.75rem;font-family:'DM Mono',monospace;color:var(--ink-soft);letter-spacing:.05em}
-.essay-end{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--bone);font-size:.75rem;color:var(--ink-soft);font-family:'DM Mono',monospace;letter-spacing:.05em}
+.pull-quote{margin:3rem 0;padding:1.8rem 2rem;border-left:4px solid var(--mustard);background:var(--bone);border-radius:0 12px 12px 0}
+.pull-quote p{font-family:'Fraunces',serif;font-style:italic;font-size:clamp(1.2rem,2.5vw,1.6rem);line-height:1.45;color:var(--ink);margin-bottom:0!important}
+.pull-quote .attr{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft);margin-top:0.9rem;display:block;font-style:normal}
+.section-break{display:block;text-align:center;margin:3.5rem 0;color:var(--mustard);font-size:1.2rem;letter-spacing:0.4em;opacity:0.8}
+.article-end{margin-top:4rem;padding-top:2rem;border-top:1.5px solid rgba(26,22,18,0.15)}
+.article-tags{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:2rem}
+.article-tag{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.8rem;border:1.5px solid var(--ink);border-radius:999px;color:var(--ink-soft);text-decoration:none;cursor:none;transition:background .2s var(--ease),color .2s var(--ease)}
+.article-tag:hover{background:var(--ink);color:var(--cream)}
 .subscribe-section{background:var(--plum);color:var(--cream);padding:5rem var(--gut);position:relative;overflow:hidden}
 .subscribe-inner{max-width:600px;margin:0 auto;text-align:center}
 .subscribe-eyebrow{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mustard);margin-bottom:1.2rem}
@@ -312,46 +322,73 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
         <span class="tag">Method</span>
         <span class="tag" style="background:var(--sky);color:var(--ink)">Culture</span>
         <span class="sep">&middot;</span>
-        <span>5 min read</span>
+        <span>6 min read</span>
         <span class="sep">&middot;</span>
-        <span>May 2026</span>
+        <span>June 2026</span>
 &middot; <span class="essay-view-count" id="essayViewCount" aria-label="reads"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span id="viewCountNum"><span class="view-shimmer"></span></span></span>
       </p>
 
       <h1 class="article-title">The <em>Index Method</em></h1>
 
-      <p class="article-subtitle">Niklas Luhmann wrote 90,000 index cards over forty years and used them to produce 70 books. The key was not the cards. It was the index that connected them. What you can retrieve is what you actually own.</p>
+      <p class="article-subtitle">We treat the index as housekeeping &mdash; the thing done after the thinking, to file it away where it can be found again. The people who built the great ones treated it as the place where the thinking happened.</p>
     </header>
 
     <hr class="article-rule">
 
-  <article class="article-body">
-    <p>Niklas Luhmann was a German sociologist who, between 1951 and 1997, produced 70 books and nearly 400 academic papers covering systems theory, law, religion, art, love, ecology, and mass media. When he died, he left behind a cabinet of 90,000 index cards &mdash; his <em>Zettelkasten</em>, or slip-box. Each card held a single thought. Each card was numbered. Each card referenced other cards by number.</p>
+  <div class="article-body">
+    <p class="opening">Niklas Luhmann, a German sociologist, produced 70 books and close to 400 papers between 1951 and 1997. When he died he left behind two wooden cabinets holding around 90,000 index cards &mdash; his <em>Zettelkasten</em>, or slip-box. The cards get described as his archive, the place he stored what he read. They were the instrument he thought with.</p>
 
-    <p>The system was the output, not the input. Luhmann did not read and then write. He read, wrote a card, and then asked: what else in the box does this connect to? The answer led to another card, which led to another. When enough cards on a related topic had accumulated and linked to each other, a book or paper had effectively written itself in embryo. He needed only to pull the thread.</p>
+    <p>Every card carried an address: 1, 1a, 1b, 1a1. A card that continued a thought took a letter. A card that broke off in a new direction took a number. A fresh idea could slot into the network at any point, and nothing already written had to move to make room. Luhmann did not read and then file. He read, wrote a card, and asked what already in the box it belonged beside &mdash; then wrote that link by hand. Following those links was how the writing got done. A note from 1952 and a note from 1979 could end up side by side, because the argument wanted them there. By the time enough cards had gathered around a question, the piece was already standing. He copied it out.</p>
 
-    <p>What made this work was not the volume of cards. It was the index. Without a way to find things, 90,000 cards is just a large pile. With an index, it is a searchable knowledge base that accumulates connections over time &mdash; a structure that grows more useful, not less, as it grows larger.</p>
+    <p>In a <a href="https://en.wikipedia.org/wiki/Zettelkasten" target="_blank" rel="noopener">1981 essay</a> on his method, Luhmann described the slip-box as a partner in the work &mdash; a second memory he was in conversation with, one that kept handing him combinations he had never planned. The index itself was thin: a register of keywords, each pointing to one or two entry cards, and from there you followed the references inward from card to card. His own communication theory held that surprise is the precondition for information &mdash; a source that returns only what you expected has told you nothing. The box earned its keep on the days it gave back something he had forgotten writing. <strong>He did not consult it to retrieve. He consulted it to collide.</strong></p>
 
-    <blockquote>
-      <p>"I only do what is easy. I only write when I immediately know how to do it. If I falter for a moment, I put the matter aside and do something else."</p>
-      <cite>&mdash; Niklas Luhmann</cite>
-    </blockquote>
+    <span class="section-break">&#x2726; &nbsp; &#x2726; &nbsp; &#x2726;</span>
 
-    <p>Ryder Carroll, who created the Bullet Journal system in 2013, identified the same problem from a different angle. He had ADHD, and the standard methods for organising a notebook &mdash; chronological, topic-by-topic, tabbed &mdash; all failed him for the same reason: he could not find things. His solution was to put an index at the front of every notebook, numbering every page, and adding an entry to the index every time something worth returning to appeared.</p>
+    <p>The method runs three centuries deeper than Luhmann. In 1685 <a href="https://publicdomainreview.org/collection/john-lockes-method-for-common-place-books-1685/" target="_blank" rel="noopener">John Locke published a system</a> for the commonplace book &mdash; the personal notebook of quotations and observations educated Europeans kept &mdash; built around a two-page index at the front. An entry&rsquo;s place was fixed by the first letter and first vowel of its keyword: <em>art</em> filed under A-a, <em>education</em> under E-u. Locke had refined the method over twenty-five years of his own note-taking before he let it out. The historian Michael Stolberg, <a href="https://brill.com/view/journals/esm/19/5/article-p448_4.xml?language=en" target="_blank" rel="noopener">writing in <em>Early Science and Medicine</em> in 2014</a>, traced what it did to the people who used it: the system let a reader break books into fragments and recombine them on the page in patterns their authors had never intended.</p>
 
-    <p>The index is not the whole system. It is the mechanism that makes the rest of the system retrievable. A notebook without an index is a write-only system. You can put things in but you cannot take them back out with any reliability. You remember vaguely that you wrote something about a particular problem two notebooks ago, but whether it was in the third quarter of that notebook or the first half you cannot say. So you do not look. The note stays buried.</p>
+    <p>The labour in Locke&rsquo;s method lived in one decision &mdash; which single keyword named what a passage was actually about. That decision is a judgment, made in the moment of writing, about what the thing in front of you means. <strong>The index entry is a verdict.</strong> To keep the index was to read back through your own collection and rule, over and over, on what it had become. The method outlived its author by a century; the London publisher John Bell sold blank books with Locke&rsquo;s indexing instructions printed into the front.</p>
 
-    <p>The friction of retrieval is what kills most notebooks as knowledge tools. People write faithfully for weeks or months, then the notebook fills, they start a new one, and the old one goes on the shelf. Everything in it is now effectively inaccessible &mdash; not because it has been destroyed, but because the cognitive cost of finding anything specific is too high to bear in the moment when you need it.</p>
+    <p>In July 1945 the engineer Vannevar Bush described the same act for a machine that did not yet exist. Bush had just run the American scientific effort through the war, and he was uneasy about the sheer volume of recorded knowledge outpacing any one mind&rsquo;s ability to use it. His essay <a href="https://web.mit.edu/STS.035/www/PDFs/think.pdf" target="_blank" rel="noopener">&ldquo;As We May Think,&rdquo;</a> in <em>The Atlantic</em>, imagined the memex: a desk that held a person&rsquo;s whole library on microfilm and let them lay down trails joining any item to any other. His claim was exact. &ldquo;The process of tying two items together,&rdquo; he wrote, &ldquo;is the important thing.&rdquo; Not the storing. The tying. He went on to imagine a coming profession of &ldquo;trail blazers,&rdquo; whose contribution to knowledge would be the paths they cut through the shared record.</p>
 
-    <p>The index lowers that cost to almost nothing. Number the pages. At the front, a few lines reserved for index entries: topic, page number. Write an entry whenever you write something you will want again. The notebook is now a searchable object.</p>
+    <p>So the index is not the plumbing underneath thought. Across Locke, Bush, and Luhmann, the act of deciding what connects to what is itself <a href="/essays/the-page-is-a-tool">the thinking</a>. A notebook without an index fails twice over. We cannot find what we wrote, which is the loss everyone notices. We also never stopped to decide what any of it was worth, which is the loss no one notices, because it leaves nothing behind to be missed.</p>
 
-    <p>For a pocket notebook, the index can be simpler still. Number the pages. Keep two or three lines at the back for an index. Mark anything worth returning to with a corner fold or a small mark in the margin. The retrieval cost drops from "I have to leaf through the whole thing" to "I have to check three pages."</p>
+    <div class="pull-quote">
+      <p>An unindexed notebook is a record of having written. It is not a record of having thought.</p>
+    </div>
 
-    <p>Luhmann's 90,000 cards were extraordinary because of the decades of accumulation and the density of cross-referencing. But the principle scales down. Even ten notes in a pocket notebook, indexed and cross-referenced, are more useful than a hundred notes that can only be accessed by reading everything from the beginning.</p>
+    <p>Everyone who keeps notebooks knows the shelf. A row of full ones, each carried for months and written in faithfully, none ever opened again. The reason is not laziness. It is cost. To find one note in an unindexed book is to search the whole book, and the mind refuses that price in the moment it has a question. So we do not look, and the note might as well never have been written.</p>
 
-    <p>Number the pages. Keep an index. What you can find is what you actually own.</p>
-  </article>
-  <div class="essay-end">&mdash; Pocket Notes, May 2026</div>
+    <span class="section-break">&#x2726; &nbsp; &#x2726; &nbsp; &#x2726;</span>
+
+    <p>Ryder Carroll reached the same place from need rather than theory. He has ADHD, and every notebook system he tried broke in the same spot: he could not find anything in it. The <a href="https://bulletjournal.com/pages/rydercarroll" target="_blank" rel="noopener">Bullet Journal he released in 2013</a> answered with an index at the front and a number on every page. The part he pressed hardest was migration. At each month&rsquo;s end you move through every unfinished item and decide, one at a time, whether it still earns a place in the month ahead. Copying the list forward would be faster. He made it slow on purpose. <strong>The slowness is the deciding.</strong></p>
+
+    <p>For a pocket notebook the mechanism asks almost nothing of you. Number the pages. Keep two or three lines at the back, or fold the corner of anything you will want again. Then write the entry: a word, a page number. Writing it down is nothing. The work is the half-second before it, when you weigh whether the thing earns a line at all &mdash; which sends you back to read what you wrote and decide what it was. You <a href="/essays/catch-first-edit-later">catch the thought first</a> and judge it later, and the index is where the judging lives. Do that across one notebook and you have been through your own mind once more than you would have otherwise.</p>
+
+    <p>Luhmann&rsquo;s 90,000 cards took forty years, and the cabinet is rightly famous. The act that filled it is not rare. It waits on every blank page, for the price of a number and a word.</p>
+
+    <p>Number the pages. Keep the index. <strong>What you bother to index is what you have actually thought about.</strong></p>
+
+    <div style="margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(26,22,18,0.12)">
+      <p style="font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft);opacity:0.6;margin-bottom:0.8rem">References</p>
+      <ul style="list-style:none;font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--ink-soft);opacity:0.75;line-height:1.9">
+        <li>Luhmann, N. (1981). Kommunikation mit Zettelk&auml;sten.</li>
+        <li>Stolberg, M. (2014). John Locke&rsquo;s &ldquo;new method of making common-place-books&rdquo;: tradition, innovation and epistemic effects. <em>Early Science and Medicine, 19</em>(5), 448&ndash;470.</li>
+        <li>Bush, V. (1945, July). As we may think. <em>The Atlantic Monthly.</em></li>
+        <li>Carroll, R. (2018). <em>The Bullet Journal Method.</em> Portfolio/Penguin.</li>
+      </ul>
+    </div>
+  </div>
+
+    <div class="article-end">
+      <div class="article-tags">
+        <a href="/essays" class="article-tag">Method</a>
+        <a href="/essays" class="article-tag">History</a>
+        <a href="/essays" class="article-tag">Practice</a>
+      </div>
+      <p style="font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft);opacity:0.6">
+        &mdash; Pocket Notes, June 2026
+      </p>
+    </div>
   </div><!-- /article-inner -->
 </main>
 
@@ -373,18 +410,21 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
   <div class="read-next-inner">
     <p class="read-next-label">Read next</p>
     <div class="read-next-grid">
-      <a href="/essays/notes-as-identity" class="read-next-card">
+      <a href="/essays/the-page-is-a-tool" class="read-next-card">
         <div class="read-next-img" style="background:#6E3582;">
-          <svg width="60%" height="60%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="100" cy="80" r="35" fill="none" stroke="#FAF3E3" stroke-width="3" opacity="0.7"/>
-            <circle cx="100" cy="80" r="18" fill="#FAF3E3" opacity="0.5"/>
-            <rect x="70" y="125" width="60" height="45" rx="4" fill="#FAF3E3" stroke="#FAF3E3" stroke-width="2" opacity="0.7"/>
-            <line x1="80" y1="138" x2="120" y2="138" stroke="#6E3582" stroke-width="2" opacity="0.8"/>
-            <line x1="80" y1="152" x2="112" y2="152" stroke="#6E3582" stroke-width="2" opacity="0.6"/>
+          <svg width="62%" height="62%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="40" y="42" width="84" height="116" rx="4" fill="none" stroke="#FAF3E3" stroke-width="3" opacity="0.85"/>
+            <line x1="56" y1="70" x2="108" y2="70" stroke="#FAF3E3" stroke-width="2" opacity="0.45"/>
+            <line x1="56" y1="86" x2="108" y2="86" stroke="#FAF3E3" stroke-width="2" opacity="0.45"/>
+            <line x1="56" y1="102" x2="92" y2="102" stroke="#F5C13D" stroke-width="3.5"/>
+            <line x1="56" y1="118" x2="104" y2="118" stroke="#FAF3E3" stroke-width="2" opacity="0.45"/>
+            <path d="M150 52 L116 132" stroke="#FAF3E3" stroke-width="5" stroke-linecap="round"/>
+            <path d="M116 132 l-3 15 l13 -8 z" fill="#FAF3E3"/>
+            <circle cx="120" cy="140" r="3.5" fill="#FF6B47"/>
           </svg>
         </div>
-        <p class="read-next-meta">Identity &middot; 6 min</p>
-        <p class="read-next-title">Notes as identity.</p>
+        <p class="read-next-meta">Method &middot; 5 min</p>
+        <p class="read-next-title">The page is a tool.</p>
       </a>
       <a href="/essays/the-grid-page-and-the-wandering-thought" class="read-next-card">
         <div class="read-next-img" style="background:#5BA8C9;">
