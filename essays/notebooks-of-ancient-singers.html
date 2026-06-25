@@ -506,56 +506,7 @@ footer{background:var(--ink);color:var(--cream);padding:4rem var(--gut) 2rem}
   </div>
 </footer>
 
-<script>
-const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-(function loop(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
-document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hover'));el.addEventListener('mouseleave',()=>ring.classList.remove('hover'));});
-const hamburger=document.getElementById('navHamburger'),mobileMenu=document.getElementById('navMobileMenu');
-if(hamburger){hamburger.addEventListener('click',()=>{const open=hamburger.classList.toggle('open');mobileMenu.classList.toggle('open',open);hamburger.setAttribute('aria-expanded',open);document.body.style.overflow=open?'hidden':'';});mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{hamburger.classList.remove('open');mobileMenu.classList.remove('open');hamburger.setAttribute('aria-expanded','false');document.body.style.overflow='';}));}
-document.getElementById('subscribeForm').addEventListener('submit',async function(e){
-  e.preventDefault();
-  const email=document.getElementById('emailInput').value.trim();
-  const note=document.getElementById('subscribeNote');
-  if(!email)return;
-  note.textContent='Subscribing&hellip;';
-  try{
-    const res=await fetch('/api/newsletter',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({email})});
-    document.getElementById('subscribeForm').style.display='none';
-    note.textContent=res.ok?'Noted. The newsletter will arrive in your inbox.':'Something went wrong. Try again.';
-    note.style.opacity='1';note.style.fontFamily="'Fraunces',serif";note.style.fontStyle='italic';note.style.fontSize='1.1rem';note.style.color=res.ok?'var(--mustard)':'var(--coral)';
-  }catch{document.getElementById('subscribeForm').style.display='none';note.textContent='Something went wrong. Try again.';note.style.opacity='1';}
-});
-/* ── View counter ── */
-(function() {
-  var slug = 'notebooks-of-ancient-singers';
-  var sessionKey = 'viewed:' + slug;
-  var numEl = document.getElementById('viewCountNum');
-  if (!numEl) return;
-
-  function showCount(n) {
-    numEl.textContent = n + ' reads';
-  }
-
-  var alreadySeen = sessionStorage.getItem(sessionKey);
-
-  if (alreadySeen) {
-    fetch('/api/view?slug=' + slug)
-      .then(function(r) { return r.json(); })
-      .then(function(d) { showCount(d.count); })
-      .catch(function() { numEl.textContent = '—'; });
-  } else {
-    fetch('/api/view?slug=' + slug, { method: 'POST' })
-      .then(function(r) { return r.json(); })
-      .then(function(d) {
-        sessionStorage.setItem(sessionKey, '1');
-        showCount(d.count);
-      })
-      .catch(function() { numEl.textContent = '—'; });
-  }
-})();
-</script>
+<script defer src="/assets/essay.js"></script>
 <!-- pn-mobile-layer -->
 <script defer src="/assets/mobile.js"></script>
 </body>
