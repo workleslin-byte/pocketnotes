@@ -1,12 +1,4 @@
-function clientIp(req) {
-  // x-vercel-forwarded-for / x-real-ip are set by Vercel and cannot be spoofed;
-  // the first hop of x-forwarded-for is client-controlled, so use it last.
-  const trusted = req.headers['x-vercel-forwarded-for'] || req.headers['x-real-ip'];
-  if (trusted) return String(trusted).split(',')[0].trim();
-  const xff = req.headers['x-forwarded-for'];
-  if (xff) return String(xff).split(',')[0].trim();
-  return req.socket?.remoteAddress || 'unknown';
-}
+import { clientIp } from './_lib/kit.js';
 
 export default async function handler(req, res) {
   const { slug } = req.query;
@@ -16,8 +8,8 @@ export default async function handler(req, res) {
   }
 
   const key = `views:${slug}`;
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  const url = process.env.UPSTASH_REDIS_REST_URL || process.env.upstash_KV_REST_API_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.upstash_KV_REST_API_TOKEN;
 
   if (!url || !token) {
     return res.status(200).json({ count: 1 });

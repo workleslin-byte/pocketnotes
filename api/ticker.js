@@ -1,3 +1,5 @@
+import { redis, kvConfigured, ensureWaitlistMigrated } from './_lib/kit.js';
+
 const CORS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
@@ -14,57 +16,35 @@ export default async function handler(req, res) {
   }
 
   Object.entries(CORS).forEach(([k, v]) => res.setHeader(k, v));
-  res.setHeader('Cache-Control', 'no-store');
+  // Short shared-CDN cache so a burst of shop visits doesn't fan out to Redis.
+  res.setHeader('Cache-Control', 's-maxage=30, stale-while-revalidate=60');
 
-  const URL = process.env.UPSTASH_REDIS_REST_URL;
-  const TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
-
-  if (!URL || !TOKEN) {
+  if (!kvConfigured) {
     return res.status(200).json({ entries: [], total: 0 });
   }
 
   try {
-    const keysRes = await fetch(`${URL}/keys/waitlist:*`, {
-      headers: { Authorization: `Bearer ${TOKEN}` },
-    });
-    const keysData = await keysRes.json();
-    const keys = keysData.result || [];
+    await ensureWaitlistMigrated();
 
-    if (!keys.length) {
-      return res.status(200).json({ entries: [], total: 0 });
-    }
+    // Single range read of the capped recent list — no KEYS, no per-key fan-out.
+    const { result: rows = [] } = await redis('lrange', 'waitlist:recent', '0', '-1');
 
-    const values = await Promise.all(
-      keys.map(k =>
-        fetch(`${URL}/get/${encodeURIComponent(k)}`, {
-          headers: { Authorization: `Bearer ${TOKEN}` },
-        }).then(r => r.json())
-      )
-    );
-
-    const parsed = values
-      .map(v => {
-        const raw = v.result;
-        if (!raw) return null;
-        try { return typeof raw === 'string' ? JSON.parse(raw) : raw; }
-        catch { return null; }
-      })
+    const parsed = rows
+      .map(r => { try { return typeof r === 'string' ? JSON.parse(r) : r; } catch { return null; } })
       .filter(Boolean)
       .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
-    // Deduplicate by email (keep most recent — already sorted desc)
-    const seenEmails = new Set();
-    const dedupedByEmail = parsed.filter(e => {
+    // Deduplicate by email, then by name+city, for display (matches prior behavior).
+    const seenEmail = new Set();
+    const byEmail = parsed.filter(e => {
       if (!e.email) return true;
       const key = e.email.toLowerCase();
-      if (seenEmails.has(key)) return false;
-      seenEmails.add(key);
+      if (seenEmail.has(key)) return false;
+      seenEmail.add(key);
       return true;
     });
-
-    // Deduplicate by name+city combination (keep most recent)
     const seenNameCity = new Set();
-    const deduped = dedupedByEmail.filter(e => {
+    const deduped = byEmail.filter(e => {
       if (!e.name || !e.city) return true;
       const key = `${e.name.toLowerCase().trim()}|${e.city.toLowerCase().trim()}`;
       if (seenNameCity.has(key)) return false;
@@ -72,13 +52,14 @@ export default async function handler(req, res) {
       return true;
     });
 
-    const total = deduped.length;
-
     const entries = deduped
       .slice(0, 20)
       .map(({ name, city, product_interest }) => ({ name, city, product_interest }));
 
-    return res.status(200).json({ entries, total });
+    // Unbounded O(1) count of unique signups.
+    const { result: total } = await redis('scard', 'waitlist:emails');
+
+    return res.status(200).json({ entries, total: total || deduped.length });
   } catch (err) {
     console.error('Ticker handler error:', err);
     return res.status(500).json({ error: 'Could not load ticker.' });
