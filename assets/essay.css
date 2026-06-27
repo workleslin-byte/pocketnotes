@@ -52,6 +52,8 @@
   .article-body p{margin-bottom:1.6rem;text-align:justify;hyphens:auto}
   .article-body a{color:var(--coral);border-bottom:1px solid var(--mustard);text-decoration:none;transition:color .2s,border-color .2s}
   .article-body a:hover{color:var(--ink);border-color:var(--coral)}
+  .article-body a[target="_blank"]{color:var(--plum);border-bottom-color:var(--plum)}
+  .article-body a[target="_blank"]:hover{color:var(--ink);border-color:var(--plum)}
   .article-body .opening::first-letter{font-family:'Fraunces',serif;font-weight:900;font-size:5.2rem;line-height:0.82;float:left;margin-right:0.1em;margin-top:0.05em;color:var(--coral)}
   .article-body h2{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(1.6rem,3.5vw,2.3rem);line-height:1.05;letter-spacing:-0.02em;margin:3rem 0 1.2rem;padding-top:1.7rem;border-top:1.5px solid rgba(26,22,18,0.14);display:flex;align-items:baseline;gap:0.7rem}
   .article-body h2 .num{font-style:italic;font-weight:400;color:var(--coral);font-size:0.9em}

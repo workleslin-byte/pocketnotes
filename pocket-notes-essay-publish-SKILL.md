@@ -1,20 +1,20 @@
 ---
 name: pocket-notes-essay-publish
-description: Check and fix the HTML format of a Pocket Notes essay before or after publishing. Use this skill whenever the user asks to "publish", "format check", "design check", or "align with the design language" for any essay. Also trigger when comparing an essay against the-page-is-a-tool or the style bible, or when the user says elements like bold, italic, pull quote, section break, drop cap, internal link, or article-tag are missing. This skill governs the HTML implementation standard — it does NOT govern writing voice or copy (that is the pocket-notes-essay skill).
+description: Check and fix the HTML format of a Pocket Notes essay before or after publishing. Use this skill whenever the user asks to "publish", "format check", "design check", or "align with the design language" for any essay. Also trigger when comparing an essay against five-notebooks or the style bible, or when the user says elements like bold, italic, pull quote, section break, drop cap, internal link, image, or article-tag are missing. This skill governs the HTML implementation standard — it does NOT govern writing voice or copy (that is the pocket-notes-essay skill).
 ---
 
 # Pocket Notes Essay Publish & Format Check Skill
 
 ## What this skill does
 
-Audits a Pocket Notes essay HTML file against the canonical design language, reports every gap, and fixes them. The reference standard is `essays/the-page-is-a-tool.html`. Any essay that does not match this standard is incomplete, regardless of how good the copy is.
+Audits a Pocket Notes essay HTML file against the canonical design language, reports every gap, and fixes them. The reference standard is `essays/five-notebooks.html`. Any essay that does not match this standard is incomplete, regardless of how good the copy is.
 
 ---
 
 ## THE DESIGN REFERENCE
 
-**File:** `essays/the-page-is-a-tool.html`
-**Live:** `https://www.pocketnotes.in/essays/the-page-is-a-tool`
+**File:** `essays/five-notebooks.html`
+**Live:** `https://www.pocketnotes.in/essays/five-notebooks`
 
 Read this file before running any audit. The standard lives in the file, not in memory.
 
@@ -22,76 +22,67 @@ Read this file before running any audit. The standard lives in the file, not in 
 
 ## AUDIT CHECKLIST — run every item in order
 
-### 1. CSS block
+### 1. CSS — external file only
 
-The `<style>` block must contain ALL of the following classes with the exact properties shown. If any are missing, add them verbatim.
+Every essay must link to the shared stylesheet. No inline `<style>` blocks.
 
-**Drop cap:**
-```css
-.article-body .opening::first-letter {
-  font-family: 'Fraunces', serif;
-  font-weight: 900;
-  font-size: 5.2rem;
-  line-height: 0.82;
-  float: left;
-  margin-right: 0.1em;
-  margin-top: 0.05em;
-  color: var(--coral);
-}
+```html
+<link rel="stylesheet" href="/assets/essay.css">
 ```
 
-**Pull quote:**
-```css
-.pull-quote { margin:3rem 0; padding:1.8rem 2rem; border-left:4px solid var(--mustard); background:var(--bone); border-radius:0 12px 12px 0; }
-.pull-quote p { font-family:'Fraunces',serif; font-style:italic; font-size:clamp(1.2rem,2.5vw,1.6rem); line-height:1.45; color:var(--ink); margin-bottom:0!important; }
-.pull-quote .attr { font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); margin-top:0.9rem; display:block; font-style:normal; }
-```
+If an essay has an inline `<style>` block, remove it entirely and add this link. The shared file is the single source of truth for all design tokens, layout, components, and mobile overrides.
 
-**Section break:**
-```css
-.section-break { display:block; text-align:center; margin:3.5rem 0; color:var(--mustard); font-size:1.2rem; letter-spacing:0.4em; opacity:0.8; }
-```
+All classes below are already defined in `/assets/essay.css` — do not re-declare them inline.
 
-**Article end / tags:**
-```css
-.article-end { margin-top:4rem; padding-top:2rem; border-top:1.5px solid rgba(26,22,18,0.15); }
-.article-tags { display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:2rem; }
-.article-tag { font-family:'DM Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.3rem 0.8rem; border:1.5px solid var(--ink); border-radius:999px; color:var(--ink-soft); text-decoration:none; cursor:none; transition:background .2s var(--ease),color .2s var(--ease); }
-.article-tag:hover { background:var(--ink); color:var(--cream); }
-```
+All component classes are defined in `/assets/essay.css`. Reference that file for the canonical values. Key classes for reference:
 
-**Body base (must be on `.article-body`, not just `.article-body p`):**
-```css
-.article-body { font-size:1.05rem; line-height:1.8; color:var(--ink); }
-.article-body p { margin-bottom:1.6rem; text-align:justify; hyphens:auto; }
-```
-
-**Body `font-size` on `<body>` element:**
-```css
-body { font-size:18px; /* NOT font-weight:300 */ }
-```
-
-**Mobile pull-quote override (inside the `@media (max-width: 768px)` block):**
-```css
-.pull-quote { margin: 2rem -1.25rem !important; padding: 1.25rem 1.25rem !important; border-radius: 0 !important; }
-.pull-quote p { font-size: clamp(1.1rem, 5vw, 1.4rem) !important; }
-```
+- `.article-body .opening::first-letter` — coral drop cap, 5.2rem, float left
+- `.pull-quote` — mustard left border, bone background, Fraunces italic
+- `.pull-quote .attr` — DM Mono attribution line, optional
+- `.section-break` — centred diamond glyphs `&#x2726; &nbsp; &#x2726; &nbsp; &#x2726;`
+- `.article-end` + `.article-tags` + `.article-tag` — tag chips + dateline
+- `.article-img` / `.article-img.portrait` — figure with border-radius, figcaption in DM Mono
+- `.article-body a` — coral link, mustard underline (internal links)
+- `.article-body a[target="_blank"]` — **plum** (`#6E3582`) link, plum underline (external links)
 
 ---
 
 ### 2. HTML structure
 
-The article body element must be `<div class="article-body">`, not `<article>`.
+The article must be structured like `five-notebooks.html` — flat, no `<header>` wrapper:
 
-**Correct:**
 ```html
-<div class="article-body">
+<main class="article-wrap">
+  <div class="article-inner">
+    <a href="/essays" class="back-link">&larr; All essays</a>
+
+    <div class="article-eyebrow">        <!-- div, NOT p -->
+      <span class="tag">Category</span>
+      <span class="sep">&middot;</span>
+      <span>N min read</span>
+      <span class="sep">&middot;</span>
+      <span>Month Year</span>
+      &middot; <span class="essay-view-count" id="essayViewCount" ...>...</span>
+    </div>
+
+    <h1 class="article-title">Title with <em>Italic</em></h1>
+    <p class="article-subtitle">Standfirst sentence.</p>
+    <hr class="article-rule">
+
+    <div class="article-body">
+      <p class="opening">First paragraph...</p>
+      ...
+    </div>
+
+    <div class="article-end">...</div>
+  </div>
+</main>
 ```
 
-**Wrong:**
-```html
-<article class="article-body">
-```
+**Wrong patterns — fix these:**
+- `<article class="article-body">` → `<div class="article-body">`
+- `<p class="article-eyebrow">` → `<div class="article-eyebrow">`
+- `<header>` wrapper around eyebrow/title/subtitle → remove it, flatten into `article-inner`
 
 ---
 
@@ -216,19 +207,54 @@ Never link to an essay that does not yet have content (stubs). Check the file be
 
 ---
 
-### 9. External links
+### 9. Images
 
-External links in the body must open in a new tab with `rel="noopener"`:
+Every essay must have at least one image placed inside the article body. Source images from Wikimedia Commons (public domain or CC-licensed). Use the direct `upload.wikimedia.org` URL — no local copies required unless the essay already has them.
 
+**Standard figure pattern:**
 ```html
-<a href="https://en.wikipedia.org/wiki/..." target="_blank" rel="noopener">source name</a>
+<figure class="article-img">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/X/XX/filename.jpg"
+       alt="Descriptive alt text" loading="lazy"/>
+  <figcaption>Name, date, context. Public domain via Wikimedia Commons.</figcaption>
+</figure>
 ```
 
-Link to primary sources: Wikipedia for historical context, journal URLs for papers, Goodreads/publisher pages for books. Not blog summaries or secondhand accounts.
+**Portrait variant** (for people, tall buildings — constrains width to 330px):
+```html
+<figure class="article-img portrait">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/X/XX/filename.jpg"
+       alt="..." loading="lazy"/>
+  <figcaption>...</figcaption>
+</figure>
+```
+
+**Placement:** After the first or second paragraph, near the passage that introduces the subject in the image. The image should illustrate a specific claim — not decorate.
+
+**Finding images:** Search `commons.wikimedia.org` for the subject. Fetch the Commons file page to get the direct `upload.wikimedia.org` URL. Verify the licence is PD or CC before using.
 
 ---
 
-### 10. References section
+### 10. External links — plum colour
+
+External links (`target="_blank"`) render in **plum** (`--plum: #6E3582`) automatically via `/assets/essay.css`. Internal links render in **coral** (`--coral: #FF6B47`). This is CSS-driven — no extra class needed, just ensure:
+
+- External links have `target="_blank" rel="noopener"`
+- Internal links do NOT have `target="_blank"`
+
+```html
+<!-- External → plum -->
+<a href="https://en.wikipedia.org/wiki/..." target="_blank" rel="noopener">Wikipedia</a>
+
+<!-- Internal → coral -->
+<a href="/essays/the-page-is-a-tool">thinking on the page</a>
+```
+
+Never mix these — an internal link with `target="_blank"` will accidentally render plum.
+
+---
+
+### 11. References section
 
 References appear at the bottom of `.article-body`, before the closing `</div>`. They use an inline-styled `<ul>` list, not a `<p>` tag or a custom `.essay-end` class.
 
@@ -247,7 +273,7 @@ If there are no verifiable references, omit the section entirely. Do not fabrica
 
 ---
 
-### 11. Article-end footer
+### 12. Article-end footer
 
 After the closing `</div>` of `.article-body`, add the `.article-end` block with tag chips. The dateline goes here. The view counter does NOT go here — it belongs in the eyebrow (see item 14b).
 
@@ -268,7 +294,7 @@ Use 2–4 tag chips. Pull tags from: Method, Writing, Practice, History, Culture
 
 ---
 
-### 12. Read-next cards
+### 13. Read-next cards
 
 The read-next section must show 3 essays that are topically related to the current one. Update it whenever the essay's content changes significantly. Do not leave default placeholder essays if better matches exist.
 
@@ -280,7 +306,7 @@ Each card needs:
 
 ---
 
-### 13. Strip / CTA section
+### 14. Strip / CTA section
 
 The yellow strip at the bottom must have copy that connects to the essay's specific argument. It should not be generic.
 
@@ -297,7 +323,7 @@ If the strip copy is generic ("Small books. Big ideas."), rewrite it to echo the
 
 ---
 
-### 14. Metadata checks
+### 15. Metadata checks
 
 Before signing off, verify:
 
@@ -314,7 +340,7 @@ Before signing off, verify:
 
 ---
 
-### 15. Register the essay in the index + reconcile the count (do this for EVERY new essay)
+### 16. Register the essay in the index + reconcile the count (do this for EVERY new essay)
 
 A new essay file is not "published" until it is listed in `essays/index.html`. Three edits there, plus a count reconciliation:
 
