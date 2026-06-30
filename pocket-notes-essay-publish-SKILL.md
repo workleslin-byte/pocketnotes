@@ -497,20 +497,35 @@ Internal links render coral (`#FF6B47`) automatically. Do NOT add `target="_blan
 
 Link the phrase in the sentence that most closely relates to the target essay's argument. Do not add a sentence purely to create a link.
 
-**Published essays available to link to (these have content — use only from this list):**
-- `/essays/born-of-necessity` — why the pocket notebook format survived; form follows function
-- `/essays/two-lines-every-day` — minimum daily practice; the two-line floor
-- `/essays/attention-is-physical` — phone vs. paper; focus and physicality of writing
+**Published essays available to link to — ALL of these have full written content (verified 2026-06-30 by body word count). Any of them is safe to use as an internal link or a read-next card:**
+- `/essays/attention-is-physical` — phone vs. paper; focus and the physicality of writing
+- `/essays/born-of-necessity` — why the pocket format survived; form follows function
 - `/essays/catch-first-edit-later` — capture without judging; park the thought
-- `/essays/the-page-is-a-tool` — the notebook as working surface, not archive
-- `/essays/the-first-page-rule` — starting ritual, first-page anxiety
+- `/essays/constraint-as-creative-practice` — Perec, Oulipo, haiku; the limit as the mechanism
+- `/essays/constraint-sharpens` — the A6 page forces you to choose the essential two hundred words
+- `/essays/five-notebooks` — five notebooks every thinking person should keep
+- `/essays/idea-parking` — leaving an idea somewhere safe to return to
+- `/essays/margins-where-great-ideas-live` — Darwin/Newton/Nabokov; ideas arrive sideways, in leftover space
+- `/essays/notebooks-of-ancient-singers` — oral memory and the Iliad; writing as externalised memory
+- `/essays/notes-as-identity` — the Corebook as a record of where you stood
+- `/essays/notes-as-identity-the-corebook` — Plath/Kafka; notebooks as the most honest autobiography
+- `/essays/the-first-page-rule` — starting ritual; first-page anxiety
+- `/essays/the-grid-page-and-the-wandering-thought` — graph-paper history; the grid as neutral surface
+- `/essays/the-index-method` — Luhmann/Locke/Bush; the index as the thinking itself
 - `/essays/the-method-beats-the-mood` — habit vs. inspiration
-- `/essays/the-people-who-write-in-the-margins` — marginalia and annotation
-- `/essays/why-your-notebook-should-never-be-organised` — anti-organisation argument
-- `/essays/the-index-method` — systems for organising captured material
+- `/essays/the-notebook-next-to-the-laptop` — interruption cost; notebook methods that recover focus
+- `/essays/the-page-is-a-tool` — the notebook as working surface, not archive
+- `/essays/the-people-who-write-in-the-margins` — marginalia tour (Coleridge/Fermat); annotation as thinking
+- `/essays/the-roman-wax-tablet` — the tabula cerata; first capture vs. final form
+- `/essays/two-lines-every-day` — the two-line minimum daily floor
 - `/essays/we-dont-compete-with-notebooks` — availability vs. preciousness; the gap between thought and page
+- `/essays/why-your-notebook-should-never-be-organised` — anti-organisation; the mess is the method
 
-Do not link to any essay not in this list — it may be a stub with no content.
+There are no empty stubs — every essay above is link-safe. Prefer topically related targets.
+
+**Format status (which files still need the five-notebooks reformat):**
+These still carry the OLD inline-`<style>` format and should get the full both-skills pass when worked on: `notes-as-identity-the-corebook`, `notes-as-identity`, `the-first-page-rule`, `the-method-beats-the-mood`, `the-notebook-next-to-the-laptop`.
+Two OLD-format files are intentionally left as reference and must NOT be reworked without explicit instruction: `the-people-who-write-in-the-margins` (the style bible) and `why-your-notebook-should-never-be-organised` (the structural template). All other essays are already on the new `/assets/essay.css` standard.
 
 ---
 
