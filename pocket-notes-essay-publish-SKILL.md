@@ -523,9 +523,7 @@ Link the phrase in the sentence that most closely relates to the target essay's 
 
 There are no empty stubs — every essay above is link-safe. Prefer topically related targets.
 
-**Format status (which files still need the five-notebooks reformat):**
-These still carry the OLD inline-`<style>` format and should get the full both-skills pass when worked on: `notes-as-identity-the-corebook`, `notes-as-identity`, `the-first-page-rule`, `the-method-beats-the-mood`, `the-notebook-next-to-the-laptop`.
-Two OLD-format files are intentionally left as reference and must NOT be reworked without explicit instruction: `the-people-who-write-in-the-margins` (the style bible) and `why-your-notebook-should-never-be-organised` (the structural template). All other essays are already on the new `/assets/essay.css` standard.
+**Format status (updated 2026-06-30):** All essays are now on the new `/assets/essay.css` standard EXCEPT two that are intentionally left as reference and must NOT be reworked without explicit instruction: `the-people-who-write-in-the-margins` (the style bible) and `why-your-notebook-should-never-be-organised` (the structural template). The five formerly-OLD essays (`notes-as-identity`, `notes-as-identity-the-corebook`, `the-first-page-rule`, `the-method-beats-the-mood`, `the-notebook-next-to-the-laptop`) were reformatted to standard on 2026-06-30 (format-only, copy preserved).
 
 ---
 
