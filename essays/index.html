@@ -384,7 +384,7 @@
 <section class="essays-controls" id="essays">
   <div class="essays-controls-inner">
     <div class="essays-top-row">
-      <input type="search" class="essays-search" id="essaysSearch" placeholder="Search 22 essays…" aria-label="Search essays" autocomplete="off">
+      <input type="search" class="essays-search" id="essaysSearch" placeholder="Search 23 essays…" aria-label="Search essays" autocomplete="off">
       <div class="view-toggle" role="group" aria-label="View mode">
         <button class="view-btn is-active" id="viewGridBtn" title="Grid view">
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
@@ -406,7 +406,7 @@
       <button class="filter-pill" data-cat="Identity">Identity</button>
       <button class="filter-pill" data-cat="Thinking">Thinking</button>
     </div>
-    <p class="essays-count" id="essaysCount">22 essays</p>
+    <p class="essays-count" id="essaysCount">23 essays</p>
   </div>
 </section>
 
@@ -668,6 +668,29 @@
       </div>
       <p class="essay-meta"><span class="essay-tag">History</span> &middot; 10 min read</p>
       <p class="essay-title">The Roman Wax Tablet</p>
+    </a>
+
+    <a class="essay-card" href="/essays/the-undelegable">
+      <div class="essay-thumb" style="background:#1A1A1A;">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#1A1A1A"/>
+          <!-- pen nib: cream, tapering to a point -->
+          <path d="M120 56 Q150 44 180 56 L166 138 L150 158 L134 138 Z" fill="#FAF3E3" stroke="#1A1612" stroke-width="3" stroke-linejoin="round"/>
+          <!-- mustard shoulder band (signature warm accent) -->
+          <path d="M126 72 Q150 62 174 72" fill="none" stroke="#F5C13D" stroke-width="3" stroke-linecap="round"/>
+          <!-- breather hole -->
+          <circle cx="150" cy="94" r="8" fill="#1A1A1A" stroke="#1A1612" stroke-width="3"/>
+          <!-- central slit to the tip -->
+          <line x1="150" y1="102" x2="150" y2="158" stroke="#1A1612" stroke-width="3" stroke-linecap="round"/>
+          <!-- the spark of understanding at the tip: dot + ring -->
+          <circle cx="150" cy="158" r="13" fill="none" stroke="#FAF3E3" stroke-width="3"/>
+          <circle cx="150" cy="158" r="4.5" fill="#FF6B47"/>
+          <!-- one hand-drawn curve: the stroke it writes -->
+          <path d="M160 168 Q198 186 234 158" fill="none" stroke="#FAF3E3" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Thinking</span> &middot; 10 min read</p>
+      <p class="essay-title">The Undelegable</p>
     </a>
 
     <a class="essay-card" href="/essays/idea-parking">
@@ -1062,6 +1085,7 @@ const ESSAYS = [
   {slug:'the-page-is-a-tool',       title:'The Page Is a Tool',                            category:'Method',   subtitle:'The notebook that looks used is not the notebook that failed. It is the only notebook that worked.',                                                                                       readTime:'5 min'},
   {slug:'the-people-who-write-in-the-margins', title:'The People Who Write in the Margins', category:'History', subtitle:'A gossipy tour of history\'s most brazen readers — Coleridge, Fermat, a medieval monk with strong opinions. What their scribbles teach us about thinking.',                             readTime:'11 min'},
   {slug:'the-roman-wax-tablet',     title:'The Roman Wax Tablet',                          category:'History',  subtitle:'Cicero prepared his speeches on it. Caesar sent dispatches on it. Pliny the Elder used one while bathing. The tabula cerata was the pocket notebook of the ancient world.',              readTime:'5 min'},
+  {slug:'the-undelegable',          title:'The Undelegable',                               category:'Thinking', subtitle:"AI writes it better than we do. On understanding versus information, the origination it cannot perform, and the one act whose value is destroyed the moment you hand it off.", readTime:'10 min'},
   {slug:'two-lines-every-day',      title:'Two Lines Every Day',                           category:'Habit',    subtitle:"You will not write a page every morning. But two lines — one observation, one question, one thing that happened — that you can do. And it compounds.",                                   readTime:'4 min'},
   {slug:'we-dont-compete-with-notebooks', title:"We Don't Compete With Notebooks",         category:'Thinking', subtitle:"The real competition is the back of a receipt, the notes app you never open again, and the thing you were going to remember but didn't.",                                                readTime:'4 min'},
   {slug:'why-your-notebook-should-never-be-organised', title:'Why Your Notebook Should Never Be Organised', category:'Culture', subtitle:"Leonardo's notebooks mixed hydraulics with shopping lists. Darwin's journals were famous for their productive chaos. The mess is not the problem. The mess is the method.", readTime:'4 min'},
