@@ -54,20 +54,12 @@
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,700&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,700&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap"></noscript>
 <link rel="stylesheet" href="/assets/essay.css">
-<!-- SHARPNESS PREVIEW v2 (the-undelegable only) — promote to essay.css or revert, after review -->
+<!-- SHARPNESS PREVIEW v3 (the-undelegable only) — body weight 410 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap">
 <style>
-  /* keep the earlier blend/smoothing fixes (harmless) */
-  body::after{ mix-blend-mode:normal; opacity:0.03; }
-  body{ -webkit-font-smoothing:auto; }
-  /* the real levers: more ink per glyph (sharper + higher perceived contrast on cream),
-     and an integer font-size so glyphs aren't rasterized at a fuzzy 18.9px fractional height */
-  .article-body{
-    font-weight:500;
-    font-size:19px;
-    letter-spacing:-0.003em;
-    text-rendering:optimizeLegibility;
-  }
-  .article-body strong{ font-weight:700; }
+  /* Space Grotesk loaded as a variable font (line above) so 410 is a true 410.
+     With only static 400/500/700 faces, font-weight:410 would round up to 500. */
+  .article-body{ font-weight:410; }
 </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYV54KY1F1"></script>
