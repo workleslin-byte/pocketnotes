@@ -384,7 +384,7 @@
 <section class="essays-controls" id="essays">
   <div class="essays-controls-inner">
     <div class="essays-top-row">
-      <input type="search" class="essays-search" id="essaysSearch" placeholder="Search 23 essays…" aria-label="Search essays" autocomplete="off">
+      <input type="search" class="essays-search" id="essaysSearch" placeholder="Search 24 essays…" aria-label="Search essays" autocomplete="off">
       <div class="view-toggle" role="group" aria-label="View mode">
         <button class="view-btn is-active" id="viewGridBtn" title="Grid view">
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
@@ -406,7 +406,7 @@
       <button class="filter-pill" data-cat="Identity">Identity</button>
       <button class="filter-pill" data-cat="Thinking">Thinking</button>
     </div>
-    <p class="essays-count" id="essaysCount">23 essays</p>
+    <p class="essays-count" id="essaysCount">24 essays</p>
   </div>
 </section>
 
@@ -977,6 +977,23 @@
       <p class="essay-title">Five Notebooks</p>
     </a>
 
+    <a class="essay-card" href="/essays/how-to-keep-yourself">
+      <div class="essay-thumb" style="background:#FF6B47;">
+        <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="225" fill="#FF6B47"/>
+          <!-- the loop of keeping: an open, hand-drawn circle that returns toward itself -->
+          <path d="M181 58 A 62 62 0 1 1 139 51" fill="none" stroke="#1A1612" stroke-width="3" stroke-linecap="round"/>
+          <!-- mustard mark where the loop begins again -->
+          <circle cx="181" cy="58" r="5" fill="#F5C13D" stroke="#1A1612" stroke-width="3"/>
+          <!-- the self the loop keeps returning to: dot + ring -->
+          <circle cx="150" cy="112" r="17" fill="none" stroke="#FAF3E3" stroke-width="3"/>
+          <circle cx="150" cy="112" r="6" fill="#FAF3E3" stroke="#1A1612" stroke-width="3"/>
+        </svg>
+      </div>
+      <p class="essay-meta"><span class="essay-tag">Method</span> &middot; 16 min read</p>
+      <p class="essay-title">How to Keep Yourself</p>
+    </a>
+
     <a class="essay-card" href="/essays/the-notebook-next-to-the-laptop">
       <div class="essay-thumb" style="background:#5BA8C9;">
         <svg width="80%" height="80%" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
@@ -1072,6 +1089,7 @@ const ESSAYS = [
   {slug:'constraint-as-creative-practice', title:'Constraint as Creative Practice',        category:'Culture',   subtitle:'Georges Perec wrote a 300-page novel without using the letter E. The haiku poets had seventeen syllables. The limit is not the obstacle. The limit is the mechanism.',                  readTime:'5 min'},
   {slug:'constraint-sharpens',      title:'Constraint Sharpens',                           category:'Method',   subtitle:'An A6 page holds about two hundred words. Deciding which two hundred is the entire discipline.',                                                                             readTime:'5 min'},
   {slug:'five-notebooks',           title:'Five Notebooks Every Thinking Person Should Keep', category:'Method', subtitle:'One notebook forces every kind of thinking into a single container. Five gives each kind the space it actually needs — the commonplace book, the project notebook, the waste book, the daily log, and the Corebook.', readTime:'9 min'},
+  {slug:'how-to-keep-yourself',     title:'How to Keep Yourself',                          category:'Method',   subtitle:"A note-taking system for people who almost never take notes. Not productivity, not journaling — a way to stop being a stranger to who you were, over a research-backed ninety days.", readTime:'16 min'},
   {slug:'idea-parking',             title:'Idea Parking',                                  category:'Method',   subtitle:"The skill is not developing the idea on the spot. The skill is leaving it somewhere safe so you can come back when you have the time. That distinction separates the writers who finish things from the ones who don't.", readTime:'4 min'},
   {slug:'margins-where-great-ideas-live', title:'Margins Where Great Ideas Live',          category:'Thinking', subtitle:"Darwin thought in his margins. Newton filled an inherited notebook with calculus. The sideways thought has always been the one that changed things.", readTime:'4 min'},
   {slug:'notebooks-of-ancient-singers', title:'Notebooks of Ancient Singers',              category:'History',  subtitle:"Before paper, the Iliad lived in the memory of singers who could not read. When writing arrived, it did not replace that memory. It extended it outward.",                                       readTime:'7 min'},
